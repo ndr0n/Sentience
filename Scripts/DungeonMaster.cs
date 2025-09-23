@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 using LLMUnity;
 using Newtonsoft.Json;
-using MindTheatre;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine.Serialization;

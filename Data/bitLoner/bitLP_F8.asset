@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6571095d226b44de86c04332916f0bfb, type: 3}
-  m_Name: bitLore_F8
+  m_Name: bitLP_F8
   m_EditorClassIdentifier: 
   Lore:
   - "F8 is the deity and guide of the transcended androids.\nThe church of F8 is

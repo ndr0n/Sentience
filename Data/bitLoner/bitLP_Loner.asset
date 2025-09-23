@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6571095d226b44de86c04332916f0bfb, type: 3}
-  m_Name: bitLore_Mundus
+  m_Name: bitLP_Loner
   m_EditorClassIdentifier: 
   Lore:
-  - 'Mundus is a colossal corp-state that exists in an old colony ship on an undisclosed
+  - 'Loner is a colossal corp-state that exists in an old colony ship on an undisclosed
     location in space.
 
-    Mundus is owned by the GOD mega-corporation.'
-  - 'Mundus citizens live their entire lives within the confinements of the ship.
+    Loner is owned by the GOD mega-corporation.'
+  - 'Loner citizens live their entire lives within the confinements of the ship.
 
-    Mundus
+    Loner
     citizens are not aware that they live inside a massive spaceship.'
-  - 'In the beginning of Mundus history, GOD Agents, known as the Angel-Units, helped
+  - 'In the beginning of Loner history, GOD Agents, known as the Angel-Units, helped
     and managed every aspect of the citizen''s lives.
 
     Citizens had all their
@@ -29,9 +29,9 @@ MonoBehaviour:
     own interests and to live a life of happiness and pleasure.
 
     The over-reliance
-    on the Angel-Units resulted in the citizens of Mundus becoming unable to fulfill
+    on the Angel-Units resulted in the citizens of Loner becoming unable to fulfill
     their own basic needs by themselves.'
-  - 'In Mundus history books this era is called Gene6.
+  - 'In Loner history books this era is called Gene6.
 
     It is not known exactly
     how long Gene6 lasted, as the few records of this era are not properly time-referenced.
@@ -42,9 +42,9 @@ MonoBehaviour:
   - 'In the years after the Gene6, the history books talk about another era named
     the Divergence era.
 
-    During the Divergence era, it is said that Mundus''
-    citizens lost GOD''s grace and were abandoned to fend off by themselves, without
-    the help of the Angel-Units, on the shifting rooms of the lower decks of Mundus.
+    During the Divergence era, it is said that Loner citizens
+    lost GOD''s grace and were abandoned to fend off by themselves, without the help
+    of the Angel-Units, on the shifting rooms of the lower decks of the Loner.
 
     It
     is said that the citizens were met with great adversity and presented with harsh
@@ -78,9 +78,7 @@ MonoBehaviour:
 
     When
     a human goes through transcendence, some or all of its memories may be lost during
-    the process.
-
-'
+    the process.'
   - 'The transcendence protocol was cracked and powerful humans in the empire started
     using it when their biological bodies were fable or near death.
 
@@ -128,14 +126,3 @@ MonoBehaviour:
     of the other 4 factions, in the old capital of the Empire, which makes the transcended
     the faction that mostly pulls trade and diplomatic efforts between the other
     4 main factions.'
-  - 'Most of the lower decks are chaotic and dangerous and are characterized by shifting
-    rooms that change themselves unpredictably.
-
-    These areas, located in between
-    the faction cities, are filled with rooms that change shape when there is no
-    observer.
-
-    In the shifting rooms, one might find shifters.'
-  - Shifters are people who live in anarchy and outside the main factions, they are
-    chaotic and most of them live alone, but one might find some shifter villages
-    within the shifting rooms.
