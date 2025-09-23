@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Sentience
 {
@@ -52,9 +54,10 @@ namespace Sentience
             msg += $"The size of the generated location is {size.x} meters by {size.y} meters.";
             msg += $"Area: {Area}";
 
-            int characterAmount = Mathf.CeilToInt(((size.x / 4f) * (size.y / 4f)) / 4f);
+            // int characterAmount = Mathf.CeilToInt(((size.x / 4f) * (size.y / 4f)) / 4f);
+
             Debug.Log($"Generating area data for: {Area}");
-            SentienceLocation location = await SentienceLocation.GenerateLocationFromArea(msg, characterAmount);
+            SentienceLocation location = await SentienceLocation.GenerateLocationFromArea(msg);
             LocationData.Add(location);
             return location;
         }
@@ -63,19 +66,31 @@ namespace Sentience
         {
             try
             {
-                string msg = "The existing locations are:\n";
+                string msg = $"The Area of the quest is: {Area}\n";
+                msg += "The existing locations in this area are:\n";
+                SentienceCharacter source = null;
                 foreach (var location in LocationData)
                 {
                     msg += $"Location: {location.Name} - {location.Description}\n";
-                    // msg += $"Location Objects:\n";
-                    // foreach (var objkt in location.Objects) msg += $"Name: {objkt.name} | Type: {objkt.type} | Description: {objkt.description}\n";
+                    msg += $"Location Faction: {location.Faction.Name} - {location.Faction.Description}\n";
+                    msg += $"Location Items:\n";
+                    foreach (var item in location.Items)
+                    {
+                        msg += $"{item}\n";
+                    }
                     msg += $"Location Characters:\n";
-                    foreach (var character in location.Characters) msg += $"Name: {character.Name} | Description: {character.Description}\n";
+                    foreach (var character in location.Characters.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
+                    {
+                        source = character;
+                        msg += $"{character.Name}\n";
+                    }
                 }
+                msg += $"the character that will give the quest to the player is: {source.Name}.\n";
                 msg += details;
+
                 Debug.Log($"Generating quest data for: {Area}");
                 SentienceQuestParser parser = await DungeonMaster.Instance.GenerateSentienceQuest(msg);
-                SentienceQuest quest = await SentienceQuest.Generate(parser);
+                SentienceQuest quest = await SentienceQuest.Generate(parser, Area, source.Name);
                 Quests.Add(quest);
                 return quest;
             }
@@ -84,6 +99,43 @@ namespace Sentience
                 Debug.LogError(e);
             }
             return new();
+        }
+
+        public async Awaitable<SentienceQuest> GenerateRandomLocationQuest(string details)
+        {
+            try
+            {
+                foreach (var location in LocationData.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
+                {
+                    string msg = $"The location of the quest is: {location.Name} - {location.Description}\n";
+                    msg += $"Location Faction: {location.Faction.Name} - {location.Faction.Description}\n";
+                    msg += $"Location Items:\n";
+                    foreach (var item in location.Items)
+                    {
+                        msg += $"{item}\n";
+                    }
+                    msg += $"Location Characters:\n";
+                    SentienceCharacter source = null;
+                    foreach (var character in location.Characters.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
+                    {
+                        msg += $"{character.Name}\n";
+                        source = character;
+                    }
+                    msg += $"the character that will give the quest to the player is: {source.Name}.\n";
+                    msg += details;
+
+                    Debug.Log($"Generating quest data for: {location.Name}");
+                    SentienceQuestParser parser = await DungeonMaster.Instance.GenerateSentienceQuest(msg);
+                    SentienceQuest quest = await SentienceQuest.Generate(parser, location.Name, source.Name);
+                    Quests.Add(quest);
+                    return quest;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
+            return null;
         }
     }
 #if UNITY_EDITOR
@@ -109,6 +161,10 @@ namespace Sentience
             if (GUILayout.Button("Generate Area Quest"))
             {
                 SentienceArea.GenerateAreaQuest("");
+            }
+            if (GUILayout.Button("Generate Random Location Quest"))
+            {
+                SentienceArea.GenerateRandomLocationQuest("");
             }
         }
     }

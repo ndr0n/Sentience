@@ -23,19 +23,19 @@ namespace Sentience
             else Destroy(gameObject);
         }
 
-        public void Init(ItemData itemData)
+        public void Init(ItemData itemData, FactionData factionData)
         {
             loadingRag = null;
             Rag.Clear();
             RagSingle.Clear();
-            loadingRag = CreateEmbeddings(itemData);
+            loadingRag = CreateEmbeddings(itemData, factionData);
         }
 
-        public async Awaitable CreateEmbeddings(ItemData itemData)
+        public async Awaitable CreateEmbeddings(ItemData itemData, FactionData FactionData)
         {
             foreach (var sentienceQuestAction in Enum.GetNames(typeof(SentienceQuestAction))) await Rag.Add(sentienceQuestAction, "SentienceQuestAction");
             foreach (var item in itemData.Items) await Rag.Add($"{item.Name}|{item.GetType().ToString().Split(".")[^1]}", "Item");
-            // foreach (var faction in Settings.Instance.Data.FactionData.Faction) await Rag.Add($"{faction.Name}|{faction.Description}", "Faction");
+            foreach (var faction in FactionData.Faction) await Rag.Add($"{faction.Name}|{faction.Description}", "Faction");
             loadingRag = null;
         }
 
@@ -47,6 +47,14 @@ namespace Sentience
             return itemData.GetItem(itemName);
         }
 
+        public async Awaitable<Faction> GetMostSimilarFaction(FactionData factionData, string factionDescription)
+        {
+            if (loadingRag != null) await loadingRag;
+            (string[] similar, float[] distances) = await Rag.Search(factionDescription, 1, "Faction");
+            string factionName = similar[0].Split("|")[0];
+            return factionData.GetFaction(factionName);
+        }
+
         public async Awaitable<SentienceQuestAction> GetMostSimilarSentienceQuestAction(string sentienceQuestAction)
         {
             if (loadingRag != null) await loadingRag;
@@ -54,14 +62,6 @@ namespace Sentience
             string action = similar[0].Split("|")[0];
             return Enum.Parse<SentienceQuestAction>(action);
         }
-
-        // public async Awaitable<Faction.Faction> GetMostSimilarFaction(string factionDescription)
-        // {
-        // if (loadingRag != null) await loadingRag;
-        // (string[] similar, float[] distances) = await Rag.Search(factionDescription, 1, "Faction");
-        // string factionName = similar[0].Split("|")[0];
-        // return Settings.Instance.Data.FactionData.GetFaction(factionName);
-        // }
 
         public async Awaitable<string> GetMostSimilar(List<string> options, string description)
         {

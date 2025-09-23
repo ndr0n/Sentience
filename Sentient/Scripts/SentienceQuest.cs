@@ -7,33 +7,33 @@ namespace Sentience
     public enum SentienceQuestAction
     {
         Speak,
-        Chat,
-        Talk,
-        Approach,
+        // Chat,
+        // Talk,
+        // Approach,
 
-        Investigate,
-        Explore,
+        // Investigate,
+        // Explore,
         Search,
 
         Retrieve,
-        Gather,
-        Pickup,
-        Scavenge,
+        // Gather,
+        // Pickup,
+        // Scavenge,
 
         Deliver,
-        Give,
+        // Give,
 
         Bribe,
-        Pay,
+        // Pay,
 
         Hack,
 
         Steal,
-        Appropriate,
-        Recover,
+        // Appropriate,
+        // Recover,
 
-        Attack,
-        Murder,
+        // Attack,
+        // Murder,
         Kill,
     }
 
@@ -48,8 +48,7 @@ namespace Sentience
     [System.Serializable]
     public struct SentienceQuestStageParser
     {
-        public string description;
-        // public string location;
+        public string objective;
         public string target;
         public string action;
     }
@@ -57,33 +56,35 @@ namespace Sentience
     [System.Serializable]
     public struct SentienceQuestStage
     {
-        public string Description;
-        // public string Location;
+        public string Objective;
         public string Target;
-        public SentienceQuestAction action;
+        public SentienceQuestAction Action;
     }
 
     [System.Serializable]
-    public struct SentienceQuest
+    public class SentienceQuest
     {
         public string Name;
+        public string Source;
         public string Description;
+        public string Location;
         public List<SentienceQuestStage> Stages;
 
-        public static async Awaitable<SentienceQuest> Generate(SentienceQuestParser parser)
+        public static async Awaitable<SentienceQuest> Generate(SentienceQuestParser parser, string location, string source)
         {
             SentienceQuest quest = new SentienceQuest();
             quest.Name = parser.name;
+            quest.Source = source;
             quest.Description = parser.description;
+            quest.Location = location;
             quest.Stages = new();
             foreach (var parserStage in parser.stages)
             {
                 SentienceQuestStage stage = new SentienceQuestStage
                 {
-                    Description = parserStage.description,
-                    // Location = parserStage.location,
+                    Objective = parserStage.objective,
                     Target = parserStage.target,
-                    action = await SentienceManager.Instance.RagManager.GetMostSimilarSentienceQuestAction(parserStage.action)
+                    Action = await SentienceManager.Instance.RagManager.GetMostSimilarSentienceQuestAction(parserStage.action)
                 };
                 quest.Stages.Add(stage);
             }

@@ -22,12 +22,14 @@ namespace Sentience
             Description = description;
         }
     }
-    
+
     [System.Serializable]
     public struct SentienceLocationParser
     {
         public string name;
         public string description;
+        public string faction;
+        public string[] items;
         public SentienceCharacterParser[] characters;
     }
 
@@ -44,19 +46,28 @@ namespace Sentience
     {
         public string Name = "";
         public string Description = "";
+        public Faction Faction;
         public Vector3 Size = Vector3.one;
         public Vector3 Position = Vector3.zero;
+        public List<string> Items = new();
         public List<SentienceCharacter> Characters = new();
 
-        public SentienceLocation(SentienceLocationParser parser)
+        public static async Awaitable<SentienceLocation> Generate(SentienceLocationParser parser)
         {
-            Name = parser.name;
-            Description = parser.description;
-            Characters = new();
-            foreach (var character in parser.characters) Characters.Add(new(character, Name));
+            SentienceLocation location = new()
+            {
+                Name = parser.name,
+                Description = parser.description,
+            };
+            location.Faction = await SentienceManager.Instance.RagManager.GetMostSimilarFaction(SentienceManager.Instance.FactionData, parser.faction);
+            location.Items = new();
+            foreach (var item in parser.items) location.Items.Add(item);
+            location.Characters = new();
+            foreach (var character in parser.characters) location.Characters.Add(new(character, location.Name, location.Faction));
+            return location;
         }
 
-        public static async Awaitable<SentienceLocation> GenerateLocationFromArea(string area, int characterAmount)
+        public static async Awaitable<SentienceLocation> GenerateLocationFromArea(string area)
         {
             string answer;
             string rules = "I will tell you the area and description of a location and you must respond with a location that exists within this area.\n" +
@@ -64,17 +75,10 @@ namespace Sentience
                            "{\n" +
                            "\"name\": \"<the name of the location>\",\n" +
                            "\"description\": \"<the description of the location>\",\n" +
-                           // "\"objects\": [\"<\n" +
-                           // "this field must contain a JSON list containing each individual object that exists in this location.\n" +
-                           // "Each individual object on this field (list) must have the following json format:" +
-                           // "{\n" +
-                           // "\"name\": \"<the name of the object>\",\n" +
-                           // "\"type\": \"<the type of the object>\",\n" +
-                           // "\"description\": \"<the description of the object>\",\n" +
-                           // "}\n" +
-                           // ">\"],\n" +
+                           "\"faction\": \"<the faction that currently controls the location>\",\n" +
+                           "\"items\": [\"<a JSON list of strings with the name of each individual item that is present in this location.>\"],\n" +
                            "\"characters\": [\"<\n" +
-                           $"this field must contain a JSON list containing {characterAmount} characters that exist in this location.\n" +
+                           $"a JSON list containing characters from the controlling faction that exist in this location.\n" +
                            "Each individual character on this field (list) must have the following JSON format:" +
                            "{\n" +
                            "\"name\": \"<the name of the character>\",\n" +
@@ -89,12 +93,13 @@ namespace Sentience
             try
             {
                 SentienceLocationParser parser = JsonConvert.DeserializeObject<SentienceLocationParser>(answer);
-                return new(parser);
+                SentienceLocation loc = await Generate(parser);
+                return loc;
             }
             catch (Exception e)
             {
                 Debug.LogError(e);
-                return await GenerateLocationFromArea(area, characterAmount);
+                return await GenerateLocationFromArea(area);
             }
         }
     }

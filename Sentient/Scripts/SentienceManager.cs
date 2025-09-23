@@ -33,7 +33,7 @@ namespace Sentience
                 LLM.gameObject.SetActive(LLMEnabled);
                 InitCharacter();
                 RAG.gameObject.SetActive(RAGEnabled);
-                RagManager.Init(ItemData);
+                RagManager.Init(ItemData, FactionData);
             }
             else Destroy(gameObject);
         }

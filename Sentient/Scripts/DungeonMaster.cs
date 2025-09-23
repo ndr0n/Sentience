@@ -81,7 +81,7 @@ namespace Sentience
 
         public async Awaitable<SentienceQuestParser> GenerateSentienceQuest(string details)
         {
-            string rules = "I will tell you the characters that we have in scene and you will generate a quest that is engaging between those characters for the player to do.\n" +
+            string rules = "I will tell you the characters and items that we have in an area and you must generate a quest for the player to interact with these elements.\n" +
                            "You must only answer in the following JSON format:\n" +
                            "{\n" +
                            "\"name\": \"<the name of the quest>\",\n" +
@@ -90,8 +90,7 @@ namespace Sentience
                            "this field must contain a JSON list containing each quest stage.\n" +
                            "Each individual quest stage on this list must have the following json format:" +
                            "{\n" +
-                           "\"description\": \"<a short description of this quest stage.>\",\n" +
-                           "\"location\": \"<the name of the location where the player must go during this quest stage.>\",\n" +
+                           "\"objective\": \"<a very short and concise description of the player's objective during this quest stage.>\",\n" +
                            "\"target\": \"<the name of the target (item or character) that the player must perform the action on to complete this quest stage.>\",\n" +
                            "\"action\": \"<the name (one word) of the action that the player must perform on the target to complete this quest stage.>\",\n" +
                            "}\n" +
