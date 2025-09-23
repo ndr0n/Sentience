@@ -22,6 +22,7 @@ namespace Sentience
         public LLMCharacter Character;
         public LLM LLM;
         public LLM RAG;
+        string systemPrompt = "";
 
         void Awake()
         {
@@ -59,8 +60,8 @@ namespace Sentience
             Character.cachePrompt = true;
             Character.prompt = "";
             Character.grammarString = "";
-            string systemPrompt = $"You are role-playing and impersonating a fictional character in the world of: {DungeonMaster.World}.\n" +
-                                  $"The main lore about the world is: {DungeonMaster.Lore}.\n";
+            systemPrompt = $"You are role-playing and impersonating a fictional character in the world of: {DungeonMaster.World}.\n" +
+                           $"The main lore about the world is: {DungeonMaster.Lore}.\n";
             Character.Warmup(systemPrompt);
         }
 
@@ -72,7 +73,7 @@ namespace Sentience
             awaitingResponse = true;
             Character.grammarString = "";
             Character.seed = Random.Range(int.MinValue, int.MaxValue);
-            Character.SetPrompt($"{characterRules}\n{sentient.Personality}\n{details}", true);
+            Character.SetPrompt($"{systemPrompt}\n{characterRules}\n{sentient.Personality}\n{details}", true);
             foreach (var msg in sentient.Messages) Character.AddMessage(msg.role, msg.content);
             string response = await Character.Chat(message, onReply, null, false);
             awaitingResponse = false;

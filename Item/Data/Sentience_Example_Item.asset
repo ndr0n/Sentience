@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f35bee1927fa3dc93956fad3c7ea0d99, type: 3}
   m_Name: Sentience_Example_Item
   m_EditorClassIdentifier: Assembly-CSharp::Sentience.Item
-  Name: 
-  Description: 
+  Name: Sentience Example Item
+  Description: an example item.
   Weight: 0
   Price: 1
   Amount: 1
   Stack: 1
-  Icon: {fileID: 0}
+  Icon: {fileID: 3851873593501409858, guid: a0a015612d09fe7849dfe3722b095fef, type: 3}

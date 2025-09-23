@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 437b37d77df2adc72ae5f1a3354b0a62, type: 3}
   m_Name: Sentience_Example_ItemData
   m_EditorClassIdentifier: Assembly-CSharp::Sentience.ItemData
-  Items: []
+  Items:
+  - {fileID: 11400000, guid: 53b02a95bc0aa44b1b2f73d719579bfb, type: 2}

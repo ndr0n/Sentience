@@ -35,7 +35,7 @@ namespace Sentience
         {
             foreach (var item in itemData.Items) await Rag.Add($"{item.Name}|{item.GetType().ToString().Split(".")[^1]}", "Item");
             // foreach (var faction in Settings.Instance.Data.FactionData.Faction) await Rag.Add($"{faction.Name}|{faction.Description}", "Faction");
-            // loadingRag = null;
+            loadingRag = null;
         }
 
         public async Awaitable<Item> GetMostSimilarItem(ItemData itemData, string itemDescription)

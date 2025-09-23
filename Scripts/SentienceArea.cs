@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -60,24 +61,28 @@ namespace Sentience
 
         public async Awaitable<SentienceQuest> GenerateAreaQuest(string details)
         {
-            /*
-            string msg = "The existing locations are:\n";
-            foreach (var location in LocationData)
+            try
             {
-                msg += $"Location: {location.Name} - {location.Description}\n";
-                // msg += $"Location Objects:\n";
-                // foreach (var objkt in location.Objects) msg += $"Name: {objkt.name} | Type: {objkt.type} | Description: {objkt.description}\n";
-                msg += $"Location Characters:\n";
-                foreach (var charsacter in location.Characters) msg += $"Name: {character.name} | Description: {character.description}\n";
-                foreach (var character in location.SentientData) msg += $"Name: {character.Name} | Description: {character.Description}\n";
+                string msg = "The existing locations are:\n";
+                foreach (var location in LocationData)
+                {
+                    msg += $"Location: {location.Name} - {location.Description}\n";
+                    // msg += $"Location Objects:\n";
+                    // foreach (var objkt in location.Objects) msg += $"Name: {objkt.name} | Type: {objkt.type} | Description: {objkt.description}\n";
+                    msg += $"Location Characters:\n";
+                    foreach (var character in location.Characters) msg += $"Name: {character.Name} | Description: {character.Description}\n";
+                }
+                msg += details;
+                Debug.Log($"Generating quest data for: {Area}");
+                SentienceQuestParser parser = await DungeonMaster.Instance.GenerateSentienceQuest(msg);
+                SentienceQuest quest = new SentienceQuest(parser);
+                Quests.Add(quest);
+                return quest;
             }
-            msg += details;
-            Debug.Log($"Generating quest data for: {Area}");
-            SentienceQuestParser parser = await DungeonMaster.Instance.GenerateSentienceQuest(msg);
-            SentienceQuest quest = new SentienceQuest(parser);
-            Quests.Add(quest);
-            return quest;
-            */
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
             return new();
         }
     }

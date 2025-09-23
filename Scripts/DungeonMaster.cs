@@ -73,12 +73,12 @@ namespace Sentience
             awaitingResponse = true;
             if (string.IsNullOrWhiteSpace(systemPrompt)) InitPrompt();
             Generator.seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
-            Generator.SetPrompt(rules, false);
+            Generator.SetPrompt($"{systemPrompt}\n{rules}", false);
             string response = await Generator.Chat(message, onReply, null, false);
             awaitingResponse = false;
             return response;
         }
-        
+
         public async Awaitable<SentienceQuestParser> GenerateSentienceQuest(string details)
         {
             string rules = "I will tell you the characters that we have in scene and you will generate a quest that is engaging between those characters for the player to do.\n" +
