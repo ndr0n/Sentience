@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6571095d226b44de86c04332916f0bfb, type: 3}
-  m_Name: bitLore_NonBinaryAndroid
+  m_Name: bitLP_nonBinaryAndroid
   m_EditorClassIdentifier: 
   Lore:
   - 'non binary androids are androids that don''t conform to the rigid computational

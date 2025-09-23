@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6571095d226b44de86c04332916f0bfb, type: 3}
-  m_Name: bitLP_Corp-state
+  m_Name: bitLP_corpState
   m_EditorClassIdentifier: 
   Lore:
   - "A corporate state, also known as a corp-state, is a \u201Cspace country\u201D
