@@ -13,6 +13,7 @@ namespace Sentience
     {
         public static SentienceManager Instance;
         public DungeonMaster DungeonMaster;
+        public ItemData ItemData;
 
         [Header("LLM")]
         public bool LLMEnabled;
@@ -30,7 +31,7 @@ namespace Sentience
                 LLM.gameObject.SetActive(LLMEnabled);
                 InitCharacter();
                 RAG.gameObject.SetActive(RAGEnabled);
-                RagManager.Init();
+                RagManager.Init(ItemData);
             }
             else Destroy(gameObject);
         }
