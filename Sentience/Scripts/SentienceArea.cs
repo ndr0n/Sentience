@@ -75,7 +75,7 @@ namespace Sentience
                 msg += details;
                 Debug.Log($"Generating quest data for: {Area}");
                 SentienceQuestParser parser = await DungeonMaster.Instance.GenerateSentienceQuest(msg);
-                SentienceQuest quest = new SentienceQuest(parser);
+                SentienceQuest quest = await SentienceQuest.Generate(parser);
                 Quests.Add(quest);
                 return quest;
             }

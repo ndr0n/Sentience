@@ -33,6 +33,7 @@ namespace Sentience
 
         public async Awaitable CreateEmbeddings(ItemData itemData)
         {
+            foreach (var sentienceQuestAction in Enum.GetNames(typeof(SentienceQuestAction))) await Rag.Add(sentienceQuestAction, "SentienceQuestAction");
             foreach (var item in itemData.Items) await Rag.Add($"{item.Name}|{item.GetType().ToString().Split(".")[^1]}", "Item");
             // foreach (var faction in Settings.Instance.Data.FactionData.Faction) await Rag.Add($"{faction.Name}|{faction.Description}", "Faction");
             loadingRag = null;
@@ -44,6 +45,14 @@ namespace Sentience
             (string[] similar, float[] distances) = await Rag.Search(itemDescription, 1, "Item");
             string itemName = similar[0].Split("|")[0];
             return itemData.GetItem(itemName);
+        }
+
+        public async Awaitable<SentienceQuestAction> GetMostSimilarSentienceQuestAction(string sentienceQuestAction)
+        {
+            if (loadingRag != null) await loadingRag;
+            (string[] similar, float[] distances) = await Rag.Search(sentienceQuestAction, 1, "SentienceQuestAction");
+            string action = similar[0].Split("|")[0];
+            return Enum.Parse<SentienceQuestAction>(action);
         }
 
         // public async Awaitable<Faction.Faction> GetMostSimilarFaction(string factionDescription)

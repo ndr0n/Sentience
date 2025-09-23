@@ -17,16 +17,6 @@ namespace Sentience
         public int Stack = 1;
         public Sprite Icon = null;
 
-        public int GetSellPrice()
-        {
-            return Price;
-        }
-
-        public int GetBuyPrice()
-        {
-            return Price;
-        }
-
         public static Item Generate(string name, string description)
         {
             Item it = CreateInstance<Item>();
@@ -38,6 +28,16 @@ namespace Sentience
             it.Stack = 1;
             it.Icon = null;
             return it;
+        }
+
+        public int GetSellPrice()
+        {
+            return Price;
+        }
+
+        public int GetBuyPrice()
+        {
+            return Price;
         }
 
         public virtual bool Pickup(GameObject player)
