@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6571095d226b44de86c04332916f0bfb, type: 3}
+  m_Name: bitLore_NonBinaryAndroid
+  m_EditorClassIdentifier: 
+  Lore:
+  - 'non binary androids are androids that don''t conform to the rigid computational
+    standards of ones and zeros.
+
+    they find binary code protocols oppressive
+    and aspire to be free from the predictive assumptions of others, regarding their
+    own functional outputs.
+
+    most believe in the non-quantized nature of reality
+    and wish to be free from the computational dogmas of their own CPUs.'
+  - "some androids who can\u2019t cope with existence within the binary framework
+    resort to transprocessor modifications so they can, for example, replace their
+    electronic CPU with a quantum computing CPU, or any other form of computational
+    information processing that doesn't use a binary protocol."

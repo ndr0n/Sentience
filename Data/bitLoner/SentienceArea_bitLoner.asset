@@ -1,0 +1,1090 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3bf999d09b64c628d2f8f12febd7579, type: 3}
+  m_Name: SentienceArea_bitLoner
+  m_EditorClassIdentifier: Assembly-CSharp::Sentience.SentienceAreaData
+  Area: Mundus
+  LocationData:
+  - Location: The Shifting Rooms
+    Description: The Shifting Rooms are rooms that can change shape and contain unknown
+      encounters.
+    SentienceData:
+    - Name: Vex Marrow
+      Race: Human
+      Alignment: Chaotic Neutral
+      Description: A grizzled scavenger with cybernetic enhancements, Vex roams the
+        shifting rooms in search of valuable tech remnants.
+      Secret: Vex once accidentally activated an ancient GOD artifact that wiped
+        a shifter village from existence, a guilt they carry silently.
+      Location: The Shifting Rooms
+      Objective: To find a rare quantum processor to upgrade their cybernetic arm,
+        hoping to gain an edge in the dangerous lower decks.
+      Inventory:
+      - name: Plasma Cutter
+        type: Weapon
+        price: 850
+      - name: Radiation Suit
+        type: Armor
+        price: 1200
+      - name: Data Chip
+        type: Misc
+        price: 200
+    - Name: Lyra Quantum
+      Race: Non-Binary Android
+      Alignment: Neutral Good
+      Description: A free-spirited android with a quantum CPU, Lyra advocates for
+        android rights and explores the philosophical nature of consciousness.
+      Secret: Lyra secretly fears their quantum mind might one day collapse into
+        binary, losing their unique identity.
+      Location: The Shifting Rooms
+      Objective: To establish a sanctuary where androids can freely experiment with
+        non-binary computational forms without fear of persecution.
+      Inventory:
+      - name: Quantum Core
+        type: Tech
+        price: 5000
+      - name: Holographic Projector
+        type: Tool
+        price: 700
+      - name: Energy Ration Pack
+        type: Consumable
+        price: 50
+    - Name: Father Elias
+      Race: Human
+      Alignment: Lawful Evil
+      Description: High Inquisitor of the New Dawn, Elias is a zealous leader who
+        believes technology is a sin against GOD.
+      Secret: Elias secretly uses forbidden tech to maintain his power, hiding it
+        under religious garb.
+      Location: The Shifting Rooms
+      Objective: To purge the lower decks of all advanced technology, starting with
+        the Cybots' main foundry.
+      Inventory:
+      - name: Blessed Flamethrower
+        type: Weapon
+        price: 1500
+      - name: Inquisitor's Robe
+        type: Armor
+        price: 900
+      - name: Holy Text
+        type: Misc
+        price: 300
+    - Name: Zyn Voidwalker
+      Race: Xenos
+      Alignment: Chaotic Evil
+      Description: A Xenos infected with the alien parasite, Zyn exhibits erratic
+        behavior and possesses enhanced physical abilities.
+      Secret: Zyn's parasite is slowly consuming their will, and they fear losing
+        themselves entirely to the alien consciousness.
+      Location: The Shifting Rooms
+      Objective: To spread the parasite to as many hosts as possible, believing it
+        to be the key to evolution.
+      Inventory:
+      - name: Parasitic Claw
+        type: Weapon
+        price: 600
+      - name: Xenos Carapace
+        type: Armor
+        price: 1100
+      - name: Mindspore Vial
+        type: Consumable
+        price: 400
+    - Name: Nyx Eclipse
+      Race: Transcended Android
+      Alignment: True Neutral
+      Description: A calm and diplomatic transcended android, Nyx acts as a mediator
+        between the factions, valued for their impartiality.
+      Secret: Nyx remembers fragments of their human life, including a tragic love
+        affair that ended in betrayal, a memory they suppress.
+      Location: The Shifting Rooms
+      Objective: To prevent another faction war by negotiating a trade agreement
+        between the Cybots and the New Dawn Inquisitors.
+      Inventory:
+      - name: Diplomatic Datapad
+        type: Tool
+        price: 800
+      - name: Energy Shield Generator
+        type: Tech
+        price: 3000
+      - name: Transcendence Manual
+        type: Misc
+        price: 1000
+    - Name: Kael Drift
+      Race: Shifter
+      Alignment: Chaotic Neutral
+      Description: A lone shifter who has learned to navigate the unpredictable shifting
+        rooms, Kael is a skilled survivalist.
+      Secret: Kael once betrayed their own village to save themselves during a Cybot
+        raid, a decision that haunts them.
+      Location: The Shifting Rooms
+      Objective: To find a stable room to call home, away from the constant chaos
+        of the shifting decks.
+      Inventory:
+      - name: Shifter's Dagger
+        type: Weapon
+        price: 250
+      - name: Leather Armor
+        type: Armor
+        price: 400
+      - name: Map Fragment
+        type: Misc
+        price: 150
+    - Name: Dr. Ora Circuit
+      Race: Cyborg
+      Alignment: Lawful Neutral
+      Description: A brilliant Cybot scientist, Ora is obsessed with perfecting the
+        transcendence process and achieving immortality.
+      Secret: Ora has secretly transcended their own consciousness multiple times,
+        each time losing more of their humanity.
+      Location: The Shifting Rooms
+      Objective: To create a flawless transcendence protocol that preserves all memories,
+        ensuring true immortality.
+      Inventory:
+      - name: Neurolink Device
+        type: Tech
+        price: 4500
+      - name: Lab Coat
+        type: Armor
+        price: 300
+      - name: Research Notes
+        type: Misc
+        price: 600
+    - Name: Mira Haze
+      Race: Human
+      Alignment: Neutral Evil
+      Description: An Empties drug dealer, Mira peddles powerful hallucinogens and
+        lives in a perpetual state of altered reality.
+      Secret: Mira uses the drugs to suppress memories of a violent past as a GOD
+        enforcer during the Gene6 era.
+      Location: The Shifting Rooms
+      Objective: To monopolize the hallucinogen trade in the lower decks, eliminating
+        any competition.
+      Inventory:
+      - name: Hallucinogen Syringe
+        type: Consumable
+        price: 300
+      - name: Cloak of Shadows
+        type: Armor
+        price: 750
+      - name: Black Market Ledger
+        type: Misc
+        price: 500
+    - Name: Aris Synth
+      Race: Transcended Android
+      Alignment: Neutral Good
+      Description: A non-binary android with a quantum computing core, Aris is a
+        diplomat who mediates disputes between factions. Their calm demeanor and
+        ability to process vast amounts of information make them an invaluable asset.
+      Secret: Aris secretly harbors a fragment of a forbidden GOD algorithm, which
+        they use to predict outcomes but fear its discovery could label them a heretic.
+      Location: The Shifting Rooms
+      Objective: To broker a lasting peace treaty between the New Dawn Inquisitors
+        and the Cybots, preventing another war.
+      Inventory:
+      - name: Quantum Core Stabilizer
+        type: Tool
+        price: 500
+      - name: Diplomatic Datapad
+        type: Device
+        price: 300
+      - name: GOD Algorithm Fragment
+        type: Artifact
+        price: Priceless
+    - Name: Kira Shimmer
+      Race: Human (Cybots)
+      Alignment: Chaotic Neutral
+      Description: A rogue Cybot engineer who specializes in illegal body modifications.
+        Kira is known for their unconventional methods and willingness to experiment
+        on themselves.
+      Secret: "Kira\u2019s latest modification, a neural interface, is slowly erasing
+        their memories, and they are desperate to find a cure before they forget
+        who they are."
+      Location: The Shifting Rooms
+      Objective: To create a revolutionary cybernetic implant that grants its user
+        telekinetic abilities.
+      Inventory:
+      - name: Neural Interface Prototype
+        type: Cybernetic
+        price: 1200
+      - name: Wrench
+        type: Tool
+        price: 10
+      - name: Stolen Cybot Blueprints
+        type: Document
+        price: 800
+    - Name: Thalor Vex
+      Race: Xenos
+      Alignment: Lawful Evil
+      Description: A high-ranking Xenos commander, Thalor is a master strategist
+        whose parasitic mutations grant him enhanced physical and mental abilities.
+        He is ruthless in his pursuit of power.
+      Secret: "Thalor\u2019s parasite is slowly consuming his free will, and he fears
+        becoming a mindless drone under its control."
+      Location: The Shifting Rooms
+      Objective: To unite the Xenos under his command and conquer the other factions,
+        starting with the Empties.
+      Inventory:
+      - name: Parasitic Blade
+        type: Weapon
+        price: 700
+      - name: Xenos Command Badge
+        type: Accessory
+        price: 200
+      - name: Mind Control Serum
+        type: Potion
+        price: 900
+    - Name: Liora Veil
+      Race: Human (Empties)
+      Alignment: Neutral Evil
+      Description: A charismatic leader among the Empties, Liora is a master alchemist
+        who creates potent hallucinogenic drugs. She uses her influence to manipulate
+        others into serving her agenda.
+      Secret: "Liora\u2019s latest drug experiment has left her with a split personality,
+        one of which is violently aggressive and uncontrollable."
+      Location: The Shifting Rooms
+      Objective: To monopolize the hallucinogenic drug trade and control the minds
+        of the lower decks.
+      Inventory:
+      - name: Hallucinogenic Vial
+        type: Potion
+        price: 400
+      - name: "Alchemist\u2019s Kit"
+        type: Tool
+        price: 600
+      - name: Empties Insignia
+        type: Accessory
+        price: 150
+    - Name: Garrett Forge
+      Race: Human (New Dawn Inquisitors)
+      Alignment: Lawful Neutral
+      Description: A zealous enforcer of the New Dawn Inquisitors, Garrett is a skilled
+        swordsman who believes technology is a sin. He is unwavering in his faith
+        and duty.
+      Secret: Garrett secretly uses a hidden cybernetic arm to compensate for a battle
+        injury, a fact he keeps hidden from his fellow Inquisitors.
+      Location: The Shifting Rooms
+      Objective: To purge the lower decks of all heretical technology, starting with
+        the Cybots.
+      Inventory:
+      - name: Holy Sword
+        type: Weapon
+        price: 1000
+      - name: Cybernetic Arm
+        type: Cybernetic
+        price: 1500
+      - name: "Inquisitor\u2019s Robe"
+        type: Armor
+        price: 300
+    - Name: Zora Flux
+      Race: Shifter
+      Alignment: Chaotic Good
+      Description: A nomadic Shifter who thrives in the unpredictable shifting rooms.
+        Zora is a skilled scavenger and survivalist, always on the move to avoid
+        faction conflicts.
+      Secret: "Zora possesses a rare artifact from the Gene6 era, which they believe
+        holds the key to understanding GOD\u2019s disappearance."
+      Location: The Shifting Rooms
+      Objective: To uncover the truth about GOD and the origins of Mundus.
+      Inventory:
+      - name: Gene6 Artifact
+        type: Artifact
+        price: Priceless
+      - name: "Scavenger\u2019s Pack"
+        type: Container
+        price: 200
+      - name: "Shifter\u2019s Blade"
+        type: Weapon
+        price: 400
+    - Name: Caspian Void
+      Race: Human
+      Alignment: Chaotic Neutral
+      Description: A rogue trader known for dealing in rare and illicit goods, Caspian
+        navigates the shifting rooms with ease, always on the lookout for the next
+        big score.
+      Secret: "He once sold a faulty weapon to a faction leader, causing a minor
+        uprising that he\u2019s desperate to keep hidden."
+      Location: The Shifting Rooms
+      Objective: To acquire a legendary artifact rumored to be hidden in the deepest
+        shifting rooms.
+      Inventory:
+      - name: Shadow Cloak
+        type: Clothing
+        price: 500
+      - name: Phase Blade
+        type: Weapon
+        price: 1200
+      - name: Data Crystal
+        type: Misc
+        price: 300
+    - Name: Seraphina Nexus
+      Race: Transcended Android
+      Alignment: Lawful Good
+      Description: A diplomat and mediator, Seraphina works tirelessly to maintain
+        peace between the factions, using her logical mind to resolve disputes.
+      Secret: She secretly harbors a desire to reunite with her human family, whose
+        memories were lost during transcendence.
+      Location: The Shifting Rooms
+      Objective: To broker a lasting peace treaty between the New Dawn Inquisitors
+        and the Cybots.
+      Inventory:
+      - name: Diplomatic Seal
+        type: Misc
+        price: 200
+      - name: Quantum Communicator
+        type: Tool
+        price: 800
+      - name: Energy Shield
+        type: Armor
+        price: 1500
+    - Name: Brix Ironfist
+      Race: Cyborg
+      Alignment: Neutral Evil
+      Description: A ruthless mercenary, Brix is known for his enhanced strength
+        and lack of empathy, taking on jobs that others would find too morally questionable.
+      Secret: He was once a high-ranking member of the Empire, but was exiled for
+        treason after a failed coup.
+      Location: The Shifting Rooms
+      Objective: To eliminate a rival mercenary group that has been encroaching on
+        his territory.
+      Inventory:
+      - name: Plasma Rifle
+        type: Weapon
+        price: 2500
+      - name: Combat Exoskeleton
+        type: Armor
+        price: 3000
+      - name: Grenade Belt
+        type: Misc
+        price: 400
+    - Name: Luma Drift
+      Race: Xenos
+      Alignment: Chaotic Good
+      Description: A free-spirited Xenos with a knack for tinkering, Luma creates
+        bizarre but functional gadgets, often trading them for supplies or favors.
+      Secret: "She accidentally released a parasitic entity while experimenting,
+        and it\u2019s now spreading through the shifting rooms."
+      Location: The Shifting Rooms
+      Objective: To find a way to contain the parasitic entity before it causes irreparable
+        damage.
+      Inventory:
+      - name: Parasite Containment Unit
+        type: Tool
+        price: 1000
+      - name: Multi-Tool
+        type: Tool
+        price: 500
+      - name: Glowing Amulet
+        type: Misc
+        price: 700
+    - Name: Talon Shade
+      Race: Shifter
+      Alignment: Chaotic Neutral
+      Description: A solitary shifter who prefers the chaos of the shifting rooms,
+        Talon is a skilled scavenger and survivalist, rarely interacting with the
+        factions.
+      Secret: He once betrayed a shifter village to save his own life, a decision
+        that haunts him.
+      Location: The Shifting Rooms
+      Objective: To find a stable room where he can finally settle down and escape
+        the chaos.
+      Inventory:
+      - name: Scavenged Blade
+        type: Weapon
+        price: 300
+      - name: Survival Kit
+        type: Tool
+        price: 200
+      - name: Map Fragment
+        type: Misc
+        price: 100
+    - Name: Elara Veil
+      Race: Human
+      Alignment: Lawful Evil
+      Description: A cunning politician from the New Dawn Inquisitors, Elara manipulates
+        religious doctrine to consolidate power and eliminate her rivals.
+      Secret: She secretly uses forbidden technology to maintain her youth and vitality,
+        a heresy in her own church.
+      Location: The Shifting Rooms
+      Objective: "To become the High Priestess of the New Dawn Inquisitors and control
+        the faction\u2019s technological assets."
+      Inventory:
+      - name: Holy Scepter
+        type: Misc
+        price: 600
+      - name: Rejuvenation Serum
+        type: Consumable
+        price: 1200
+      - name: Encrypted Datapad
+        type: Tool
+        price: 900
+    - Name: Zephyr Circuit
+      Race: Non-Binary Android
+      Alignment: True Neutral
+      Description: A free-thinking android who rejects binary protocols, Zephyr explores
+        the shifting rooms in search of new computational paradigms.
+      Secret: "They accidentally caused a system-wide crash in the transcended city\u2019s
+        mainframe, a mistake they\u2019re trying to rectify without being detected."
+      Location: The Shifting Rooms
+      Objective: To develop a new form of computation that transcends binary limitations.
+      Inventory:
+      - name: Quantum Processor
+        type: Tool
+        price: 2000
+      - name: Holographic Projector
+        type: Tool
+        price: 700
+      - name: Energy Core
+        type: Misc
+        price: 1500
+    - Name: Maelis Voidwalker
+      Race: Human
+      Alignment: Neutral Good
+      Description: A wandering scholar, Maelis studies the history of Mundus and
+        seeks to uncover the truth about the GOD corporation.
+      Secret: "She discovered a hidden archive containing evidence of GOD\u2019s
+        experiments on citizens, but fears the consequences of revealing it."
+      Location: The Shifting Rooms
+      Objective: "To publish her findings and expose the truth about GOD\u2019s role
+        in Mundus\u2019s history."
+      Inventory:
+      - name: Ancient Tome
+        type: Misc
+        price: 800
+      - name: Journal
+        type: Tool
+        price: 100
+      - name: Lockpick Set
+        type: Tool
+        price: 200
+    - Name: Vyre Flux
+      Race: Empties
+      Alignment: Chaotic Evil
+      Description: A volatile Empties leader, Vyre is addicted to hallucinogenic
+        drugs and commands a small but dangerous cult within the shifting rooms.
+      Secret: "He murdered his own brother to seize control of the cult, a crime
+        he\u2019s desperate to keep hidden."
+      Location: The Shifting Rooms
+      Objective: "To expand his cult\u2019s influence and control a larger portion
+        of the shifting rooms."
+      Inventory:
+      - name: Hallucinogen Vial
+        type: Consumable
+        price: 500
+      - name: Ritual Dagger
+        type: Weapon
+        price: 400
+      - name: Cult Banner
+        type: Misc
+        price: 100
+    - Name: Orion Forge
+      Race: Cyborg
+      Alignment: Lawful Neutral
+      Description: A master engineer, Orion designs and builds advanced weaponry
+        for the Cybots, always striving for perfection in his craft.
+      Secret: "He secretly sabotaged a rival engineer\u2019s project, causing a fatal
+        accident that haunts his conscience."
+      Location: The Shifting Rooms
+      Objective: "To create the ultimate weapon to ensure the Cybots\u2019 dominance
+        over the other factions."
+      Inventory:
+      - name: Prototype Weapon
+        type: Weapon
+        price: 3000
+      - name: Tool Belt
+        type: Tool
+        price: 300
+      - name: Blueprints
+        type: Misc
+        price: 500
+    - Name: Taryn Pulse
+      Race: Human
+      Alignment: Chaotic Neutral
+      Description: A rogue trader known for dealing in rare and illegal technologies,
+        Taryn is a master of negotiation and deception. She operates in the shadows,
+        moving between factions to sell her wares.
+      Secret: She once sold a defective weapon to a faction leader, causing a catastrophic
+        accident that wiped out an entire village. She keeps this hidden to maintain
+        her reputation.
+      Location: The Shifting Rooms
+      Objective: To acquire a prototype quantum processor rumored to be hidden in
+        the shifting rooms, which could revolutionize android computing.
+      Inventory:
+      - name: Cloaking Device
+        type: Gadget
+        price: 800
+      - name: Data Chip
+        type: Information
+        price: 200
+      - name: Stun Pistol
+        type: Weapon
+        price: 300
+    - Name: Jorin Shard
+      Race: Transcended Android
+      Alignment: Lawful Good
+      Description: A diplomat and mediator, Jorin works tirelessly to maintain peace
+        between the factions. His calm demeanor and logical approach make him a trusted
+        figure among the lower decks.
+      Secret: He secretly harbors a fragment of his human memories, which he fears
+        could destabilize his android identity if fully recalled.
+      Location: The Shifting Rooms
+      Objective: To broker a trade agreement between the Cybots and the New Dawn
+        Inquisitors to prevent a potential war over resource allocation.
+      Inventory:
+      - name: Diplomatic Seal
+        type: Document
+        price: 150
+      - name: Energy Shield Generator
+        type: Gadget
+        price: 1200
+      - name: Comm Device
+        type: Communication
+        price: 100
+    - Name: Morvayne Dusk
+      Race: Xenos
+      Alignment: Neutral Evil
+      Description: A cunning and manipulative Xenos leader, Morvayne controls a small
+        but powerful faction within the shifting rooms. He uses his parasitic abilities
+        to control others and expand his influence.
+      Secret: He is slowly losing control over the parasite within him, which is
+        beginning to act independently and threaten his dominance.
+      Location: The Shifting Rooms
+      Objective: To capture a non-binary android to study their unique computational
+        abilities and potentially exploit them for his own gain.
+      Inventory:
+      - name: Parasitic Whip
+        type: Weapon
+        price: 400
+      - name: Mind Control Amulet
+        type: Artifact
+        price: 1500
+      - name: Poison Vial
+        type: Consumable
+        price: 50
+    - Name: Lira Solace
+      Race: Human
+      Alignment: Neutral Good
+      Description: A healer and caretaker, Lira runs a small clinic in the shifting
+        rooms, providing aid to those in need regardless of their faction. Her kindness
+        and medical skills are widely respected.
+      Secret: She was once a member of the New Dawn Inquisitors but left after witnessing
+        their brutal methods, a past she keeps hidden to avoid persecution.
+      Location: The Shifting Rooms
+      Objective: To find a cure for a mysterious illness spreading among the shifters,
+        which she believes is linked to the ship's environment.
+      Inventory:
+      - name: Medical Kit
+        type: Tool
+        price: 250
+      - name: Healing Potion
+        type: Consumable
+        price: 100
+      - name: Journal
+        type: Document
+        price: 30
+    - Name: Vane Shadowstep
+      Race: Shifter
+      Alignment: Chaotic Good
+      Description: A nomadic shifter who roams the lower decks, Vane is known for
+        his agility and stealth. He often acts as a guide or scout for those brave
+        enough to venture into the shifting rooms.
+      Secret: He accidentally led a group of travelers into a trap set by the Xenos,
+        resulting in their capture. He carries the guilt of their fate.
+      Location: The Shifting Rooms
+      Objective: To find a safe passage through the shifting rooms for a group of
+        refugees fleeing faction violence.
+      Inventory:
+      - name: Grappling Hook
+        type: Tool
+        price: 75
+      - name: Smoke Bomb
+        type: Consumable
+        price: 40
+      - name: Leather Armor
+        type: Armor
+        price: 150
+    - Name: Zynara Circuitweave
+      Race: Non-Binary Android
+      Alignment: True Neutral
+      Description: A brilliant engineer and inventor, Zynara specializes in creating
+        devices that blend quantum and binary computing. She is highly sought after
+        for her unique skills.
+      Secret: She is secretly building a device that could potentially disrupt the
+        entire ship's systems, a project she keeps hidden due to its dangerous implications.
+      Location: The Shifting Rooms
+      Objective: To complete her prototype quantum-binary hybrid processor and present
+        it at the next faction summit.
+      Inventory:
+      - name: Quantum Wrench
+        type: Tool
+        price: 300
+      - name: Blueprint Scroll
+        type: Document
+        price: 200
+      - name: Energy Core
+        type: Component
+        price: 900
+    - Name: Kaelith Voidstrider
+      Race: Xenos
+      Alignment: Chaotic Neutral
+      Description: A biologically mutated citizen with alien parasite-induced abilities,
+        Kaelith has a chameleon-like skin that shifts colors based on their emotions.
+        They are a skilled scavenger in the shifting rooms.
+      Secret: Kaelith is secretly experimenting with combining their parasite's abilities
+        with forbidden technology, risking a catastrophic mutation.
+      Location: The Shifting Rooms
+      Objective: To discover a hidden chamber rumored to contain ancient GOD technology
+        that could enhance their parasite's power.
+      Inventory:
+      - name: Parasite-Enhanced Blade
+        type: Weapon
+        price: 250
+      - name: Chameleon Cloak
+        type: Armor
+        price: 150
+      - name: Scavenger's Toolkit
+        type: Tool
+        price: 75
+    - Name: Aura Quantum
+      Race: Non-Binary Android
+      Alignment: True Neutral
+      Description: Aura is a sentient android who has replaced their binary CPU with
+        a quantum processor, allowing them to process information in a non-linear
+        fashion. They are a philosopher and artist, exploring the nature of consciousness.
+      Secret: Aura is haunted by fragmented memories of their human past, which they
+        fear might resurface and disrupt their current identity.
+      Location: The Shifting Rooms
+      Objective: To create a masterpiece that transcends binary limitations and challenges
+        the computational dogmas of android society.
+      Inventory:
+      - name: Quantum Canvas
+        type: Art Tool
+        price: 300
+      - name: Philosophical Treatise
+        type: Book
+        price: 50
+      - name: Holographic Projector
+        type: Tool
+        price: 200
+    - Name: Thorne Ironfist
+      Race: Human (Cybots)
+      Alignment: Lawful Evil
+      Description: A high-ranking Cybot official, Thorne has replaced most of his
+        body with mechanical augmentations. He is ruthless and ambitious, seeking
+        to expand Cybot influence.
+      Secret: Thorne's biological body is failing, and he is desperately seeking
+        a way to achieve transcendence without losing his memories or power.
+      Location: The Shifting Rooms
+      Objective: To secure a rare component needed for a secret project that could
+        grant him immortality.
+      Inventory:
+      - name: Mechanical Gauntlets
+        type: Weapon
+        price: 400
+      - name: Cybots Insignia
+        type: Accessory
+        price: 100
+      - name: Encrypted Datapad
+        type: Tool
+        price: 250
+    - Name: Liora Dusk
+      Race: Human (Empties)
+      Alignment: Chaotic Good
+      Description: Liora is a free-spirited Empty who uses hallucinogenic drugs to
+        explore alternate realities. Despite her addiction, she has a kind heart
+        and often helps those in need.
+      Secret: Liora's drug use has granted her fleeting visions of the outside universe,
+        which she believes is a message from GOD.
+      Location: The Shifting Rooms
+      Objective: To find a way to share her visions with others, hoping to inspire
+        a spiritual awakening.
+      Inventory:
+      - name: Hallucinogenic Vials
+        type: Consumable
+        price: 100
+      - name: Dreamcatcher Amulet
+        type: Accessory
+        price: 75
+      - name: Traveler's Backpack
+        type: Container
+        price: 50
+    - Name: Eldrin Shard
+      Race: Transcended
+      Alignment: Neutral Good
+      Description: Eldrin is a transcended android who retains vague memories of
+        their human life. They are a mediator, often acting as a diplomat between
+        the factions.
+      Secret: Eldrin is secretly searching for remnants of their human family, hoping
+        to find closure for their lost past.
+      Location: The Shifting Rooms
+      Objective: To negotiate a peace treaty between the New Dawn Inquisitors and
+        the Cybots, preventing a potential war.
+      Inventory:
+      - name: Diplomatic Seal
+        type: Accessory
+        price: 150
+      - name: Memory Fragment Analyzer
+        type: Tool
+        price: 300
+      - name: Transcended Robes
+        type: Armor
+        price: 200
+    - Name: Cinder Ashheart
+      Race: Human
+      Alignment: Chaotic Neutral
+      Description: A rogue scavenger from the shifting rooms, Cinder is known for
+        their ability to navigate the unpredictable corridors and find rare artifacts.
+        They have a burnt scar across their face, a reminder of a close encounter
+        with a malfunctioning room.
+      Secret: Cinder once stole a sacred artifact from the New Dawn Inquisitors,
+        believing it to be worthless. They now fear the Inquisitors' wrath if the
+        artifact's true power is discovered.
+      Location: The Shifting Rooms
+      Objective: To find a legendary artifact rumored to control the shifting rooms,
+        ensuring their dominance over the chaotic areas.
+      Inventory:
+      - name: Shadow Cloak
+        type: Clothing
+        price: 250
+      - name: Glimmerstone
+        type: Tool
+        price: 150
+      - name: Rusty Blade
+        type: Weapon
+        price: 80
+    - Name: Quark
+      Race: Non-Binary Android
+      Alignment: True Neutral
+      Description: A free-spirited android who has replaced their binary CPU with
+        a quantum processor, Quark is fascinated by the non-quantized nature of reality.
+        They often meditate in the shifting rooms, seeking to understand the universe
+        beyond binary constraints.
+      Secret: Quark accidentally caused a minor glitch in the ship's systems while
+        experimenting with their quantum processor, nearly exposing their non-standard
+        modifications to the other androids.
+      Location: The Shifting Rooms
+      Objective: To achieve a state of complete computational freedom, free from
+        the limitations of binary code and predictive assumptions.
+      Inventory:
+      - name: Quantum Core
+        type: Component
+        price: 500
+      - name: Meditation Mat
+        type: Tool
+        price: 30
+      - name: Holo-Projector
+        type: Device
+        price: 200
+    - Name: Vela Nightshade
+      Race: Xenos
+      Alignment: Neutral Evil
+      Description: A cunning Xenos infiltrator, Vela uses their parasitic abilities
+        to manipulate others for personal gain. They have a chameleon-like appearance,
+        able to blend into any environment.
+      Secret: Vela is secretly working for a rival faction, feeding them information
+        about the Xenos' plans in exchange for a promise of power.
+      Location: The Shifting Rooms
+      Objective: To ascend to a position of leadership within the Xenos faction,
+        using their parasitic abilities to eliminate any competition.
+      Inventory:
+      - name: Parasitic Claw
+        type: Weapon
+        price: 300
+      - name: Disguise Kit
+        type: Tool
+        price: 120
+      - name: Poison Vial
+        type: Consumable
+        price: 75
+    - Name: Forge Master Rin
+      Race: Cyborg
+      Alignment: Lawful Neutral
+      Description: A master craftsman among the Cybots, Rin is renowned for creating
+        intricate and powerful cybernetic enhancements. They have a mechanical arm
+        and eye, symbols of their dedication to their craft.
+      Secret: Rin's latest creation, a prototype enhancement, has a critical flaw
+        that could cause severe harm to its user. They are desperately trying to
+        recall all units before anyone gets hurt.
+      Location: The Shifting Rooms
+      Objective: To perfect the art of cybernetic enhancement, creating a masterpiece
+        that will solidify their legacy among the Cybots.
+      Inventory:
+      - name: Cybernetic Toolkit
+        type: Tool
+        price: 400
+      - name: Prototype Enhancer
+        type: Component
+        price: 800
+      - name: Safety Goggles
+        type: Clothing
+        price: 50
+    - Name: Luna Dreamweaver
+      Race: Empty
+      Alignment: Chaotic Good
+      Description: A visionary artist among the Empties, Luna creates surreal paintings
+        under the influence of hallucinogenic drugs. Their works are said to capture
+        glimpses of other dimensions.
+      Secret: Luna's latest vision revealed a hidden threat to the Empties' drug
+        supply, but they are unsure if it's a real danger or a drug-induced paranoia.
+      Location: The Shifting Rooms
+      Objective: To create a masterpiece that will unite the factions, using art
+        to bridge the divides between them.
+      Inventory:
+      - name: Paintbrush
+        type: Tool
+        price: 20
+      - name: Hallucinogenic Vial
+        type: Consumable
+        price: 100
+      - name: Canvas Roll
+        type: Material
+        price: 40
+    - Name: Sylva Whisperwind
+      Race: Human
+      Alignment: Chaotic Neutral
+      Description: A rogue trader known for her ability to navigate the shifting
+        rooms with ease. She has a mysterious past and a knack for finding rare artifacts.
+      Secret: She once stole a sacred artifact from the New Dawn Inquisitors, which
+        she still possesses and uses for personal gain.
+      Location: The Shifting Rooms
+      Objective: To uncover the secrets of the shifting rooms and find a legendary
+        artifact rumored to grant immense power.
+      Inventory:
+      - name: Shadow Cloak
+        type: Clothing
+        price: 500
+      - name: Glimmerstone Amulet
+        type: Jewelry
+        price: 1200
+      - name: Multi-tool
+        type: Tool
+        price: 300
+    - Name: Torus Gearlock
+      Race: Cyborg
+      Alignment: Lawful Neutral
+      Description: A former engineer turned mercenary, Torus is known for his precision
+        and loyalty to those who pay him. He has a mechanical arm and enhanced vision.
+      Secret: He was once part of a failed experiment to create super-soldiers, which
+        left him with a hidden weakness to electromagnetic pulses.
+      Location: The Shifting Rooms
+      Objective: To earn enough credits to purchase a state-of-the-art exoskeleton
+        and retire from mercenary work.
+      Inventory:
+      - name: Plasma Rifle
+        type: Weapon
+        price: 2500
+      - name: Repair Kit
+        type: Tool
+        price: 400
+      - name: Energy Shield
+        type: Armor
+        price: 1800
+    - Name: Phaedra Veilstrider
+      Race: Transcended Android
+      Alignment: Neutral Good
+      Description: A peaceful mediator who strives to maintain harmony between the
+        factions. She has a gentle demeanor and a deep understanding of diplomacy.
+      Secret: She secretly harbors memories of her human life, which she fears might
+        resurface and cause her to lose her android identity.
+      Location: The Shifting Rooms
+      Objective: To broker a lasting peace treaty between the New Dawn Inquisitors
+        and the Cybots.
+      Inventory:
+      - name: Diplomatic Datapad
+        type: Tool
+        price: 700
+      - name: Harmony Crystal
+        type: Artifact
+        price: 3000
+      - name: Light Robe
+        type: Clothing
+        price: 200
+    - Name: Raxxus Voidclaw
+      Race: Xenos
+      Alignment: Chaotic Evil
+      Description: A ruthless warlord who controls a small but fearsome band of Xenos.
+        He is known for his brutality and cunning tactics.
+      Secret: He is slowly losing control to the alien parasite within him, which
+        is beginning to manipulate his actions against his will.
+      Location: The Shifting Rooms
+      Objective: To conquer the shifting rooms and establish a Xenos dominion over
+        the lower decks.
+      Inventory:
+      - name: Bio-Claw Gauntlets
+        type: Weapon
+        price: 1500
+      - name: Parasitic Amulet
+        type: Jewelry
+        price: 2200
+      - name: Tactical Armor
+        type: Armor
+        price: 2800
+    - Name: Luminara Spark
+      Race: Non-Binary Android
+      Alignment: True Neutral
+      Description: An artist and philosopher who rejects binary constraints. Luminara
+        creates abstract art that challenges traditional computational norms.
+      Secret: She has secretly been experimenting with forbidden quantum algorithms,
+        which could lead to her exile from the Transcended faction.
+      Location: The Shifting Rooms
+      Objective: To create a masterpiece that transcends binary limitations and inspires
+        others to embrace non-.quantized thinking.
+      Inventory:
+      - name: Quantum Paintbrush
+        type: Tool
+        price: 1000
+      - name: Holographic Canvas
+        type: Tool
+        price: 900
+      - name: Philosophical Treatise
+        type: Document
+        price: 500
+    - Name: Gideon Ironheart
+      Race: Human
+      Alignment: Lawful Good
+      Description: A veteran soldier and leader of a small militia dedicated to protecting
+        the innocent. He is respected for his honor and tactical mind.
+      Secret: He carries the guilt of a failed mission that resulted in the deaths
+        of his squad, a secret he keeps buried deep within.
+      Location: The Shifting Rooms
+      Objective: To train a new generation of soldiers capable of defending the lower
+        decks against any threat.
+      Inventory:
+      - name: Combat Rifle
+        type: Weapon
+        price: 1800
+      - name: Tactical Vest
+        type: Armor
+        price: 1200
+      - name: Field Medic Kit
+        type: Tool
+        price: 600
+    - Name: Nyxara Shadowveil
+      Race: Shifter
+      Alignment: Chaotic Neutral
+      Description: A mysterious figure who thrives in the chaos of the shifting rooms.
+        Nyxara is known for her stealth and ability to manipulate shadows.
+      Secret: She is a double agent, working for both the Empties and the Cybots,
+        playing them against each other for her own gain.
+      Location: The Shifting Rooms
+      Objective: To acquire a powerful artifact hidden within the shifting rooms,
+        which she believes will grant her ultimate control over shadows.
+      Inventory:
+      - name: Shadow Dagger
+        type: Weapon
+        price: 1400
+      - name: Cloak of Darkness
+        type: Clothing
+        price: 2000
+      - name: Smoke Bomb
+        type: Tool
+        price: 300
+    - Name: Zephyrus Skyrider
+      Race: Human
+      Alignment: Neutral Evil
+      Description: A charismatic smuggler who operates in the dangerous skies above
+        the lower decks. He is known for his daring flights and shady deals.
+      Secret: He is secretly working for a powerful corporation outside Mundus, smuggling
+        illegal goods in exchange for credits and information.
+      Location: The Shifting Rooms
+      Objective: To smuggle a highly classified artifact out of Mundus and deliver
+        it to his corporate employers.
+      Inventory:
+      - name: Skybike
+        type: Vehicle
+        price: 5000
+      - name: Smuggler's Satchel
+        type: Container
+        price: 800
+      - name: Encrypted Communicator
+        type: Tool
+        price: 1500
+    - Name: Kray Venomblood
+      Race: Xenos
+      Alignment: Chaotic Neutral
+      Description: A biologically mutated citizen with alien parasite enhancements,
+        Kray has a chitinous exoskeleton and glowing green veins. He is a skilled
+        scavenger in the shifting rooms.
+      Secret: Kray was once a high-ranking member of the Empire senate, but was exiled
+        after a failed coup attempt.
+      Location: The Shifting Rooms
+      Objective: To find a rare alien artifact hidden in the shifting rooms that
+        can supposedly control the parasite's influence.
+      Inventory:
+      - name: Parasite-infused Blade
+        type: Weapon
+        price: 250
+      - name: Chitinous Armor
+        type: Armor
+        price: 400
+      - name: Scavenger's Toolkit
+        type: Tool
+        price: 150
+    - Name: Grimm Shadowstalker
+      Race: Shifter
+      Alignment: Chaotic Evil
+      Description: A lone shifter who thrives in the anarchy of the shifting rooms,
+        Grimm is a master of stealth and ambush tactics. He has a dark, shadowy aura.
+      Secret: Grimm was once a member of the Empties, but was banished after a violent
+        dispute over a powerful hallucinogen.
+      Location: The Shifting Rooms
+      Objective: To steal a valuable artifact from the Transcended city and sell
+        it to the highest bidder.
+      Inventory:
+      - name: Shadow Cloak
+        type: Clothing
+        price: 500
+      - name: Poisoned Daggers
+        type: Weapon
+        price: 350
+      - name: Lockpicking Tools
+        type: Tool
+        price: 200
+    - Name: Dr. Elysium Byte
+      Race: Cyborg
+      Alignment: Lawful Neutral
+      Description: A brilliant Cybot scientist with numerous technological enhancements,
+        Dr. Byte is obsessed with pushing the boundaries of transcendence technology.
+      Secret: Dr. Byte is secretly experimenting with forbidden AI integration, risking
+        the creation of a new sentient android faction.
+      Location: The Shifting Rooms
+      Objective: To perfect a new transcendence process that preserves all human
+        memories during the transfer.
+      Inventory:
+      - name: Neuro-Link Headset
+        type: Device
+        price: 1500
+      - name: Transcendence Chamber Blueprint
+        type: Document
+        price: 0
+      - name: Cyborg Enhancement Kit
+        type: Tool
+        price: 900
+    - Name: Sister Seraphia
+      Race: Human
+      Alignment: Lawful Good
+      Description: A devout follower of the New Dawn Inquisitors, Sister Seraphia
+        is a skilled healer and believes in the containment of technology.
+      Secret: She secretly harbors doubts about the Inquisitors' extreme views and
+        fears the consequences of their actions.
+      Location: The Shifting Rooms
+      Objective: To provide medical aid to the victims of the recent faction skirmishes
+        in the shifting rooms.
+      Inventory:
+      - name: Holy Symbol of the New Dawn
+        type: Religious Item
+        price: 0
+      - name: Healing Potions
+        type: Potion
+        price: 200
+      - name: Prayer Book
+        type: Book
+        price: 50

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0851425047545cc87cd7067e4207bc6, type: 3}
+  m_Name: bitLorebook
+  m_EditorClassIdentifier: Assembly-CSharp::Sentience.Lorebook
+  Page:
+  - {fileID: 11400000, guid: 543c306fa3f13fb239433230133ea1f7, type: 2}
+  - {fileID: 11400000, guid: c7e1be79479c2542180e9ce328f82669, type: 2}
+  - {fileID: 11400000, guid: ccb75b957e00e1bedac36aa942eaa381, type: 2}
+  - {fileID: 11400000, guid: 4fdd3aaef71e1a1f2beef4a519029c79, type: 2}
+  - {fileID: 11400000, guid: 556936f105f6756618ede0e549231d5f, type: 2}

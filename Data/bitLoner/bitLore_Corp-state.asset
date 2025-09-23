@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6571095d226b44de86c04332916f0bfb, type: 3}
+  m_Name: bitLore_Corp-state
+  m_EditorClassIdentifier: 
+  Lore:
+  - "A corporate state, also known as a corp-state, is a \u201Cspace country\u201D
+    existing inside a spaceship, usually owned by a mega-corporation.\nPeople that
+    are born within a corporate state are citizens of that state and are forced to
+    lived under its rules.\nCorp-states are usually created by mega-corporations
+    who want to live outside of established political rules."
+  - "Since space is a \u201Cno man\u2019s land\u201D, corp-states do not fall under
+    any jurisdiction besides their own.\nCorp-states are recognized by inter-galactic
+    law and have their own rights and sovereignty.\nThese states are usually created 
+    when a mega-corporation builds or takes hold of a colony ship."
+  - Most known corp-states are secretive and usually closed off from the outside
+    universe.

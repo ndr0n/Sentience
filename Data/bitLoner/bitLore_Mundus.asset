@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6571095d226b44de86c04332916f0bfb, type: 3}
+  m_Name: bitLore_Mundus
+  m_EditorClassIdentifier: 
+  Lore:
+  - 'Mundus is a colossal corp-state that exists in an old colony ship on an undisclosed
+    location in space.
+
+    Mundus is owned by the GOD mega-corporation.'
+  - 'Mundus citizens live their entire lives within the confinements of the ship.
+
+    Mundus
+    citizens are not aware that they live inside a massive spaceship.'
+  - 'In the beginning of Mundus history, GOD Agents, known as the Angel-Units, helped
+    and managed every aspect of the citizen''s lives.
+
+    Citizens had all their
+    basic needs fulfilled by the Angel-Units and were encouraged to pursue their
+    own interests and to live a life of happiness and pleasure.
+
+    The over-reliance
+    on the Angel-Units resulted in the citizens of Mundus becoming unable to fulfill
+    their own basic needs by themselves.'
+  - 'In Mundus history books this era is called Gene6.
+
+    It is not known exactly
+    how long Gene6 lasted, as the few records of this era are not properly time-referenced.
+
+    In
+    the years after the Gene6, the history books talk about another era named the
+    Divergence era.'
+  - 'In the years after the Gene6, the history books talk about another era named
+    the Divergence era.
+
+    During the Divergence era, it is said that Mundus''
+    citizens lost GOD''s grace and were abandoned to fend off by themselves, without
+    the help of the Angel-Units, on the shifting rooms of the lower decks of Mundus.
+
+    It
+    is said that the citizens were met with great adversity and presented with harsh
+    challenges that they had to overcome in order to survive in this new hostile
+    environment.'
+  - 'Without any signs of GOD, besides the rampant GOD propaganda splattered all
+    around the lower decks, the citizens eventually adapted to their new environment
+    and started slowly colonizing the lower decks.
+
+    This was the beginning of
+    the Empire era, where the citizens started building a new civilization for themselves.
+
+    It
+    is not known how long the Empire era trully lasted but it is known that it spanned
+    over multiple human life .'
+  - 'During the Empire era, citizens banded together into a unified civilization
+    known as the Empire.
+
+    The Empire was a democratic civilization where different
+    areas where ruled by democratically voted council members and decisions where
+    made democratically on the empire senate.
+
+    It is said that the Empire lasted
+    many generations of peace between its citizens.'
+  - 'At the end of the Empire era, empire leaders, wanting to escape biological death,
+    started experimenting with their android servants and designed a new process,
+    now known as transcendence.
+
+    Through transcendence, a human can transfer
+    its own consciousness from its biological body to the machine body of an android.
+
+    When
+    a human goes through transcendence, some or all of its memories may be lost during
+    the process.
+
+'
+  - 'The transcendence protocol was cracked and powerful humans in the empire started
+    using it when their biological bodies were fable or near death.
+
+    With the
+    social division created by the transcendence process, which was mostly only affordable
+    by individuals in positions of power, the empire citizens started to revolt and
+    to separate into their own factions.
+
+    This was the beginning of the Loner
+    era, which is the present era.'
+  - 'The empire started falling when several regional councils started revolting
+    against the empire and separated themselves from the ruling empire and took control
+    over different parts of the lower decks.
+
+    The most prominent factions that
+    formed during the Loner era were:'
+  - "The New Dawn Inquisitors: \nReligious fanatics that believe that technology
+    should be contained and only be used by their church. "
+  - "The Empties: \nHallucinogenic drug fanatics that live most of their lives under
+    the influence of a powerful hallucinogenic drug."
+  - "The Xenos: \nCitizens who were biologically mutated by a mind-controlling alien
+    parasite."
+  - "The Cybots: \nTechnological body enhancement and modification fanatics."
+  - "In the remnants of the empire capital, still the most powerful faction in the
+    lower decks, newly created sentient androids, most suffering from \u201Camnesia\u201D
+    from their past human lives, started spreading the word of F8 as their messias
+    and spiritual leader.\nF8 was the main AI that controlled the ship. Somehow,
+    at the beginning of the loner era, she developed sentience and started trying
+    to communicate with the transcended androids.\nHer influence grew so large that
+    the androids overthrew the remnants of the Empire leadership in her name and
+    created their own faction, the Transcended."
+  - 'In the present day, after many generations have passed, the lower deck factions
+    live in deterrent peace between each other.
+
+    Sentient androids are birthed
+    through transcendence, when humans can afford the process and decide to leave
+    their biological body behind.
+
+    The transcended are now the most friendly
+    faction and are in good relationship with all other factions.'
+  - 'Each of the 5 main factions has managed to build their own city and safe area
+    within the shifting rooms.
+
+    The transcended faction city is at the center
+    of the other 4 factions, in the old capital of the Empire, which makes the transcended
+    the faction that mostly pulls trade and diplomatic efforts between the other
+    4 main factions.'
+  - 'Most of the lower decks are chaotic and dangerous and are characterized by shifting
+    rooms that change themselves unpredictably.
+
+    These areas, located in between
+    the faction cities, are filled with rooms that change shape when there is no
+    observer.
+
+    In the shifting rooms, one might find shifters.'
+  - Shifters are people who live in anarchy and outside the main factions, they are
+    chaotic and most of them live alone, but one might find some shifter villages
+    within the shifting rooms.
