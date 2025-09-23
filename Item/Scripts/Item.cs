@@ -7,7 +7,7 @@ namespace Sentience
 {
     [System.Serializable]
     [CreateAssetMenu(fileName = "Item", menuName = "Sentience/Item")]
-    public class Item : ScriptableObject
+    public abstract class Item : ScriptableObject
     {
         public string Name = "";
         public string Description = "";
