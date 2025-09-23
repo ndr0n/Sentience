@@ -14,6 +14,7 @@ namespace Sentience
         public static SentienceManager Instance;
         public DungeonMaster DungeonMaster;
         public ItemData ItemData;
+        public FactionData FactionData;
 
         [Header("LLM")]
         public bool LLMEnabled;
