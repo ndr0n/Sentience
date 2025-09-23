@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using LLMUnity;
-using MindTheatre;
 using Sentience;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -29,12 +28,12 @@ namespace Sentience
             // Personality += "You must always speak as your character.";
         }
 
-        public async Awaitable AskQuestion(PersonaData origin, string message, string details, Callback<string> onReply, Action<string> onFinish)
+        public async Awaitable AskQuestion(string origin, string message, string details, Callback<string> onReply, Action<string> onFinish)
         {
             if (!string.IsNullOrWhiteSpace(message))
             {
-                Debug.Log($"{origin.Character.Name} asked {Character.Name}:\n{message}");
-                AddMessage(origin.Character.Name, message);
+                Debug.Log($"{origin} asked {Character.Name}:\n{message}");
+                AddMessage(origin, message);
                 string response = null;
                 response = await SentienceManager.Instance.AskQuestionFromSentience(this, message, details, onReply);
                 if (response != null) AddMessage("assistant", response);

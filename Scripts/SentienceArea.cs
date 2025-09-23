@@ -22,10 +22,10 @@ namespace Sentience
             return sentienceArea;
         }
 
-        public async Awaitable<SentienceLocation> GenerateAreaLocation(Vector3 size, Vector3 position)
+        public async Awaitable<SentienceLocation> GenerateAreaLocation(Vector3 size, Vector3 position, string description)
         {
-            SentienceLocation location = await GenerateLocationData(size, "");
-            if (location == null) location = await GenerateAreaLocation(size, position);
+            SentienceLocation location = await GenerateLocationData(size, description);
+            if (location == null) location = await GenerateAreaLocation(size, position, description);
             location.Size = size;
             location.Position = position;
             return location;

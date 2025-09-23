@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MindTheatre;
 using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
@@ -9,6 +8,21 @@ using UnityEngine.Serialization;
 
 namespace Sentience
 {
+    [System.Serializable]
+    public struct SentienceLocationDetails
+    {
+        public Vector3Int Size;
+        public Vector3Int Position;
+        public string Description;
+
+        public SentienceLocationDetails(Vector3Int size, Vector3Int position, string description)
+        {
+            Size = size;
+            Position = position;
+            Description = description;
+        }
+    }
+    
     [System.Serializable]
     public struct SentienceLocationParser
     {
