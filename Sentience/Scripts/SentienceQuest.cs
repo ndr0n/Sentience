@@ -90,22 +90,22 @@ namespace Sentience
             }
 
             SentienceQuest quest = new SentienceQuest();
-            quest.Name = parser.name;
+            quest.Name = parser.name.Trim();
             quest.Source = source;
-            quest.Description = parser.description;
-            quest.Location = location;
+            quest.Description = parser.description.Trim();
+            quest.Location = location.Trim();
             quest.Stages = new();
             foreach (var parserStage in parser.stages)
             {
                 SentienceQuestStage stage = new SentienceQuestStage
                 {
-                    Objective = parserStage.objective,
+                    Objective = parserStage.objective.Trim(),
                 };
 
                 // string itm = await SentienceManager.Instance.RagManager.GetMostSimilar(items, parserStage.target);
                 // itm = itm.Split('|')[0];
-                stage.targetString = parserStage.target;
-                Item it = identityItems.FirstOrDefault(x => x.Name.ToLower() == parserStage.target.ToLower());
+                stage.targetString = parserStage.target.Trim();
+                Item it = identityItems.FirstOrDefault(x => x.Name.ToLower() == parserStage.target.Trim().ToLower());
                 if (it != null)
                 {
                     stage.Item = it.Name;
@@ -123,7 +123,7 @@ namespace Sentience
                 }
                 else
                 {
-                    string target = await SentienceManager.Instance.RagManager.GetMostSimilar(ids, parserStage.target);
+                    string target = await SentienceManager.Instance.RagManager.GetMostSimilar(ids, parserStage.target.Trim());
                     target = target.Split('|')[0];
                     stage.Target = data.FirstOrDefault(x => x.Name == target);
                 }
@@ -131,8 +131,8 @@ namespace Sentience
                 List<string> actions = new();
                 foreach (var action in stage.Target.Type.Interactions) actions.Add($"{action.Name}|{action.Description}");
 
-                stage.interactionString = parserStage.action;
-                string interactionName = parserStage.action;
+                stage.interactionString = parserStage.action.Trim();
+                string interactionName = parserStage.action.Trim();
                 if (!string.IsNullOrWhiteSpace(stage.Item)) interactionName = "Retrieve";
 
                 interactionName = await SentienceManager.Instance.RagManager.GetMostSimilar(actions, interactionName);
