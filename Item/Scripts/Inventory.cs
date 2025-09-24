@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Sentience
 {
+    [System.Serializable]
     public class Inventory
     {
         public int Size = 64;
@@ -14,9 +15,9 @@ namespace Sentience
         {
             foreach (var existingItem in Items)
             {
-                if (existingItem == item)
+                if (existingItem.Name == item.Name)
                 {
-                    if (existingItem.Amount + item.Amount <= item.Stack)
+                    if (existingItem.Amount + item.Amount <= item.Type.Stack)
                     {
                         existingItem.Amount += item.Amount;
                         return;
@@ -31,7 +32,7 @@ namespace Sentience
         {
             if (Items[slot].Amount > amount) Items[slot].Amount -= amount;
             else if (Items[slot].Amount == amount) Items.RemoveAt(slot);
-            else Debug.Log($"Not enough {Items[slot].name}.");
+            else Debug.Log($"Not enough {Items[slot].Name}.");
         }
 
         public bool UseItem(string itemName)
@@ -53,7 +54,7 @@ namespace Sentience
             else return false;
         }
 
-        public bool CanStore(Item item)
+        public bool CanStore(ItemType itemType)
         {
             return Items.Count < Size;
         }

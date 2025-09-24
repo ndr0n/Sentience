@@ -4,30 +4,30 @@ namespace Sentience
 {
     public static class ItemLibrary
     {
-        public static Item GenerateItem(string name, Item similarItem)
+        public static ItemType GenerateItem(string name, ItemType similarItemType)
         {
-            Item i = UnityEngine.Object.Instantiate(similarItem);
+            ItemType i = UnityEngine.Object.Instantiate(similarItemType);
             i.name = name;
             i.Name = name;
             return i;
         }
 
-        public static string SerializeItem(Item item)
+        public static string SerializeItem(ItemType itemType)
         {
-            string type = $"{item.GetType()}|";
+            string type = $"{itemType.GetType()}|";
             string serialized = type;
-            serialized += JsonConvert.SerializeObject(item, Formatting.None);
+            serialized += JsonConvert.SerializeObject(itemType, Formatting.None);
             return serialized;
         }
 
-        public static Item Deserialize(string serializedItem)
+        public static ItemType Deserialize(string serializedItem)
         {
             string type = serializedItem.Split('|')[0];
 
-            if (type == typeof(Item).ToString())
+            if (type == typeof(ItemType).ToString())
             {
-                Item item = JsonConvert.DeserializeObject<Item>(serializedItem.Split('|')[1]);
-                return item;
+                ItemType itemType = JsonConvert.DeserializeObject<ItemType>(serializedItem.Split('|')[1]);
+                return itemType;
             }
             // if (type == typeof(Scrap).ToString())
             // {

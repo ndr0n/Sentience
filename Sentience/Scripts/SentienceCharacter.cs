@@ -45,7 +45,7 @@ namespace Sentience
                            "{\n" +
                            "\"name\": \"<the name of the character>\",\n" +
                            "\"species\": \"<the species of the character>\",\n" +
-                           "\"description\": \"<a short visual description of the character>\",\n" +
+                           "\"description\": \"<a description of the character>\",\n" +
                            "\"inventory\": [\"<a JSON list of strings with the name of each individual item this character has.>\"]\n" +
                            "}";
             string msg = "";

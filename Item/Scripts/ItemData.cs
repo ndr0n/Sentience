@@ -8,9 +8,9 @@ namespace Sentience
     [CreateAssetMenu(fileName = "ItemData", menuName = "Sentience/ItemData")]
     public class ItemData : ScriptableObject
     {
-        public List<Item> Items = new();
+        public List<ItemType> Items = new();
 
-        public Item GetItem(string itemName)
+        public ItemType GetItem(string itemName)
         {
             return Items.FirstOrDefault(x => x.Name == itemName);
         }

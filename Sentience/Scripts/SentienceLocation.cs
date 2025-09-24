@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MindTheatre;
 using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Sentience
 {
@@ -49,33 +51,59 @@ namespace Sentience
         public string Name = "";
         public string Description = "";
         public Faction Faction;
-        public List<string> Items = new();
-        public List<SentienceCharacter> Characters = new();
+        // public List<string> Items = new();
+        // public List<SentienceCharacter> Characters = new();
         // public List<IdentityData> Characters = new();
         public List<IdentityData> Objects = new();
+        public List<IdentityData> Characters = new();
         public Vector3 Size = Vector3.one;
         public Vector3 Position = Vector3.zero;
 
         public static async Awaitable<SentienceLocation> Generate(SentienceLocationParser parser, List<IdentityData> objects)
         {
+            System.Random random = new(Random.Range(int.MinValue, int.MaxValue));
             SentienceLocation location = new()
             {
                 Name = parser.name,
                 Description = parser.description,
             };
             location.Faction = await SentienceManager.Instance.RagManager.GetMostSimilarFaction(SentienceManager.Instance.FactionData, parser.faction);
-            location.Items = new();
-            foreach (var item in parser.items) location.Items.Add(item);
+
+            List<string> identityOptions = new();
+            foreach (var type in location.Faction.FactionIdentity) identityOptions.Add($"{type.name}|{type.Description}");
+
             location.Characters = new();
             foreach (var character in parser.characters)
             {
-                location.Characters.Add(new(character, location.Name, location.Faction));
+                string similar = await SentienceManager.Instance.RagManager.GetMostSimilar(identityOptions, $"{character.species} - {character.name} - {character.description}");
+                IdentityType it = location.Faction.FactionIdentity.FirstOrDefault(x => x.name == similar.Split('|')[0]);
+                IdentityData id = IdentityData.Create(it, random, Vector3.zero, location.Name);
+                PersonaData pd = await PersonaData.Generate(id, new(character, location.Name, location.Faction));
+                location.Characters.Add(id);
             }
+
+            List<string> itemOptions = new();
+            foreach (var type in SentienceManager.Instance.ItemData.Items) itemOptions.Add($"{type.name}|{type.Description}");
 
             location.Objects = new();
             if (objects != null)
             {
-                foreach (var obj in objects) location.Objects.Add(obj);
+                foreach (var obj in objects)
+                {
+                    location.Objects.Add(obj);
+                }
+
+                foreach (var item in parser.items)
+                {
+                    foreach (var obj in objects.OrderBy(x => random.Next()))
+                    {
+                        if (obj.Inventory != null)
+                        {
+                            obj.Inventory.Add(new(item, $"Found in {location.Name}.", 1, await ItemType.GetType(SentienceManager.Instance.ItemData, item)));
+                            break;
+                        }
+                    }
+                }
             }
 
             return location;
