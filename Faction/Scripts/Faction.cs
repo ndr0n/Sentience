@@ -16,6 +16,7 @@ namespace Sentience
         public Color Color = Color.white;
         public bool IsLawfulFaction = true;
         public List<FactionRelationship> FactionRelationship = new();
+        public List<SpawnType> SpawnOptions = new();
 
         public virtual void GenerateFactionRelationships(FactionData factionData)
         {
