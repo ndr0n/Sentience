@@ -131,18 +131,18 @@ namespace Sentience
                     string msg = $"The location of the quest is: {location.Name} - {location.Description}\n";
                     msg += $"Location Faction: {location.Faction.Name} - {location.Faction.Description}\n";
 
-                    List<IdentityData> objects = new();
+                    List<IdentityData> data = new();
                     if (location.Objects.Count > 0)
                     {
                         msg += $"Location Objects:\n";
                         foreach (var obj in location.Objects)
                         {
                             msg += $"{obj}";
-                            objects.Add(obj);
+                            data.Add(obj);
                         }
 
                         msg += $"Location Items:\n";
-                        foreach (var obj in objects)
+                        foreach (var obj in data)
                         {
                             foreach (var item in obj.Inventory.Items)
                             {
@@ -157,6 +157,7 @@ namespace Sentience
                         foreach (var character in location.Characters.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
                         {
                             msg += $"{character.Name}\n";
+                            data.Add(character);
                             source = character;
                         }
                         msg += $"the character that will give the quest to the player is: {source}.\n";
@@ -164,7 +165,7 @@ namespace Sentience
                     msg += details;
                     Debug.Log($"Generating quest data for: {location.Name}");
                     SentienceQuestParser parser = await DungeonMaster.Instance.GenerateSentienceQuest(msg);
-                    SentienceQuest quest = await SentienceQuest.Generate(parser, location.Name, source, objects);
+                    SentienceQuest quest = await SentienceQuest.Generate(parser, location.Name, source, data);
                     Quests.Add(quest);
                     return quest;
                 }

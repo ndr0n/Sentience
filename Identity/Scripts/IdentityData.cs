@@ -24,8 +24,7 @@ namespace Sentience
 
         public static IdentityData Create(IdentityType identityType, System.Random random, Vector3 position, string location)
         {
-            // IdentityData id = CreateInstance<IdentityData>();
-            IdentityData id = new()
+            return new IdentityData()
             {
                 Type = identityType,
                 Name = identityType.Name,
@@ -35,24 +34,22 @@ namespace Sentience
                 Inventory = new(),
                 SpawnPosition = position
             };
-            Debug.Log($"ID - {id.Name} | Preset: {id.Prefab}");
-            return id;
         }
 
-        public static Identity SpawnIdentity(IdentityData data, IdentityType type, System.Random random, Transform parent)
+        public static Identity SpawnIdentity(IdentityData data, System.Random random, Transform parent)
         {
             Identity spawn = Object.Instantiate(data.Prefab.gameObject, parent).GetComponent<Identity>();
             spawn.transform.position = data.SpawnPosition;
-            data.Init(spawn, type, random);
+            data.Init(spawn, random);
             return spawn;
         }
 
-        public void Init(Identity identity, IdentityType type, System.Random random)
+        public void Init(Identity identity, System.Random random)
         {
-            Type = type;
             Spawn = identity;
             identity.Data = this;
-            identity.Type = type;
+            identity.Type = Type;
+            identity.name = Name;
             identity.Type.OnSpawnIdentity(identity, random);
         }
     }

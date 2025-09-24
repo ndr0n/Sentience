@@ -74,8 +74,10 @@ namespace Sentience
             location.Characters = new();
             foreach (var character in parser.characters)
             {
-                string similar = await SentienceManager.Instance.RagManager.GetMostSimilar(identityOptions, $"{character.species} - {character.name} - {character.description}");
-                IdentityType it = location.Faction.FactionIdentity.FirstOrDefault(x => x.name == similar.Split('|')[0]);
+                string similar = await SentienceManager.Instance.RagManager.GetMostSimilar(identityOptions, $"{character.species} | {character.name} | {character.description}");
+                similar = similar.Split('|')[0];
+                IdentityType it = location.Faction.FactionIdentity.FirstOrDefault(x => x.name == similar);
+
                 Vector3 spawnPosition = new Vector3(random.Next(Mathf.FloorToInt(location.Position.x), Mathf.FloorToInt(location.Position.x + location.Size.x)), random.Next(Mathf.FloorToInt(location.Position.y), Mathf.FloorToInt(location.Position.y + location.Size.y)));
                 IdentityData id = IdentityData.Create(it, random, spawnPosition, location.Name);
                 Persona persona = await Persona.Generate(id, new(character, location.Name, location.Faction));

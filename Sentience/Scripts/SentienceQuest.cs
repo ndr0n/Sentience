@@ -91,16 +91,17 @@ namespace Sentience
                     Objective = parserStage.objective,
                 };
 
+                stage.targetString = parserStage.target;
                 string trgt = await SentienceManager.Instance.RagManager.GetMostSimilar(ids, parserStage.target);
                 trgt = trgt.Split('|')[0];
-                stage.targetString = trgt;
                 stage.Target = data.FirstOrDefault(x => x.Name == trgt);
 
                 List<string> actions = new();
-                foreach (var action in stage.Target.Type.Interactions) actions.Add($"{action.name}|{action.Description}");
+                foreach (var action in stage.Target.Type.Interactions) actions.Add($"{action.Name}|{action.Description}");
+
+                stage.interactionString = parserStage.action;
                 string actn = await SentienceManager.Instance.RagManager.GetMostSimilar(actions, parserStage.action);
                 actn = actn.Split('|')[0];
-                stage.interactionString = actn;
                 stage.Interaction = stage.Target.Type.Interactions.FirstOrDefault(x => x.Name == actn);
                 quest.Stages.Add(stage);
             }
