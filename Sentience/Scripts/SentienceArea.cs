@@ -25,7 +25,7 @@ namespace Sentience
             return sentienceArea;
         }
 
-        public async Awaitable<SentienceLocation> GenerateAreaLocation(Vector3 size, Vector3 position, string description, List<string> objects)
+        public async Awaitable<SentienceLocation> GenerateAreaLocation(Vector3 size, Vector3 position, string description, List<IdentityData> objects)
         {
             SentienceLocation location = await GenerateLocationData(size, description, objects);
             if (location == null) location = await GenerateAreaLocation(size, position, description, objects);
@@ -34,7 +34,7 @@ namespace Sentience
             return location;
         }
 
-        public async Awaitable<SentienceLocation> GenerateLocationData(Vector3 size, string details, List<string> objects)
+        public async Awaitable<SentienceLocation> GenerateLocationData(Vector3 size, string details, List<IdentityData> objects)
         {
             string exeption = "";
             if (LocationData.Count > 0)
@@ -52,11 +52,6 @@ namespace Sentience
             string msg = $"{exeption}\n";
             if (!string.IsNullOrWhiteSpace(details)) msg += $"{details}\n";
             msg += $"The size of the generated location is {size.x} meters by {size.y} meters.";
-            // if (objects != null && objects.Count > 0)
-            // {
-            // msg += $"the objects in the location are:";
-            // foreach (var obj in objects) msg += $"{obj}\n";
-            // }
             msg += $"Area: {Area}";
 
             // int characterAmount = Mathf.CeilToInt(((size.x / 4f) * (size.y / 4f)) / 4f);
@@ -71,6 +66,7 @@ namespace Sentience
         {
             try
             {
+                List<IdentityData> objects = new();
                 string msg = $"The Area of the quest is: {Area}\n";
                 msg += "The existing locations in this area are:\n";
                 SentienceCharacter source = null;
@@ -85,7 +81,8 @@ namespace Sentience
                         msg += $"Location Objects:\n";
                         foreach (var obj in location.Objects)
                         {
-                            msg += $"{obj}";
+                            msg += $"{obj.Name}";
+                            objects.Add(obj);
                         }
                     }
                     if (location.Items.Count > 0)
@@ -101,17 +98,17 @@ namespace Sentience
                         msg += $"Location Characters:\n";
                         foreach (var character in location.Characters.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
                         {
-                            source = character;
                             msg += $"{character.Name}\n";
-                            msg += $"the character that will give the quest to the player is: {source.Name}.\n";
+                            source = character;
                         }
+                        msg += $"the character that will give the quest to the player is: {source.Name}.\n";
                     }
                 }
                 msg += details;
 
                 Debug.Log($"Generating quest data for: {Area}");
                 SentienceQuestParser parser = await DungeonMaster.Instance.GenerateSentienceQuest(msg);
-                SentienceQuest quest = await SentienceQuest.Generate(parser, Area, source.Name);
+                SentienceQuest quest = await SentienceQuest.Generate(parser, Area, source.Name, objects);
                 Quests.Add(quest);
                 return quest;
             }
@@ -131,12 +128,14 @@ namespace Sentience
                     string msg = $"The location of the quest is: {location.Name} - {location.Description}\n";
                     msg += $"Location Faction: {location.Faction.Name} - {location.Faction.Description}\n";
 
+                    List<IdentityData> objects = new();
                     if (location.Objects.Count > 0)
                     {
                         msg += $"Location Objects:\n";
                         foreach (var obj in location.Objects)
                         {
                             msg += $"{obj}";
+                            objects.Add(obj);
                         }
                     }
                     if (location.Items.Count > 0)
@@ -153,15 +152,15 @@ namespace Sentience
                         msg += $"Location Characters:\n";
                         foreach (var character in location.Characters.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
                         {
-                            source = character;
                             msg += $"{character.Name}\n";
-                            msg += $"the character that will give the quest to the player is: {source.Name}.\n";
+                            source = character;
                         }
+                        msg += $"the character that will give the quest to the player is: {source.Name}.\n";
                     }
                     msg += details;
                     Debug.Log($"Generating quest data for: {location.Name}");
                     SentienceQuestParser parser = await DungeonMaster.Instance.GenerateSentienceQuest(msg);
-                    SentienceQuest quest = await SentienceQuest.Generate(parser, location.Name, source.Name);
+                    SentienceQuest quest = await SentienceQuest.Generate(parser, location.Name, source.Name, objects);
                     Quests.Add(quest);
                     return quest;
                 }

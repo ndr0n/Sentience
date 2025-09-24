@@ -14,9 +14,9 @@ namespace Sentience
         public Vector3Int Size;
         public Vector3Int Position;
         public string Description;
-        public List<string> LocationObjects;
+        public List<IdentityData> LocationObjects;
 
-        public SentienceLocationDetails(Vector3Int size, Vector3Int position, string description, List<string> locationObjects)
+        public SentienceLocationDetails(Vector3Int size, Vector3Int position, string description, List<IdentityData> locationObjects)
         {
             Size = size;
             Position = position;
@@ -51,11 +51,12 @@ namespace Sentience
         public Faction Faction;
         public List<string> Items = new();
         public List<SentienceCharacter> Characters = new();
-        public List<string> Objects = new();
+        // public List<IdentityData> Characters = new();
+        public List<IdentityData> Objects = new();
         public Vector3 Size = Vector3.one;
         public Vector3 Position = Vector3.zero;
 
-        public static async Awaitable<SentienceLocation> Generate(SentienceLocationParser parser, List<string> objects)
+        public static async Awaitable<SentienceLocation> Generate(SentienceLocationParser parser, List<IdentityData> objects)
         {
             SentienceLocation location = new()
             {
@@ -66,16 +67,21 @@ namespace Sentience
             location.Items = new();
             foreach (var item in parser.items) location.Items.Add(item);
             location.Characters = new();
-            foreach (var character in parser.characters) location.Characters.Add(new(character, location.Name, location.Faction));
+            foreach (var character in parser.characters)
+            {
+                location.Characters.Add(new(character, location.Name, location.Faction));
+            }
+
             location.Objects = new();
             if (objects != null)
             {
                 foreach (var obj in objects) location.Objects.Add(obj);
             }
+
             return location;
         }
 
-        public static async Awaitable<SentienceLocation> GenerateLocationFromArea(string area, List<string> objects)
+        public static async Awaitable<SentienceLocation> GenerateLocationFromArea(string area, List<IdentityData> objects)
         {
             string answer;
             string rules = "I will tell you the area and description of a location and you must respond with a location that exists within this area.\n" +
