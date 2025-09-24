@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using LLMUnity;
+using MindTheatre;
 using Sentience;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,21 +11,20 @@ namespace Sentience
 {
     public class Sentient : MonoBehaviour
     {
+        public Identity Identity;
         public int MemorySize = 100;
-        public SentienceCharacter Character;
         [HideInInspector] public string Personality;
         [HideInInspector] public List<ChatMessage> Messages = new();
 
-        public void Init(SentienceCharacter character, string details)
+        public void Init()
         {
             Messages.Clear();
-            Character = character;
-            Personality = $"Your character name is: {Character.Name}.\n" +
-                          $"Your character species is {Character.Species}" +
-                          $"Your character description: {Character.Description}.\n" +
-                          $"Your character current location is: {Character.Location}.\n";
-            foreach (var item in Character.Inventory) Personality += $"You currently have {item} in your inventory.\n";
-            Personality += details;
+            Personality = $"Your character name is: {Identity.Data.Name}.\n" +
+                          $"Your character species is {Identity.Data.Persona.Species}" +
+                          $"Your character description: {Identity.Data.Description}.\n" +
+                          $"Your character current location is: {Identity.Data.Location}.\n";
+            if (Identity.Data.Faction != null) Personality += $"Your Faction is {Identity.Data.Faction}\n";
+            foreach (var item in Identity.Data.Inventory.Items) Personality += $"You currently have {item} in your inventory.\n";
             // Personality += "You must always speak as your character.";
         }
 
@@ -32,7 +32,7 @@ namespace Sentience
         {
             if (!string.IsNullOrWhiteSpace(message))
             {
-                Debug.Log($"{origin} asked {Character.Name}:\n{message}");
+                Debug.Log($"{origin} asked {Identity.Data.Name}:\n{message}");
                 AddMessage(origin, message);
                 string response = null;
                 response = await SentienceManager.Instance.AskQuestionFromSentience(this, message, details, onReply);

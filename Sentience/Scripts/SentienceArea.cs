@@ -27,14 +27,14 @@ namespace Sentience
 
         public async Awaitable<SentienceLocation> GenerateAreaLocation(Vector3 size, Vector3 position, string description, List<IdentityData> objects)
         {
-            SentienceLocation location = await GenerateLocationData(size, description, objects);
+            SentienceLocation location = await GenerateLocationData(size, position, description, objects);
             if (location == null) location = await GenerateAreaLocation(size, position, description, objects);
             location.Size = size;
             location.Position = position;
             return location;
         }
 
-        public async Awaitable<SentienceLocation> GenerateLocationData(Vector3 size, string details, List<IdentityData> objects)
+        public async Awaitable<SentienceLocation> GenerateLocationData(Vector3 size, Vector3 position, string details, List<IdentityData> objects)
         {
             string exeption = "";
             if (LocationData.Count > 0)
@@ -57,7 +57,7 @@ namespace Sentience
             // int characterAmount = Mathf.CeilToInt(((size.x / 4f) * (size.y / 4f)) / 4f);
 
             Debug.Log($"Generating area data for: {Area}");
-            SentienceLocation location = await SentienceLocation.GenerateLocationFromArea(msg, objects);
+            SentienceLocation location = await SentienceLocation.GenerateLocationFromArea(size, position, msg, objects);
             LocationData.Add(location);
             return location;
         }
@@ -194,7 +194,7 @@ namespace Sentience
             DrawDefaultInspector();
             if (GUILayout.Button("Generate Area Location"))
             {
-                SentienceArea.GenerateLocationData(new Vector3(5, 5, 0), "", null);
+                SentienceArea.GenerateLocationData(new Vector3(5, 5, 0), Vector3.zero, "", null);
             }
             if (GUILayout.Button("Generate Area Quest"))
             {
