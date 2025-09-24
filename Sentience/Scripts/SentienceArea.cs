@@ -90,7 +90,7 @@ namespace Sentience
                         {
                             foreach (var item in obj.Inventory.Items)
                             {
-                                msg += $"{item}\n";
+                                msg += $"{item.Name}\n";
                             }
                         }
                     }
@@ -146,7 +146,7 @@ namespace Sentience
                         {
                             foreach (var item in obj.Inventory.Items)
                             {
-                                msg += $"{item}\n";
+                                msg += $"{item.Name}\n";
                             }
                         }
                     }
