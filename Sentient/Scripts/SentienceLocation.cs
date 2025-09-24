@@ -14,12 +14,14 @@ namespace Sentience
         public Vector3Int Size;
         public Vector3Int Position;
         public string Description;
+        public List<string> LocationObjects;
 
-        public SentienceLocationDetails(Vector3Int size, Vector3Int position, string description)
+        public SentienceLocationDetails(Vector3Int size, Vector3Int position, string description, List<string> locationObjects)
         {
             Size = size;
             Position = position;
             Description = description;
+            LocationObjects = locationObjects;
         }
     }
 
@@ -47,12 +49,13 @@ namespace Sentience
         public string Name = "";
         public string Description = "";
         public Faction Faction;
-        public Vector3 Size = Vector3.one;
-        public Vector3 Position = Vector3.zero;
         public List<string> Items = new();
         public List<SentienceCharacter> Characters = new();
+        public List<string> Objects = new();
+        public Vector3 Size = Vector3.one;
+        public Vector3 Position = Vector3.zero;
 
-        public static async Awaitable<SentienceLocation> Generate(SentienceLocationParser parser)
+        public static async Awaitable<SentienceLocation> Generate(SentienceLocationParser parser, List<string> objects)
         {
             SentienceLocation location = new()
             {
@@ -64,10 +67,15 @@ namespace Sentience
             foreach (var item in parser.items) location.Items.Add(item);
             location.Characters = new();
             foreach (var character in parser.characters) location.Characters.Add(new(character, location.Name, location.Faction));
+            location.Objects = new();
+            if (objects != null)
+            {
+                foreach (var obj in objects) location.Objects.Add(obj);
+            }
             return location;
         }
 
-        public static async Awaitable<SentienceLocation> GenerateLocationFromArea(string area)
+        public static async Awaitable<SentienceLocation> GenerateLocationFromArea(string area, List<string> objects)
         {
             string answer;
             string rules = "I will tell you the area and description of a location and you must respond with a location that exists within this area.\n" +
@@ -93,13 +101,13 @@ namespace Sentience
             try
             {
                 SentienceLocationParser parser = JsonConvert.DeserializeObject<SentienceLocationParser>(answer);
-                SentienceLocation loc = await Generate(parser);
+                SentienceLocation loc = await Generate(parser, objects);
                 return loc;
             }
             catch (Exception e)
             {
                 Debug.LogError(e);
-                return await GenerateLocationFromArea(area);
+                return await GenerateLocationFromArea(area, objects);
             }
         }
     }
