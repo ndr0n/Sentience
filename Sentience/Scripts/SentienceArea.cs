@@ -95,9 +95,12 @@ namespace Sentience
                         msg += $"Location Items:\n";
                         foreach (var obj in data)
                         {
-                            foreach (var item in obj.Inventory.Items)
+                            if (obj.Inventory != null)
                             {
-                                msg += $"{item.Name}\n";
+                                foreach (var item in obj.Inventory.Items)
+                                {
+                                    msg += $"{item.Name}\n";
+                                }
                             }
                         }
                     }
@@ -151,9 +154,12 @@ namespace Sentience
                         msg += $"Location Items:\n";
                         foreach (var obj in data)
                         {
-                            foreach (var item in obj.Inventory.Items)
+                            if (obj.Inventory != null)
                             {
-                                msg += $"{item.Name}\n";
+                                foreach (var item in obj.Inventory.Items)
+                                {
+                                    msg += $"{item.Name}\n";
+                                }
                             }
                         }
                     }

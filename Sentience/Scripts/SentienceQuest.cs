@@ -75,15 +75,18 @@ namespace Sentience
         public static async Awaitable<SentienceQuest> Generate(SentienceQuestParser parser, string location, IdentityData source, List<IdentityData> data)
         {
             List<string> ids = new();
-            List<Item> identityItems = new();
+            List<Item> spawnedItems = new();
             List<string> items = new();
             foreach (var id in data)
             {
                 ids.Add($"{id.Name}|{id.Description}");
-                foreach (var i in id.Inventory.Items)
+                if (id.Inventory != null)
                 {
-                    identityItems.Add(i);
-                    items.Add($"{i.Name}|{i.Description}");
+                    foreach (var i in id.Inventory.Items)
+                    {
+                        spawnedItems.Add(i);
+                        items.Add($"{i.Name}|{i.Description}");
+                    }
                 }
             }
 
@@ -105,24 +108,30 @@ namespace Sentience
                 // itm = itm.Split('|')[0];
                 stage.targetString = parserStage.target.Trim();
                 stage.actionString = parserStage.action.Trim();
-                Item itemTarget = identityItems.FirstOrDefault(x => x.Name.ToLower() == parserStage.target.Trim().ToLower());
+                Item itemTarget = spawnedItems.FirstOrDefault(x => x.Name.ToLower() == parserStage.target.Trim().ToLower());
                 if (itemTarget != null)
                 {
+                    bool foundItemTarget = false;
                     foreach (var identityTarget in data)
                     {
-                        foreach (var item in identityTarget.Inventory.Items)
+                        if (identityTarget.Inventory != null)
                         {
-                            if (itemTarget == item)
+                            foreach (var item in identityTarget.Inventory.Items)
                             {
-                                List<string> itemInteractions = new();
-                                foreach (var interaction in itemTarget.Type.Interactions) itemInteractions.Add($"{interaction.Name}|{interaction.Description}");
-                                string itemInteractionName = parserStage.action.Trim();
-                                itemInteractionName = await SentienceManager.Instance.RagManager.GetMostSimilar(itemInteractions, itemInteractionName);
-                                itemInteractionName = itemInteractionName.Split('|')[0];
-                                ItemInteraction itemInteraction = itemTarget.Type.Interactions.FirstOrDefault(x => x.Name == itemInteractionName);
-                                stage.InteractionData = new(itemTarget, itemInteraction, identityTarget, null);
-                                break;
+                                if (itemTarget == item)
+                                {
+                                    List<string> itemInteractions = new();
+                                    foreach (var interaction in itemTarget.Type.Interactions) itemInteractions.Add($"{interaction.Name}|{interaction.Description}");
+                                    string itemInteractionName = parserStage.action.Trim();
+                                    itemInteractionName = await SentienceManager.Instance.RagManager.GetMostSimilar(itemInteractions, itemInteractionName);
+                                    itemInteractionName = itemInteractionName.Split('|')[0];
+                                    ItemInteraction itemInteraction = itemTarget.Type.Interactions.FirstOrDefault(x => x.Name == itemInteractionName);
+                                    stage.InteractionData = new(itemTarget, itemInteraction, identityTarget, null);
+                                    foundItemTarget = true;
+                                    break;
+                                }
                             }
+                            if (foundItemTarget) break;
                         }
                     }
                 }
