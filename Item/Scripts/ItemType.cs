@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Sentience
 {
     [System.Serializable]
-    [CreateAssetMenu(fileName = "Item", menuName = "Sentience/Item")]
+    [CreateAssetMenu(fileName = "Item", menuName = "Sentience/Item/Type")]
     public class ItemType : ScriptableObject
     {
         public string Name = "Item";
@@ -15,11 +15,7 @@ namespace Sentience
         public int Price = 1;
         public int Stack = 1;
         public Sprite Icon = null;
-
-        public static async Awaitable<ItemType> GetType(ItemData itemData, string itemName)
-        {
-            return await SentienceManager.Instance.RagManager.GetMostSimilarItem(itemData, itemName);
-        }
+        public List<ItemInteraction> Interactions = new();
 
         public int GetSellPrice()
         {
@@ -31,14 +27,14 @@ namespace Sentience
             return Price;
         }
 
-        public virtual bool Pickup(Identity player, Item item)
+        public static async Awaitable<ItemType> GetType(ItemData itemData, string itemName)
         {
-            return true;
+            return await SentienceManager.Instance.RagManager.GetMostSimilarItem(itemData, itemName);
         }
 
-        public virtual bool UseItem(Identity player, Item item)
+        public virtual bool Interact(Item item, IdentityData owner, IdentityData interactor, ItemInteraction interaction)
         {
-            return false;
+            return interaction.TryExecute(item, owner, interactor);
         }
     }
 }

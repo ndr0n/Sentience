@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Sentience
 {
     [System.Serializable]
-    [CreateAssetMenu(fileName = "ItemData", menuName = "Sentience/ItemData")]
+    [CreateAssetMenu(fileName = "ItemData", menuName = "Sentience/Item/Data")]
     public class ItemData : ScriptableObject
     {
         public List<ItemType> Items = new();

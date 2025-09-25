@@ -160,7 +160,7 @@ namespace Sentience
                             data.Add(character);
                             source = character;
                         }
-                        msg += $"the character that will give the quest to the player is: {source}.\n";
+                        msg += $"the character that will give the quest to the player is: {source.Name}.\n";
                     }
                     msg += details;
                     Debug.Log($"Generating quest data for: {location.Name}");

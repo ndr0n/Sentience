@@ -58,20 +58,19 @@ namespace Sentience
     public class SentienceQuestStage
     {
         public string Objective;
-        public string Item;
         public string targetString;
-        public IdentityData Target;
-        public string interactionString;
-        public IdentityInteraction Interaction;
+        public string actionString;
+        [SerializeReference] public ItemInteractionData ItemInteraction;
+        [SerializeReference] public IdentityInteractionData TargetInteraction;
     }
 
     [System.Serializable]
     public class SentienceQuest
     {
         public string Name;
-        public IdentityData Source;
         public string Description;
         public string Location;
+        [SerializeReference] public IdentityData Source;
         public List<SentienceQuestStage> Stages;
 
         public static async Awaitable<SentienceQuest> Generate(SentienceQuestParser parser, string location, IdentityData source, List<IdentityData> data)
@@ -100,22 +99,31 @@ namespace Sentience
                 SentienceQuestStage stage = new SentienceQuestStage
                 {
                     Objective = parserStage.objective.Trim(),
+                    ItemInteraction = null,
+                    TargetInteraction = null,
                 };
 
                 // string itm = await SentienceManager.Instance.RagManager.GetMostSimilar(items, parserStage.target);
                 // itm = itm.Split('|')[0];
                 stage.targetString = parserStage.target.Trim();
-                Item it = identityItems.FirstOrDefault(x => x.Name.ToLower() == parserStage.target.Trim().ToLower());
-                if (it != null)
+                stage.actionString = parserStage.action.Trim();
+                Item itemTarget = identityItems.FirstOrDefault(x => x.Name.ToLower() == parserStage.target.Trim().ToLower());
+                if (itemTarget != null)
                 {
-                    stage.Item = it.Name;
-                    foreach (var target in data)
+                    foreach (var identityTarget in data)
                     {
-                        foreach (var item in target.Inventory.Items)
+                        foreach (var item in identityTarget.Inventory.Items)
                         {
-                            if (it == item)
+                            if (itemTarget == item)
                             {
-                                stage.Target = target;
+                                List<string> itemInteractions = new();
+                                foreach (var interaction in itemTarget.Type.Interactions) itemInteractions.Add($"{interaction.Name}|{interaction.Description}");
+                                string itemInteractionName = parserStage.action.Trim();
+                                itemInteractionName = await SentienceManager.Instance.RagManager.GetMostSimilar(itemInteractions, itemInteractionName);
+                                itemInteractionName = itemInteractionName.Split('|')[0];
+                                ItemInteraction itemInteraction = itemTarget.Type.Interactions.FirstOrDefault(x => x.Name == itemInteractionName);
+
+                                stage.ItemInteraction = new(itemTarget, identityTarget, itemInteraction);
                                 break;
                             }
                         }
@@ -125,19 +133,17 @@ namespace Sentience
                 {
                     string target = await SentienceManager.Instance.RagManager.GetMostSimilar(ids, parserStage.target.Trim());
                     target = target.Split('|')[0];
-                    stage.Target = data.FirstOrDefault(x => x.Name == target);
+                    IdentityData identityTarget = data.FirstOrDefault(x => x.Name == target);
+
+                    List<string> identityActions = new();
+                    foreach (var interaction in identityTarget.Type.Interactions) identityActions.Add($"{interaction.Name}|{interaction.Description}");
+                    string identityIntaractionName = parserStage.action.Trim();
+                    identityIntaractionName = await SentienceManager.Instance.RagManager.GetMostSimilar(identityActions, identityIntaractionName);
+                    identityIntaractionName = identityIntaractionName.Split('|')[0];
+                    IdentityInteraction identityInteraction = identityTarget.Type.Interactions.FirstOrDefault(x => x.Name == identityIntaractionName);
+
+                    stage.TargetInteraction = new(identityTarget, identityInteraction);
                 }
-
-                List<string> actions = new();
-                foreach (var action in stage.Target.Type.Interactions) actions.Add($"{action.Name}|{action.Description}");
-
-                stage.interactionString = parserStage.action.Trim();
-                string interactionName = parserStage.action.Trim();
-                if (!string.IsNullOrWhiteSpace(stage.Item)) interactionName = "Retrieve";
-
-                interactionName = await SentienceManager.Instance.RagManager.GetMostSimilar(actions, interactionName);
-                interactionName = interactionName.Split('|')[0];
-                stage.Interaction = stage.Target.Type.Interactions.FirstOrDefault(x => x.Name == interactionName);
 
                 quest.Stages.Add(stage);
             }

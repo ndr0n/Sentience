@@ -13,10 +13,10 @@ namespace Sentience
         public string Location = "";
         public string Description = "Description";
         public IdentityType Type;
-        public Faction Faction;
         public Identity Prefab;
-        public Inventory Inventory;
-        public Persona Persona;
+        public Faction Faction = null;
+        [SerializeReference] public Persona Persona = null;
+        [SerializeReference] public Inventory Inventory = null;
 
         [Header("Runtime")]
         public Identity Spawn;
@@ -31,8 +31,8 @@ namespace Sentience
                 Location = location,
                 Description = identityType.Description,
                 Prefab = identityType.Prefab[random.Next(identityType.Prefab.Count)],
+                SpawnPosition = position,
                 Inventory = new(),
-                SpawnPosition = position
             };
         }
 

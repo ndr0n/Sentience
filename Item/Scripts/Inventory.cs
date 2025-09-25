@@ -28,6 +28,13 @@ namespace Sentience
             Items.Add(item);
         }
 
+        public void Remove(Item item, int amount)
+        {
+            if (item.Amount > amount) item.Amount -= amount;
+            else if (item.Amount == amount) Items.Remove(item);
+            else Debug.Log($"Not enough {item.Amount}.");
+        }
+
         public void Remove(int slot, int amount)
         {
             if (Items[slot].Amount > amount) Items[slot].Amount -= amount;
