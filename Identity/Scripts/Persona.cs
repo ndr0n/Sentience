@@ -32,5 +32,20 @@ namespace Sentience
             id.Persona = persona;
             return persona;
         }
+
+        public void RefreshDesire(List<IdentityData> ids)
+        {
+            if (string.IsNullOrWhiteSpace(Desire))
+            {
+                List<Item> items = new();
+                foreach (var id in ids)
+                {
+                    if (id.Inventory == null) continue;
+                    items.AddRange(id.Inventory.Items);
+                }
+                Item desiredItem = items[Random.Range(0, items.Count)];
+                Desire = desiredItem.Name;
+            }
+        }
     }
 }

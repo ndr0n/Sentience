@@ -24,7 +24,7 @@ namespace Sentience
 
         public static IdentityData Create(IdentityType identityType, System.Random random, Vector3 position, string location)
         {
-            return new IdentityData()
+            IdentityData id = new IdentityData()
             {
                 Type = identityType,
                 Name = identityType.Name,
@@ -32,8 +32,9 @@ namespace Sentience
                 Description = identityType.Description,
                 Prefab = identityType.Prefab[random.Next(identityType.Prefab.Count)],
                 SpawnPosition = position,
-                Inventory = new(),
             };
+            if (identityType.HasInventory) id.Inventory = new();
+            return id;
         }
 
         public static Identity SpawnIdentity(IdentityData data, System.Random random, Transform parent)

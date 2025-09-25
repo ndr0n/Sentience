@@ -9,6 +9,7 @@ namespace Sentience
         public List<Identity> Prefab;
         public string Name = "Identity";
         public string Description = "";
+        public bool HasInventory = true;
         public List<IdentityInteraction> Interactions = new();
         public abstract void OnSpawnIdentity(Identity identity, System.Random random);
     }

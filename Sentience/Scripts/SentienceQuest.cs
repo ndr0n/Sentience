@@ -60,8 +60,7 @@ namespace Sentience
         public string Objective;
         public string targetString;
         public string actionString;
-        [SerializeReference] public ItemInteractionData ItemInteraction;
-        [SerializeReference] public IdentityInteractionData TargetInteraction;
+        public InteractionData InteractionData;
     }
 
     [System.Serializable]
@@ -99,8 +98,7 @@ namespace Sentience
                 SentienceQuestStage stage = new SentienceQuestStage
                 {
                     Objective = parserStage.objective.Trim(),
-                    ItemInteraction = null,
-                    TargetInteraction = null,
+                    InteractionData = null,
                 };
 
                 // string itm = await SentienceManager.Instance.RagManager.GetMostSimilar(items, parserStage.target);
@@ -122,8 +120,7 @@ namespace Sentience
                                 itemInteractionName = await SentienceManager.Instance.RagManager.GetMostSimilar(itemInteractions, itemInteractionName);
                                 itemInteractionName = itemInteractionName.Split('|')[0];
                                 ItemInteraction itemInteraction = itemTarget.Type.Interactions.FirstOrDefault(x => x.Name == itemInteractionName);
-
-                                stage.ItemInteraction = new(itemTarget, identityTarget, itemInteraction);
+                                stage.InteractionData = new(itemTarget, itemInteraction, identityTarget, null);
                                 break;
                             }
                         }
@@ -141,8 +138,7 @@ namespace Sentience
                     identityIntaractionName = await SentienceManager.Instance.RagManager.GetMostSimilar(identityActions, identityIntaractionName);
                     identityIntaractionName = identityIntaractionName.Split('|')[0];
                     IdentityInteraction identityInteraction = identityTarget.Type.Interactions.FirstOrDefault(x => x.Name == identityIntaractionName);
-
-                    stage.TargetInteraction = new(identityTarget, identityInteraction);
+                    stage.InteractionData = new(null, null, identityTarget, identityInteraction);
                 }
 
                 quest.Stages.Add(stage);

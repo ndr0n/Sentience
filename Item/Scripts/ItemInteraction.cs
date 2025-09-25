@@ -2,21 +2,6 @@ using UnityEngine;
 
 namespace Sentience
 {
-    [System.Serializable]
-    public class ItemInteractionData
-    {
-        [SerializeReference] public Item Item;
-        [SerializeReference] public IdentityData Target;
-        [SerializeReference] public ItemInteraction Interaction;
-
-        public ItemInteractionData(Item item, IdentityData target, ItemInteraction interaction)
-        {
-            Item = item;
-            Target = target;
-            Interaction = interaction;
-        }
-    }
-
     public abstract class ItemInteraction : ScriptableObject
     {
         public string Name = "Item Interaction";
