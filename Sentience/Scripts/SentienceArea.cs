@@ -12,36 +12,43 @@ namespace Sentience
     [CreateAssetMenu(fileName = "SentienceArea", menuName = "Sentience/SentienceArea")]
     public class SentienceArea : ScriptableObject
     {
-        public string Area = "Sigil, the city of doors.";
-        public List<SentienceLocation> LocationData = new();
-        public List<SentienceQuest> Quests = new();
+        public Area Area;
 
-        public static SentienceArea Create(string area)
+        public static SentienceArea Create(string areaName, string areaDescription)
         {
             SentienceArea sentienceArea = CreateInstance<SentienceArea>();
-            sentienceArea.Area = area;
-            sentienceArea.name = area;
-            sentienceArea.LocationData = new();
+            sentienceArea.Area = new(areaName, areaDescription);
             return sentienceArea;
         }
 
-        public async Awaitable<SentienceLocation> GenerateAreaLocation(Vector3 size, Vector3 position, string description, List<IdentityData> objects)
+        public static async Awaitable GenerateSentienceAreaLocations(Area area, List<SentienceLocationDetails> locationDetails)
         {
-            SentienceLocation location = await GenerateLocationData(size, position, description, objects);
-            if (location == null) location = await GenerateAreaLocation(size, position, description, objects);
+            foreach (var detail in locationDetails)
+            {
+                if (area.Location.FirstOrDefault(x => (x.Size == detail.Size) && (x.Position == detail.Position)) == null)
+                {
+                    Location location = await GenerateAreaLocation(area, detail.Size, detail.Position, detail.Description, detail.LocationObjects);
+                }
+            }
+        }
+
+        public static async Awaitable<Location> GenerateAreaLocation(Area area, Vector3 size, Vector3 position, string description, List<IdentityData> objects)
+        {
+            Location location = await GenerateLocationData(area, size, position, description, objects);
+            if (location == null) location = await GenerateAreaLocation(area, size, position, description, objects);
             location.Size = size;
             location.Position = position;
             return location;
         }
 
-        public async Awaitable<SentienceLocation> GenerateLocationData(Vector3 size, Vector3 position, string details, List<IdentityData> objects)
+        public static async Awaitable<Location> GenerateLocationData(Area area, Vector3 size, Vector3 position, string details, List<IdentityData> objects)
         {
             string exeption = "";
-            if (LocationData.Count > 0)
+            if (area.Location.Count > 0)
             {
                 exeption += "We already have some locations. You must generate different locations.\n" +
                             "The locations we already have are:\n";
-                foreach (var loc in LocationData)
+                foreach (var loc in area.Location)
                 {
                     exeption += $"Location: {loc.Name} | Characters: ";
                     foreach (var sentient in loc.Characters) exeption += $"{sentient.Name}, ";
@@ -52,25 +59,25 @@ namespace Sentience
             string msg = $"{exeption}\n";
             if (!string.IsNullOrWhiteSpace(details)) msg += $"{details}\n";
             msg += $"The size of the generated location is {size.x} meters by {size.y} meters.";
-            msg += $"Area: {Area}";
+            msg += $"Area: {area}";
 
             // int characterAmount = Mathf.CeilToInt(((size.x / 4f) * (size.y / 4f)) / 4f);
 
-            Debug.Log($"Generating area data for: {Area}");
-            SentienceLocation location = await SentienceLocation.GenerateLocationFromArea(size, position, msg, objects);
-            LocationData.Add(location);
+            Debug.Log($"Generating area data for: {area}");
+            Location location = await SentienceLocation.GenerateLocationFromArea(size, position, msg, objects);
+            area.Location.Add(location);
             return location;
         }
 
-        public async Awaitable<SentienceQuest> GenerateAreaQuest(string details)
+        public static async Awaitable<SentienceQuest> GenerateAreaQuest(Area area, string details)
         {
             try
             {
                 List<IdentityData> data = new();
-                string msg = $"The Area of the quest is: {Area}\n";
+                string msg = $"The Area of the quest is: {area}\n";
                 msg += "The existing locations in this area are:\n";
                 IdentityData source = null;
-                foreach (var location in LocationData)
+                foreach (var location in area.Location)
                 {
                     msg += $"Location: {location.Name} - {location.Description}\n";
 
@@ -109,10 +116,10 @@ namespace Sentience
                 }
                 msg += details;
 
-                Debug.Log($"Generating quest data for: {Area}");
+                Debug.Log($"Generating quest data for: {area}");
                 SentienceQuestParser parser = await DungeonMaster.Instance.GenerateSentienceQuest(msg);
-                SentienceQuest quest = await SentienceQuest.Generate(parser, Area, source, data);
-                Quests.Add(quest);
+                SentienceQuest quest = await SentienceQuest.Generate(parser, area.Name, source, data);
+                area.Quests.Add(quest);
                 return quest;
             }
             catch (Exception e)
@@ -122,11 +129,11 @@ namespace Sentience
             return new();
         }
 
-        public async Awaitable<SentienceQuest> GenerateRandomLocationQuest(string details)
+        public static async Awaitable<SentienceQuest> GenerateRandomLocationQuest(Area area, string details)
         {
             try
             {
-                foreach (var location in LocationData.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
+                foreach (var location in area.Location.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
                 {
                     string msg = $"The location of the quest is: {location.Name} - {location.Description}\n";
                     msg += $"Location Faction: {location.Faction.Name} - {location.Faction.Description}\n";
@@ -166,7 +173,7 @@ namespace Sentience
                     Debug.Log($"Generating quest data for: {location.Name}");
                     SentienceQuestParser parser = await DungeonMaster.Instance.GenerateSentienceQuest(msg);
                     SentienceQuest quest = await SentienceQuest.Generate(parser, location.Name, source, data);
-                    Quests.Add(quest);
+                    area.Quests.Add(quest);
                     return quest;
                 }
             }
@@ -176,12 +183,36 @@ namespace Sentience
             }
             return null;
         }
+
+        SentienceArea CreateNewSentienceArea(string worldName, string areaDescription, Vector2Int worldPosition)
+        {
+            SentienceArea sentienceArea = Create(worldName, areaDescription);
+            sentienceArea.name = worldName;
+            SerializeSentienceArea(sentienceArea, worldName, worldPosition);
+            return sentienceArea;
+        }
+
+        SentienceArea CreateSentienceAreaFromTemplate(SentienceArea template, string worldName, Vector2Int worldPosition)
+        {
+            SentienceArea sentienceArea = Instantiate(template);
+            sentienceArea.name = worldName;
+            SerializeSentienceArea(sentienceArea, worldName, worldPosition);
+            return sentienceArea;
+        }
+
+        public void SerializeSentienceArea(SentienceArea sentienceArea, string worldName, Vector2Int worldPosition)
+        {
+#if UNITY_EDITOR
+            string path = AssetDatabase.GenerateUniqueAssetPath($"Assets/Modules/World/Data/Worlds/{worldName}/{worldName}_SA_x{worldPosition.x}y{worldPosition.y}.asset");
+            AssetDatabase.CreateAsset(sentienceArea, path);
+            AssetDatabase.SaveAssets();
+#endif
+        }
     }
 #if UNITY_EDITOR
     [CustomEditor(typeof(SentienceArea))]
-    public class SentienceAreaData_Editor : Editor
+    public class SentienceArea_Editor : Editor
     {
-        [FormerlySerializedAs("SentienceAreaData")]
         public SentienceArea SentienceArea;
 
         void OnEnable()
@@ -195,15 +226,15 @@ namespace Sentience
             DrawDefaultInspector();
             if (GUILayout.Button("Generate Area Location"))
             {
-                SentienceArea.GenerateLocationData(new Vector3(5, 5, 0), Vector3.zero, "", null);
+                SentienceArea.GenerateLocationData(SentienceArea.Area, new Vector3(5, 5, 0), Vector3.zero, "", null);
             }
             if (GUILayout.Button("Generate Area Quest"))
             {
-                SentienceArea.GenerateAreaQuest("");
+                SentienceArea.GenerateAreaQuest(SentienceArea.Area, "");
             }
             if (GUILayout.Button("Generate Random Location Quest"))
             {
-                SentienceArea.GenerateRandomLocationQuest("");
+                SentienceArea.GenerateRandomLocationQuest(SentienceArea.Area, "");
             }
         }
     }

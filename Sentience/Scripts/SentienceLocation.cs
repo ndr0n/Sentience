@@ -46,20 +46,12 @@ namespace Sentience
     }
 
     [System.Serializable]
-    public class SentienceLocation
+    public static class SentienceLocation
     {
-        public string Name = "";
-        public string Description = "";
-        public Faction Faction;
-        public Vector3 Size = Vector3.one;
-        public Vector3 Position = Vector3.zero;
-        public List<IdentityData> Objects = new();
-        public List<IdentityData> Characters = new();
-
-        public static async Awaitable<SentienceLocation> Generate(SentienceLocationParser parser, Vector3 size, Vector3 position, List<IdentityData> objects)
+        public static async Awaitable<Location> Generate(SentienceLocationParser parser, Vector3 size, Vector3 position, List<IdentityData> objects)
         {
             System.Random random = new(Random.Range(int.MinValue, int.MaxValue));
-            SentienceLocation location = new()
+            Location location = new()
             {
                 Name = parser.name,
                 Description = parser.description,
@@ -111,7 +103,7 @@ namespace Sentience
             return location;
         }
 
-        public static async Awaitable<SentienceLocation> GenerateLocationFromArea(Vector3 size, Vector3 position, string area, List<IdentityData> objects)
+        public static async Awaitable<Location> GenerateLocationFromArea(Vector3 size, Vector3 position, string area, List<IdentityData> objects)
         {
             string answer;
             string rules = "I will tell you the area and description of a location and you must respond with a location that exists within this area.\n" +
@@ -137,7 +129,7 @@ namespace Sentience
             try
             {
                 SentienceLocationParser parser = JsonConvert.DeserializeObject<SentienceLocationParser>(answer);
-                SentienceLocation loc = await Generate(parser, size, position, objects);
+                Location loc = await Generate(parser, size, position, objects);
                 return loc;
             }
             catch (Exception e)
