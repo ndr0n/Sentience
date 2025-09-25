@@ -28,13 +28,16 @@ namespace Sentience
 
         public SentienceCharacter(SentienceCharacterParser parser, string location, Faction faction)
         {
-            Name = parser.name;
-            Species = parser.species;
-            Description = parser.description;
+            Name = parser.name.Trim();
+            Species = parser.species.Trim();
+            Description = parser.description.Trim();
             Location = location;
             Faction = faction;
             Inventory = new();
-            foreach (var item in parser.inventory) Inventory.Add(item.TrimStart(' ').TrimEnd(' '));
+            if (parser.inventory != null)
+            {
+                foreach (var item in parser.inventory) Inventory.Add(item.Trim());
+            }
         }
 
         public static async Awaitable<SentienceCharacter> GenerateSentienceCharacter(string description, string location, Faction faction)
