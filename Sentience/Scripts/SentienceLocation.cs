@@ -70,14 +70,16 @@ namespace Sentience
                 similar = similar.Split('|')[0];
                 IdentityType it = location.Faction.FactionIdentity.FirstOrDefault(x => x.name == similar);
 
-                Vector3 spawnPosition = new Vector3(random.Next(Mathf.FloorToInt(location.Position.x), Mathf.FloorToInt(location.Position.x + location.Size.x)), random.Next(Mathf.FloorToInt(location.Position.y), Mathf.FloorToInt(location.Position.y + location.Size.y)));
+                Vector3 spawnPosition = new Vector3(
+                    random.Next(Mathf.FloorToInt(location.Position.x), Mathf.FloorToInt(location.Position.x + location.Size.x)),
+                    random.Next(Mathf.FloorToInt(location.Position.y), Mathf.FloorToInt(location.Position.y + location.Size.y)),
+                    random.Next(Mathf.FloorToInt(location.Position.z), Mathf.FloorToInt(location.Position.z + location.Size.z))
+                );
+
                 IdentityData id = IdentityData.Create(it, random, spawnPosition, location.Name);
                 Persona persona = await Persona.Generate(id, new(character, location.Name, location.Faction));
                 location.Characters.Add(id);
             }
-
-            List<string> itemOptions = new();
-            foreach (var type in SentienceManager.Instance.ItemData.Items) itemOptions.Add($"{type.name}|{type.Description}");
 
             location.Objects = new();
             if (objects != null)

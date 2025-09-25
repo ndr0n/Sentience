@@ -58,7 +58,7 @@ namespace Sentience
             }
             string msg = $"{exeption}\n";
             if (!string.IsNullOrWhiteSpace(details)) msg += $"{details}\n";
-            msg += $"The size of the generated location is {size.x} meters by {size.y} meters.";
+            msg += $"The size of the generated location is {size.x} meters by {size.z} meters.";
             msg += $"Area: {area}";
 
             // int characterAmount = Mathf.CeilToInt(((size.x / 4f) * (size.y / 4f)) / 4f);
