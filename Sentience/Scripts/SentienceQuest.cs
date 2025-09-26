@@ -5,39 +5,6 @@ using UnityEngine.Serialization;
 
 namespace Sentience
 {
-    public enum SentienceQuestAction
-    {
-        Speak,
-        // Chat,
-        // Talk,
-        // Approach,
-
-        // Investigate,
-        // Explore,
-        Search,
-
-        Retrieve,
-        // Gather,
-        // Pickup,
-        // Scavenge,
-
-        Deliver,
-        // Give,
-
-        Bribe,
-        // Pay,
-
-        Hack,
-
-        Steal,
-        // Appropriate,
-        // Recover,
-
-        // Attack,
-        // Murder,
-        Kill,
-    }
-
     [System.Serializable]
     public struct SentienceQuestParser
     {

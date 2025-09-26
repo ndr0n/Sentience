@@ -81,7 +81,7 @@ namespace Sentience
 
         public async Awaitable<SentienceQuestParser> GenerateSentienceQuest(string details)
         {
-            string rules = "I will tell you the characters and items that we have in an area and you must generate a quest for the player to interact with these elements.\n" +
+            string rules = "I will tell you the entities that we have in an area and you must generate an engaging quest for the player to interact using these entities.\n" +
                            "You must only answer in the following JSON format:\n" +
                            "{\n" +
                            "\"name\": \"<the name of the quest>\",\n" +

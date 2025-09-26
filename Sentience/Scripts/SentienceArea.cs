@@ -147,7 +147,7 @@ namespace Sentience
                         msg += $"Location Objects:\n";
                         foreach (var obj in location.Objects)
                         {
-                            msg += $"{obj}";
+                            msg += $"{obj.Name}";
                             data.Add(obj);
                         }
 
