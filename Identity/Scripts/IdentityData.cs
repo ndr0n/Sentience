@@ -14,7 +14,7 @@ namespace Sentience
         public string Description = "Description";
         public IdentityType Type;
         public Identity Prefab;
-        public Faction Faction = null;
+        public Faction Faction;
         [SerializeReference] public Persona Persona = null;
         [SerializeReference] public Inventory Inventory = null;
 

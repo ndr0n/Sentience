@@ -4,15 +4,24 @@ using UnityEngine;
 namespace Sentience
 {
     [System.Serializable]
-    public class PlayerData
+    public class PlayerData : IdentityData
     {
-        [SerializeReference] public IdentityData Data;
-        [SerializeReference] public Journal Journal;
+        public Journal Journal = new();
 
-        public PlayerData(IdentityData data, Journal journal)
+        public static PlayerData Create(IdentityType identityType, System.Random random, Vector3 position, string location, Journal journal)
         {
-            Data = data;
-            Journal = journal;
+            PlayerData pd = new PlayerData()
+            {
+                Type = identityType,
+                Name = identityType.Name,
+                Location = location,
+                Description = identityType.Description,
+                Prefab = identityType.Prefab[random.Next(identityType.Prefab.Count)],
+                SpawnPosition = position,
+                Journal = journal
+            };
+            if (identityType.HasInventory) pd.Inventory = new();
+            return pd;
         }
     }
 }

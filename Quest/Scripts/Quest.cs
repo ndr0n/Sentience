@@ -1,7 +1,7 @@
 namespace Sentience
 {
     [System.Serializable]
-    public struct Quest
+    public class Quest
     {
         public PlayerData Player;
         public SentienceQuest QuestData;
