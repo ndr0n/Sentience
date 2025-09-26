@@ -1,23 +1,17 @@
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using NUnit.Framework;
-using UnityEngine;
-
 namespace Sentience
 {
     [System.Serializable]
-    [CreateAssetMenu(fileName = "Quest", menuName = "Sentience/Quest")]
-    public class Quest : ScriptableObject
+    public struct Quest
     {
-        public string Name = "";
-        public string Description = "";
+        public PlayerData Player;
+        public SentienceQuest QuestData;
+        public int Stage;
 
-        public static Quest Generate(SentienceQuest sentienceQuest)
+        public Quest(PlayerData player, SentienceQuest questData, int stage)
         {
-            Quest quest = CreateInstance<Quest>();
-            quest.Name = sentienceQuest.Name;
-            quest.Description = sentienceQuest.Description;
-            return quest;
+            Player = player;
+            QuestData = questData;
+            Stage = stage;
         }
     }
 }
