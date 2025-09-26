@@ -59,11 +59,11 @@ namespace Sentience
             string msg = $"{exeption}\n";
             if (!string.IsNullOrWhiteSpace(details)) msg += $"{details}\n";
             msg += $"The size of the generated location is {size.x} meters by {size.z} meters.";
-            msg += $"Area: {area}";
+            msg += $"Area: {area.Name}";
 
             // int characterAmount = Mathf.CeilToInt(((size.x / 4f) * (size.y / 4f)) / 4f);
 
-            Debug.Log($"Generating area data for: {area}");
+            Debug.Log($"Generating area data for: {area.Name}");
             Location location = await SentienceLocation.GenerateLocationFromArea(size, position, msg, objects);
             area.Location.Add(location);
             return location;
