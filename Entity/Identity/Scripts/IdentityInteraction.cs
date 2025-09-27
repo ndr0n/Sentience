@@ -8,7 +8,6 @@ namespace MindTheatre
     {
         protected override bool OnTryInteract(EntityData self, EntityData interactor, EntityData target)
         {
-            if (!IsPossible(self)) return false;
             if (!HasInteraction(self, interactor, target)) return false;
             IdentityData data = self as IdentityData;
             return TryExecute(data, interactor, target);

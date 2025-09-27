@@ -6,10 +6,19 @@ namespace Sentience
     [CreateAssetMenu(fileName = "IA_Retrieve", menuName = "Sentience/Item/Interaction/Retrieve")]
     public class IA_Retrieve : ItemInteraction
     {
-        protected override bool OnHasInteraction(Item self, EntityData interactor)
+        protected override bool OnHasInteraction(Item self, EntityData interactor, EntityData target)
         {
-            if (interactor is not IdentityData data) return false;
-            if (data.Inventory == null) return false;
+            if (interactor == target) return false;
+            if (interactor is not IdentityData data)
+            {
+                Debug.Log($"{interactor.Name} is not ID!");
+                return false;
+            }
+            if (data.Inventory == null)
+            {
+                Debug.Log($"{interactor.Name} has no Inventory!");
+                return false;
+            }
             return true;
         }
 

@@ -8,7 +8,6 @@ namespace Sentience
 
         protected override bool OnTryInteract(EntityData self, EntityData interactor, EntityData target)
         {
-            if (!IsPossible(self)) return false;
             if (!HasInteraction(self, interactor, target)) return false;
             Item item = self as Item;
             return TryExecute(item, interactor, target);
@@ -17,10 +16,10 @@ namespace Sentience
         public override bool HasInteraction(EntityData self, EntityData interactor, EntityData target)
         {
             if (self is not Item item) return false;
-            return OnHasInteraction(item, interactor);
+            return OnHasInteraction(item, interactor, target);
         }
 
-        protected abstract bool OnHasInteraction(Item self, EntityData interactor);
+        protected abstract bool OnHasInteraction(Item self, EntityData interactor, EntityData target);
 
         protected abstract bool TryExecute(Item self, EntityData interactor, EntityData target);
     }

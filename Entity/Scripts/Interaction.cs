@@ -10,12 +10,7 @@ namespace Sentience
     {
         public string Name = "Interaction";
         public string Description = "";
-
-        public bool IsPossible(EntityData self)
-        {
-            return true;
-        }
-
+        
         public abstract bool HasInteraction(EntityData self, EntityData interactor, EntityData target);
 
         public bool TryInteract(EntityData self, EntityData interactor, EntityData target)
