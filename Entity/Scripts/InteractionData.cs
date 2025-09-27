@@ -7,10 +7,12 @@ namespace Sentience
     public class InteractionData
     {
         public Interaction Interaction;
+        public string Item;
         public string Target;
 
-        public InteractionData(string target, Interaction interaction)
+        public InteractionData(string item, string target, Interaction interaction)
         {
+            Item = item;
             Target = target;
             Interaction = interaction;
         }

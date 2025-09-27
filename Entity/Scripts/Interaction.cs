@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using MindTheatre;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -18,7 +19,7 @@ namespace Sentience
             if (!HasInteraction(self, interactor, target)) return false;
             if (OnTryInteract(self, interactor, target))
             {
-                CheckForQuestInteraction(self, interactor);
+                CheckForQuestInteraction(self, interactor, target);
                 return true;
             }
             return false;
@@ -26,20 +27,33 @@ namespace Sentience
 
         protected abstract bool OnTryInteract(EntityData self, EntityData interactor, EntityData target);
 
-        protected void CheckForQuestInteraction(EntityData self, EntityData interactor)
+        protected void CheckForQuestInteraction(EntityData self, EntityData interactor, EntityData target)
         {
             if (interactor is PlayerData pd)
             {
                 List<Quest> toRemove = new();
                 foreach (var q in pd.Journal.Quests)
                 {
-                    if (q.QuestData.Stages[q.Stage].InteractionData.Interaction == this)
+                    SentienceQuestStage stage = q.QuestData.Stages[q.Stage];
+                    if (stage.InteractionData.Interaction == this)
                     {
-                        // Is Quest Target
-                        if (q.QuestData.Stages[q.Stage].InteractionData.Target == self.Name)
+                        if (!string.IsNullOrWhiteSpace(stage.InteractionData.Item))
+                        {
+                            if (stage.InteractionData.Item == self.Name)
+                            {
+                                if (stage.InteractionData.Target == target.Name)
+                                {
+                                    q.Stage += 1;
+                                    if (q.Stage >= q.QuestData.Stages.Count) toRemove.Add(q);
+                                    Debug.Log($"Advanced Quest Stage!");
+                                }
+                            }
+                        }
+                        else if (stage.InteractionData.Target == self.Name)
                         {
                             q.Stage += 1;
                             if (q.Stage >= q.QuestData.Stages.Count) toRemove.Add(q);
+                            Debug.Log($"Advanced Quest Stage!");
                         }
                     }
                 }
