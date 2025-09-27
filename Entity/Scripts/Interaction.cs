@@ -10,7 +10,7 @@ namespace Sentience
     {
         public string Name = "Interaction";
         public string Description = "";
-        
+
         public abstract bool HasInteraction(EntityData self, EntityData interactor, EntityData target);
 
         public bool TryInteract(EntityData self, EntityData interactor, EntityData target)
@@ -33,14 +33,11 @@ namespace Sentience
                 List<Quest> toRemove = new();
                 foreach (var q in pd.Journal.Quests)
                 {
-                    if (q.QuestData.Stages[q.Stage].InteractionData.TargetInteraction == this)
+                    if (q.QuestData.Stages[q.Stage].InteractionData.Interaction == this)
                     {
-                        bool isQuestInteraction = false;
-                        if (q.QuestData.Stages[q.Stage].InteractionData.Target == self) isQuestInteraction = true;
-                        if (q.QuestData.Stages[q.Stage].InteractionData.Item == self) isQuestInteraction = true;
-                        if (isQuestInteraction)
+                        // Is Quest Target
+                        if (q.QuestData.Stages[q.Stage].InteractionData.Target == self.Name)
                         {
-                            Debug.Log($"INTERACTING WITH QUEST TARGET!");
                             q.Stage += 1;
                             if (q.Stage >= q.QuestData.Stages.Count) toRemove.Add(q);
                         }

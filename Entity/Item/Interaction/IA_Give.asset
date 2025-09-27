@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee70196e9986495395be00800bdf3c0a, type: 3}
-  m_Name: IA_Retrieve
-  m_EditorClassIdentifier: Assembly-CSharp::Sentience.IA_Retrieve
-  Name: retrieve
-  Description: retrieve an item.
+  m_Script: {fileID: 11500000, guid: 66ee4ae456794a6bb8e49c379f1e3baa, type: 3}
+  m_Name: IA_Give
+  m_EditorClassIdentifier: Assembly-CSharp::Sentience.IA_Give
+  Name: give
+  Description: gift an item.
   Range: {x: 0, y: 1}

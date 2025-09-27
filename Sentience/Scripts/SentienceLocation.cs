@@ -48,7 +48,7 @@ namespace Sentience
     [System.Serializable]
     public static class SentienceLocation
     {
-        public static async Awaitable<Location> Generate(SentienceLocationParser parser, Vector3 size, Vector3 position, List<IdentityData> objects)
+        public static async Awaitable<Location> Generate(SentienceLocationParser parser, Vector3 size, Vector3 position, List<IdentityData> locationObjects)
         {
             System.Random random = new(Random.Range(int.MinValue, int.MaxValue));
             Location location = new()
@@ -82,16 +82,16 @@ namespace Sentience
             }
 
             location.Objects = new();
-            if (objects != null)
+            if (locationObjects != null)
             {
-                foreach (var obj in objects)
+                foreach (var obj in locationObjects)
                 {
                     location.Objects.Add(obj);
                 }
 
                 foreach (var item in parser.items)
                 {
-                    foreach (var obj in objects.OrderBy(x => random.Next()))
+                    foreach (var obj in locationObjects.OrderBy(x => random.Next()))
                     {
                         if (obj.Inventory != null)
                         {
@@ -105,7 +105,7 @@ namespace Sentience
             return location;
         }
 
-        public static async Awaitable<Location> GenerateLocationFromArea(Vector3 size, Vector3 position, string area, List<IdentityData> objects)
+        public static async Awaitable<Location> GenerateLocationFromArea(Vector3 size, Vector3 position, string area, List<IdentityData> locationObjects)
         {
             string answer;
             string rules = "I will tell you the area and description of a location and you must respond with a location that exists within this area.\n" +
@@ -131,13 +131,13 @@ namespace Sentience
             try
             {
                 SentienceLocationParser parser = JsonConvert.DeserializeObject<SentienceLocationParser>(answer);
-                Location loc = await Generate(parser, size, position, objects);
+                Location loc = await Generate(parser, size, position, locationObjects);
                 return loc;
             }
             catch (Exception e)
             {
                 Debug.LogError(e);
-                return await GenerateLocationFromArea(size, position, area, objects);
+                return await GenerateLocationFromArea(size, position, area, locationObjects);
             }
         }
     }
