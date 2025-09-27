@@ -7,12 +7,9 @@ using Object = UnityEngine.Object;
 namespace Sentience
 {
     [System.Serializable]
-    public class IdentityData
+    public class IdentityData : EntityData
     {
-        public string Name = "Name";
         public string Location = "";
-        public string Description = "Description";
-        public IdentityType Type;
         public Identity Prefab;
         public Faction Faction;
         [SerializeReference] public Persona Persona = null;
@@ -21,6 +18,8 @@ namespace Sentience
         [Header("Runtime")]
         public Identity Spawn;
         public Vector3 SpawnPosition;
+
+        public IdentityType IdentityType => Type as IdentityType;
 
         public static IdentityData Create(IdentityType identityType, System.Random random, Vector3 position, string location)
         {
@@ -49,9 +48,16 @@ namespace Sentience
         {
             Spawn = identity;
             identity.Data = this;
-            identity.Type = Type;
             identity.name = Name;
+            identity.Type = IdentityType;
             identity.Type.OnSpawnIdentity(identity, random);
+        }
+
+        public virtual bool IsHostile(IdentityData id)
+        {
+            if (Faction == null) return false;
+            if (id.Faction == null) return false;
+            return Faction.IsHostile(id.Faction);
         }
     }
 }

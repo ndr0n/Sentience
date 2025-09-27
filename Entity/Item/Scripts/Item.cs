@@ -6,21 +6,19 @@ using UnityEngine;
 namespace Sentience
 {
     [System.Serializable]
-    public class Item
+    public class Item : EntityData
     {
-        public string Name;
-        public string Description;
         public int Amount;
-        public ItemType Type;
+        public ItemType ItemType => (ItemType) Type;
 
-        public Item(string name, string description, int amount, ItemType itemType)
+        public Item(string name, string description, int amount, ItemType itemType, IdentityData owner)
         {
             Name = name;
             Description = description;
             Amount = amount;
             Type = itemType;
         }
-        
+
         public string Print()
         {
             string print = "";

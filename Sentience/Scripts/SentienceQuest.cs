@@ -92,8 +92,8 @@ namespace Sentience
                                     string itemInteractionName = parserStage.action.Trim();
                                     itemInteractionName = await SentienceManager.Instance.RagManager.GetMostSimilar(itemInteractions, itemInteractionName);
                                     itemInteractionName = itemInteractionName.Split('|')[0];
-                                    ItemInteraction itemInteraction = itemTarget.Type.Interactions.FirstOrDefault(x => x.Name == itemInteractionName);
-                                    stage.InteractionData = new(itemTarget, itemInteraction, identityTarget, null);
+                                    Interaction itemInteraction = itemTarget.Type.Interactions.FirstOrDefault(x => x.Name == itemInteractionName);
+                                    stage.InteractionData = new(itemTarget, identityTarget, itemInteraction);
                                     foundItemTarget = true;
                                     break;
                                 }
@@ -109,12 +109,12 @@ namespace Sentience
                     IdentityData identityTarget = data.FirstOrDefault(x => x.Name == target);
 
                     List<string> identityActions = new();
-                    foreach (var interaction in identityTarget.Type.Interactions) identityActions.Add($"{interaction.Name}|{interaction.Description}");
+                    foreach (var inter in identityTarget.Type.Interactions) identityActions.Add($"{inter.Name}|{inter.Description}");
                     string identityIntaractionName = parserStage.action.Trim();
                     identityIntaractionName = await SentienceManager.Instance.RagManager.GetMostSimilar(identityActions, identityIntaractionName);
                     identityIntaractionName = identityIntaractionName.Split('|')[0];
-                    IdentityInteraction identityInteraction = identityTarget.Type.Interactions.FirstOrDefault(x => x.Name == identityIntaractionName);
-                    stage.InteractionData = new(null, null, identityTarget, identityInteraction);
+                    Interaction interaction = identityTarget.Type.Interactions.FirstOrDefault(x => x.Name == identityIntaractionName);
+                    stage.InteractionData = new(null, identityTarget, interaction);
                 }
 
                 quest.Stages.Add(stage);

@@ -27,7 +27,7 @@ namespace Sentience
             persona.Species = character.Species;
             foreach (var item in character.Inventory)
             {
-                id.Inventory.Add(new Item(item, $"Belongs to {character.Name}", 1, await SentienceManager.Instance.RagManager.GetMostSimilarItem(SentienceManager.Instance.ItemData, item)));
+                id.Inventory.Add(new Item(item, $"Belongs to {character.Name}", 1, await SentienceManager.Instance.RagManager.GetMostSimilarItem(SentienceManager.Instance.ItemDatabase, item), id));
             }
             id.Persona = persona;
             return persona;

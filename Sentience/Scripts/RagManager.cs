@@ -23,27 +23,27 @@ namespace Sentience
             else Destroy(gameObject);
         }
 
-        public void Init(ItemData itemData, FactionData factionData)
+        public void Init(ItemDatabase itemDatabase, FactionData factionData)
         {
             loadingRag = null;
             Rag.Clear();
             RagSingle.Clear();
-            loadingRag = CreateEmbeddings(itemData, factionData);
+            loadingRag = CreateEmbeddings(itemDatabase, factionData);
         }
 
-        public async Awaitable CreateEmbeddings(ItemData itemData, FactionData FactionData)
+        public async Awaitable CreateEmbeddings(ItemDatabase itemDatabase, FactionData FactionData)
         {
-            foreach (var item in itemData.Items) await Rag.Add($"{item.Name}|{item.GetType().ToString().Split(".")[^1]}", "Item");
+            foreach (var item in itemDatabase.Items) await Rag.Add($"{item.Name}|{item.GetType().ToString().Split(".")[^1]}", "Item");
             foreach (var faction in FactionData.Faction) await Rag.Add($"{faction.Name}|{faction.Description}", "Faction");
             loadingRag = null;
         }
 
-        public async Awaitable<ItemType> GetMostSimilarItem(ItemData itemData, string itemDescription)
+        public async Awaitable<ItemType> GetMostSimilarItem(ItemDatabase itemDatabase, string itemDescription)
         {
             if (loadingRag != null) await loadingRag;
             (string[] similar, float[] distances) = await Rag.Search(itemDescription, 1, "Item");
             string itemName = similar[0].Split("|")[0];
-            return itemData.GetItem(itemName);
+            return itemDatabase.GetItem(itemName);
         }
 
         public async Awaitable<Faction> GetMostSimilarFaction(FactionData factionData, string factionDescription)

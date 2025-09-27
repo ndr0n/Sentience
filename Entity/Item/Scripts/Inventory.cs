@@ -17,7 +17,7 @@ namespace Sentience
             {
                 if (existingItem.Name == item.Name)
                 {
-                    if (existingItem.Amount + item.Amount <= item.Type.Stack)
+                    if (existingItem.Amount + item.Amount <= item.ItemType.Stack)
                     {
                         existingItem.Amount += item.Amount;
                         return;

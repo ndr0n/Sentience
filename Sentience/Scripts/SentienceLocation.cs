@@ -95,7 +95,7 @@ namespace Sentience
                     {
                         if (obj.Inventory != null)
                         {
-                            obj.Inventory.Add(new(item, $"Found in {location.Name}.", 1, await ItemType.GetType(SentienceManager.Instance.ItemData, item)));
+                            obj.Inventory.Add(new(item, $"Found in {location.Name}.", 1, await ItemType.GetType(SentienceManager.Instance.ItemDatabase, item), obj));
                             break;
                         }
                     }

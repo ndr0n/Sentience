@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Sentience
 {
@@ -6,14 +7,12 @@ namespace Sentience
     public class InteractionData
     {
         [SerializeReference] public Item Item;
-        public ItemInteraction ItemInteraction;
         [SerializeReference] public IdentityData Target;
-        public IdentityInteraction TargetInteraction;
+        public Interaction TargetInteraction;
 
-        public InteractionData(Item item, ItemInteraction itemInteraction, IdentityData target, IdentityInteraction targetInteraction)
+        public InteractionData(Item item, IdentityData target, Interaction targetInteraction)
         {
             Item = item;
-            ItemInteraction = itemInteraction;
             Target = target;
             TargetInteraction = targetInteraction;
         }
