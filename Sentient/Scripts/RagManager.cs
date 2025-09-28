@@ -23,18 +23,19 @@ namespace Sentience
             else Destroy(gameObject);
         }
 
-        public void Init(ItemDatabase itemDatabase, FactionData factionData)
+        public void Init(ItemDatabase itemDatabase, FactionDatabase factionDatabase, SpeciesDatabase speciesDatabase)
         {
             loadingRag = null;
             Rag.Clear();
             RagSingle.Clear();
-            loadingRag = CreateEmbeddings(itemDatabase, factionData);
+            loadingRag = CreateEmbeddings(itemDatabase, factionDatabase, speciesDatabase);
         }
 
-        public async Awaitable CreateEmbeddings(ItemDatabase itemDatabase, FactionData FactionData)
+        public async Awaitable CreateEmbeddings(ItemDatabase itemDatabase, FactionDatabase factionDatabase, SpeciesDatabase speciesDatabase)
         {
             foreach (var item in itemDatabase.Items) await Rag.Add($"{item.Name}|{item.GetType().ToString().Split(".")[^1]}", "Item");
-            foreach (var faction in FactionData.Faction) await Rag.Add($"{faction.Name}|{faction.Description}", "Faction");
+            foreach (var faction in factionDatabase.Faction) await Rag.Add($"{faction.Name}|{faction.Description}", "Faction");
+            foreach (var species in speciesDatabase.Species) await Rag.Add($"{species.Name}|{species.Description}", "Species");
             loadingRag = null;
         }
 
@@ -46,12 +47,20 @@ namespace Sentience
             return itemDatabase.GetItem(itemName);
         }
 
-        public async Awaitable<Faction> GetMostSimilarFaction(FactionData factionData, string factionDescription)
+        public async Awaitable<Faction> GetMostSimilarFaction(FactionDatabase factionDatabase, string factionDescription)
         {
             if (loadingRag != null) await loadingRag;
             (string[] similar, float[] distances) = await Rag.Search(factionDescription, 1, "Faction");
             string factionName = similar[0].Split("|")[0];
-            return factionData.GetFaction(factionName);
+            return factionDatabase.GetFaction(factionName);
+        }
+
+        public async Awaitable<Faction> GetMostSimilarSpecies(FactionDatabase factionDatabase, string factionDescription)
+        {
+            if (loadingRag != null) await loadingRag;
+            (string[] similar, float[] distances) = await Rag.Search(factionDescription, 1, "Faction");
+            string factionName = similar[0].Split("|")[0];
+            return factionDatabase.GetFaction(factionName);
         }
 
         public async Awaitable<string> GetMostSimilar(List<string> options, string description)

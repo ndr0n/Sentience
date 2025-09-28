@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b2ffabba99f4ec6a291377ed1c52e54, type: 3}
+  m_Name: SpeciesDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::Sentience.SpeciesDatabase
+  Species:
+  - {fileID: 11400000, guid: ab923cdd6cc36d26a81c7153b833ea16, type: 2}
+  - {fileID: 11400000, guid: 4b10973730af70a0f9cff80882cca031, type: 2}
+  - {fileID: 11400000, guid: 2d20e5bb7fd4f010a8f2c324f1ec701e, type: 2}
+  - {fileID: 11400000, guid: 00a718235639aa96a9cdf280f67f5242, type: 2}
+  - {fileID: 11400000, guid: 7535f9f24cd7eeedb936b030d32934e4, type: 2}
+  - {fileID: 11400000, guid: 07ce51dbb4ce614d99f86e9500cbbd5f, type: 2}

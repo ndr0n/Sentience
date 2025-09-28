@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dea68a3f0e667db29dae54eb9a283d0, type: 3}
+  m_Name: FactionDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::Sentience.FactionData
+  Faction:
+  - {fileID: 11400000, guid: 54981cf49f62f50e59dfda7f50bde108, type: 2}
+  - {fileID: 11400000, guid: ce631caef28c9ea1985a342f67cef907, type: 2}
+  - {fileID: 11400000, guid: b038c32efcc6750c3aab5261f8f2d6aa, type: 2}
+  - {fileID: 11400000, guid: 5558f88e8e54ac9c59a0b662f900175d, type: 2}
+  - {fileID: 11400000, guid: fdf4e043574c04b4597f40cb1d1728e9, type: 2}
+  - {fileID: 11400000, guid: 83f9ee2279ba93f499843c635f74cfe5, type: 2}
+  - {fileID: 11400000, guid: bd75fdb39f54a7f6991239a574bfb7c2, type: 2}
+  - {fileID: 11400000, guid: 4b498cbb0a336ffce9481fb396d654d8, type: 2}
+  - {fileID: 11400000, guid: 0f70036e344168d9d89532a97c47384f, type: 2}
+  - {fileID: 11400000, guid: e221513628451eb74a4017d0d22b148a, type: 2}

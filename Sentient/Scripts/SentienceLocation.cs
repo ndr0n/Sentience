@@ -55,7 +55,7 @@ namespace Sentience
             {
                 Name = parser.name,
                 Description = parser.description,
-                Faction = await SentienceManager.Instance.RagManager.GetMostSimilarFaction(SentienceManager.Instance.FactionData, parser.faction),
+                Faction = await SentienceManager.Instance.RagManager.GetMostSimilarFaction(SentienceManager.Instance.FactionDatabase, parser.faction),
                 Size = size,
                 Position = position,
             };

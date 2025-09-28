@@ -19,9 +19,9 @@ namespace Sentience
         public List<EntityType> FactionEntity = new();
         public List<FactionRelationship> FactionRelationship = new();
 
-        public virtual void GenerateFactionRelationships(FactionData factionData)
+        public virtual void GenerateFactionRelationships(FactionDatabase factionDatabase)
         {
-            foreach (var faction in factionData.Faction)
+            foreach (var faction in factionDatabase.Faction)
             {
                 if (FactionRelationship.All(x => x.Faction != faction))
                 {
