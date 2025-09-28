@@ -40,7 +40,7 @@ namespace Sentience
                 itemName = item.Data.Name;
                 foreach (var entity in entities)
                 {
-                    ID data = entity.Get<ID>();
+                    Identity data = entity.Get<Identity>();
                     if (data != null)
                     {
                         Inventory inv = entity.Get<Inventory>();

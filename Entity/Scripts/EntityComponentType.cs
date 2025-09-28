@@ -1,40 +1,50 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Sentience
 {
-    public enum ComponentType
-    {
-        Item,
-        Body,
-        Inventory,
-        ID,
-        Persona,
-        Attributes,
-        Journal,
-    }
-
     [System.Serializable]
     public class EntityComponentType
     {
-        [HideInInspector] public string Name;
-        public ComponentType Type;
-        [SerializeReference] public EntityComponent Component;
-
-        public EntityComponent SpawnComponent(ComponentType componentType)
+        public enum ComponentType
         {
-            EntityComponent entityComponent = componentType switch
+            Item,
+            Body,
+            Inventory,
+            Identity,
+            Persona,
+            Attributes,
+            Journal,
+            Avatar,
+        }
+
+        [HideInInspector] public string Name;
+        public ComponentType Component;
+        [SerializeReference] public EntityComponentAuthoring Authoring;
+
+        public IEnumerable<Type> FindDerivedTypes(Assembly assembly, Type baseType)
+        {
+            return assembly.GetTypes().Where(t => t != baseType && baseType.IsAssignableFrom(t));
+        }
+
+        public EntityComponentAuthoring SpawnAuthoringComponent(ComponentType componentType)
+        {
+            EntityComponentAuthoring component = null;
+            Type baseType = typeof(EntityComponentAuthoring);
+            List<Type> authoringTypes = FindDerivedTypes(baseType.Assembly, baseType).ToList();
+            foreach (var authoringType in authoringTypes)
             {
-                ComponentType.Body => new Body(),
-                ComponentType.Item => new Item(),
-                ComponentType.Inventory => new Inventory(),
-                ComponentType.ID => new ID(),
-                ComponentType.Persona => new Persona(),
-                ComponentType.Attributes => new Attributes(),
-                ComponentType.Journal => new Journal(),
-                _ => throw new ArgumentOutOfRangeException()
-            };
-            return entityComponent;
+                if (authoringType.Name.Replace("Authoring", "") == Component.ToString())
+                {
+                    component = Activator.CreateInstance(authoringType) as EntityComponentAuthoring;
+                    break;
+                }
+            }
+            return component;
         }
     }
 }

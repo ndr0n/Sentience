@@ -1,9 +1,9 @@
-using UnityEngine;
+using Unity.Entities;
 
 namespace Sentience
 {
     [System.Serializable]
-    public abstract class EntityComponent
+    public class EntityComponent : IEntityComponent
     {
         protected EntityData _data;
         public EntityData Data => _data;
@@ -11,9 +11,6 @@ namespace Sentience
         public void Init(EntityData data, System.Random random)
         {
             _data = data;
-            OnInit(data, random);
         }
-
-        public abstract void OnInit(EntityData data, System.Random random);
     }
 }

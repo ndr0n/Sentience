@@ -12,23 +12,27 @@ using Random = UnityEngine.Random;
 namespace Sentience
 {
     [System.Serializable]
-    public class Persona : EntityComponent
+    public class Persona : IEntityComponent
     {
+        EntityData _data;
+        public EntityData Data => _data;
+
+        public void Init(EntityData data, System.Random random)
+        {
+            _data = data;
+        }
+
         public string Species = "";
         public string Desire = "";
 
-        public override void OnInit(EntityData data, System.Random random)
-        {
-        }
-        
-        public ID ID => Data.Get<ID>();
-        
+        public Identity Identity => Data.Get<Identity>();
+
         public async Awaitable Init(SentienceCharacter character)
         {
             Data.Name = character.Name;
-            ID.Location = character.Location;
+            Identity.Location = character.Location;
             Data.Description = character.Description;
-            ID.Faction = character.Faction;
+            Identity.Faction = character.Faction;
             Species = character.Species;
             Inventory inventory = Data.Get<Inventory>();
             if (inventory != null)
@@ -56,6 +60,21 @@ namespace Sentience
                 Item desiredItem = items[Random.Range(0, items.Count)];
                 Desire = desiredItem.Data.Name;
             }
+        }
+    }
+
+    [System.Serializable]
+    public class PersonaAuthoring : EntityComponentAuthoring
+    {
+        public string Species = "";
+        public string Desire = "";
+
+        public override IEntityComponent Spawn(System.Random random)
+        {
+            Persona persona = new();
+            persona.Species = Species;
+            persona.Desire = Desire;
+            return persona;
         }
     }
 }

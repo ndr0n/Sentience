@@ -38,7 +38,7 @@ namespace Sentience
             loadingRag = null;
         }
 
-        public async Awaitable<ItemType> GetMostSimilarItem(ItemDatabase itemDatabase, string itemDescription)
+        public async Awaitable<EntityType> GetMostSimilarItem(ItemDatabase itemDatabase, string itemDescription)
         {
             if (loadingRag != null) await loadingRag;
             (string[] similar, float[] distances) = await Rag.Search(itemDescription, 1, "Item");

@@ -4,15 +4,15 @@ namespace Sentience
 {
     public static class ItemLibrary
     {
-        public static ItemType GenerateItem(string name, ItemType similarItemType)
+        public static EntityType GenerateItem(string name, EntityType similarItemType)
         {
-            ItemType i = UnityEngine.Object.Instantiate(similarItemType);
+            EntityType i = UnityEngine.Object.Instantiate(similarItemType);
             i.name = name;
             i.Name = name;
             return i;
         }
 
-        public static string SerializeItem(ItemType itemType)
+        public static string SerializeItem(EntityType itemType)
         {
             string type = $"{itemType.GetType()}|";
             string serialized = type;
@@ -20,13 +20,13 @@ namespace Sentience
             return serialized;
         }
 
-        public static ItemType Deserialize(string serializedItem)
+        public static EntityType Deserialize(string serializedItem)
         {
             string type = serializedItem.Split('|')[0];
 
-            if (type == typeof(ItemType).ToString())
+            if (type == typeof(EntityType).ToString())
             {
-                ItemType itemType = JsonConvert.DeserializeObject<ItemType>(serializedItem.Split('|')[1]);
+                EntityType itemType = JsonConvert.DeserializeObject<EntityType>(serializedItem.Split('|')[1]);
                 return itemType;
             }
             // if (type == typeof(Scrap).ToString())

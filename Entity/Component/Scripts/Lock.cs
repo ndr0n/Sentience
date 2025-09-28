@@ -6,13 +6,17 @@ using UnityEngine;
 namespace Sentience
 {
     [System.Serializable]
-    public class Lock : EntityComponent
+    public class Lock : IEntityComponent
     {
-        public override void OnInit(EntityData data, System.Random random)
+        EntityData _data;
+        public EntityData Data => _data;
+
+        public void Init(EntityData data, System.Random random)
         {
+            _data = data;
         }
-        
-        [SerializeField] bool locked = false;
+
+        [SerializeField] bool locked;
         public bool Locked
         {
             get => locked;
@@ -27,5 +31,18 @@ namespace Sentience
         }
 
         public Action<bool> OnLockStateChanged;
+    }
+
+    [System.Serializable]
+    public class LockAuthoring : EntityComponentAuthoring
+    {
+        public bool Locked = false;
+
+        public override IEntityComponent Spawn(System.Random random)
+        {
+            Lock lockComponent = new();
+            lockComponent.Locked = Locked;
+            return lockComponent;
+        }
     }
 }

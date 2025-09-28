@@ -1,36 +1,45 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Random = System.Random;
 
 namespace Sentience
 {
     [System.Serializable]
-    public class Body : EntityComponent
+    public class Body : IEntityComponent
     {
         public Entity Prefab;
-        public Entity Entity;
         public Vector3 Position;
+        public Entity Entity;
 
-        public override void OnInit(EntityData data, System.Random random)
+        EntityData _data;
+        public EntityData Data => _data;
+
+        public void Init(EntityData data, Random random)
         {
             _data = data;
-            Prefab = data.Type.Prefab[random.Next(data.Type.Prefab.Count)];
         }
 
-        public Entity SpawnBody(System.Random random, Transform parent, Vector3 position)
+        public Entity SpawnBody(Random random, Transform parent, Vector3 position)
         {
-            Position = position;
             Entity entity = Object.Instantiate(Prefab.gameObject, parent).GetComponent<Entity>();
-            entity.Data = Data;
-            entity.transform.position = Position;
-            Init(entity, random);
+            Entity = entity;
+            Position = position;
+            Entity.Spawn(Data.Type, Data, Position);
             return entity;
         }
+    }
 
-        public void Init(Entity entity, System.Random random)
+    [System.Serializable]
+    public class BodyAuthoring : EntityComponentAuthoring
+    {
+        public List<Entity> Prefabs = new();
+
+        public override IEntityComponent Spawn(Random random)
         {
-            Entity = entity;
-            Entity.name = Data.Name;
-            Entity.Type = Data.Type;
-            Entity.Type.SpawnEntity(Entity, random);
+            Body body = new();
+            body.Prefab = Prefabs[random.Next(0, Prefabs.Count)];
+            return body;
         }
     }
 }

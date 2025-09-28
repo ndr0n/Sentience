@@ -3,34 +3,38 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = System.Random;
 
 namespace Sentience
 {
     [System.Serializable]
-    public class ItemSlot
+    public class Inventory : IEntityComponent
     {
-        [FormerlySerializedAs("Item")]
-        [SerializeReference] public EntityData Data = null;
-        public int Amount = 1;
+        public int Size;
+        public int Credits;
+        public List<Slot> Items;
 
-        public ItemSlot(Item item, int amount)
+        [System.Serializable]
+        public class Slot
         {
-            Data = item.Data;
-            Amount = amount;
+            [SerializeReference] public EntityData Data = null;
+            public int Amount = 1;
+
+            public Slot(Item item, int amount)
+            {
+                Data = item.Data;
+                Amount = amount;
+            }
         }
-    }
 
-    [System.Serializable]
-    public class Inventory : EntityComponent
-    {
-        public int Size = 64;
-        public int Credits = 50;
-        public List<ItemSlot> Items = new();
+        EntityData _data;
+        public EntityData Data => _data;
 
-        public override void OnInit(EntityData data, System.Random random)
+        public void Init(EntityData data, System.Random random)
         {
+            _data = data;
         }
-        
+
         public void Add(Item item)
         {
             // foreach (var existingItem in Items)
@@ -90,9 +94,26 @@ namespace Sentience
             else return false;
         }
 
-        public bool CanStore(ItemType itemType)
+        public bool CanStore(EntityType itemType)
         {
             return Items.Count < Size;
+        }
+    }
+
+    [System.Serializable]
+    public class InventoryAuthoring : EntityComponentAuthoring
+    {
+        public int Size = 64;
+        public int Credits = 0;
+        public List<Inventory.Slot> Items = new();
+
+        public override IEntityComponent Spawn(Random random)
+        {
+            Inventory inventory = new();
+            inventory.Size = Size;
+            inventory.Credits = Credits;
+            inventory.Items = Items;
+            return inventory;
         }
     }
 }

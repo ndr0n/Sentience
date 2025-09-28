@@ -23,8 +23,8 @@ namespace Sentience
             Personality = $"Your character name is: {Persona.Data.Name}.\n" +
                           $"Your character species is {Persona.Species}" +
                           $"Your character description: {Persona.Data.Description}.\n" +
-                          $"Your character current location is: {Persona.ID.Location}.\n";
-            if (Persona.ID.Faction != null) Personality += $"Your Faction is {Persona.ID.Faction}\n";
+                          $"Your character current location is: {Persona.Identity.Location}.\n";
+            if (Persona.Identity.Faction != null) Personality += $"Your Faction is {Persona.Identity.Faction}\n";
             Inventory inventory = Persona.Data.Get<Inventory>();
             foreach (var item in inventory.Items) Personality += $"You currently have {item} in your inventory.\n";
             // Personality += "You must always speak as your character.";

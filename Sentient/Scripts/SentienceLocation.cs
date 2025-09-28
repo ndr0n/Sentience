@@ -79,9 +79,9 @@ namespace Sentience
                     );
 
                     EntityData entityData = new(character.name, character.description, spawnType, random);
-                    ID id = entityData.Get<ID>();
-                    id.Faction = location.Faction;
-                    id.Location = location.Name;
+                    Identity identity = entityData.Get<Identity>();
+                    identity.Faction = location.Faction;
+                    identity.Location = location.Name;
                     Persona persona = entityData.Get<Persona>();
                     await persona.Init(new(character, location.Name, location.Faction));
                     location.Characters.Add(entityData);
@@ -103,7 +103,7 @@ namespace Sentience
                         Inventory inv = obj.Get<Inventory>();
                         if (inv != null)
                         {
-                            EntityData entityData = new(item, $"Found in {location.Name}.", await ItemType.GetType(SentienceManager.Instance.ItemDatabase, item), random);
+                            EntityData entityData = new(item, $"Found in {location.Name}.", await SentienceManager.Instance.RagManager.GetMostSimilarItem(SentienceManager.Instance.ItemDatabase, item), random);
                             Item itm = entityData.Get<Item>();
                             inv.Add(itm);
                             break;
