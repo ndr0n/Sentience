@@ -11,6 +11,7 @@ namespace Sentience
     {
         public string Name = "Interaction";
         public string Description = "";
+        public string Tags = "";
 
         public abstract bool HasInteraction(EntityData self, EntityData interactor, EntityData target);
 
@@ -29,12 +30,13 @@ namespace Sentience
 
         protected void CheckForQuestInteraction(EntityData self, EntityData interactor, EntityData target)
         {
-            if (interactor is PlayerData pd)
+            Journal journal = interactor.Get<Journal>();
+            if (journal != null)
             {
                 List<Quest> toRemove = new();
-                foreach (var q in pd.Journal.Quests)
+                foreach (var q in journal.Quests)
                 {
-                    SentienceQuestStage stage = q.QuestData.Stages[q.Stage];
+                    QuestStage stage = q.Data.Stages[q.Stage];
                     if (stage.InteractionData.Interaction == this)
                     {
                         if (!string.IsNullOrWhiteSpace(stage.InteractionData.Item))
@@ -44,7 +46,8 @@ namespace Sentience
                                 if (stage.InteractionData.Target == target.Name)
                                 {
                                     q.Stage += 1;
-                                    if (q.Stage >= q.QuestData.Stages.Count) toRemove.Add(q);
+                                    if (q.Stage >= q.Data.Stages.Count) toRemove.Add(q);
+                                    else q.OnAdvanceStage?.Invoke(q);
                                     Debug.Log($"Advanced Quest Stage!");
                                 }
                             }
@@ -52,18 +55,19 @@ namespace Sentience
                         else if (stage.InteractionData.Target == self.Name)
                         {
                             q.Stage += 1;
-                            if (q.Stage >= q.QuestData.Stages.Count) toRemove.Add(q);
+                            if (q.Stage >= q.Data.Stages.Count) toRemove.Add(q);
+                            else q.OnAdvanceStage?.Invoke(q);
                             Debug.Log($"Advanced Quest Stage!");
                         }
                     }
                 }
-                foreach (var q in toRemove) pd.Journal.Quests.Remove(q);
+                foreach (var q in toRemove) journal.Quests.Remove(q);
             }
         }
 
-        public bool IsWithinRange(IdentityData self, IdentityData interactor, Vector2 range)
+        public bool IsWithinRange(Body self, Body interactor, Vector2 range)
         {
-            float distance = Vector3.Distance(self.Spawn.transform.position, interactor.Spawn.transform.position);
+            float distance = Vector3.Distance(self.Entity.transform.position, interactor.Entity.transform.position);
             if (distance >= range.x && distance <= (range.y + 0.5f)) return true;
             return false;
         }

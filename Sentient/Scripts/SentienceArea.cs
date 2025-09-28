@@ -32,7 +32,7 @@ namespace Sentience
             }
         }
 
-        public static async Awaitable<Location> GenerateAreaLocation(Area area, Vector3 size, Vector3 position, string description, List<IdentityData> locationObjects)
+        public static async Awaitable<Location> GenerateAreaLocation(Area area, Vector3 size, Vector3 position, string description, List<EntityData> locationObjects)
         {
             Location location = await GenerateLocationData(area, size, position, description, locationObjects);
             if (location == null) location = await GenerateAreaLocation(area, size, position, description, locationObjects);
@@ -41,7 +41,7 @@ namespace Sentience
             return location;
         }
 
-        public static async Awaitable<Location> GenerateLocationData(Area area, Vector3 size, Vector3 position, string details, List<IdentityData> locationObjects)
+        public static async Awaitable<Location> GenerateLocationData(Area area, Vector3 size, Vector3 position, string details, List<EntityData> locationObjects)
         {
             string exeption = "";
             if (area.Location.Count > 0)
@@ -75,54 +75,56 @@ namespace Sentience
             {
                 string msg = $"The Area of the quest is: {area}\n";
                 msg += "The existing locations in this area are:\n";
-                List<EntityData> data = new();
-                IdentityData source = null;
                 foreach (var location in area.Location)
                 {
                     msg += $"Location: {location.Name} - {location.Description}\n";
                     msg += $"Location Faction: {location.Faction.Name} - {location.Faction.Description}\n";
 
-                    msg += $"Location Entities:\n";
-
-                    foreach (var obj in location.Objects)
+                    if (location.Objects.Count > 0)
                     {
-                        msg += $"{obj.Name}";
-                        data.Add(obj);
-
-                        if (obj is IdentityData id)
+                        msg += $"Location Objects:\n";
+                        foreach (var obj in location.Objects)
                         {
-                            if (id.Inventory != null)
+                            msg += $"{obj.Name}";
+                            Inventory inv = obj.Get<Inventory>();
+                            if (inv != null && inv.Items.Count > 0)
                             {
-                                foreach (var item in id.Inventory.Items)
+                                msg += $" (Items: ";
+                                foreach (var item in inv.Items)
                                 {
-                                    msg += $"{item.Name}\n";
-                                    data.Add(item);
+                                    msg += $"{item.Data.Name}, ";
                                 }
+                                msg += $")";
                             }
+                            msg += "\n";
                         }
                     }
 
                     if (location.Characters.Count > 0)
                     {
+                        msg += $"Location Characters:\n";
                         foreach (var chr in location.Characters.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
                         {
-                            msg += $"{chr.Name}\n";
-                            data.Add(chr);
-                            foreach (var item in chr.Inventory.Items)
+                            msg += $"{chr.Name}";
+                            Inventory inv = chr.Get<Inventory>();
+                            if (inv != null && inv.Items.Count > 0)
                             {
-                                msg += $"{item.Name}\n";
-                                data.Add(item);
+                                msg += $" (Items: ";
+                                foreach (var item in inv.Items)
+                                {
+                                    msg += $"{item.Data.Name}, ";
+                                }
+                                msg += $")";
                             }
-                            source = chr;
+                            msg += "\n";
                         }
-                        msg += $"the character that will give the quest to the player is: {source.Name}.\n";
                     }
                 }
                 msg += details;
 
                 Debug.Log($"Generating quest data for: {area}");
                 SentienceQuestParser parser = await DungeonMaster.Instance.GenerateSentienceQuest(msg);
-                SentienceQuest quest = await SentienceQuest.Generate(parser, area.Name, source, data);
+                SentienceQuest quest = SentienceQuest.Parse(parser, area.Name);
                 area.Quests.Add(quest);
                 return quest;
             }
@@ -139,51 +141,54 @@ namespace Sentience
             {
                 foreach (var location in area.Location.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
                 {
-                    IdentityData source = null;
-                    List<EntityData> data = new();
                     string msg = $"Location: {location.Name} - {location.Description}\n";
                     msg += $"Location Faction: {location.Faction.Name} - {location.Faction.Description}\n";
 
-                    msg += $"Location Entities:\n";
-
-                    foreach (var obj in location.Objects)
+                    if (location.Objects.Count > 0)
                     {
-                        msg += $"{obj.Name}";
-                        data.Add(obj);
-
-                        if (obj is IdentityData id)
+                        msg += $"Location Objects:\n";
+                        foreach (var obj in location.Objects)
                         {
-                            if (id.Inventory != null)
+                            msg += $"{obj.Name}";
+                            Inventory inv = obj.Get<Inventory>();
+                            if (inv != null && inv.Items.Count > 0)
                             {
-                                foreach (var item in id.Inventory.Items)
+                                msg += $" (Items: ";
+                                foreach (var item in inv.Items)
                                 {
-                                    msg += $"{item.Name}\n";
-                                    data.Add(item);
+                                    msg += $"{item.Data.Name}, ";
                                 }
+                                msg += $")";
                             }
+                            msg += "\n";
                         }
                     }
 
                     if (location.Characters.Count > 0)
                     {
+                        msg += $"Location Characters:\n";
                         foreach (var chr in location.Characters.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
                         {
-                            msg += $"{chr.Name}\n";
-                            data.Add(chr);
-                            foreach (var item in chr.Inventory.Items)
+                            msg += $"{chr.Name}";
+                            Inventory inv = chr.Get<Inventory>();
+                            if (inv != null && inv.Items.Count > 0)
                             {
-                                msg += $"{item.Name}\n";
-                                data.Add(item);
+                                msg += $" (Items: ";
+                                foreach (var item in inv.Items)
+                                {
+                                    msg += $"{item.Data.Name}, ";
+                                }
+                                msg += $")";
                             }
-                            source = chr;
+                            msg += "\n";
                         }
-                        msg += $"the character that will give the quest to the player is: {source.Name}.\n";
                     }
+                    msg += details;
 
                     msg += details;
                     Debug.Log($"Generating quest data for: {location.Name}");
                     SentienceQuestParser parser = await DungeonMaster.Instance.GenerateSentienceQuest(msg);
-                    SentienceQuest quest = await SentienceQuest.Generate(parser, location.Name, source, data);
+                    SentienceQuest quest = SentienceQuest.Parse(parser, location.Name);
                     area.Quests.Add(quest);
                     return quest;
                 }
@@ -192,6 +197,7 @@ namespace Sentience
             {
                 Debug.LogError(e);
             }
+
             return null;
         }
 

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: IA_Give
   m_EditorClassIdentifier: Assembly-CSharp::Sentience.IA_Give
   Name: give
-  Description: gift an item.
+  Description: give an item.
+  Tags: give, gift, offer, return
   Range: {x: 0, y: 1}

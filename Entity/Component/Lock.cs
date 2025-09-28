@@ -1,11 +1,18 @@
 using System;
 using MindTheatre;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Sentience
 {
-    public class Lock
+    [System.Serializable]
+    public class Lock : Component
     {
+        public Lock(EntityData data) : base(data)
+        {
+            _data = data;
+        }
+        
         [SerializeField] bool locked = false;
         public bool Locked
         {

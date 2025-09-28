@@ -16,9 +16,9 @@ namespace Sentience
         public Vector3Int Size;
         public Vector3Int Position;
         public string Description;
-        public List<IdentityData> LocationObjects;
+        public List<EntityData> LocationObjects;
 
-        public SentienceLocationDetails(Vector3Int size, Vector3Int position, string description, List<IdentityData> locationObjects)
+        public SentienceLocationDetails(Vector3Int size, Vector3Int position, string description, List<EntityData> locationObjects)
         {
             Size = size;
             Position = position;
@@ -48,7 +48,7 @@ namespace Sentience
     [System.Serializable]
     public static class SentienceLocation
     {
-        public static async Awaitable<Location> Generate(SentienceLocationParser parser, Vector3 size, Vector3 position, List<IdentityData> locationObjects)
+        public static async Awaitable<Location> Generate(SentienceLocationParser parser, Vector3 size, Vector3 position, List<EntityData> locationObjects)
         {
             System.Random random = new(Random.Range(int.MinValue, int.MaxValue));
             Location location = new()
@@ -61,24 +61,31 @@ namespace Sentience
             };
 
             List<string> identityOptions = new();
-            foreach (var type in location.Faction.FactionIdentity) identityOptions.Add($"{type.name}|{type.Description}");
+            foreach (var type in location.Faction.FactionEntity) identityOptions.Add($"{type.name}|{type.Description}");
 
-            location.Characters = new();
-            foreach (var character in parser.characters)
+            if (parser.characters != null)
             {
-                string similar = await SentienceManager.Instance.RagManager.GetMostSimilar(identityOptions, $"{character.species} | {character.name} | {character.description}");
-                similar = similar.Split('|')[0];
-                IdentityType it = location.Faction.FactionIdentity.FirstOrDefault(x => x.name == similar);
+                location.Characters = new();
+                foreach (var character in parser.characters)
+                {
+                    string similar = await SentienceManager.Instance.RagManager.GetMostSimilar(identityOptions, $"{character.species} | {character.name} | {character.description}");
+                    similar = similar.Split('|')[0];
+                    EntityType spawnType = location.Faction.FactionEntity.FirstOrDefault(x => x.name == similar);
 
-                Vector3 spawnPosition = new Vector3(
-                    random.Next(Mathf.FloorToInt(location.Position.x), Mathf.FloorToInt(location.Position.x + location.Size.x)),
-                    random.Next(Mathf.FloorToInt(location.Position.y), Mathf.FloorToInt(location.Position.y + location.Size.y)),
-                    random.Next(Mathf.FloorToInt(location.Position.z), Mathf.FloorToInt(location.Position.z + location.Size.z))
-                );
+                    Vector3 spawnPosition = new Vector3(
+                        random.Next(Mathf.FloorToInt(location.Position.x), Mathf.FloorToInt(location.Position.x + location.Size.x)),
+                        random.Next(Mathf.FloorToInt(location.Position.y), Mathf.FloorToInt(location.Position.y + location.Size.y)),
+                        random.Next(Mathf.FloorToInt(location.Position.z), Mathf.FloorToInt(location.Position.z + location.Size.z))
+                    );
 
-                IdentityData id = IdentityData.Create(it, random, spawnPosition, location.Name);
-                Persona persona = await Persona.Generate(id, new(character, location.Name, location.Faction));
-                location.Characters.Add(id);
+                    EntityData entityData = new(character.name, character.description, spawnType, new(), random);
+                    ID id = entityData.Get<ID>();
+                    id.Faction = location.Faction;
+                    id.Location = location.Name;
+                    Persona persona = await Persona.Generate(id, new(character, location.Name, location.Faction));
+                    entityData.Components.Add(new(persona));
+                    location.Characters.Add(entityData);
+                }
             }
 
             location.Objects = new();
@@ -93,9 +100,12 @@ namespace Sentience
                 {
                     foreach (var obj in locationObjects.OrderBy(x => random.Next()))
                     {
-                        if (obj.Inventory != null)
+                        Inventory inv = obj.Get<Inventory>();
+                        if (inv != null)
                         {
-                            obj.Inventory.Add(new(item, $"Found in {location.Name}.", 1, await ItemType.GetType(SentienceManager.Instance.ItemDatabase, item), obj));
+                            EntityData entityData = new(item, $"Found in {location.Name}.", await ItemType.GetType(SentienceManager.Instance.ItemDatabase, item), new(), random);
+                            Item itm = entityData.Get<Item>();
+                            inv.Add(itm);
                             break;
                         }
                     }
@@ -105,7 +115,7 @@ namespace Sentience
             return location;
         }
 
-        public static async Awaitable<Location> GenerateLocationFromArea(Vector3 size, Vector3 position, string area, List<IdentityData> locationObjects)
+        public static async Awaitable<Location> GenerateLocationFromArea(Vector3 size, Vector3 position, string area, List<EntityData> locationObjects)
         {
             string answer;
             string rules = "I will tell you the area and description of a location and you must respond with a location that exists within this area.\n" +

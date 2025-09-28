@@ -1,17 +1,21 @@
+using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Sentience
 {
     [System.Serializable]
     public class Quest
     {
-        [SerializeReference] public SentienceQuest QuestData;
         public int Stage;
+        public QuestData Data;
+        public Action<Quest> OnAdvanceStage;
 
-        public Quest(SentienceQuest questData, int stage)
+        public Quest(QuestData data, int stage, Action<Quest> onAdvanceStage)
         {
-            QuestData = questData;
+            Data = data;
             Stage = stage;
+            OnAdvanceStage = onAdvanceStage;
         }
     }
 }

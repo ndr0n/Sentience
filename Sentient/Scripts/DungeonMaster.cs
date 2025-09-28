@@ -81,18 +81,18 @@ namespace Sentience
 
         public async Awaitable<SentienceQuestParser> GenerateSentienceQuest(string details)
         {
-            string rules = "I will tell you the entities that we have in an area and you must generate an engaging quest for the player to interact using these entities.\n" +
-                           "You must only answer in the following JSON format:\n" +
+            string rules = "I will tell you the entities that we have in an area and must respond with a generated engaging quest for the player to complete.\n" +
+                           "You must only answer with a quest in the following JSON format:\n" +
                            "{\n" +
                            "\"name\": \"<the name of the quest>\",\n" +
-                           "\"description\": \"<a short description of the quest>\",\n" +
                            "\"stages\": [\"<\n" +
                            "this field must contain a JSON list containing each quest stage.\n" +
-                           "Each individual quest stage on this list must have the following json format:" +
+                           "Each individual event stage on this list must have the following json format:" +
                            "{\n" +
-                           "\"objective\": \"<a very short and concise description of the player's objective during this quest stage.>\",\n" +
-                           "\"target\": \"<the name of the target (item or character) that the player must perform the action on to complete this quest stage.>\",\n" +
-                           "\"action\": \"<the name (one word) of the action that the player must perform on the target to complete this quest stage.>\",\n" +
+                           "\"description\": \"<a very short description of how the player starts this quest stage.>\",\n" +
+                           "\"objective\": \"<the player's objective during this quest stage.>\",\n" +
+                           "\"target\": \"<the name of the entity to which the player must perform an action to complete this quest stage.>\",\n" +
+                           "\"action\": \"<the name (one word) of the action that the player must perform on the target entity to complete this quest stage.>\",\n" +
                            "}\n" +
                            ">\"]\n" +
                            "}";

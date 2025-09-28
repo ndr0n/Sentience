@@ -15,8 +15,9 @@ namespace Sentience
         public Sprite Icon = null;
         public Color Color = Color.white;
         public bool IsLawfulFaction = true;
+        [FormerlySerializedAs("FactionIdentity")]
+        public List<EntityType> FactionEntity = new();
         public List<FactionRelationship> FactionRelationship = new();
-        public List<IdentityType> FactionIdentity = new();
 
         public virtual void GenerateFactionRelationships(FactionData factionData)
         {
