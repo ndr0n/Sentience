@@ -92,7 +92,7 @@ namespace Sentience
                                 msg += $" (Items: ";
                                 foreach (var item in inv.Items)
                                 {
-                                    msg += $"{item.Item.Name}, ";
+                                    msg += $"{item.Item.Data.Name}, ";
                                 }
                                 msg += $")";
                             }
@@ -112,7 +112,7 @@ namespace Sentience
                                 msg += $" (Items: ";
                                 foreach (var item in inv.Items)
                                 {
-                                    msg += $"{item.Item.Name}, ";
+                                    msg += $"{item.Item.Data.Name}, ";
                                 }
                                 msg += $")";
                             }
@@ -156,7 +156,7 @@ namespace Sentience
                                 msg += $" (Items: ";
                                 foreach (var item in inv.Items)
                                 {
-                                    msg += $"{item.Item.Name}, ";
+                                    msg += $"{item.Item.Data.Name}, ";
                                 }
                                 msg += $")";
                             }
@@ -176,7 +176,7 @@ namespace Sentience
                                 msg += $" (Items: ";
                                 foreach (var item in inv.Items)
                                 {
-                                    msg += $"{item.Item.Name}, ";
+                                    msg += $"{item.Item.Data.Name}, ";
                                 }
                                 msg += $")";
                             }

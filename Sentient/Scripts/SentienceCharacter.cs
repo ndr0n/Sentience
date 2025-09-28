@@ -30,7 +30,7 @@ namespace Sentience
             Name = parser.name.Trim();
             Species = parser.species.Trim();
             Description = parser.description.Trim();
-            Location = location;
+            Location = location.Trim();
             Inventory = new();
             if (parser.inventory != null)
             {
