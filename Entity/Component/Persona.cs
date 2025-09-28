@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DND;
 using MindTheatre;
 using Sentience;
 using Unity.VisualScripting;
@@ -22,29 +21,8 @@ namespace Sentience
             _data = data;
         }
 
-        public string Species = "";
-        public string Desire = "";
-
         public Identity Identity => Data.Get<Identity>();
-
-        public async Awaitable Init(SentienceCharacter character)
-        {
-            Data.Name = character.Name;
-            Identity.Location = character.Location;
-            Data.Description = character.Description;
-            Identity.Faction = character.Faction;
-            Species = character.Species;
-            Inventory inventory = Data.Get<Inventory>();
-            if (inventory != null)
-            {
-                foreach (var item in character.Inventory)
-                {
-                    EntityData entityData = new(item, $"Belongs to {character.Name}", await SentienceManager.Instance.RagManager.GetMostSimilarItem(SentienceManager.Instance.ItemDatabase, item), new(Random.Range(int.MinValue, int.MaxValue)));
-                    Item itm = entityData.Get<Item>();
-                    inventory.Add(itm);
-                }
-            }
-        }
+        public string Desire = "";
 
         public void RefreshDesire(List<EntityData> entities)
         {
@@ -66,13 +44,11 @@ namespace Sentience
     [System.Serializable]
     public class PersonaAuthoring : EntityComponentAuthoring
     {
-        public string Species = "";
         public string Desire = "";
 
         public override IEntityComponent Spawn(System.Random random)
         {
             Persona persona = new();
-            persona.Species = Species;
             persona.Desire = Desire;
             return persona;
         }

@@ -13,7 +13,7 @@ namespace Sentience
             if (trg == null) return false;
             Inventory inv = interactor.Get<Inventory>();
             if (inv == null) return false;
-            if (!inv.Items.Exists(x => x.Data == self.Data)) return false;
+            if (!inv.Items.Exists(x => x.Item == self.Data)) return false;
             return true;
         }
 

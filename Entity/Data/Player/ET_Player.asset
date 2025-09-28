@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b3732f0cea24b1ea5bc718e53e327b1, type: 3}
+  m_Name: ET_Player
+  m_EditorClassIdentifier: Assembly-CSharp::Sentience.EntityType
+  Name: Esquilo
+  Description: an explorer.
+  Interactions:
+  - {fileID: 11400000, guid: dfbc3fad68fe6557f97b237c22645ded, type: 2}
+  Components:
+  - Name: Body
+    Component: 1
+    Authoring:
+      rid: 3423325703147094432
+  - Name: Inventory
+    Component: 2
+    Authoring:
+      rid: 3423325703147094365
+  - Name: Health
+    Component: 3
+    Authoring:
+      rid: 3423325703147094428
+  - Name: Identity
+    Component: 4
+    Authoring:
+      rid: 3423325703147094420
+  - Name: Attributes
+    Component: 6
+    Authoring:
+      rid: 3423325703147094417
+  - Name: Journal
+    Component: 8
+    Authoring:
+      rid: 3423325703147094418
+  - Name: Avatar
+    Component: 7
+    Authoring:
+      rid: 3423325703147094370
+  references:
+    version: 2
+    RefIds:
+    - rid: 3423325703147094365
+      type: {class: InventoryAuthoring, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Size: 64
+        Credits: 0
+        Items: []
+    - rid: 3423325703147094370
+      type: {class: AvatarAuthoring, ns: MindTheatre, asm: Assembly-CSharp}
+      data:
+        PossibleSprites:
+        - {fileID: -779178000821955330, guid: e5e06269dd876e581a10b28769196b51, type: 3}
+    - rid: 3423325703147094417
+      type: {class: AttributesAuthoring, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Strength: {x: 8, y: 16}
+        Dexterity: {x: 8, y: 16}
+        Constitution: {x: 8, y: 16}
+        Intelligence: {x: 8, y: 16}
+        Wisdom: {x: 8, y: 16}
+        Charisma: {x: 8, y: 16}
+    - rid: 3423325703147094418
+      type: {class: JournalAuthoring, ns: Sentience, asm: Assembly-CSharp}
+      data: 
+    - rid: 3423325703147094420
+      type: {class: IdentityAuthoring, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Species: {fileID: 11400000, guid: ab923cdd6cc36d26a81c7153b833ea16, type: 2}
+        Faction: {fileID: 11400000, guid: ce631caef28c9ea1985a342f67cef907, type: 2}
+        Location: the shifting rooms
+    - rid: 3423325703147094428
+      type: {class: HealthAuthoring, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Health: {x: 100, y: 100}
+        MaxHealth: {x: 100, y: 100}
+    - rid: 3423325703147094432
+      type: {class: BodyAuthoring, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Prefabs:
+        - {fileID: 6670924211930380776, guid: e35dc5929150fdca48cca6c643917c75, type: 3}

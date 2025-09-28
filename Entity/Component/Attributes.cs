@@ -7,6 +7,7 @@ namespace Sentience
     [System.Serializable]
     public class Attributes : IEntityComponent
     {
+        [Header("Ability Score")]
         public int Strength;
         public int Dexterity;
         public int Constitution;
@@ -14,11 +15,14 @@ namespace Sentience
         public int Wisdom;
         public int Charisma;
 
+        [Header("Stats")]
+        public int Speed = 100;
         public int MeleeDamage = 1;
         public int RangedDamage = 1;
-        public int MagicDamage = 1;
-        
-        
+        public int PhysicsDamage = 1;
+        public int Armor = 1;
+        public int Poise = 1;
+        public int Willpower = 1;
 
         EntityData _data;
         public EntityData Data => _data;

@@ -77,13 +77,10 @@ namespace Sentience
                         random.Next(Mathf.FloorToInt(location.Position.y), Mathf.FloorToInt(location.Position.y + location.Size.y)),
                         random.Next(Mathf.FloorToInt(location.Position.z), Mathf.FloorToInt(location.Position.z + location.Size.z))
                     );
-
-                    EntityData entityData = new(character.name, character.description, spawnType, random);
+                    SentienceCharacter sc = new(character, location.Name);
+                    EntityData entityData = new(sc.Name, sc.Description, spawnType, random);
                     Identity identity = entityData.Get<Identity>();
-                    identity.Faction = location.Faction;
-                    identity.Location = location.Name;
-                    Persona persona = entityData.Get<Persona>();
-                    await persona.Init(new(character, location.Name, location.Faction));
+                    await identity.LoadSentienceCharacter(sc, location.Faction, random);
                     location.Characters.Add(entityData);
                 }
             }

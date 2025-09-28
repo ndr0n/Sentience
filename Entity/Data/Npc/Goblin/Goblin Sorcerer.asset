@@ -1,0 +1,391 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b3732f0cea24b1ea5bc718e53e327b1, type: 3}
+  m_Name: Goblin Sorcerer
+  m_EditorClassIdentifier: Assembly-CSharp::Sentience.EntityType
+  Name: Goblin Sorcerer
+  Description: a small goblin sorcerer wielding a staff and elemental fire magic
+  Interactions:
+  - {fileID: 11400000, guid: fd53719d2acf5b8b895f2a7255355368, type: 2}
+  - {fileID: 11400000, guid: f8808ebe191653a3e8c9ab07f4a1d9ce, type: 2}
+  Components:
+  - Name: Body
+    Component: 1
+    Authoring:
+      rid: 3423325703147094351
+  - Name: Inventory
+    Component: 2
+    Authoring:
+      rid: 3423325703147094352
+  - Name: Health
+    Component: 3
+    Authoring:
+      rid: 3423325703147094436
+  - Name: Identity
+    Component: 4
+    Authoring:
+      rid: 3423325703147094437
+  - Name: Persona
+    Component: 5
+    Authoring:
+      rid: 3423325703147094438
+  - Name: Avatar
+    Component: 7
+    Authoring:
+      rid: 3423325703147094357
+  - Name: Attributes
+    Component: 6
+    Authoring:
+      rid: 3423325703147094439
+  references:
+    version: 2
+    RefIds:
+    - rid: 3423325703147094351
+      type: {class: BodyAuthoring, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Prefabs:
+        - {fileID: 1827405784199778597, guid: 63f7585141f6e76149f59c3f90762e34, type: 3}
+    - rid: 3423325703147094352
+      type: {class: InventoryAuthoring, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Size: 64
+        Credits: 0
+        Items:
+        - Data:
+            rid: 3423325703147094501
+          Amount: 1
+        - Data:
+            rid: 3423325703147094502
+          Amount: 1
+        - Data:
+            rid: 3423325703147094513
+          Amount: 1
+        - Data:
+            rid: 3423325703147094531
+          Amount: 1
+        - Data:
+            rid: 3423325703147094532
+          Amount: 1
+        - Data:
+            rid: 3423325703147094533
+          Amount: 1
+        - Data:
+            rid: 3423325703147094540
+          Amount: 1
+        - Data:
+            rid: 3423325703147094541
+          Amount: 1
+        - Data:
+            rid: 3423325703147094546
+          Amount: 1
+        - Data:
+            rid: 3423325703147094547
+          Amount: 1
+        - Data:
+            rid: 3423325703147094552
+          Amount: 1
+        - Data:
+            rid: 3423325703147094553
+          Amount: 1
+    - rid: 3423325703147094357
+      type: {class: AvatarAuthoring, ns: MindTheatre, asm: Assembly-CSharp}
+      data:
+        PossibleSprites:
+        - {fileID: 9001568371343310336, guid: f89f0fd1658f4f0339fa3e654b7eb6f7, type: 3}
+    - rid: 3423325703147094436
+      type: {class: HealthAuthoring, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Health: {x: 100, y: 100}
+        MaxHealth: {x: 100, y: 100}
+    - rid: 3423325703147094437
+      type: {class: IdentityAuthoring, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Species: {fileID: 11400000, guid: 4b10973730af70a0f9cff80882cca031, type: 2}
+        Faction: {fileID: 0}
+        Location: 
+    - rid: 3423325703147094438
+      type: {class: PersonaAuthoring, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Desire: 
+    - rid: 3423325703147094439
+      type: {class: AttributesAuthoring, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Strength: {x: 5, y: 15}
+        Dexterity: {x: 5, y: 15}
+        Constitution: {x: 5, y: 15}
+        Intelligence: {x: 5, y: 15}
+        Wisdom: {x: 5, y: 15}
+        Charisma: {x: 5, y: 15}
+    - rid: 3423325703147094501
+      type: {class: EntityData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Energy Shielding
+        Description: belongs to Kael Darksong
+        Type: {fileID: 11400000, guid: 67fa1db6c44792a72a58cfd3a4178cef, type: 2}
+        Components:
+        - rid: 3423325703147094503
+    - rid: 3423325703147094502
+      type: {class: EntityData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Cyberdeck
+        Description: belongs to Kael Darksong
+        Type: {fileID: 11400000, guid: e5d9fa815eaea425ab758c9d8f4cb46e, type: 2}
+        Components:
+        - rid: 3423325703147094504
+    - rid: 3423325703147094503
+      type: {class: EntityComponentData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Item
+        Component:
+          rid: 3423325703147094505
+        Hash: -2059530993
+    - rid: 3423325703147094504
+      type: {class: EntityComponentData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Item
+        Component:
+          rid: 3423325703147094506
+        Hash: -2059530993
+    - rid: 3423325703147094505
+      type: {class: Item, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Price: 22
+        Stack: 1
+        Weight: 49
+        Icon: {fileID: -4550341189887911203, guid: 1ae5afb60ab5799c3bef48480efbc008, type: 3}
+    - rid: 3423325703147094506
+      type: {class: Item, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Price: 40
+        Stack: 1
+        Weight: 9
+        Icon: {fileID: -1712464291680838311, guid: 1ae5afb60ab5799c3bef48480efbc008, type: 3}
+    - rid: 3423325703147094513
+      type: {class: EntityData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Scrapped leather glove
+        Description: belongs to Zephyr Wystan
+        Type: {fileID: 11400000, guid: e5d9fa815eaea425ab758c9d8f4cb46e, type: 2}
+        Components:
+        - rid: 3423325703147094514
+    - rid: 3423325703147094514
+      type: {class: EntityComponentData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Item
+        Component:
+          rid: 3423325703147094515
+        Hash: -2059530993
+    - rid: 3423325703147094515
+      type: {class: Item, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Price: 32
+        Stack: 1
+        Weight: 13
+        Icon: {fileID: -1712464291680838311, guid: 1ae5afb60ab5799c3bef48480efbc008, type: 3}
+    - rid: 3423325703147094531
+      type: {class: EntityData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Scavenged Lockpick
+        Description: belongs to Elara Vonn
+        Type: {fileID: 11400000, guid: e5d9fa815eaea425ab758c9d8f4cb46e, type: 2}
+        Components:
+        - rid: 3423325703147094534
+    - rid: 3423325703147094532
+      type: {class: EntityData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Holy Water
+        Description: belongs to Elara Vonn
+        Type: {fileID: 11400000, guid: 67fa1db6c44792a72a58cfd3a4178cef, type: 2}
+        Components:
+        - rid: 3423325703147094535
+    - rid: 3423325703147094533
+      type: {class: EntityData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Inquisitional Goggles
+        Description: belongs to Elara Vonn
+        Type: {fileID: 11400000, guid: e5d9fa815eaea425ab758c9d8f4cb46e, type: 2}
+        Components:
+        - rid: 3423325703147094536
+    - rid: 3423325703147094534
+      type: {class: EntityComponentData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Item
+        Component:
+          rid: 3423325703147094537
+        Hash: -2059530993
+    - rid: 3423325703147094535
+      type: {class: EntityComponentData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Item
+        Component:
+          rid: 3423325703147094538
+        Hash: -2059530993
+    - rid: 3423325703147094536
+      type: {class: EntityComponentData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Item
+        Component:
+          rid: 3423325703147094539
+        Hash: -2059530993
+    - rid: 3423325703147094537
+      type: {class: Item, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Price: 30
+        Stack: 1
+        Weight: 12
+        Icon: {fileID: -1712464291680838311, guid: 1ae5afb60ab5799c3bef48480efbc008, type: 3}
+    - rid: 3423325703147094538
+      type: {class: Item, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Price: 10
+        Stack: 1
+        Weight: 37
+        Icon: {fileID: -4550341189887911203, guid: 1ae5afb60ab5799c3bef48480efbc008, type: 3}
+    - rid: 3423325703147094539
+      type: {class: Item, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Price: 38
+        Stack: 1
+        Weight: 39
+        Icon: {fileID: -1712464291680838311, guid: 1ae5afb60ab5799c3bef48480efbc008, type: 3}
+    - rid: 3423325703147094540
+      type: {class: EntityData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Advanced Database Scanner
+        Description: belongs to Kaida Reyes
+        Type: {fileID: 11400000, guid: e5d9fa815eaea425ab758c9d8f4cb46e, type: 2}
+        Components:
+        - rid: 3423325703147094542
+    - rid: 3423325703147094541
+      type: {class: EntityData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Data Storage Cube
+        Description: belongs to Kaida Reyes
+        Type: {fileID: 11400000, guid: d55b65edfa736cd668a786d0ddc13a76, type: 2}
+        Components:
+        - rid: 3423325703147094543
+    - rid: 3423325703147094542
+      type: {class: EntityComponentData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Item
+        Component:
+          rid: 3423325703147094544
+        Hash: -2059530993
+    - rid: 3423325703147094543
+      type: {class: EntityComponentData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Item
+        Component:
+          rid: 3423325703147094545
+        Hash: -2059530993
+    - rid: 3423325703147094544
+      type: {class: Item, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Price: 38
+        Stack: 1
+        Weight: 44
+        Icon: {fileID: -1712464291680838311, guid: 1ae5afb60ab5799c3bef48480efbc008, type: 3}
+    - rid: 3423325703147094545
+      type: {class: Item, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Price: 25
+        Stack: 1
+        Weight: 2
+        Icon: {fileID: 4834892014007152935, guid: f89f0fd1658f4f0339fa3e654b7eb6f7, type: 3}
+    - rid: 3423325703147094546
+      type: {class: EntityData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Diagnostic Tools
+        Description: belongs to Nova Spire
+        Type: {fileID: 11400000, guid: e5d9fa815eaea425ab758c9d8f4cb46e, type: 2}
+        Components:
+        - rid: 3423325703147094548
+    - rid: 3423325703147094547
+      type: {class: EntityData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Copper Wiring
+        Description: belongs to Nova Spire
+        Type: {fileID: 11400000, guid: e5d9fa815eaea425ab758c9d8f4cb46e, type: 2}
+        Components:
+        - rid: 3423325703147094549
+    - rid: 3423325703147094548
+      type: {class: EntityComponentData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Item
+        Component:
+          rid: 3423325703147094550
+        Hash: -2059530993
+    - rid: 3423325703147094549
+      type: {class: EntityComponentData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Item
+        Component:
+          rid: 3423325703147094551
+        Hash: -2059530993
+    - rid: 3423325703147094550
+      type: {class: Item, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Price: 38
+        Stack: 1
+        Weight: 13
+        Icon: {fileID: -1712464291680838311, guid: 1ae5afb60ab5799c3bef48480efbc008, type: 3}
+    - rid: 3423325703147094551
+      type: {class: Item, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Price: 10
+        Stack: 1
+        Weight: 37
+        Icon: {fileID: -1712464291680838311, guid: 1ae5afb60ab5799c3bef48480efbc008, type: 3}
+    - rid: 3423325703147094552
+      type: {class: EntityData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Ancient Tome
+        Description: belongs to Arkeia Nexus
+        Type: {fileID: 11400000, guid: e5d9fa815eaea425ab758c9d8f4cb46e, type: 2}
+        Components:
+        - rid: 3423325703147094554
+    - rid: 3423325703147094553
+      type: {class: EntityData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Data Crystal
+        Description: belongs to Arkeia Nexus
+        Type: {fileID: 11400000, guid: d55b65edfa736cd668a786d0ddc13a76, type: 2}
+        Components:
+        - rid: 3423325703147094555
+    - rid: 3423325703147094554
+      type: {class: EntityComponentData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Item
+        Component:
+          rid: 3423325703147094556
+        Hash: -2059530993
+    - rid: 3423325703147094555
+      type: {class: EntityComponentData, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Name: Item
+        Component:
+          rid: 3423325703147094557
+        Hash: -2059530993
+    - rid: 3423325703147094556
+      type: {class: Item, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Price: 15
+        Stack: 1
+        Weight: 4
+        Icon: {fileID: -1712464291680838311, guid: 1ae5afb60ab5799c3bef48480efbc008, type: 3}
+    - rid: 3423325703147094557
+      type: {class: Item, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Price: 30
+        Stack: 1
+        Weight: 24
+        Icon: {fileID: 4834892014007152935, guid: f89f0fd1658f4f0339fa3e654b7eb6f7, type: 3}

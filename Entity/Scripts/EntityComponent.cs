@@ -3,7 +3,7 @@ using Unity.Entities;
 namespace Sentience
 {
     [System.Serializable]
-    public class EntityComponent : IEntityComponent
+    public class EntityComponent
     {
         protected EntityData _data;
         public EntityData Data => _data;

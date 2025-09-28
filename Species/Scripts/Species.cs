@@ -12,6 +12,5 @@ namespace Sentience
     {
         public string Name = "Species";
         public string Description = "";
-        public List<EntityType> SpeciesTypes = new List<EntityType>();
     }
 }

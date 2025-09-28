@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2ab1ccaf9d4c5299fdf1038368d739, type: 3}
+  m_Name: Seer
+  m_EditorClassIdentifier: Assembly-CSharp::Scaerth.PawnType
+  Name: Seer
+  Description: a large flying eye that serves as scout for security systems.
+  Prefab:
+  - {fileID: 1827405784199778597, guid: 63f7585141f6e76149f59c3f90762e34, type: 3}
+  Interactions:
+  - {fileID: 11400000, guid: fd53719d2acf5b8b895f2a7255355368, type: 2}
+  - {fileID: 11400000, guid: f8808ebe191653a3e8c9ab07f4a1d9ce, type: 2}
+  Components:
+  - Name: 
+    Type: 1
+    Component:
+      rid: -2
+  - Name: 
+    Type: 2
+    Component:
+      rid: -2
+  - Name: 
+    Type: 3
+    Component:
+      rid: -2
+  - Name: 
+    Type: 4
+    Component:
+      rid: -2
+  PossibleSprites:
+  - {fileID: -8268165025083159983, guid: 933078904187f2e8eafd57256eceb71d, type: 3}
+  Strength: {x: 10, y: 20}
+  Dexterity: {x: 10, y: 20}
+  Constitution: {x: 10, y: 20}
+  Intelligence: {x: 10, y: 20}
+  Wisdom: {x: 10, y: 20}
+  Charisma: {x: 10, y: 20}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

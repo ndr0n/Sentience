@@ -17,9 +17,27 @@ namespace Sentience
         EntityData _data;
         public EntityData Data => _data;
 
-        public void Init(EntityData data, System.Random random)
+        public void Init(EntityData data, Random random)
         {
             _data = data;
+        }
+
+        public async Awaitable LoadSentienceCharacter(SentienceCharacter character, Faction faction, Random random)
+        {
+            Data.Name = character.Name;
+            Data.Description = character.Description;
+            Faction = faction;
+            Location = character.Location;
+            Inventory inventory = Data.Get<Inventory>();
+            if (inventory != null)
+            {
+                foreach (var item in character.Inventory)
+                {
+                    EntityData entityData = new(item, $"belongs to {character.Name}", await SentienceManager.Instance.RagManager.GetMostSimilarItem(SentienceManager.Instance.ItemDatabase, item), random);
+                    Item itm = entityData.Get<Item>();
+                    inventory.Add(itm);
+                }
+            }
         }
     }
 

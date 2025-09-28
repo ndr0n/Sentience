@@ -55,12 +55,12 @@ namespace Sentience
             return factionDatabase.GetFaction(factionName);
         }
 
-        public async Awaitable<Faction> GetMostSimilarSpecies(FactionDatabase factionDatabase, string factionDescription)
+        public async Awaitable<Species> GetMostSimilarSpecies(SpeciesDatabase speciesDatabase, string speciesDescription)
         {
             if (loadingRag != null) await loadingRag;
-            (string[] similar, float[] distances) = await Rag.Search(factionDescription, 1, "Faction");
+            (string[] similar, float[] distances) = await Rag.Search(speciesDescription, 1, "Species");
             string factionName = similar[0].Split("|")[0];
-            return factionDatabase.GetFaction(factionName);
+            return speciesDatabase.GetFaction(factionName);
         }
 
         public async Awaitable<string> GetMostSimilar(List<string> options, string description)

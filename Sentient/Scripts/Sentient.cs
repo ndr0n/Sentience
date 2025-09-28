@@ -11,30 +11,29 @@ namespace Sentience
 {
     public class Sentient : MonoBehaviour
     {
-        public Persona Persona;
+        public Identity Identity;
         public int MemorySize = 100;
         [HideInInspector] public string Personality;
         [HideInInspector] public List<ChatMessage> Messages = new();
 
-        public void Init(Persona persona)
+        public void Init(Identity identity)
         {
             Messages.Clear();
-            Persona = persona;
-            Personality = $"Your character name is: {Persona.Data.Name}.\n" +
-                          $"Your character species is {Persona.Species}" +
-                          $"Your character description: {Persona.Data.Description}.\n" +
-                          $"Your character current location is: {Persona.Identity.Location}.\n";
-            if (Persona.Identity.Faction != null) Personality += $"Your Faction is {Persona.Identity.Faction}\n";
-            Inventory inventory = Persona.Data.Get<Inventory>();
+            Personality = $"Your character name is: {identity.Data.Name}.\n" +
+                          $"Your character species is {identity.Species}" +
+                          $"Your character description: {identity.Data.Description}.\n" +
+                          $"Your character current location is: {identity.Location}.\n";
+            if (identity.Faction != null) Personality += $"Your Faction is {identity.Faction}\n";
+            Inventory inventory = identity.Data.Get<Inventory>();
             foreach (var item in inventory.Items) Personality += $"You currently have {item} in your inventory.\n";
-            // Personality += "You must always speak as your character.";
+            Personality += "You must always speak as your character.";
         }
 
         public async Awaitable AskQuestion(string origin, string message, string details, Callback<string> onReply, Action<string> onFinish)
         {
             if (!string.IsNullOrWhiteSpace(message))
             {
-                Debug.Log($"{origin} asked {Persona.Data.Name}:\n{message}");
+                Debug.Log($"{origin} asked {Identity.Data.Name}:\n{message}");
                 AddMessage(origin, message);
                 string response = null;
                 response = await SentienceManager.Instance.AskQuestionFromSentience(this, message, details, onReply);

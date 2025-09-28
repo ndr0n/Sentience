@@ -23,16 +23,14 @@ namespace Sentience
         public string Species;
         public string Description;
         public string Location;
-        public Faction Faction;
         public List<string> Inventory = new();
 
-        public SentienceCharacter(SentienceCharacterParser parser, string location, Faction faction)
+        public SentienceCharacter(SentienceCharacterParser parser, string location)
         {
             Name = parser.name.Trim();
             Species = parser.species.Trim();
             Description = parser.description.Trim();
             Location = location;
-            Faction = faction;
             Inventory = new();
             if (parser.inventory != null)
             {
@@ -40,7 +38,7 @@ namespace Sentience
             }
         }
 
-        public static async Awaitable<SentienceCharacter> GenerateSentienceCharacter(string description, string location, Faction faction)
+        public static async Awaitable<SentienceCharacter> GenerateSentienceCharacter(string description, string location)
         {
             string answer;
             string rules = "I will tell you the location and the description of a character and you must respond with a character that fits these parameters.\n" +
@@ -54,19 +52,18 @@ namespace Sentience
             string msg = "";
             if (!string.IsNullOrWhiteSpace(description)) msg += $"Location: {location}";
             if (!string.IsNullOrWhiteSpace(description)) msg += $"Description: {description}";
-            if (!string.IsNullOrWhiteSpace(description)) msg += $"Faction: {faction.Name} - {faction.Description}";
             if (DungeonMaster.Instance.Cohere != null) answer = await CohereApi.Instance.AskQuestion(rules, msg, new List<CohereMessage>(), true);
             else answer = await DungeonMaster.Instance.AskQuestionToGenerator(rules, msg, null);
             Debug.Log($"Generated SentienceData!\n{answer}");
             try
             {
                 SentienceCharacterParser parser = JsonConvert.DeserializeObject<SentienceCharacterParser>(answer);
-                return new(parser, location, faction);
+                return new(parser, location);
             }
             catch (Exception e)
             {
                 Debug.Log(e);
-                return await GenerateSentienceCharacter(description, location, faction);
+                return await GenerateSentienceCharacter(description, location);
             }
         }
     }
