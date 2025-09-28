@@ -37,7 +37,8 @@ namespace Sentience
             components = new();
             foreach (var componentType in type.Components)
             {
-                EntityComponent component = componentType.SpawnComponent(componentType.Type);
+                EntityComponent component = componentType.Component;
+                if(component == null) component = componentType.SpawnComponent(componentType.Type);
                 component.Init(this, random);
                 components.Add(new(component));
             }

@@ -5,11 +5,12 @@ namespace Sentience
 {
     public enum ComponentType
     {
-        Body,
         Item,
+        Body,
         Inventory,
         ID,
         Persona,
+        Attributes,
         Journal,
     }
 
@@ -22,30 +23,17 @@ namespace Sentience
 
         public EntityComponent SpawnComponent(ComponentType componentType)
         {
-            EntityComponent entityComponent = null;
-            switch (componentType)
+            EntityComponent entityComponent = componentType switch
             {
-                case ComponentType.Body:
-                    entityComponent = new Body();
-                    break;
-                case ComponentType.Item:
-                    entityComponent = new Item();
-                    break;
-                case ComponentType.Inventory:
-                    entityComponent = new Inventory();
-                    break;
-                case ComponentType.ID:
-                    entityComponent = new ID();
-                    break;
-                case ComponentType.Persona:
-                    entityComponent = new Persona();
-                    break;
-                case ComponentType.Journal:
-                    entityComponent = new Journal();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                ComponentType.Body => new Body(),
+                ComponentType.Item => new Item(),
+                ComponentType.Inventory => new Inventory(),
+                ComponentType.ID => new ID(),
+                ComponentType.Persona => new Persona(),
+                ComponentType.Attributes => new Attributes(),
+                ComponentType.Journal => new Journal(),
+                _ => throw new ArgumentOutOfRangeException()
+            };
             return entityComponent;
         }
     }
