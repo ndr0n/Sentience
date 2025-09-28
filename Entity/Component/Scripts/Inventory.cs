@@ -21,17 +21,16 @@ namespace Sentience
     }
 
     [System.Serializable]
-    public class Inventory : Component
+    public class Inventory : EntityComponent
     {
         public int Size = 64;
         public int Credits = 50;
         public List<ItemSlot> Items = new();
 
-        public Inventory(EntityData data) : base(data)
+        public override void OnInit(EntityData data, System.Random random)
         {
-            _data = data;
         }
-
+        
         public void Add(Item item)
         {
             // foreach (var existingItem in Items)

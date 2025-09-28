@@ -78,12 +78,12 @@ namespace Sentience
                         random.Next(Mathf.FloorToInt(location.Position.z), Mathf.FloorToInt(location.Position.z + location.Size.z))
                     );
 
-                    EntityData entityData = new(character.name, character.description, spawnType, new(), random);
+                    EntityData entityData = new(character.name, character.description, spawnType, random);
                     ID id = entityData.Get<ID>();
                     id.Faction = location.Faction;
                     id.Location = location.Name;
-                    Persona persona = await Persona.Generate(id, new(character, location.Name, location.Faction));
-                    entityData.Components.Add(new(persona));
+                    Persona persona = entityData.Get<Persona>();
+                    await persona.Init(new(character, location.Name, location.Faction));
                     location.Characters.Add(entityData);
                 }
             }
@@ -103,7 +103,7 @@ namespace Sentience
                         Inventory inv = obj.Get<Inventory>();
                         if (inv != null)
                         {
-                            EntityData entityData = new(item, $"Found in {location.Name}.", await ItemType.GetType(SentienceManager.Instance.ItemDatabase, item), new(), random);
+                            EntityData entityData = new(item, $"Found in {location.Name}.", await ItemType.GetType(SentienceManager.Instance.ItemDatabase, item), random);
                             Item itm = entityData.Get<Item>();
                             inv.Add(itm);
                             break;

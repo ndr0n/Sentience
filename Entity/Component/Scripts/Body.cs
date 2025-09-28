@@ -3,16 +3,16 @@ using UnityEngine;
 namespace Sentience
 {
     [System.Serializable]
-    public class Body : Component
+    public class Body : EntityComponent
     {
         public Entity Prefab;
         public Entity Entity;
         public Vector3 Position;
 
-        public Body(EntityData data, EntityType spawnType, System.Random random) : base(data)
+        public override void OnInit(EntityData data, System.Random random)
         {
             _data = data;
-            Prefab = spawnType.Prefab[random.Next(spawnType.Prefab.Count)];
+            Prefab = data.Type.Prefab[random.Next(data.Type.Prefab.Count)];
         }
 
         public Entity SpawnBody(System.Random random, Transform parent, Vector3 position)

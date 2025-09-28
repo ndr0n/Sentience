@@ -6,15 +6,14 @@ using UnityEngine;
 namespace Sentience
 {
     [System.Serializable]
-    public class Item : Component
+    public class Item : EntityComponent
     {
-        public ItemType Type => (ItemType) Data.Type;
-
-        public Item(EntityData data) : base(data)
+        public override void OnInit(EntityData data, System.Random random)
         {
-            _data = data;
         }
-
+        
+        public ItemType Type => (ItemType) Data.Type;
+        
         public string Print()
         {
             string print = "";

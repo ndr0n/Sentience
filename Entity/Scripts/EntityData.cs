@@ -1,22 +1,23 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Sentience
 {
     [System.Serializable]
-    public class ComponentData
+    public class EntityComponentData
     {
         [HideInInspector] public string Name;
-        [SerializeReference] public Component Component;
+        [SerializeReference] public EntityComponent EntityComponent;
         [HideInInspector] public int Hash;
 
-        public ComponentData(Component component)
+        public EntityComponentData(EntityComponent entityComponent)
         {
-            string type = component.GetType().ToString();
+            string type = entityComponent.GetType().ToString();
             Name = type.Split('.')[^1];
             Hash = type.GetHashCode();
-            Component = component;
+            EntityComponent = entityComponent;
         }
     }
 
@@ -26,24 +27,29 @@ namespace Sentience
         public string Name;
         public string Description;
         public EntityType Type;
-        [SerializeReference] public List<ComponentData> Components = new();
+        [SerializeReference] List<EntityComponentData> components = new();
 
-        public EntityData(string name, string description, EntityType type, List<Component> components, System.Random random)
+        public EntityData(string name, string description, EntityType type, System.Random random)
         {
             Name = name;
             Description = description;
             Type = type;
-            Components = new();
-            foreach (var component in components) Components.Add(new(component));
+            components = new();
+            foreach (var componentType in type.Components)
+            {
+                EntityComponent component = componentType.SpawnComponent(componentType.Type);
+                component.Init(this, random);
+                components.Add(new(component));
+            }
             type.SpawnData(this, random);
         }
 
-        public T Get<T>() where T : Component
+        public T Get<T>() where T : EntityComponent
         {
             // int hash = typeof(T).GetHashCode();
-            foreach (var c in Components)
+            foreach (var c in components)
             {
-                if (c.Component is T t) return t;
+                if (c.EntityComponent is T t) return t;
             }
             return null;
         }

@@ -14,17 +14,7 @@ namespace Sentience
         public int Price = 1;
         public int Stack = 1;
         public Sprite Icon = null;
-
-        protected override void OnSpawnEntity(Entity entity, Random random)
-        {
-        }
-
-        protected override void OnSpawnData(EntityData data, Random random)
-        {
-            Item item = new Item(data);
-            data.Components.Add(new(item));
-        }
-
+        
         public int GetSellPrice()
         {
             return Price;

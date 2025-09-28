@@ -4,13 +4,12 @@ using Unity.VisualScripting;
 namespace Sentience
 {
     [System.Serializable]
-    public class Journal : Component
+    public class Journal : EntityComponent
     {
         public List<Quest> Quests = new();
-
-        public Journal(EntityData data) : base(data)
+        
+        public override void OnInit(EntityData data, System.Random random)
         {
-            _data = data;
         }
     }
 }

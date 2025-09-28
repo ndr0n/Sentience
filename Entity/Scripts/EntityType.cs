@@ -1,34 +1,58 @@
+using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Sentience
 {
-    public abstract class EntityType : ScriptableObject
+    [System.Serializable]
+    [CreateAssetMenu(fileName = "Entity", menuName = "Sentience/Entity/Type")]
+    public class EntityType : ScriptableObject
     {
-        public List<Entity> Prefab;
         public string Name = "Entity";
         public string Description = "";
+        public List<Entity> Prefab;
         public List<Interaction> Interactions = new();
+        public List<EntityComponentType> Components = new();
+
+#if UNITY_EDITOR
+        void OnValidate()
+        {
+            SpawnEditorComponents();
+        }
+#endif
 
         public void SpawnData(EntityData data, System.Random random)
         {
             data.Type = this;
-            if (Prefab.Count > 0)
-            {
-                Body body = new Body(data, this, random);
-                data.Components.Add(new(body));
-                Debug.Log($"Added body to {data.Name}");
-            }
             OnSpawnData(data, random);
         }
 
-        protected abstract void OnSpawnData(EntityData data, System.Random random);
+        protected virtual void OnSpawnData(EntityData data, System.Random random)
+        {
+        }
 
         public void SpawnEntity(Entity entity, System.Random random)
         {
             OnSpawnEntity(entity, random);
         }
 
-        protected abstract void OnSpawnEntity(Entity entity, System.Random random);
+        protected virtual void OnSpawnEntity(Entity entity, System.Random random)
+        {
+        }
+
+        public void SpawnEditorComponents()
+        {
+            foreach (var component in Components)
+            {
+                string n = component.Type.ToString().Split('.')[^1];
+                if (n != component.Component.ToString().Split('.')[^1])
+                {
+                    component.Name = n;
+                    component.Component = component.SpawnComponent(component.Type);
+                }
+            }
+        }
     }
 }
