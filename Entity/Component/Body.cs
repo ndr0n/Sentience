@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Numerics;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = System.Random;
@@ -23,11 +24,11 @@ namespace Sentience
             _data = data;
         }
 
-        public Entity SpawnBody(Random random, Transform parent, Vector3 position)
+        public Entity SpawnBody(Random random, Transform parent, Vector3 worldPosition)
         {
             Entity entity = Object.Instantiate(Prefab.gameObject, parent).GetComponent<Entity>();
             Entity = entity;
-            Position = position;
+            Position = worldPosition;
             Entity.Spawn(Data.Type, Data, Position);
             return entity;
         }

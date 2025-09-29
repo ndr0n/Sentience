@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sentience.EntityType
   Name: Esquilo
   Description: an explorer.
-  Interactions:
-  - {fileID: 11400000, guid: dfbc3fad68fe6557f97b237c22645ded, type: 2}
+  Interactions: []
   Components:
   - Name: Body
     Component: 1
@@ -29,22 +28,22 @@ MonoBehaviour:
     Component: 3
     Authoring:
       rid: 3423325703147094428
-  - Name: Identity
+  - Name: Attributes
     Component: 4
     Authoring:
-      rid: 3423325703147094420
-  - Name: Attributes
-    Component: 6
+      rid: 3423325721092161775
+  - Name: Identity
+    Component: 5
     Authoring:
-      rid: 3423325703147094417
+      rid: 3423325721092161778
   - Name: Journal
     Component: 8
     Authoring:
-      rid: 3423325703147094418
+      rid: 3423325721092161780
   - Name: Avatar
-    Component: 7
+    Component: 9
     Authoring:
-      rid: 3423325703147094370
+      rid: 3423325721092161781
   references:
     version: 2
     RefIds:
@@ -52,31 +51,8 @@ MonoBehaviour:
       type: {class: InventoryAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:
         Size: 64
-        Credits: 0
+        Credits: {x: 0, y: 100}
         Items: []
-    - rid: 3423325703147094370
-      type: {class: AvatarAuthoring, ns: MindTheatre, asm: Assembly-CSharp}
-      data:
-        PossibleSprites:
-        - {fileID: -779178000821955330, guid: e5e06269dd876e581a10b28769196b51, type: 3}
-    - rid: 3423325703147094417
-      type: {class: AttributesAuthoring, ns: Sentience, asm: Assembly-CSharp}
-      data:
-        Strength: {x: 8, y: 16}
-        Dexterity: {x: 8, y: 16}
-        Constitution: {x: 8, y: 16}
-        Intelligence: {x: 8, y: 16}
-        Wisdom: {x: 8, y: 16}
-        Charisma: {x: 8, y: 16}
-    - rid: 3423325703147094418
-      type: {class: JournalAuthoring, ns: Sentience, asm: Assembly-CSharp}
-      data: 
-    - rid: 3423325703147094420
-      type: {class: IdentityAuthoring, ns: Sentience, asm: Assembly-CSharp}
-      data:
-        Species: {fileID: 11400000, guid: ab923cdd6cc36d26a81c7153b833ea16, type: 2}
-        Faction: {fileID: 11400000, guid: ce631caef28c9ea1985a342f67cef907, type: 2}
-        Location: the shifting rooms
     - rid: 3423325703147094428
       type: {class: HealthAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:
@@ -87,3 +63,26 @@ MonoBehaviour:
       data:
         Prefabs:
         - {fileID: 6670924211930380776, guid: e35dc5929150fdca48cca6c643917c75, type: 3}
+    - rid: 3423325721092161775
+      type: {class: AttributesAuthoring, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Strength: {x: 8, y: 16}
+        Dexterity: {x: 8, y: 16}
+        Constitution: {x: 8, y: 16}
+        Intelligence: {x: 8, y: 16}
+        Wisdom: {x: 8, y: 16}
+        Charisma: {x: 8, y: 16}
+    - rid: 3423325721092161778
+      type: {class: IdentityAuthoring, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Species: {fileID: 11400000, guid: ab923cdd6cc36d26a81c7153b833ea16, type: 2}
+        Faction: {fileID: 11400000, guid: ce631caef28c9ea1985a342f67cef907, type: 2}
+        Location: the shifting rooms
+    - rid: 3423325721092161780
+      type: {class: JournalAuthoring, ns: Sentience, asm: Assembly-CSharp}
+      data: 
+    - rid: 3423325721092161781
+      type: {class: AvatarAuthoring, ns: MindTheatre, asm: Assembly-CSharp}
+      data:
+        PossibleSprites:
+        - {fileID: -779178000821955330, guid: e5e06269dd876e581a10b28769196b51, type: 3}

@@ -106,15 +106,16 @@ namespace Sentience
     public class InventoryAuthoring : EntityComponentAuthoring
     {
         public int Size = 64;
-        public int Credits = 0;
-        public List<Inventory.Slot> Items = new();
+        public Vector2Int Credits = new Vector2Int(0, 100);
+        public List<Item> Items = new();
 
         public override IEntityComponent Spawn(Random random)
         {
             Inventory inventory = new();
             inventory.Size = Size;
-            inventory.Credits = Credits;
+            inventory.Credits = random.Next(Credits.x, Credits.y);
             inventory.Items = new();
+            foreach (var itm in Items) inventory.Items.Add(new(itm, 1));
             return inventory;
         }
     }

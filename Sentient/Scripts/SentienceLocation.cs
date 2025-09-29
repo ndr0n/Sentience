@@ -50,66 +50,78 @@ namespace Sentience
     {
         public static async Awaitable<Location> Generate(SentienceLocationParser parser, Vector3 size, Vector3 position, List<EntityData> locationObjects)
         {
-            System.Random random = new(Random.Range(int.MinValue, int.MaxValue));
-            Location location = new()
+            try
             {
-                Name = parser.name,
-                Description = parser.description,
-                Faction = await SentienceManager.Instance.RagManager.GetMostSimilarFaction(SentienceManager.Instance.FactionDatabase, parser.faction),
-                Size = size,
-                Position = position,
-            };
-
-            List<string> identityOptions = new();
-            foreach (var type in location.Faction.FactionEntity) identityOptions.Add($"{type.name}|{type.Description}");
-
-            if (parser.characters != null)
-            {
-                location.Characters = new();
-                foreach (var character in parser.characters)
+                System.Random random = new(Random.Range(int.MinValue, int.MaxValue));
+                Location location = new()
                 {
-                    string similar = await SentienceManager.Instance.RagManager.GetMostSimilar(identityOptions, $"{character.species} | {character.name} | {character.description}");
-                    similar = similar.Split('|')[0];
-                    EntityType spawnType = location.Faction.FactionEntity.FirstOrDefault(x => x.name == similar);
+                    Name = parser.name,
+                    Description = parser.description,
+                    Faction = await SentienceManager.Instance.RagManager.GetMostSimilarFaction(SentienceManager.Instance.FactionDatabase, parser.faction),
+                    Size = size,
+                    Position = position,
+                };
 
-                    Vector3 spawnPosition = new Vector3(
-                        random.Next(Mathf.FloorToInt(location.Position.x), Mathf.FloorToInt(location.Position.x + location.Size.x)),
-                        random.Next(Mathf.FloorToInt(location.Position.y), Mathf.FloorToInt(location.Position.y + location.Size.y)),
-                        random.Next(Mathf.FloorToInt(location.Position.z), Mathf.FloorToInt(location.Position.z + location.Size.z))
-                    );
-                    SentienceCharacter sc = new(character, location.Name);
-                    EntityData entityData = new(sc.Name, sc.Description, spawnType, random);
-                    Identity identity = entityData.Get<Identity>();
-                    await identity.LoadSentienceCharacter(sc, location.Faction, random);
-                    location.Characters.Add(entityData);
-                }
-            }
+                List<string> identityOptions = new();
+                foreach (var type in location.Faction.FactionEntity) identityOptions.Add($"{type.name}|{type.Description}");
 
-            location.Objects = new();
-            if (locationObjects != null)
-            {
-                foreach (var obj in locationObjects)
+                if (parser.characters != null)
                 {
-                    location.Objects.Add(obj);
-                }
-
-                foreach (var item in parser.items)
-                {
-                    foreach (var obj in locationObjects.OrderBy(x => random.Next()))
+                    location.Characters = new();
+                    foreach (var character in parser.characters)
                     {
-                        Inventory inv = obj.Get<Inventory>();
-                        if (inv != null)
+                        string similar = await SentienceManager.Instance.RagManager.GetMostSimilar(identityOptions, $"{character.species} | {character.name} | {character.description}");
+                        similar = similar.Split('|')[0];
+                        EntityType spawnType = location.Faction.FactionEntity.FirstOrDefault(x => x.name == similar);
+
+                        Vector3 spawnPosition = new Vector3(
+                            random.Next(Mathf.FloorToInt(location.Position.x), Mathf.FloorToInt(location.Position.x + location.Size.x)),
+                            random.Next(Mathf.FloorToInt(location.Position.y), Mathf.FloorToInt(location.Position.y + location.Size.y)),
+                            random.Next(Mathf.FloorToInt(location.Position.z), Mathf.FloorToInt(location.Position.z + location.Size.z))
+                        );
+                        SentienceCharacter sc = new(character, location.Name);
+                        EntityData entityData = new(sc.Name, sc.Description, spawnType, random);
+                        Body body = entityData.Get<Body>();
+                        body.Position = spawnPosition;
+                        Identity identity = entityData.Get<Identity>();
+                        await identity.LoadSentienceCharacter(sc, location.Faction, random);
+                        location.Characters.Add(entityData);
+                    }
+                }
+
+                location.Objects = new();
+                if (locationObjects != null)
+                {
+                    foreach (var obj in locationObjects)
+                    {
+                        location.Objects.Add(obj);
+                    }
+
+                    foreach (var item in parser.items)
+                    {
+                        foreach (var obj in locationObjects.OrderBy(x => random.Next()))
                         {
-                            EntityData entityData = new(item, $"Found in {location.Name}.", await SentienceManager.Instance.RagManager.GetMostSimilarItem(SentienceManager.Instance.ItemDatabase, item), random);
-                            Item itm = entityData.Get<Item>();
-                            inv.Add(itm);
-                            break;
+                            Inventory inv = obj.Get<Inventory>();
+                            if (inv != null)
+                            {
+                                EntityData entityData = new(item, $"Found in {location.Name}.", await SentienceManager.Instance.RagManager.GetMostSimilarItem(SentienceManager.Instance.ItemDatabase, item), random);
+                                Item itm = entityData.Get<Item>();
+                                inv.Add(itm);
+                                break;
+                            }
                         }
                     }
                 }
-            }
 
-            return location;
+                Debug.Log($"Location Generated! {location.Name}");
+
+                return location;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+                return null;
+            }
         }
 
         public static async Awaitable<Location> GenerateLocationFromArea(Vector3 size, Vector3 position, string area, List<EntityData> locationObjects)

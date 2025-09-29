@@ -16,11 +16,12 @@ namespace Sentience
             Body,
             Inventory,
             Health,
+            Attributes,
             Identity,
             Persona,
-            Attributes,
-            Avatar,
+            Lock,
             Journal,
+            Avatar,
         }
 
         [HideInInspector] public string Name;

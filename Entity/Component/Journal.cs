@@ -10,7 +10,7 @@ namespace Sentience
         public EntityData Data => _data;
 
         public void Init(EntityData data, System.Random random)
-        {
+        {   
             _data = data;
             if (Quests == null) Quests = new();
         }

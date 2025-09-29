@@ -41,11 +41,13 @@ namespace Sentience
 
         public override IEntityComponent Spawn(System.Random random)
         {
-            Item item = new();
-            item.Stack = Stack;
-            item.Price = random.Next(Price.x, Price.y);
-            item.Weight = random.Next(Price.x, Price.y);
-            item.Icon = Icons[random.Next(0, Icons.Count)];
+            Item item = new()
+            {
+                Stack = Stack,
+                Price = random.Next(Price.x, Price.y),
+                Weight = random.Next(Price.x, Price.y),
+                Icon = Icons[random.Next(0, Icons.Count)]
+            };
             return item;
         }
     }

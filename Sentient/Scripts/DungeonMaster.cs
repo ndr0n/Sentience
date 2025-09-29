@@ -70,39 +70,45 @@ namespace Sentience
         public async Awaitable<string> AskQuestionToGenerator(string rules, string message, Callback<string> onReply)
         {
             while (awaitingResponse) await Awaitable.WaitForSecondsAsync(1f);
+
+            Debug.Log($"DM - Question: \n{rules}\n{message}");
+
             awaitingResponse = true;
             if (string.IsNullOrWhiteSpace(systemPrompt)) InitPrompt();
             Generator.seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
             Generator.SetPrompt($"{systemPrompt}\n{rules}", false);
             string response = await Generator.Chat(message, onReply, null, false);
             awaitingResponse = false;
+
+            Debug.Log($"DM - Response: \n{response}");
+
             return response;
         }
 
         public async Awaitable<SentienceQuestParser> GenerateSentienceQuest(string details)
         {
-            string rules = "I will tell you the entities that we have in an area and must respond with a generated engaging quest for the player to complete.\n" +
-                           "You must only answer with a quest in the following JSON format:\n" +
-                           "{\n" +
-                           "\"name\": \"<the name of the quest>\",\n" +
-                           "\"stages\": [\"<\n" +
-                           "this field must contain a JSON list containing each quest stage.\n" +
-                           "Each individual event stage on this list must have the following json format:" +
-                           "{\n" +
-                           "\"description\": \"<a very short description of how the player starts this quest stage.>\",\n" +
-                           "\"objective\": \"<the player's objective during this quest stage.>\",\n" +
-                           "\"target\": \"<the name of the entity to which the player must perform an action to complete this quest stage.>\",\n" +
-                           "\"action\": \"<the name (one word) of the action that the player must perform on the target entity to complete this quest stage.>\",\n" +
-                           "}\n" +
-                           ">\"]\n" +
-                           "}";
-            string msg = "";
-            msg += details;
-            var answer = await AskQuestionToGenerator(rules, msg, null);
-            Debug.Log($"Try Generate Quest!\n{answer}");
             SentienceQuestParser parser;
             try
             {
+                string rules = "I will tell you the entities that we have in an area and must respond with a generated engaging quest for the player to complete.\n" +
+                               "You must only answer with a quest in the following JSON format:\n" +
+                               "{\n" +
+                               "\"name\": \"<the name of the quest>\",\n" +
+                               "\"stages\": [\"<\n" +
+                               "this field must contain a JSON list containing each quest stage.\n" +
+                               "Each individual event stage on this list must have the following json format:" +
+                               "{\n" +
+                               "\"description\": \"<a very short description of how the player starts this quest stage.>\",\n" +
+                               "\"objective\": \"<the player's objective during this quest stage.>\",\n" +
+                               "\"target\": \"<the name of the entity to which the player must perform an action to complete this quest stage.>\",\n" +
+                               "\"action\": \"<the name (one word) of the action that the player must perform on the target entity to complete this quest stage.>\",\n" +
+                               "}\n" +
+                               ">\"]\n" +
+                               "}";
+                string msg = "";
+                msg += details;
+                var answer = await AskQuestionToGenerator(rules, msg, null);
+                Debug.Log($"Try Generate Quest!\n{answer}");
                 parser = JsonConvert.DeserializeObject<SentienceQuestParser>(answer);
                 return parser;
             }

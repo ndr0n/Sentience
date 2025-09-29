@@ -33,7 +33,7 @@ namespace Sentience
                 {
                     Inventory inv = entity.Get<Inventory>();
                     if (inv == null) continue;
-                    items.AddRange(inv.Items);
+                    foreach (var slot in inv.Items) items.Add(slot.Item);
                 }
                 Item desiredItem = items[Random.Range(0, items.Count)];
                 Desire = desiredItem.Data.Name;
