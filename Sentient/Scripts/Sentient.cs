@@ -18,6 +18,7 @@ namespace Sentience
 
         public void Init(Identity identity)
         {
+            Identity = identity;
             Messages.Clear();
             Personality = $"Your character name is: {identity.Data.Name}.\n" +
                           $"Your character species is {identity.Species}" +
@@ -31,17 +32,24 @@ namespace Sentience
 
         public async Awaitable AskQuestion(string origin, string message, string details, Callback<string> onReply, Action<string> onFinish)
         {
-            if (!string.IsNullOrWhiteSpace(message))
+            try
             {
-                Debug.Log($"{origin} asked {Identity.Data.Name}:\n{message}");
-                AddMessage(origin, message);
-                string response = null;
-                response = await SentienceManager.Instance.AskQuestionFromSentience(this, message, details, onReply);
-                if (response != null) AddMessage("assistant", response);
-                // response = TrimName(response, Persona.PersonaData.ID.Name);
-                onFinish?.Invoke(response);
+                if (!string.IsNullOrWhiteSpace(message))
+                {
+                    Debug.Log($"{origin} asked {Identity.Data.Name}:\n{message}");
+                    AddMessage(origin, message);
+                    string response = null;
+                    response = await SentienceManager.Instance.AskQuestionFromSentience(this, message, details, onReply);
+                    if (response != null) AddMessage("assistant", response);
+                    // response = TrimName(response, Persona.PersonaData.ID.Name);
+                    onFinish?.Invoke(response);
+                }
+                else onFinish?.Invoke(message);
             }
-            else onFinish?.Invoke(message);
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
         }
 
         public void AddMessage(string role, string msg)

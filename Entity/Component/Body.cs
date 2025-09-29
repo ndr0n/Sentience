@@ -20,8 +20,7 @@ namespace Sentience
         {
             Entity entity = Object.Instantiate(Prefab.gameObject, parent).GetComponent<Entity>();
             Entity = entity;
-            Position = worldPosition;
-            Entity.Spawn(Data.Type, Data, Position);
+            Entity.Spawn(Data.Type, Data, worldPosition);
             return entity;
         }
     }
