@@ -30,14 +30,14 @@ namespace Sentience
         public string Description;
         public EntityType Type;
         [SerializeReference] List<EntityComponentData> Components = new();
-        readonly Dictionary<int, IEntityComponent> dictionary = new();
+        // Dictionary<int, IEntityComponent> dictionary = new();
 
         public EntityData(string name, string description, EntityType type, System.Random random)
         {
             Name = name;
             Description = description;
             Type = type;
-            dictionary.Clear();
+            // dictionary.Clear();
             Components = new();
 
             foreach (var componentType in type.Components) AddComponent(componentType.Authoring, random);
@@ -52,21 +52,21 @@ namespace Sentience
             IEntityComponent component = authoring.Spawn(random);
             EntityComponentData componentData = new(component);
             Components.Add(componentData);
-            dictionary.Add(componentData.Component.GetType().GetHashCode(), componentData.Component);
+            // dictionary.Add(componentData.Component.GetType().GetHashCode(), componentData.Component);
         }
 
         void RemoveComponent(IEntityComponent component)
         {
             EntityComponentData data = Components.First(x => x.Component == component);
             Components.Remove(data);
-            dictionary.Remove(component.GetType().GetHashCode());
+            // dictionary.Remove(component.GetType().GetHashCode());
         }
 
         public T Get<T>() where T : class, IEntityComponent
         {
-            int hash = typeof(T).GetHashCode();
-            return dictionary[hash] as T;
-            // return Components.First(x => x.Component is T).Component as T;
+            return Components.FirstOrDefault(x => x.Component is T)?.Component as T;
+            // int hash = typeof(T).GetHashCode();
+            // return dictionary[hash] as T;
             // foreach (var c in Components)
             // {
             // if (c.Component is T t) return t;

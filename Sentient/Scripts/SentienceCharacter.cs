@@ -27,10 +27,10 @@ namespace Sentience
 
         public SentienceCharacter(SentienceCharacterParser parser, string location)
         {
-            Name = parser.name.Trim();
-            Species = parser.species.Trim();
-            Description = parser.description.Trim();
-            Location = location.Trim();
+            Name = parser.name?.Trim();
+            Species = parser.species?.Trim();
+            Description = parser.description?.Trim();
+            Location = location?.Trim();
             Inventory = new();
             if (parser.inventory != null)
             {

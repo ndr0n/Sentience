@@ -59,23 +59,7 @@ MonoBehaviour:
       data:
         Size: 64
         Credits: {x: 0, y: 100}
-        Items:
-        - Price: 0
-          Stack: 0
-          Weight: 0
-          Icon: {fileID: 0}
-        - Price: 0
-          Stack: 0
-          Weight: 0
-          Icon: {fileID: 0}
-        - Price: 0
-          Stack: 0
-          Weight: 0
-          Icon: {fileID: 0}
-        - Price: 0
-          Stack: 0
-          Weight: 0
-          Icon: {fileID: 0}
+        Items: []
     - rid: 3423325703147094436
       type: {class: HealthAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:
