@@ -6,16 +6,8 @@ using UnityEngine;
 namespace Sentience
 {
     [System.Serializable]
-    public class Lock : IEntityComponent
+    public class Lock : EntityComponent
     {
-        EntityData _data;
-        public EntityData Data => _data;
-
-        public void Init(EntityData data, System.Random random)
-        {
-            _data = data;
-        }
-
         [SerializeField] bool open;
         public bool Open
         {

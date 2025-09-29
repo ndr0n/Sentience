@@ -7,16 +7,8 @@ using UnityEngine.Serialization;
 namespace Sentience
 {
     [System.Serializable]
-    public class Item : IEntityComponent
+    public class Item : EntityComponent
     {
-        EntityData _data;
-        public EntityData Data => _data;
-
-        public void Init(EntityData data, System.Random random)
-        {
-            _data = data;
-        }
-
         public int Price;
         public int Stack;
         public float Weight;

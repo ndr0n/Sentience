@@ -8,19 +8,11 @@ using Random = System.Random;
 namespace Sentience
 {
     [System.Serializable]
-    public class Identity : IEntityComponent
+    public class Identity : EntityComponent
     {
         public Species Species;
         public Faction Faction;
         public string Location;
-
-        EntityData _data;
-        public EntityData Data => _data;
-
-        public void Init(EntityData data, Random random)
-        {
-            _data = data;
-        }
 
         public async Awaitable LoadSentienceCharacter(SentienceCharacter character, Faction faction, Random random)
         {

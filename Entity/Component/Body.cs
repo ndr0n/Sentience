@@ -10,19 +10,11 @@ using Vector3 = UnityEngine.Vector3;
 namespace Sentience
 {
     [System.Serializable]
-    public class Body : IEntityComponent
+    public class Body : EntityComponent
     {
         public Entity Prefab;
         public Vector3 Position;
         public Entity Entity;
-
-        EntityData _data;
-        public EntityData Data => _data;
-
-        public void Init(EntityData data, Random random)
-        {
-            _data = data;
-        }
 
         public Entity SpawnBody(Random random, Transform parent, Vector3 worldPosition)
         {

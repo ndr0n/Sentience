@@ -7,16 +7,8 @@ using Random = System.Random;
 namespace Sentience
 {
     [System.Serializable]
-    public class Health : IEntityComponent
+    public class Health : EntityComponent
     {
-        EntityData _data;
-        public EntityData Data => _data;
-
-        public void Init(EntityData data, Random random)
-        {
-            _data = data;
-        }
-
         int val = 100;
         public int Value
         {

@@ -6,17 +6,9 @@ using Random = System.Random;
 namespace MindTheatre
 {
     [System.Serializable]
-    public class Avatar : IEntityComponent
+    public class Avatar : EntityComponent
     {
         public Sprite Sprite;
-
-        EntityData _data;
-        public EntityData Data => _data;
-
-        public void Init(EntityData data, Random random)
-        {
-            _data = data;
-        }
     }
 
     [System.Serializable]

@@ -5,7 +5,7 @@ using Random = System.Random;
 namespace Sentience
 {
     [System.Serializable]
-    public class Attributes : IEntityComponent
+    public class Attributes : EntityComponent
     {
         [Header("Ability Score")]
         public int Strength;
@@ -23,14 +23,6 @@ namespace Sentience
         public int Armor = 1;
         public int Poise = 1;
         public int Willpower = 1;
-
-        EntityData _data;
-        public EntityData Data => _data;
-
-        public void Init(EntityData data, System.Random random)
-        {
-            _data = data;
-        }
     }
 
     [System.Serializable]

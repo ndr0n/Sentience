@@ -11,16 +11,8 @@ using Random = UnityEngine.Random;
 namespace Sentience
 {
     [System.Serializable]
-    public class Persona : IEntityComponent
+    public class Persona : EntityComponent
     {
-        EntityData _data;
-        public EntityData Data => _data;
-
-        public void Init(EntityData data, System.Random random)
-        {
-            _data = data;
-        }
-
         public Identity Identity => Data.Get<Identity>();
         public string Desire = "";
 

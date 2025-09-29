@@ -4,17 +4,8 @@ using Unity.VisualScripting;
 namespace Sentience
 {
     [System.Serializable]
-    public class Journal : IEntityComponent
+    public class Journal : EntityComponent
     {
-        EntityData _data;
-        public EntityData Data => _data;
-
-        public void Init(EntityData data, System.Random random)
-        {   
-            _data = data;
-            if (Quests == null) Quests = new();
-        }
-
         public List<Quest> Quests;
     }
 
@@ -24,6 +15,7 @@ namespace Sentience
         public override IEntityComponent Spawn(System.Random random)
         {
             Journal journal = new();
+            journal.Quests = new();
             return journal;
         }
     }

@@ -8,7 +8,7 @@ using Random = System.Random;
 namespace Sentience
 {
     [System.Serializable]
-    public class Inventory : IEntityComponent
+    public class Inventory : EntityComponent
     {
         public int Size;
         public int Credits;
@@ -27,14 +27,6 @@ namespace Sentience
                 Item = item;
                 Amount = amount;
             }
-        }
-
-        EntityData _data;
-        public EntityData Data => _data;
-
-        public void Init(EntityData data, System.Random random)
-        {
-            _data = data;
         }
 
         public void Add(Item item)

@@ -3,12 +3,12 @@ using Unity.Entities;
 namespace Sentience
 {
     [System.Serializable]
-    public class EntityComponent
+    public class EntityComponent : IEntityComponent
     {
         protected EntityData _data;
         public EntityData Data => _data;
 
-        public void Init(EntityData data, System.Random random)
+        public virtual void Init(EntityData data, System.Random random)
         {
             _data = data;
         }
