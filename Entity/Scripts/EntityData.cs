@@ -45,6 +45,7 @@ namespace Sentience
         void AddComponent(EntityAuthoring authoring, System.Random random)
         {
             IEntityComponent component = authoring.Spawn(random);
+            component.Init(this, random);
             EntityComponentData componentData = new(component);
             Components.Add(componentData);
         }
