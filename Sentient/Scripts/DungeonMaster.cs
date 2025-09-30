@@ -98,7 +98,7 @@ namespace Sentience
                                "this field must contain a JSON list containing each quest stage.\n" +
                                "Each individual event stage on this list must have the following json format:" +
                                "{\n" +
-                               "\"description\": \"<a very short description of how the player starts this quest stage.>\",\n" +
+                               "\"description\": \"<a very short description of this quest stage.>\",\n" +
                                "\"objective\": \"<the player's objective during this quest stage.>\",\n" +
                                "\"target\": \"<the name of the entity to which the player must perform an action to complete this quest stage.>\",\n" +
                                "\"action\": \"<the name (one word) of the action that the player must perform on the target entity to complete this quest stage.>\",\n" +

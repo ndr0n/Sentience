@@ -4,14 +4,14 @@ using UnityEngine;
 namespace MindTheatre
 {
     [System.Serializable]
-    [CreateAssetMenu(fileName = "I_Close", menuName = "Sentience/Interaction/Close")]
-    public class I_Close : Interaction
+    [CreateAssetMenu(fileName = "I_Open", menuName = "Scaerth/Interaction/Open")]
+    public class I_Open : Interaction
     {
         public override bool HasInteraction(EntityData self, EntityData interactor, EntityData target)
         {
             Lock _lock = self.Get<Lock>();
             if (_lock == null) return false;
-            if (_lock.Open == false) return false;
+            if (_lock.Open) return false;
             return true;
         }
 

@@ -21,12 +21,12 @@ namespace Sentience
             Identity = identity;
             Messages.Clear();
             Personality = $"Your character name is: {identity.Data.Name}.\n" +
-                          $"Your character species is {identity.Species}" +
+                          $"Your character species is {identity.Species.Name}" +
                           $"Your character description: {identity.Data.Description}.\n" +
                           $"Your character current location is: {identity.Location}.\n";
-            if (identity.Faction != null) Personality += $"Your Faction is {identity.Faction}\n";
+            if (identity.Faction != null) Personality += $"Your Faction is {identity.Faction.Name}\n";
             Inventory inventory = identity.Data.Get<Inventory>();
-            foreach (var item in inventory.Items) Personality += $"You currently have {item} in your inventory.\n";
+            foreach (var item in inventory.Items) Personality += $"You currently have {item.Name} in your inventory.\n";
             Personality += "You must always speak as your character.";
         }
 

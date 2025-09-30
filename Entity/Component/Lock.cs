@@ -14,11 +14,11 @@ namespace Sentience
             get => open;
             set
             {
-                if (open != value)
-                {
-                    open = value;
-                    OnOpenStateChanged?.Invoke(open);
-                }
+                // if (open != value)
+                // {
+                open = value;
+                OnOpenStateChanged?.Invoke(open);
+                // }
             }
         }
 
