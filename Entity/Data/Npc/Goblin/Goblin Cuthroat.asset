@@ -45,7 +45,7 @@ MonoBehaviour:
   - Name: Avatar
     Component: 9
     Authoring:
-      rid: 3423325721092161827
+      rid: 3423325743177007879
   references:
     version: 2
     RefIds:
@@ -84,8 +84,8 @@ MonoBehaviour:
       type: {class: PersonaAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:
         Desire: 
-    - rid: 3423325721092161827
-      type: {class: AvatarAuthoring, ns: MindTheatre, asm: Assembly-CSharp}
+    - rid: 3423325743177007879
+      type: {class: AvatarAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:
         PossibleSprites:
         - {fileID: 2520108084128459728, guid: f89f0fd1658f4f0339fa3e654b7eb6f7, type: 3}

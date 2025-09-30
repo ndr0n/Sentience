@@ -48,7 +48,7 @@ namespace Sentience
         public bool Open = false;
         public bool Locked = false;
 
-        public override IComponentData Spawn(System.Random random)
+        public override IEntityComponent Spawn(System.Random random)
         {
             Lock lockComponent = new();
             lockComponent.Open = Open;

@@ -36,7 +36,7 @@ namespace Sentience
         public Vector2Int Wisdom = new Vector2Int(1, 20);
         public Vector2Int Charisma = new Vector2Int(1, 20);
 
-        public override IComponentData Spawn(Random random)
+        public override IEntityComponent Spawn(Random random)
         {
             Attributes attributes = new();
             attributes.Strength = random.Next(Strength.x, Strength.y);

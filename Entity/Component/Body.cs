@@ -21,8 +21,8 @@ namespace Sentience
             Spawn spawn = Object.Instantiate(Prefab.gameObject, parent).GetComponent<Spawn>();
             Spawn = spawn;
 
-            Info info = EntityLibrary.Get<Info>(Entity);
-            Spawn.OnSpawn(Entity, info.Type, worldPosition);
+            Info info = Data.Get<Info>();
+            Spawn.OnSpawn(Data, info.Type, worldPosition);
             return spawn;
         }
     }
@@ -32,7 +32,7 @@ namespace Sentience
     {
         public List<Spawn> Prefabs = new();
 
-        public override IComponentData Spawn(Random random)
+        public override IEntityComponent Spawn(Random random)
         {
             Body body = new();
             body.Prefab = Prefabs[random.Next(0, Prefabs.Count)];

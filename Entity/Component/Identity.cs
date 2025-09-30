@@ -18,22 +18,20 @@ namespace Sentience
 
         public async Awaitable LoadSentienceCharacter(SentienceCharacter character, Faction faction, Random random)
         {
-            Info info = EntityLibrary.Get<Info>(Entity);
+            Info info = Data.Get<Info>();
             info.Name = character.Name;
             info.Description = character.Description;
-            // World.DefaultGameObjectInjectionWorld.EntityManager.SetComponentData<Info>(Entity, info);
-            // EntityLibrary.Set<Info>(Entity, info);
 
             Faction = faction;
             Location = character.Location;
 
-            if (EntityLibrary.Has<Inventory>(Entity))
+            if (Data.Has<Inventory>())
             {
-                Inventory inventory = EntityLibrary.Get<Inventory>(Entity);
+                Inventory inventory = Data.Get<Inventory>();
                 foreach (var item in character.Inventory)
                 {
-                    EntityInstance entityInstance = new(item, $"belongs to {character.Name}", await SentienceManager.Instance.RagManager.GetMostSimilarItem(SentienceManager.Instance.ItemDatabase, item), random);
-                    Item itm = EntityLibrary.Get<Item>(Entity);
+                    EntityData data = new(item, $"belongs to {character.Name}", await SentienceManager.Instance.RagManager.GetMostSimilarItem(SentienceManager.Instance.ItemDatabase, item), random);
+                    Item itm = Data.Get<Item>();
                     inventory.Add(itm);
                 }
             }
@@ -47,7 +45,7 @@ namespace Sentience
         public Faction Faction;
         public string Location;
 
-        public override IComponentData Spawn(Random random)
+        public override IEntityComponent Spawn(Random random)
         {
             Identity identity = new Identity();
             identity.Species = Species;

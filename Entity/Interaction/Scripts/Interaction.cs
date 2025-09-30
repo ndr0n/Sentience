@@ -14,9 +14,9 @@ namespace Sentience
         public string Description = "";
         public string Tags = "";
 
-        public abstract bool HasInteraction(Entity self, Entity interactor, Entity target);
+        public abstract bool HasInteraction(EntityData self, EntityData interactor, EntityData target);
 
-        public bool TryInteract(Entity self, Entity interactor, Entity target)
+        public bool TryInteract(EntityData self, EntityData interactor, EntityData target)
         {
             if (!HasInteraction(self, interactor, target)) return false;
             if (OnTryInteract(self, interactor, target))
@@ -27,26 +27,24 @@ namespace Sentience
             return false;
         }
 
-        protected abstract bool OnTryInteract(Entity self, Entity interactor, Entity target);
+        protected abstract bool OnTryInteract(EntityData self, EntityData interactor, EntityData target);
 
-        protected void CheckForQuestInteraction(Entity self, Entity interactor, Entity target)
+        protected void CheckForQuestInteraction(EntityData self, EntityData interactor, EntityData target)
         {
-            if (EntityLibrary.Has<Journal>(interactor))
+            if (interactor.Has<Journal>())
             {
-                Journal journal = EntityLibrary.Get<Journal>(interactor);
+                Journal journal = interactor.Get<Journal>();
                 List<Quest> toRemove = new();
                 foreach (var q in journal.Quests)
                 {
                     QuestStage stage = q.Data.Stages[q.Stage];
                     if (stage.InteractionData.Interaction == this)
                     {
-                        Info selfInfo = EntityLibrary.Get<Info>(self);
                         if (!string.IsNullOrWhiteSpace(stage.InteractionData.Item))
                         {
-                            if (stage.InteractionData.Item == selfInfo.Name)
+                            if (stage.InteractionData.Item == self.Name)
                             {
-                                Info targetInfo = EntityLibrary.Get<Info>(target);
-                                if (stage.InteractionData.Target == targetInfo.Name)
+                                if (stage.InteractionData.Target == target.Name)
                                 {
                                     q.Stage += 1;
                                     if (q.Stage >= q.Data.Stages.Count) toRemove.Add(q);
@@ -55,7 +53,7 @@ namespace Sentience
                                 }
                             }
                         }
-                        else if (stage.InteractionData.Target == selfInfo.Name)
+                        else if (stage.InteractionData.Target == self.Name)
                         {
                             q.Stage += 1;
                             if (q.Stage >= q.Data.Stages.Count) toRemove.Add(q);

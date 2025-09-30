@@ -24,7 +24,7 @@ namespace Sentience
 
             public Slot(Item item, int amount)
             {
-                Info info = EntityLibrary.Get<Info>(item.Entity);
+                Info info = item.Data.Get<Info>();
                 Name = info.Name;
                 Item = item;
                 Amount = amount;
@@ -32,7 +32,7 @@ namespace Sentience
 
             public bool Equals(Slot other)
             {
-                return Item.Entity == other.Item.Entity;
+                return Item.Data == other.Item.Data;
             }
         }
 
@@ -60,7 +60,7 @@ namespace Sentience
             // else Debug.Log($"Not enough {item.Amount}.");
             foreach (var slot in Items)
             {
-                if (slot.Item.Entity == item.Entity)
+                if (slot.Item.Data == item.Data)
                 {
                     Items.Remove(slot);
                     break;
@@ -80,7 +80,7 @@ namespace Sentience
         {
             for (int i = 0; i < Items.Count; i++)
             {
-                Info info = EntityLibrary.Get<Info>(Items[i].Item.Entity);
+                Info info = Items[i].Item.Data.Get<Info>();
                 if (info.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
                 {
                     Remove(i, 1);
@@ -109,7 +109,7 @@ namespace Sentience
         public Vector2Int Credits = new Vector2Int(0, 100);
         public List<Item> Items = new();
 
-        public override IComponentData Spawn(Random random)
+        public override IEntityComponent Spawn(Random random)
         {
             Inventory inventory = new();
             inventory.Size = Size;

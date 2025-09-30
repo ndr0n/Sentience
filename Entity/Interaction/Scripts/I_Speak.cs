@@ -8,26 +8,26 @@ namespace MindTheatre
     [CreateAssetMenu(fileName = "I_Speak", menuName = "Scaerth/Interaction/Speak")]
     public class I_Speak : Interaction
     {
-        public override bool HasInteraction(Entity self, Entity interactor, Entity target)
+        public override bool HasInteraction(EntityData self, EntityData interactor, EntityData target)
         {
-            if (!EntityLibrary.Has<Persona>(self)) return false;
+            if (!self.Has<Persona>()) return false;
 
-            if (!EntityLibrary.Has<Identity>(interactor)) return false;
+            if (!interactor.Has<Identity>()) return false;
 
-            if (EntityLibrary.IsHostile(self, interactor)) return false;
+            if (self.IsHostile(interactor)) return false;
 
             return true;
         }
 
-        protected override bool OnTryInteract(Entity self, Entity interactor, Entity target)
+        protected override bool OnTryInteract(EntityData self, EntityData interactor, EntityData target)
         {
-            Body body = EntityLibrary.Get<Body>(self);
+            Body body = self.Get<Body>();
             if (body.Spawn == null) return false;
 
             Speaker speaker = body.Spawn.GetComponent<Speaker>();
             if (speaker == null) return false;
 
-            Identity identity = EntityLibrary.Get<Identity>(interactor);
+            Identity identity = interactor.Get<Identity>();
             speaker.StartSpeakingWith(identity);
 
             return true;

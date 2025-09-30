@@ -12,7 +12,7 @@ namespace Sentience
         public string Location;
         public List<QuestStage> Stages = new();
 
-        public async Awaitable InitFromSentienceQuest(SentienceQuest sentienceQuest, Entity player, List<Entity> entities)
+        public async Awaitable InitFromSentienceQuest(SentienceQuest sentienceQuest, EntityData player, List<EntityData> entities)
         {
             Name = sentienceQuest.Name;
             // Source = sentienceQuest.Source;

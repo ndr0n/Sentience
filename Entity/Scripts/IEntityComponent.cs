@@ -3,9 +3,9 @@ using Unity.Entities;
 
 namespace Sentience
 {
-    public interface IEntityComponent : IComponentData
+    public interface IEntityComponent
     {
-        public Entity Entity { get; }
-        public void Init(Entity entity, System.Random random);
+        public EntityData Data { get; }
+        public void Init(EntityData data, System.Random random);
     }
 }

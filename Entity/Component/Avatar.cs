@@ -17,7 +17,7 @@ namespace Sentience
     {
         public List<Sprite> PossibleSprites = new();
 
-        public override IComponentData Spawn(Random random)
+        public override IEntityComponent Spawn(Random random)
         {
             Avatar avatar = new();
             avatar.Sprite = PossibleSprites[random.Next(PossibleSprites.Count)];

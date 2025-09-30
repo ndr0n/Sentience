@@ -17,7 +17,7 @@ namespace Sentience
 
         public string Print()
         {
-            Info info = EntityLibrary.Get<Info>(Entity);
+            Info info = Data.Get<Info>();
             string print = "";
             print += $"{info.Name}\n";
             if (!string.IsNullOrWhiteSpace(info.Description)) print += $"{info.Description}\n";
@@ -33,7 +33,7 @@ namespace Sentience
         public Vector2Int Price = new Vector2Int(1, 50);
         public List<Sprite> Icons = new();
 
-        public override IComponentData Spawn(System.Random random)
+        public override IEntityComponent Spawn(System.Random random)
         {
             Item item = new()
             {

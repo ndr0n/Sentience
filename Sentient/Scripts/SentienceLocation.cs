@@ -16,9 +16,9 @@ namespace Sentience
         public Vector3Int Size;
         public Vector3Int Position;
         public string Description;
-        public List<EntityInstance> LocationObjects;
+        public List<EntityData> LocationObjects;
 
-        public SentienceLocationDetails(Vector3Int size, Vector3Int position, string description, List<EntityInstance> locationObjects)
+        public SentienceLocationDetails(Vector3Int size, Vector3Int position, string description, List<EntityData> locationObjects)
         {
             Size = size;
             Position = position;
@@ -48,7 +48,7 @@ namespace Sentience
     [System.Serializable]
     public static class SentienceLocation
     {
-        public static async Awaitable<Location> Generate(SentienceLocationParser parser, Vector3 size, Vector3 position, List<EntityInstance> locationObjects)
+        public static async Awaitable<Location> Generate(SentienceLocationParser parser, Vector3 size, Vector3 position, List<EntityData> locationObjects)
         {
             try
             {
@@ -80,15 +80,15 @@ namespace Sentience
                             random.Next(Mathf.FloorToInt(location.Position.z), Mathf.FloorToInt(location.Position.z + location.Size.z))
                         );
                         SentienceCharacter sc = new(character, location.Name);
-                        EntityInstance characterInstance = new(sc.Name, sc.Description, spawnType, random);
+                        EntityData characterData = new(sc.Name, sc.Description, spawnType, random);
 
-                        Body body = EntityLibrary.Get<Body>(characterInstance.Entity);
+                        Body body = characterData.Get<Body>();
                         body.Position = spawnPosition;
 
-                        Identity identity = EntityLibrary.Get<Identity>(characterInstance.Entity);
+                        Identity identity = characterData.Get<Identity>();
                         await identity.LoadSentienceCharacter(sc, location.Faction, random);
 
-                        location.Characters.Add(characterInstance);
+                        location.Characters.Add(characterData);
                     }
                 }
 
@@ -104,11 +104,11 @@ namespace Sentience
                     {
                         foreach (var obj in locationObjects.OrderBy(x => random.Next()))
                         {
-                            if (EntityLibrary.Has<Inventory>(obj.Entity))
+                            if (obj.Has<Inventory>())
                             {
-                                Inventory inv = EntityLibrary.Get<Inventory>(obj.Entity);
-                                EntityInstance itemInstance = new(item, $"Found in {location.Name}.", await SentienceManager.Instance.RagManager.GetMostSimilarItem(SentienceManager.Instance.ItemDatabase, item), random);
-                                Item itm = EntityLibrary.Get<Item>(itemInstance.Entity);
+                                Inventory inv = obj.Get<Inventory>();
+                                EntityData itemData = new(item, $"Found in {location.Name}.", await SentienceManager.Instance.RagManager.GetMostSimilarItem(SentienceManager.Instance.ItemDatabase, item), random);
+                                Item itm = itemData.Get<Item>();
                                 inv.Add(itm);
                                 break;
                             }
@@ -127,7 +127,7 @@ namespace Sentience
             }
         }
 
-        public static async Awaitable<Location> GenerateLocationFromArea(Vector3 size, Vector3 position, string area, List<EntityInstance> locationObjects)
+        public static async Awaitable<Location> GenerateLocationFromArea(Vector3 size, Vector3 position, string area, List<EntityData> locationObjects)
         {
             string answer;
             string rules = "I will tell you the area and description of a location and you must respond with a location that exists within this area.\n" +

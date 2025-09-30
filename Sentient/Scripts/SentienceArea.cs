@@ -32,7 +32,7 @@ namespace Sentience
             }
         }
 
-        public static async Awaitable<Location> GenerateAreaLocation(Area area, Vector3 size, Vector3 position, string description, List<EntityInstance> locationObjects)
+        public static async Awaitable<Location> GenerateAreaLocation(Area area, Vector3 size, Vector3 position, string description, List<EntityData> locationObjects)
         {
             Location location = await GenerateLocationData(area, size, position, description, locationObjects);
             if (location == null) location = await GenerateAreaLocation(area, size, position, description, locationObjects);
@@ -41,7 +41,7 @@ namespace Sentience
             return location;
         }
 
-        public static async Awaitable<Location> GenerateLocationData(Area area, Vector3 size, Vector3 position, string details, List<EntityInstance> locationObjects)
+        public static async Awaitable<Location> GenerateLocationData(Area area, Vector3 size, Vector3 position, string details, List<EntityData> locationObjects)
         {
             string exeption = "";
             if (area.Location.Count > 0)
@@ -53,7 +53,7 @@ namespace Sentience
                     exeption += $"Location: {loc.Name} | Characters: ";
                     foreach (var character in loc.Characters)
                     {
-                        Info info = EntityLibrary.Get<Info>(character.Entity);
+                        Info info = character.Get<Info>();
                         exeption += $"{info.Name}, ";
                     }
                     exeption += $"\n";
@@ -89,17 +89,17 @@ namespace Sentience
                         msg += $"Location Objects:\n";
                         foreach (var obj in location.Objects)
                         {
-                            Info info = EntityLibrary.Get<Info>(obj.Entity);
+                            Info info = obj.Get<Info>();
                             msg += $"{info.Name}";
-                            if (EntityLibrary.Has<Inventory>(obj.Entity))
+                            if (obj.Has<Inventory>())
                             {
-                                Inventory inv = EntityLibrary.Get<Inventory>(obj.Entity);
+                                Inventory inv = obj.Get<Inventory>();
                                 if (inv.Items.Count > 0)
                                 {
                                     msg += $" (Items: ";
                                     foreach (var item in inv.Items)
                                     {
-                                        Info itemInfo = EntityLibrary.Get<Info>(item.Item.Entity);
+                                        Info itemInfo = item.Item.Data.Get<Info>();
                                         msg += $"{itemInfo.Name}, ";
                                     }
                                     msg += $")";
@@ -114,17 +114,17 @@ namespace Sentience
                         msg += $"Location Characters:\n";
                         foreach (var chr in location.Characters.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
                         {
-                            Info info = EntityLibrary.Get<Info>(chr.Entity);
+                            Info info = chr.Get<Info>();
                             msg += $"{info.Name}";
-                            if (EntityLibrary.Has<Inventory>(chr.Entity))
+                            if (chr.Has<Inventory>())
                             {
-                                Inventory inv = EntityLibrary.Get<Inventory>(chr.Entity);
+                                Inventory inv = chr.Get<Inventory>();
                                 if (inv.Items.Count > 0)
                                 {
                                     msg += $" (Items: ";
                                     foreach (var item in inv.Items)
                                     {
-                                        Info itemInfo = EntityLibrary.Get<Info>(item.Item.Entity);
+                                        Info itemInfo = item.Item.Data.Get<Info>();
                                         msg += $"{itemInfo.Name}, ";
                                     }
                                     msg += $")";
@@ -163,17 +163,17 @@ namespace Sentience
                         msg += $"Location Objects:\n";
                         foreach (var obj in location.Objects)
                         {
-                            Info info = EntityLibrary.Get<Info>(obj.Entity);
+                            Info info = obj.Get<Info>();
                             msg += $"{info.Name}";
-                            if (EntityLibrary.Has<Inventory>(obj.Entity))
+                            if (obj.Has<Inventory>())
                             {
-                                Inventory inv = EntityLibrary.Get<Inventory>(obj.Entity);
+                                Inventory inv = obj.Get<Inventory>();
                                 if (inv.Items.Count > 0)
                                 {
                                     msg += $" (Items: ";
                                     foreach (var item in inv.Items)
                                     {
-                                        Info itemInfo = EntityLibrary.Get<Info>(item.Item.Entity);
+                                        Info itemInfo = item.Item.Data.Get<Info>();
                                         msg += $"{itemInfo.Name}, ";
                                     }
                                     msg += $")";
@@ -187,17 +187,17 @@ namespace Sentience
                         msg += $"Location Characters:\n";
                         foreach (var chr in location.Characters.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
                         {
-                            Info info = EntityLibrary.Get<Info>(chr.Entity);
+                            Info info = chr.Get<Info>();
                             msg += $"{info.Name}";
-                            if (EntityLibrary.Has<Inventory>(chr.Entity))
+                            if (chr.Has<Inventory>())
                             {
-                                Inventory inv = EntityLibrary.Get<Inventory>(chr.Entity);
+                                Inventory inv = chr.Get<Inventory>();
                                 if (inv.Items.Count > 0)
                                 {
                                     msg += $" (Items: ";
                                     foreach (var item in inv.Items)
                                     {
-                                        Info itemInfo = EntityLibrary.Get<Info>(item.Item.Entity);
+                                        Info itemInfo = item.Item.Data.Get<Info>();
                                         msg += $"{itemInfo.Name}, ";
                                     }
                                     msg += $")";

@@ -5,12 +5,12 @@ namespace Sentience
 {
     public class EntityComponent : IEntityComponent
     {
-        Entity _entity;
-        public Entity Entity => _entity;
+        EntityData _data;
+        public EntityData Data => _data;
 
-        public virtual void Init(Entity entity, Random random)
+        public virtual void Init(EntityData data, Random random)
         {
-            _entity = entity;
+            _data = data;
         }
     }
 }

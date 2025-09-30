@@ -13,51 +13,50 @@ namespace Sentience
         public string Description;
         public InteractionData InteractionData;
 
-        public async Awaitable InitFromSentienceQuestStage(SentienceQuestStage stage, Entity player, List<Entity> entities)
+        public async Awaitable InitFromSentienceQuestStage(SentienceQuestStage stage, EntityData player, List<EntityData> entities)
         {
             Objective = stage.Objective;
             Description = stage.Description;
 
-            Entity? targetEntity = null;
+            EntityData target = null;
             if (!string.IsNullOrEmpty(stage.Target))
             {
                 List<string> entityNames = new();
-                foreach (var d in entities)
+                foreach (var entity in entities)
                 {
-                    Info info = EntityLibrary.Get<Info>(d);
+                    Info info = entity.Get<Info>();
                     entityNames.Add($"{info.Name}|{info.Description}");
                 }
                 string eTarget = await SentienceManager.Instance.RagManager.GetMostSimilar(entityNames, stage.Target);
                 eTarget = eTarget.Split('|')[0];
-                targetEntity = entities.FirstOrDefault(x => EntityLibrary.Get<Info>(x).Name == eTarget);
+                target = entities.FirstOrDefault(x => x.Name == eTarget);
             }
-            if (targetEntity.HasValue == false)
+            if (target == null)
             {
-                targetEntity = entities[Random.Range(0, entities.Count)];
+                target = entities[Random.Range(0, entities.Count)];
             }
 
-            Entity target = targetEntity.Value;
-            Entity owner = target;
-            Info targetInfo = EntityLibrary.Get<Info>(target);
+            EntityData owner = target;
+            Info targetInfo = target.Get<Info>();
 
             string itemName = "";
             // string target = target.Name;
-            if (EntityLibrary.Has<Item>(target))
+            if (target.Has<Item>())
             {
-                Item item = EntityLibrary.Get<Item>(target);
+                Item itemTarget = target.Get<Item>();
                 itemName = targetInfo.Name;
                 foreach (var entity in entities)
                 {
-                    if (EntityLibrary.Has<Identity>(entity))
+                    if (entity.Has<Identity>())
                     {
-                        if (EntityLibrary.Has<Inventory>(entity))
+                        if (entity.Has<Inventory>())
                         {
-                            Identity data = EntityLibrary.Get<Identity>(entity);
-                            Inventory inv = EntityLibrary.Get<Inventory>(entity);
+                            Identity identity = entity.Get<Identity>();
+                            Inventory inv = entity.Get<Inventory>();
                             bool breakLoop = false;
                             foreach (var i in inv.Items)
                             {
-                                if (item.Entity == i.Item.Entity)
+                                if (itemTarget.Data == i.Item.Data)
                                 {
                                     target = entity;
                                     owner = entity;

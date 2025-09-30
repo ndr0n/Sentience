@@ -6,15 +6,14 @@ namespace Sentience
 {
     public abstract class Spawn : MonoBehaviour
     {
-        public Entity Entity;
         public EntityType Type;
+        [SerializeReference] public EntityData Data;
 
-        public void OnSpawn(Entity entity, EntityType type, Vector3 position)
+        public void OnSpawn(EntityData data, EntityType type, Vector3 position)
         {
-            Entity = entity;
+            Data = data;
             Type = type;
-            Info info = EntityLibrary.Get<Info>(entity);
-            name = info.Name;
+            name = data.Name;
             transform.position = position;
             OnSpawn();
         }
