@@ -16,10 +16,10 @@ namespace Sentience
 
         public string Print()
         {
-            Info info = Data.Get<Info>();
+            ID id = Data.Get<ID>();
             string print = "";
-            print += $"{info.Name}\n";
-            if (!string.IsNullOrWhiteSpace(info.Description)) print += $"{info.Description}\n";
+            print += $"{id.Name}\n";
+            if (!string.IsNullOrWhiteSpace(id.Description)) print += $"{id.Description}\n";
             return print;
         }
     }

@@ -16,9 +16,9 @@ namespace Sentience
 
         public async Awaitable LoadSentienceCharacter(SentienceCharacter character, Faction faction, Random random)
         {
-            Info info = Data.Get<Info>();
-            info.Name = character.Name;
-            info.Description = character.Description;
+            ID id = Data.Get<ID>();
+            id.Name = character.Name;
+            id.Description = character.Description;
 
             Faction = faction;
             Location = character.Location;

@@ -19,7 +19,7 @@ namespace Sentience
             Name = name;
             Components = new();
 
-            Info d = new();
+            ID d = new();
             d.Name = name;
             d.Description = description;
             d.Type = type;

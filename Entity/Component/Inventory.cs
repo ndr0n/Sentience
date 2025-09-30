@@ -23,8 +23,8 @@ namespace Sentience
 
             public Slot(Item item, int amount)
             {
-                Info info = item.Data.Get<Info>();
-                Name = info.Name;
+                ID id = item.Data.Get<ID>();
+                Name = id.Name;
                 Item = item;
                 Amount = amount;
             }
@@ -79,8 +79,8 @@ namespace Sentience
         {
             for (int i = 0; i < Items.Count; i++)
             {
-                Info info = Items[i].Item.Data.Get<Info>();
-                if (info.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
+                ID id = Items[i].Item.Data.Get<ID>();
+                if (id.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
                 {
                     Remove(i, 1);
                     return true;

@@ -20,8 +20,8 @@ namespace Sentience
             Spawn spawn = Object.Instantiate(Prefab.gameObject, parent).GetComponent<Spawn>();
             Spawn = spawn;
 
-            Info info = Data.Get<Info>();
-            Spawn.OnSpawn(Data, info.Type, worldPosition);
+            ID id = Data.Get<ID>();
+            Spawn.OnSpawn(Data, id.Type, worldPosition);
             return spawn;
         }
     }

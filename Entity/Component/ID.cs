@@ -1,6 +1,6 @@
 namespace Sentience
 {
-    public class Info : EntityComponent
+    public class ID : EntityComponent
     {
         public string Name;
         public string Description;

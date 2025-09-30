@@ -19,11 +19,11 @@ namespace Sentience
         public void Init(Identity identity)
         {
             Identity = identity;
-            Info info = identity.Data.Get<Info>();
+            ID id = identity.Data.Get<ID>();
             Messages.Clear();
-            Personality = $"Your character name is: {info.Name}.\n" +
+            Personality = $"Your character name is: {id.Name}.\n" +
                           $"Your character species is {identity.Species.Name}" +
-                          $"Your character description: {info.Description}.\n" +
+                          $"Your character description: {id.Description}.\n" +
                           $"Your character current location is: {identity.Location}.\n";
             if (identity.Faction != null) Personality += $"Your Faction is {identity.Faction.Name}\n";
             Inventory inventory = identity.Data.Get<Inventory>();
@@ -37,8 +37,8 @@ namespace Sentience
             {
                 if (!string.IsNullOrWhiteSpace(message))
                 {
-                    Info info = Identity.Data.Get<Info>();
-                    Debug.Log($"{origin} asked {info.Name}:\n{message}");
+                    ID id = Identity.Data.Get<ID>();
+                    Debug.Log($"{origin} asked {id.Name}:\n{message}");
                     AddMessage(origin, message);
                     string response = null;
                     response = await SentienceManager.Instance.AskQuestionFromSentience(this, message, details, onReply);
