@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Entities;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -15,17 +16,23 @@ namespace Sentience
         public List<Slot> Items;
 
         [System.Serializable]
-        public class Slot
+        public struct Slot : IEquatable<Slot>
         {
             [HideInInspector] public string Name;
-            public int Amount = 1;
-            [SerializeReference] public Item Item = null;
+            public int Amount;
+            [SerializeReference] public Item Item;
 
             public Slot(Item item, int amount)
             {
-                Name = item.Data.Name;
+                Info info = EntityLibrary.Get<Info>(item.Entity);
+                Name = info.Name;
                 Item = item;
                 Amount = amount;
+            }
+
+            public bool Equals(Slot other)
+            {
+                return Item.Entity == other.Item.Entity;
             }
         }
 
@@ -53,7 +60,7 @@ namespace Sentience
             // else Debug.Log($"Not enough {item.Amount}.");
             foreach (var slot in Items)
             {
-                if (slot.Item == item)
+                if (slot.Item.Entity == item.Entity)
                 {
                     Items.Remove(slot);
                     break;
@@ -73,7 +80,8 @@ namespace Sentience
         {
             for (int i = 0; i < Items.Count; i++)
             {
-                if (Items[i].Item.Data.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
+                Info info = EntityLibrary.Get<Info>(Items[i].Item.Entity);
+                if (info.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
                 {
                     Remove(i, 1);
                     return true;
@@ -95,13 +103,13 @@ namespace Sentience
     }
 
     [System.Serializable]
-    public class InventoryAuthoring : EntityComponentAuthoring
+    public class InventoryAuthoring : EntityAuthoring
     {
         public int Size = 64;
         public Vector2Int Credits = new Vector2Int(0, 100);
         public List<Item> Items = new();
 
-        public override IEntityComponent Spawn(Random random)
+        public override IComponentData Spawn(Random random)
         {
             Inventory inventory = new();
             inventory.Size = Size;

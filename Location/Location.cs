@@ -11,7 +11,7 @@ namespace Sentience
         public Faction Faction;
         public Vector3 Size = Vector3.one;
         public Vector3 Position = Vector3.zero;
-        public List<EntityData> Objects = new();
-        public List<EntityData> Characters = new();
+        public List<EntityInstance> Objects = new();
+        public List<EntityInstance> Characters = new();
     }
 }

@@ -1,9 +1,11 @@
 using MindTheatre;
+using Unity.Entities;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 using Random = System.Random;
+using World = Unity.Entities.World;
 
 namespace Sentience
 {
@@ -16,17 +18,22 @@ namespace Sentience
 
         public async Awaitable LoadSentienceCharacter(SentienceCharacter character, Faction faction, Random random)
         {
-            Data.Name = character.Name;
-            Data.Description = character.Description;
+            Info info = EntityLibrary.Get<Info>(Entity);
+            info.Name = character.Name;
+            info.Description = character.Description;
+            // World.DefaultGameObjectInjectionWorld.EntityManager.SetComponentData<Info>(Entity, info);
+            // EntityLibrary.Set<Info>(Entity, info);
+
             Faction = faction;
             Location = character.Location;
-            Inventory inventory = Data.Get<Inventory>();
-            if (inventory != null)
+
+            if (EntityLibrary.Has<Inventory>(Entity))
             {
+                Inventory inventory = EntityLibrary.Get<Inventory>(Entity);
                 foreach (var item in character.Inventory)
                 {
-                    EntityData entityData = new(item, $"belongs to {character.Name}", await SentienceManager.Instance.RagManager.GetMostSimilarItem(SentienceManager.Instance.ItemDatabase, item), random);
-                    Item itm = entityData.Get<Item>();
+                    EntityInstance entityInstance = new(item, $"belongs to {character.Name}", await SentienceManager.Instance.RagManager.GetMostSimilarItem(SentienceManager.Instance.ItemDatabase, item), random);
+                    Item itm = EntityLibrary.Get<Item>(Entity);
                     inventory.Add(itm);
                 }
             }
@@ -34,13 +41,13 @@ namespace Sentience
     }
 
     [System.Serializable]
-    public class IdentityAuthoring : EntityComponentAuthoring
+    public class IdentityAuthoring : EntityAuthoring
     {
         public Species Species;
         public Faction Faction;
         public string Location;
 
-        public override IEntityComponent Spawn(Random random)
+        public override IComponentData Spawn(Random random)
         {
             Identity identity = new Identity();
             identity.Species = Species;

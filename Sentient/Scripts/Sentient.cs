@@ -18,14 +18,15 @@ namespace Sentience
 
         public void Init(Identity identity)
         {
+            Info info = EntityLibrary.Get<Info>(identity.Entity);
             Identity = identity;
             Messages.Clear();
-            Personality = $"Your character name is: {identity.Data.Name}.\n" +
+            Personality = $"Your character name is: {info.Name}.\n" +
                           $"Your character species is {identity.Species.Name}" +
-                          $"Your character description: {identity.Data.Description}.\n" +
+                          $"Your character description: {info.Description}.\n" +
                           $"Your character current location is: {identity.Location}.\n";
             if (identity.Faction != null) Personality += $"Your Faction is {identity.Faction.Name}\n";
-            Inventory inventory = identity.Data.Get<Inventory>();
+            Inventory inventory = EntityLibrary.Get<Inventory>(identity.Entity);
             foreach (var item in inventory.Items) Personality += $"You currently have {item.Name} in your inventory.\n";
             Personality += "You must always speak as your character.";
         }
@@ -36,7 +37,8 @@ namespace Sentience
             {
                 if (!string.IsNullOrWhiteSpace(message))
                 {
-                    Debug.Log($"{origin} asked {Identity.Data.Name}:\n{message}");
+                    Info info = EntityLibrary.Get<Info>(Identity.Entity);
+                    Debug.Log($"{origin} asked {info.Name}:\n{message}");
                     AddMessage(origin, message);
                     string response = null;
                     response = await SentienceManager.Instance.AskQuestionFromSentience(this, message, details, onReply);

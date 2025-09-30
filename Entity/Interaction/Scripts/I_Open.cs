@@ -1,4 +1,5 @@
 using Sentience;
+using Unity.Entities;
 using UnityEngine;
 
 namespace MindTheatre
@@ -7,18 +8,20 @@ namespace MindTheatre
     [CreateAssetMenu(fileName = "I_Open", menuName = "Scaerth/Interaction/Open")]
     public class I_Open : Interaction
     {
-        public override bool HasInteraction(EntityData self, EntityData interactor, EntityData target)
+        public override bool HasInteraction(Entity self, Entity interactor, Entity target)
         {
-            Lock _lock = self.Get<Lock>();
-            if (_lock == null) return false;
+            if (!EntityLibrary.Has<Lock>(self)) return false;
+            Lock _lock = EntityLibrary.Get<Lock>(self);
             if (_lock.Open) return false;
+
             return true;
         }
 
-        protected override bool OnTryInteract(EntityData self, EntityData interactor, EntityData target)
+        protected override bool OnTryInteract(Entity self, Entity interactor, Entity target)
         {
-            Lock _lock = self.Get<Lock>();
+            Lock _lock = EntityLibrary.Get<Lock>(self);
             _lock.Open = true;
+
             return true;
         }
     }

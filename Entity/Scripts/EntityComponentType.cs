@@ -26,23 +26,23 @@ namespace Sentience
 
         [HideInInspector] public string Name;
         public ComponentType Component;
-        [SerializeReference] public EntityComponentAuthoring Authoring;
+        [SerializeReference] public EntityAuthoring Authoring;
 
         public IEnumerable<Type> FindDerivedTypes(Assembly assembly, Type baseType)
         {
             return assembly.GetTypes().Where(t => t != baseType && baseType.IsAssignableFrom(t));
         }
 
-        public EntityComponentAuthoring SpawnAuthoringComponent(ComponentType componentType)
+        public EntityAuthoring SpawnAuthoringComponent(ComponentType componentType)
         {
-            EntityComponentAuthoring component = null;
-            Type baseType = typeof(EntityComponentAuthoring);
+            EntityAuthoring component = null;
+            Type baseType = typeof(EntityAuthoring);
             List<Type> authoringTypes = FindDerivedTypes(baseType.Assembly, baseType).ToList();
             foreach (var authoringType in authoringTypes)
             {
                 if (authoringType.Name.Replace("Authoring", "") == Component.ToString())
                 {
-                    component = Activator.CreateInstance(authoringType) as EntityComponentAuthoring;
+                    component = Activator.CreateInstance(authoringType) as EntityAuthoring;
                     break;
                 }
             }

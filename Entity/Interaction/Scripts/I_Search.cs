@@ -1,4 +1,5 @@
 using Sentience;
+using Unity.Entities;
 using UnityEngine;
 
 namespace MindTheatre
@@ -7,18 +8,13 @@ namespace MindTheatre
     [CreateAssetMenu(fileName = "I_Search", menuName = "Scaerth/Interaction/Search")]
     public class I_Search : Interaction
     {
-        public override bool HasInteraction(EntityData self, EntityData interactor, EntityData target)
+        public override bool HasInteraction(Entity self, Entity interactor, Entity target)
         {
-            Inventory inv = self.Get<Inventory>();
-            if (inv == null) return false;
-
-            Body body = interactor.Get<Body>();
-            if (body == null) return false;
-
+            if (!EntityLibrary.Has<Inventory>(self)) return false;
             return true;
         }
 
-        protected override bool OnTryInteract(EntityData self, EntityData interactor, EntityData target)
+        protected override bool OnTryInteract(Entity self, Entity interactor, Entity target)
         {
             Hud.Instance.InventoryPanel.Show(true, self);
             return true;

@@ -32,7 +32,7 @@ namespace Sentience
             }
         }
 
-        public static async Awaitable<Location> GenerateAreaLocation(Area area, Vector3 size, Vector3 position, string description, List<EntityData> locationObjects)
+        public static async Awaitable<Location> GenerateAreaLocation(Area area, Vector3 size, Vector3 position, string description, List<EntityInstance> locationObjects)
         {
             Location location = await GenerateLocationData(area, size, position, description, locationObjects);
             if (location == null) location = await GenerateAreaLocation(area, size, position, description, locationObjects);
@@ -41,7 +41,7 @@ namespace Sentience
             return location;
         }
 
-        public static async Awaitable<Location> GenerateLocationData(Area area, Vector3 size, Vector3 position, string details, List<EntityData> locationObjects)
+        public static async Awaitable<Location> GenerateLocationData(Area area, Vector3 size, Vector3 position, string details, List<EntityInstance> locationObjects)
         {
             string exeption = "";
             if (area.Location.Count > 0)
@@ -51,7 +51,11 @@ namespace Sentience
                 foreach (var loc in area.Location)
                 {
                     exeption += $"Location: {loc.Name} | Characters: ";
-                    foreach (var sentient in loc.Characters) exeption += $"{sentient.Name}, ";
+                    foreach (var character in loc.Characters)
+                    {
+                        Info info = EntityLibrary.Get<Info>(character.Entity);
+                        exeption += $"{info.Name}, ";
+                    }
                     exeption += $"\n";
                 }
                 exeption += $"Each location you generate must be unique and different from the ones we already have.\n";
@@ -85,16 +89,21 @@ namespace Sentience
                         msg += $"Location Objects:\n";
                         foreach (var obj in location.Objects)
                         {
-                            msg += $"{obj.Name}";
-                            Inventory inv = obj.Get<Inventory>();
-                            if (inv != null && inv.Items.Count > 0)
+                            Info info = EntityLibrary.Get<Info>(obj.Entity);
+                            msg += $"{info.Name}";
+                            if (EntityLibrary.Has<Inventory>(obj.Entity))
                             {
-                                msg += $" (Items: ";
-                                foreach (var item in inv.Items)
+                                Inventory inv = EntityLibrary.Get<Inventory>(obj.Entity);
+                                if (inv.Items.Count > 0)
                                 {
-                                    msg += $"{item.Item.Data.Name}, ";
+                                    msg += $" (Items: ";
+                                    foreach (var item in inv.Items)
+                                    {
+                                        Info itemInfo = EntityLibrary.Get<Info>(item.Item.Entity);
+                                        msg += $"{itemInfo.Name}, ";
+                                    }
+                                    msg += $")";
                                 }
-                                msg += $")";
                             }
                             msg += "\n";
                         }
@@ -105,16 +114,21 @@ namespace Sentience
                         msg += $"Location Characters:\n";
                         foreach (var chr in location.Characters.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
                         {
-                            msg += $"{chr.Name}";
-                            Inventory inv = chr.Get<Inventory>();
-                            if (inv != null && inv.Items.Count > 0)
+                            Info info = EntityLibrary.Get<Info>(chr.Entity);
+                            msg += $"{info.Name}";
+                            if (EntityLibrary.Has<Inventory>(chr.Entity))
                             {
-                                msg += $" (Items: ";
-                                foreach (var item in inv.Items)
+                                Inventory inv = EntityLibrary.Get<Inventory>(chr.Entity);
+                                if (inv.Items.Count > 0)
                                 {
-                                    msg += $"{item.Item.Data.Name}, ";
+                                    msg += $" (Items: ";
+                                    foreach (var item in inv.Items)
+                                    {
+                                        Info itemInfo = EntityLibrary.Get<Info>(item.Item.Entity);
+                                        msg += $"{itemInfo.Name}, ";
+                                    }
+                                    msg += $")";
                                 }
-                                msg += $")";
                             }
                             msg += "\n";
                         }
@@ -149,18 +163,22 @@ namespace Sentience
                         msg += $"Location Objects:\n";
                         foreach (var obj in location.Objects)
                         {
-                            msg += $"{obj.Name}";
-                            Inventory inv = obj.Get<Inventory>();
-                            if (inv != null && inv.Items.Count > 0)
+                            Info info = EntityLibrary.Get<Info>(obj.Entity);
+                            msg += $"{info.Name}";
+                            if (EntityLibrary.Has<Inventory>(obj.Entity))
                             {
-                                msg += $" (Items: ";
-                                foreach (var item in inv.Items)
+                                Inventory inv = EntityLibrary.Get<Inventory>(obj.Entity);
+                                if (inv.Items.Count > 0)
                                 {
-                                    msg += $"{item.Item.Data.Name}, ";
+                                    msg += $" (Items: ";
+                                    foreach (var item in inv.Items)
+                                    {
+                                        Info itemInfo = EntityLibrary.Get<Info>(item.Item.Entity);
+                                        msg += $"{itemInfo.Name}, ";
+                                    }
+                                    msg += $")";
                                 }
-                                msg += $")";
                             }
-                            msg += "\n";
                         }
                     }
 
@@ -169,16 +187,21 @@ namespace Sentience
                         msg += $"Location Characters:\n";
                         foreach (var chr in location.Characters.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
                         {
-                            msg += $"{chr.Name}";
-                            Inventory inv = chr.Get<Inventory>();
-                            if (inv != null && inv.Items.Count > 0)
+                            Info info = EntityLibrary.Get<Info>(chr.Entity);
+                            msg += $"{info.Name}";
+                            if (EntityLibrary.Has<Inventory>(chr.Entity))
                             {
-                                msg += $" (Items: ";
-                                foreach (var item in inv.Items)
+                                Inventory inv = EntityLibrary.Get<Inventory>(chr.Entity);
+                                if (inv.Items.Count > 0)
                                 {
-                                    msg += $"{item.Item.Data.Name}, ";
+                                    msg += $" (Items: ";
+                                    foreach (var item in inv.Items)
+                                    {
+                                        Info itemInfo = EntityLibrary.Get<Info>(item.Item.Entity);
+                                        msg += $"{itemInfo.Name}, ";
+                                    }
+                                    msg += $")";
                                 }
-                                msg += $")";
                             }
                             msg += "\n";
                         }
@@ -229,6 +252,7 @@ namespace Sentience
 #if UNITY_EDITOR
     [CustomEditor(typeof(SentienceArea))]
     public class SentienceArea_Editor : Editor
+
     {
         public SentienceArea SentienceArea;
 

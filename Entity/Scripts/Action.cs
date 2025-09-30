@@ -9,7 +9,7 @@ namespace Sentience
         public string Description = "";
         public string Tags = "";
 
-        public abstract bool CanExecute(Entity self, Vector3 position, Entity target);
-        public abstract bool TryExecute(Entity self, Vector3 position, Entity target);
+        public abstract bool CanExecute(Spawn self, Vector3 position, Spawn target);
+        public abstract bool TryExecute(Spawn self, Vector3 position, Spawn target);
     }
 }

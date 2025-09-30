@@ -1,4 +1,5 @@
 using System;
+using Unity.Entities;
 using UnityEngine;
 using Random = System.Random;
 
@@ -16,17 +17,17 @@ namespace Sentience
         public int Charisma;
 
         [Header("Stats")]
-        public int Speed = 100;
-        public int MeleeDamage = 1;
-        public int RangedDamage = 1;
-        public int PhysicsDamage = 1;
-        public int Armor = 1;
-        public int Poise = 1;
-        public int Willpower = 1;
+        public int Speed;
+        public int MeleeDamage;
+        public int RangedDamage;
+        public int PhysicsDamage;
+        public int Armor;
+        public int Poise;
+        public int Willpower;
     }
 
     [System.Serializable]
-    public class AttributesAuthoring : EntityComponentAuthoring
+    public class AttributesAuthoring : EntityAuthoring
     {
         public Vector2Int Strength = new Vector2Int(1, 20);
         public Vector2Int Dexterity = new Vector2Int(1, 20);
@@ -35,7 +36,7 @@ namespace Sentience
         public Vector2Int Wisdom = new Vector2Int(1, 20);
         public Vector2Int Charisma = new Vector2Int(1, 20);
 
-        public override IEntityComponent Spawn(Random random)
+        public override IComponentData Spawn(Random random)
         {
             Attributes attributes = new();
             attributes.Strength = random.Next(Strength.x, Strength.y);

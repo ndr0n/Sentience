@@ -9,7 +9,7 @@ namespace Sentience
     [System.Serializable]
     public class Health : EntityComponent
     {
-        int val = 100;
+        [SerializeField] int val;
         public int Value
         {
             get => val;
@@ -24,17 +24,17 @@ namespace Sentience
             }
         }
 
-        public int MaxHealth = 100;
+        public int MaxHealth;
         public Action<int> OnHealthChanged;
     }
 
     [System.Serializable]
-    public class HealthAuthoring : EntityComponentAuthoring
+    public class HealthAuthoring : EntityAuthoring
     {
         public Vector2Int Health = new Vector2Int(100, 100);
         public Vector2Int MaxHealth = new Vector2Int(100, 100);
 
-        public override IEntityComponent Spawn(Random random)
+        public override IComponentData Spawn(Random random)
         {
             Health health = new();
             health.Value = random.Next(Health.x, Health.y);

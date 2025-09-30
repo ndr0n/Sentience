@@ -1,3 +1,4 @@
+using Unity.Entities;
 using UnityEngine;
 
 namespace Sentience
@@ -6,31 +7,28 @@ namespace Sentience
     [CreateAssetMenu(fileName = "I_Retrieve", menuName = "Sentience/Interaction/Retrieve")]
     public class I_Retrieve : Interaction
     {
-        public override bool HasInteraction(EntityData self, EntityData interactor, EntityData target)
+        public override bool HasInteraction(Entity self, Entity interactor, Entity target)
         {
             if (interactor == target) return false;
 
-            Item item = self.Get<Item>();
-            if (item == null) return false;
+            if (!EntityLibrary.Has<Item>(self)) return false;
 
-            Inventory owner = target.Get<Inventory>();
-            if (owner == null) return false;
-            if (!owner.Items.Exists(x => x.Item == item)) return false;
+            if (!EntityLibrary.Has<Inventory>(target)) return false;
+            Inventory owner = EntityLibrary.Get<Inventory>(target);
+            if (!owner.Items.Exists(x => x.Item.Entity == self)) return false;
 
-            Inventory retriever = interactor.Get<Inventory>();
-            if (retriever == null) return false;
+            if (!EntityLibrary.Has<Inventory>(interactor)) return false;
 
             return true;
         }
 
-        protected override bool OnTryInteract(EntityData self, EntityData interactor, EntityData target)
+        protected override bool OnTryInteract(Entity self, Entity interactor, Entity target)
         {
-            Item item = self.Get<Item>();
+            Item item = EntityLibrary.Get<Item>(self);
+            Inventory retriever = EntityLibrary.Get<Inventory>(interactor);
+            Inventory owner = EntityLibrary.Get<Inventory>(target);
 
-            Inventory retriever = interactor.Get<Inventory>();
             retriever.Add(item);
-            
-            Inventory owner = target.Get<Inventory>();
             owner.Remove(item, 1);
 
             return true;

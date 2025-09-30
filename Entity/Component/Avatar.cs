@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using Sentience;
+using Unity.Entities;
 using UnityEngine;
 using Random = System.Random;
 
-namespace MindTheatre
+namespace Sentience
 {
     [System.Serializable]
     public class Avatar : EntityComponent
@@ -12,11 +13,11 @@ namespace MindTheatre
     }
 
     [System.Serializable]
-    public class AvatarAuthoring : EntityComponentAuthoring
+    public class AvatarAuthoring : EntityAuthoring
     {
         public List<Sprite> PossibleSprites = new();
 
-        public override IEntityComponent Spawn(Random random)
+        public override IComponentData Spawn(Random random)
         {
             Avatar avatar = new();
             avatar.Sprite = PossibleSprites[random.Next(PossibleSprites.Count)];

@@ -12,25 +12,27 @@ namespace Sentience
     [System.Serializable]
     public class Body : EntityComponent
     {
-        public Entity Prefab;
+        public Spawn Prefab;
         public Vector3 Position;
-        public Entity Entity;
+        public Spawn Spawn;
 
-        public Entity SpawnBody(Random random, Transform parent, Vector3 worldPosition)
+        public Spawn SpawnBody(Random random, Transform parent, Vector3 worldPosition)
         {
-            Entity entity = Object.Instantiate(Prefab.gameObject, parent).GetComponent<Entity>();
-            Entity = entity;
-            Entity.Spawn(Data.Type, Data, worldPosition);
-            return entity;
+            Spawn spawn = Object.Instantiate(Prefab.gameObject, parent).GetComponent<Spawn>();
+            Spawn = spawn;
+
+            Info info = EntityLibrary.Get<Info>(Entity);
+            Spawn.OnSpawn(Entity, info.Type, worldPosition);
+            return spawn;
         }
     }
 
     [System.Serializable]
-    public class BodyAuthoring : EntityComponentAuthoring
+    public class BodyAuthoring : EntityAuthoring
     {
-        public List<Entity> Prefabs = new();
+        public List<Spawn> Prefabs = new();
 
-        public override IEntityComponent Spawn(Random random)
+        public override IComponentData Spawn(Random random)
         {
             Body body = new();
             body.Prefab = Prefabs[random.Next(0, Prefabs.Count)];

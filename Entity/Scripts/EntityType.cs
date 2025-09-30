@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Entities;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -14,11 +15,6 @@ namespace Sentience
         public string Description = "";
         public List<Interaction> Interactions = new();
         public List<EntityComponentType> Components = new();
-
-        public void SpawnData(EntityData data, System.Random random)
-        {
-            data.Type = this;
-        }
 
 #if UNITY_EDITOR
         void OnValidate()

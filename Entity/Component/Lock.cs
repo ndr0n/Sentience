@@ -1,5 +1,6 @@
 using System;
 using MindTheatre;
+using Unity.Entities;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -42,12 +43,12 @@ namespace Sentience
     }
 
     [System.Serializable]
-    public class LockAuthoring : EntityComponentAuthoring
+    public class LockAuthoring : EntityAuthoring
     {
         public bool Open = false;
         public bool Locked = false;
 
-        public override IEntityComponent Spawn(System.Random random)
+        public override IComponentData Spawn(System.Random random)
         {
             Lock lockComponent = new();
             lockComponent.Open = Open;

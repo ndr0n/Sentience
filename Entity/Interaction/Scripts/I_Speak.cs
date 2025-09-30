@@ -1,4 +1,5 @@
 using Sentience;
+using Unity.Entities;
 using UnityEngine;
 
 namespace MindTheatre
@@ -7,28 +8,26 @@ namespace MindTheatre
     [CreateAssetMenu(fileName = "I_Speak", menuName = "Scaerth/Interaction/Speak")]
     public class I_Speak : Interaction
     {
-        public override bool HasInteraction(EntityData self, EntityData interactor, EntityData target)
+        public override bool HasInteraction(Entity self, Entity interactor, Entity target)
         {
-            Persona persona = self.Get<Persona>();
-            if (persona == null) return false;
-            if (self.IsHostile(interactor)) return false;
+            if (!EntityLibrary.Has<Persona>(self)) return false;
 
-            Identity identity = interactor.Get<Identity>();
-            if (identity == null) return false;
+            if (!EntityLibrary.Has<Identity>(interactor)) return false;
+
+            if (EntityLibrary.IsHostile(self, interactor)) return false;
 
             return true;
         }
 
-        protected override bool OnTryInteract(EntityData self, EntityData interactor, EntityData target)
+        protected override bool OnTryInteract(Entity self, Entity interactor, Entity target)
         {
-            Body body = self.Get<Body>();
-            if (body == null) return false;
-            if (body.Entity == null) return false;
+            Body body = EntityLibrary.Get<Body>(self);
+            if (body.Spawn == null) return false;
 
-            Speaker speaker = body.Entity.GetComponent<Speaker>();
+            Speaker speaker = body.Spawn.GetComponent<Speaker>();
             if (speaker == null) return false;
 
-            Identity identity = interactor.Get<Identity>();
+            Identity identity = EntityLibrary.Get<Identity>(interactor);
             speaker.StartSpeakingWith(identity);
 
             return true;

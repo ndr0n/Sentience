@@ -1,16 +1,16 @@
+using System;
 using Unity.Entities;
 
 namespace Sentience
 {
-    [System.Serializable]
     public class EntityComponent : IEntityComponent
     {
-        protected EntityData _data;
-        public EntityData Data => _data;
+        Entity _entity;
+        public Entity Entity => _entity;
 
-        public virtual void Init(EntityData data, System.Random random)
+        public virtual void Init(Entity entity, Random random)
         {
-            _data = data;
+            _entity = entity;
         }
     }
 }
