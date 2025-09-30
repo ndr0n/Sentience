@@ -23,6 +23,7 @@ namespace Sentience
             d.Name = name;
             d.Description = description;
             d.Type = type;
+            d.Init(this, random);
             Components.Add(new(d));
 
             foreach (var componentType in type.Components)

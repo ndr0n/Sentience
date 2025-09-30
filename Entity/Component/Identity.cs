@@ -28,8 +28,8 @@ namespace Sentience
                 Inventory inventory = Data.Get<Inventory>();
                 foreach (var item in character.Inventory)
                 {
-                    EntityData data = new(item, $"belongs to {character.Name}", await SentienceManager.Instance.RagManager.GetMostSimilarItem(SentienceManager.Instance.ItemDatabase, item), random);
-                    Item itm = Data.Get<Item>();
+                    EntityData itemData = new(item, $"belongs to {character.Name}", await SentienceManager.Instance.RagManager.GetMostSimilarItem(SentienceManager.Instance.ItemDatabase, item), random);
+                    Item itm = itemData.Get<Item>();
                     inventory.Add(itm);
                 }
             }
