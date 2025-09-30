@@ -7,7 +7,6 @@ namespace Sentience
     [System.Serializable]
     public class Attributes : EntityComponent
     {
-        [Header("Ability Score")]
         public int Strength;
         public int Dexterity;
         public int Constitution;
