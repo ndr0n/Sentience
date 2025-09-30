@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Sentience
 {
@@ -17,60 +19,55 @@ namespace Sentience
             Objective = stage.Objective;
             Description = stage.Description;
 
-            EntityData target = null;
+            EntityData targetData = null;
             if (!string.IsNullOrEmpty(stage.Target))
             {
                 List<string> entityNames = new();
-                foreach (var entity in entities)
+                foreach (var d in entities)
                 {
-                    Info info = entity.Get<Info>();
-                    entityNames.Add($"{info.Name}|{info.Description}");
+                    Info entityInfo = d.Get<Info>();
+                    entityNames.Add($"{d.Name}|{entityInfo.Description}");
                 }
                 string eTarget = await SentienceManager.Instance.RagManager.GetMostSimilar(entityNames, stage.Target);
                 eTarget = eTarget.Split('|')[0];
-                target = entities.FirstOrDefault(x => x.Name == eTarget);
+                targetData = entities.FirstOrDefault(x => x.Name == eTarget);
             }
-            if (target == null)
+            if (targetData == null)
             {
-                target = entities[Random.Range(0, entities.Count)];
+                targetData = entities[Random.Range(0, entities.Count)];
             }
-
-            EntityData owner = target;
-            Info targetInfo = target.Get<Info>();
 
             string itemName = "";
-            // string target = target.Name;
-            if (target.Has<Item>())
+            string targetName = targetData.Name;
+            EntityData itemOwner = null;
+            Item item = targetData.Get<Item>();
+            if (item != null)
             {
-                Item itemTarget = target.Get<Item>();
-                itemName = targetInfo.Name;
+                itemName = item.Data.Name;
                 foreach (var entity in entities)
                 {
-                    if (entity.Has<Identity>())
+                    Inventory inv = entity.Get<Inventory>();
+                    if (inv != null)
                     {
-                        if (entity.Has<Inventory>())
+                        bool breakLoop = false;
+                        foreach (var i in inv.Items)
                         {
-                            Identity identity = entity.Get<Identity>();
-                            Inventory inv = entity.Get<Inventory>();
-                            bool breakLoop = false;
-                            foreach (var i in inv.Items)
+                            if (item.Data == i.Item.Data)
                             {
-                                if (itemTarget.Data == i.Item.Data)
-                                {
-                                    target = entity;
-                                    owner = entity;
-                                    breakLoop = true;
-                                    break;
-                                }
+                                targetName = entity.Name;
+                                itemOwner = entity;
+                                breakLoop = true;
+                                break;
                             }
-                            if (breakLoop) break;
                         }
+                        if (breakLoop) break;
                     }
                 }
             }
 
             Interaction interaction = null;
-            List<Interaction> eInteractions = targetInfo.Type.Interactions.Where(x => x.HasInteraction(target, player, owner)).ToList();
+            Info targetInfo = targetData.Get<Info>();
+            List<Interaction> eInteractions = targetInfo.Type.Interactions.Where(x => x.HasInteraction(targetData, player, itemOwner)).ToList();
             if (!string.IsNullOrWhiteSpace(stage.Action))
             {
                 List<string> interactions = new();
@@ -83,8 +80,7 @@ namespace Sentience
             {
                 interaction = eInteractions[Random.Range(0, targetInfo.Type.Interactions.Count)];
             }
-
-            InteractionData = new(itemName, targetInfo.Name, interaction);
+            InteractionData = new(itemName, targetName, interaction);
         }
     }
 }
