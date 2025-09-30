@@ -1,5 +1,4 @@
 using Sentience;
-using Unity.Entities;
 
 namespace Sentience
 {

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using Unity.Entities;
 using UnityEngine;
 using UnityEngine.Serialization;
 

@@ -1,11 +1,9 @@
 using MindTheatre;
-using Unity.Entities;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 using Random = System.Random;
-using World = Unity.Entities.World;
 
 namespace Sentience
 {

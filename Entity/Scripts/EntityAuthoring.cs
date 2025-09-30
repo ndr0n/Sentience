@@ -1,5 +1,3 @@
-using Unity.Entities;
-
 namespace Sentience
 {
     public abstract class EntityAuthoring

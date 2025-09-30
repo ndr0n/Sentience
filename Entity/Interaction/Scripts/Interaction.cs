@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using MindTheatre;
-using Unity.Entities;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Serialization;

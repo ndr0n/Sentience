@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Unity.Entities;
 
 namespace Sentience
 {
@@ -64,7 +63,7 @@ namespace Sentience
         }
 
         // public Entity Entity;
-
+        //
         // public void SpawnDotsEntity(System.Random random)
         // {
         //     EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -77,11 +76,7 @@ namespace Sentience
         //
         //     foreach (var component in Components)
         //     {
-        //         if (component.Component is IEntityComponent ec)
-        //         {
-        //             ec.Init(Entity, random);
-        //             entityManager.AddComponentObject(Entity, ec);
-        //         }
+        //         entityManager.AddComponentObject(Entity, component.Component);
         //     }
         // }
     }

@@ -1,12 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using MindTheatre;
-using Sentience;
-using Unity.Entities;
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Sentience

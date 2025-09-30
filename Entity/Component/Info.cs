@@ -1,5 +1,3 @@
-using Unity.Entities;
-
 namespace Sentience
 {
     public class Info : EntityComponent
