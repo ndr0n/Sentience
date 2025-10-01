@@ -1,4 +1,5 @@
 using Sentience;
+using Unity.Entities;
 using UnityEngine;
 
 namespace MindTheatre
@@ -18,15 +19,15 @@ namespace MindTheatre
             return true;
         }
 
-        protected override bool OnTryInteract(EntityData self, EntityData interactor, EntityData target)
+        public override bool Interact(ref SystemState state, RefRW<InteractionComponent> comp)
         {
-            Body body = self.Get<Body>();
+            Body body = state.EntityManager.GetComponentObject<Body>(comp.ValueRO.Self);
             if (body.Spawn == null) return false;
 
             Speaker speaker = body.Spawn.GetComponent<Speaker>();
             if (speaker == null) return false;
 
-            Identity identity = interactor.Get<Identity>();
+            Identity identity = state.EntityManager.GetComponentObject<Identity>(comp.ValueRO.Interactor);
             speaker.StartSpeakingWith(identity);
 
             return true;

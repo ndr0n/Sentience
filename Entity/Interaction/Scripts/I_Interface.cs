@@ -1,4 +1,5 @@
 using Sentience;
+using Unity.Entities;
 using UnityEngine;
 
 namespace MindTheatre
@@ -12,7 +13,7 @@ namespace MindTheatre
             return true;
         }
 
-        protected override bool OnTryInteract(EntityData self, EntityData interactor, EntityData target)
+        public override bool Interact(ref SystemState state, RefRW<InteractionComponent> comp)
         {
             return true;
         }

@@ -1,4 +1,5 @@
 using Sentience;
+using Unity.Entities;
 using UnityEngine;
 
 namespace MindTheatre
@@ -15,9 +16,9 @@ namespace MindTheatre
             return true;
         }
 
-        protected override bool OnTryInteract(EntityData self, EntityData interactor, EntityData target)
+        public override bool Interact(ref SystemState state, RefRW<InteractionComponent> comp)
         {
-            Lock _lock = self.Get<Lock>();
+            Lock _lock = state.EntityManager.GetComponentObject<Lock>(comp.ValueRO.Self);
             _lock.Open = true;
             return true;
         }

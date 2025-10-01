@@ -1,3 +1,4 @@
+using Unity.Entities;
 using UnityEngine;
 
 namespace Sentience
@@ -19,11 +20,11 @@ namespace Sentience
             return true;
         }
 
-        protected override bool OnTryInteract(EntityData self, EntityData interactor, EntityData target)
+        public override bool Interact(ref SystemState state, RefRW<InteractionComponent> comp)
         {
-            Item item = self.Get<Item>();
-            Inventory giver = interactor.Get<Inventory>();
-            Inventory receiver = target.Get<Inventory>();
+            Item item = state.EntityManager.GetComponentObject<Item>(comp.ValueRO.Self);
+            Inventory giver = state.EntityManager.GetComponentObject<Inventory>(comp.ValueRO.Interactor);
+            Inventory receiver = state.EntityManager.GetComponentObject<Inventory>(comp.ValueRO.Target);
 
             receiver.Add(item);
             giver.Remove(item, 1);
