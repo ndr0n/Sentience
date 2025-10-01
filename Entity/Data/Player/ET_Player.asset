@@ -48,6 +48,10 @@ MonoBehaviour:
     Component: 10
     Authoring:
       rid: 1336660926998774705
+  - Name: Actions
+    Component: 11
+    Authoring:
+      rid: 1336660928998146310
   references:
     version: 2
     RefIds:
@@ -55,6 +59,17 @@ MonoBehaviour:
       type: {class: EffectsAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:
         ActiveEffects: []
+    - rid: 1336660928998146310
+      type: {class: ActionsAuthoring, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        Action:
+        - {fileID: 11400000, guid: 9abcac91a3b7c567aaa0c62065836aa7, type: 2}
+        - {fileID: 11400000, guid: 5570c3f0c5e76ce8eb000de5a9df9e77, type: 2}
+        - {fileID: 11400000, guid: efddc433ef06eeade9d7ea4d00cd4450, type: 2}
+        - {fileID: 11400000, guid: a9c8e6fb5bc8f90f3a406538331c9e2d, type: 2}
+        - {fileID: 11400000, guid: c5ebb0fc4fab045618ba64d0a86d9e43, type: 2}
+        - {fileID: 11400000, guid: e33584bb2f5a876e481c1755276f7871, type: 2}
+        - {fileID: 11400000, guid: fe023875d353c3a0aac06457423fa649, type: 2}
     - rid: 3423325703147094365
       type: {class: InventoryAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:

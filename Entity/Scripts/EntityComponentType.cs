@@ -23,6 +23,7 @@ namespace Sentience
             Journal,
             Avatar,
             Effects,
+            Actions,
         }
 
         [HideInInspector] public string Name;
