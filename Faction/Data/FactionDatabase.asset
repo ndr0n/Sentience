@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sentience.FactionData
   Faction:
   - {fileID: 11400000, guid: 54981cf49f62f50e59dfda7f50bde108, type: 2}
+  - {fileID: 11400000, guid: 5558f88e8e54ac9c59a0b662f900175d, type: 2}
