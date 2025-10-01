@@ -13,13 +13,13 @@ namespace Sentience
     {
         [HideInInspector] public string Name;
         public List<EntityComponentData> Components;
-        [SerializeField] Dictionary<int, IEntityComponent> dictionary;
+        // [SerializeField] Dictionary<int, IEntityComponent> dictionary;
 
         public EntityData(string name, string description, EntityType type, System.Random random)
         {
             Name = name;
             Components = new();
-            dictionary = new();
+            // dictionary = new();
 
             ID id = new();
             id.Name = name;
@@ -34,23 +34,25 @@ namespace Sentience
                 AddComponent(componentType.Authoring, random);
             }
 
-            Init();
+            // Init();
         }
 
         public void Init()
         {
-            dictionary = new();
-            foreach (var c in Components) dictionary.Add(c.Component.GetType().GetHashCode(), c.Component);
+            // dictionary = new();
+            // foreach (var c in Components) dictionary.Add(c.Component.GetType().GetHashCode(), c.Component);
         }
 
         public bool Has<T>()
         {
-            return dictionary.ContainsKey(typeof(T).GetHashCode());
+            return Components.Exists(x => x.Component is T);
+            // return dictionary.ContainsKey(typeof(T).GetHashCode());
         }
 
-        public T Get<T>() where T : class
+        public T Get<T>() where T : EntityComponent
         {
-            return dictionary[typeof(T).GetHashCode()] as T;
+            return Components.FirstOrDefault(x => x.Component is T).Component as T;
+            // return dictionary[typeof(T).GetHashCode()] as T;
         }
 
         void AddComponent(EntityAuthoring authoring, System.Random random)
