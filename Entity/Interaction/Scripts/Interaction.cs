@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using MindTheatre;
+using Unity.Collections;
+using Unity.Entities;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -18,6 +20,9 @@ namespace Sentience
         public bool TryInteract(EntityData self, EntityData interactor, EntityData target)
         {
             if (!HasInteraction(self, interactor, target)) return false;
+
+            Unity.Entities.World.DefaultGameObjectInjectionWorld.EntityManager.AddComponentData(self.Entity, new InteractionComponent(this, self.Entity, interactor.Entity, target.Entity));
+
             if (OnTryInteract(self, interactor, target))
             {
                 CheckForQuestInteraction(self, interactor, target);

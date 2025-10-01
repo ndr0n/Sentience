@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -30,6 +31,11 @@ namespace Sentience
             {
                 AddComponent(componentType.Authoring, random);
             }
+        }
+
+        public void Init(System.Random random)
+        {
+            SpawnDotsEntity(random);
         }
 
         public bool Has<T>()
@@ -63,23 +69,23 @@ namespace Sentience
             return targetIdentity.Faction.IsHostile(identity.Faction);
         }
 
-        // public Entity Entity;
-        //
-        // public void SpawnDotsEntity(System.Random random)
-        // {
-        //     EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-        //
-        //     List<ComponentType> componentTypes = new();
-        //     foreach (var c in Components) componentTypes.Add(c.Component.GetType());
-        //     EntityArchetype archetype = entityManager.CreateArchetype(componentTypes.ToArray());
-        //
-        //     Entity = entityManager.CreateEntity(archetype);
-        //
-        //     foreach (var component in Components)
-        //     {
-        //         entityManager.AddComponentObject(Entity, component.Component);
-        //     }
-        // }
+        public Entity Entity;
+
+        public void SpawnDotsEntity(System.Random random)
+        {
+            EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+
+            List<ComponentType> componentTypes = new();
+            foreach (var c in Components) componentTypes.Add(c.Component.GetType());
+            EntityArchetype archetype = entityManager.CreateArchetype(componentTypes.ToArray());
+
+            Entity = entityManager.CreateEntity(archetype);
+
+            foreach (var component in Components)
+            {
+                entityManager.AddComponentObject(Entity, component.Component);
+            }
+        }
     }
 
     [System.Serializable]
