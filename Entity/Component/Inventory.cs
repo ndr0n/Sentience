@@ -106,7 +106,7 @@ namespace Sentience
     {
         public int Size = 64;
         public Vector2Int Credits = new Vector2Int(0, 100);
-        public List<Item> Items = new();
+        public List<EntityType> Items = new();
 
         public override IEntityComponent Spawn(Random random)
         {
@@ -114,7 +114,12 @@ namespace Sentience
             inventory.Size = Size;
             inventory.Credits = random.Next(Credits.x, Credits.y);
             inventory.Items = new();
-            foreach (var itm in Items) inventory.Items.Add(new(itm, 1));
+            foreach (var itm in Items)
+            {
+                EntityData itemData = new(itm.Name, itm.Description, itm, random);
+                Item item = itemData.Get<Item>();
+                inventory.Items.Add(new(item, 1));
+            }
             return inventory;
         }
     }

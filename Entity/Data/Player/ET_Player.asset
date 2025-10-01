@@ -52,13 +52,17 @@ MonoBehaviour:
     Component: 11
     Authoring:
       rid: 1336660929556513089
+  - Name: Equipment
+    Component: 13
+    Authoring:
+      rid: 1336660932115300889
   references:
     version: 2
     RefIds:
     - rid: 1336660926998774705
       type: {class: EffectsAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:
-        ActiveEffects: []
+        Active: []
     - rid: 1336660929556513089
       type: {class: ActionsAuthoring, ns: MindTheatre, asm: Assembly-CSharp}
       data:
@@ -70,6 +74,11 @@ MonoBehaviour:
         - {fileID: 11400000, guid: a9c8e6fb5bc8f90f3a406538331c9e2d, type: 2}
         - {fileID: 11400000, guid: e33584bb2f5a876e481c1755276f7871, type: 2}
         - {fileID: 11400000, guid: fe023875d353c3a0aac06457423fa649, type: 2}
+    - rid: 1336660932115300889
+      type: {class: EquipmentAuthoring, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        MeleeWeapon: {fileID: 11400000, guid: 5f5562aaf067ecd508f075f30c6c0fbc, type: 2}
+        RangedWeapon: {fileID: 11400000, guid: a601021d90a00446b842287fa8074645, type: 2}
     - rid: 3423325703147094365
       type: {class: InventoryAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:

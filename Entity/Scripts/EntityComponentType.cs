@@ -24,6 +24,8 @@ namespace Sentience
             Avatar,
             Effects,
             Actions,
+            Weapon,
+            Equipment,
         }
 
         [HideInInspector] public string Name;

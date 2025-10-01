@@ -18,12 +18,11 @@ namespace Sentience
         {
             Objective = stage.Objective;
             Description = stage.Description;
-
             EntityData targetData = null;
             if (!string.IsNullOrEmpty(stage.Target))
             {
                 List<string> entityNames = new();
-                foreach (var d in entities)
+                foreach (var d in entities) 
                 {
                     ID entityID = d.Get<ID>();
                     entityNames.Add($"{d.Name}|{entityID.Description}");
@@ -40,15 +39,15 @@ namespace Sentience
             string itemName = "";
             string targetName = targetData.Name;
             EntityData itemOwner = null;
-            Item item = targetData.Get<Item>();
-            if (item != null)
+            if (targetData.Has<Item>())
             {
+                Item item = targetData.Get<Item>();
                 itemName = item.Data.Name;
                 foreach (var entity in entities)
                 {
-                    Inventory inv = entity.Get<Inventory>();
-                    if (inv != null)
+                    if (entity.Has<Inventory>())
                     {
+                        Inventory inv = entity.Get<Inventory>();
                         bool breakLoop = false;
                         foreach (var i in inv.Items)
                         {

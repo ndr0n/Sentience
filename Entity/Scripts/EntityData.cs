@@ -25,13 +25,17 @@ namespace Sentience
             id.Name = name;
             id.Description = description;
             id.Type = type;
-            id.Init(this, random);
             EntityComponentData data = new(id);
             Components.Add(data);
 
             foreach (var componentType in type.Components)
             {
                 AddComponent(componentType.Authoring, random);
+            }
+
+            foreach (var component in Components)
+            {
+                component.Component.Init(this, random);
             }
 
             // Init();
@@ -58,7 +62,6 @@ namespace Sentience
         void AddComponent(EntityAuthoring authoring, System.Random random)
         {
             IEntityComponent component = authoring.Spawn(random);
-            component.Init(this, random);
             EntityComponentData componentData = new(component);
             Components.Add(componentData);
         }
