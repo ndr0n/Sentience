@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using MindTheatre;
 using UnityEngine;
 using Random = System.Random;
 
@@ -25,6 +26,21 @@ namespace Sentience
 
         public int MaxHealth;
         public Action<int> OnHealthChanged;
+        public Action<int, EntityData> OnTakeDamage;
+        public Action<EntityData, EntityData> OnHealthDepleted;
+
+        public int TakeDamage(int dmg, EntityData attacker)
+        {
+            Debug.Log($"{Data.Name} took {dmg} damage!");
+            if (dmg <= 0) return dmg;
+
+            Value -= dmg;
+            OnTakeDamage?.Invoke(dmg, attacker);
+
+            if (Value <= 0) OnHealthDepleted?.Invoke(Data, attacker);
+
+            return dmg;
+        }
     }
 
     [System.Serializable]

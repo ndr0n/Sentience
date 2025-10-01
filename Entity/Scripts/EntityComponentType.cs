@@ -22,6 +22,7 @@ namespace Sentience
             Lock,
             Journal,
             Avatar,
+            Effects,
         }
 
         [HideInInspector] public string Name;

@@ -22,6 +22,7 @@ namespace Sentience
         public int Armor;
         public int Poise;
         public int Willpower;
+        public int Perception;
     }
 
     [System.Serializable]

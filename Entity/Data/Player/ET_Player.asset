@@ -44,9 +44,17 @@ MonoBehaviour:
     Component: 9
     Authoring:
       rid: 3423325743177007826
+  - Name: Effects
+    Component: 10
+    Authoring:
+      rid: 1336660926998774705
   references:
     version: 2
     RefIds:
+    - rid: 1336660926998774705
+      type: {class: EffectsAuthoring, ns: Sentience, asm: Assembly-CSharp}
+      data:
+        ActiveEffects: []
     - rid: 3423325703147094365
       type: {class: InventoryAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:
