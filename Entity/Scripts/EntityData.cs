@@ -117,6 +117,7 @@ namespace Sentience
             foreach (var c in Components) componentTypes.Add(c.Component.GetType());
             componentTypes.Add(typeof(Parent));
             componentTypes.Add(typeof(LocalToWorld));
+            componentTypes.Add(typeof(LocalTransform));
             EntityArchetype archetype = em.CreateArchetype(componentTypes.ToArray());
 
             Entity = em.CreateEntity(archetype);

@@ -2,6 +2,7 @@ using System.Numerics;
 using Sentience;
 using Unity.Entities;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Sentience
 {
@@ -16,7 +17,8 @@ namespace Sentience
     {
         public int Damage = 1;
         public WeaponClass Class;
-        public SpawnAction Action;
+        [FormerlySerializedAs("Action")]
+        public EntityAction EntityAction;
     }
 
     [System.Serializable]
@@ -24,14 +26,15 @@ namespace Sentience
     {
         public Vector2Int Damage = new Vector2Int(1, 1);
         public WeaponClass Class;
-        public SpawnAction Action;
+        [FormerlySerializedAs("Action")]
+        public EntityAction EntityAction;
 
         public override IComponentData Spawn(System.Random random)
         {
             Weapon weapon = new();
             weapon.Damage = random.Next(Damage.x, Damage.y + 1);
             weapon.Class = Class;
-            weapon.Action = Action;
+            weapon.EntityAction = EntityAction;
             return weapon;
         }
     }

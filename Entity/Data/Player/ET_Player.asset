@@ -56,9 +56,15 @@ MonoBehaviour:
     Component: 13
     Authoring:
       rid: 1336660932115300889
+  - Name: Player
+    Component: 16
+    Authoring:
+      rid: -2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1336660926998774705
       type: {class: EffectsAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:
@@ -94,8 +100,8 @@ MonoBehaviour:
     - rid: 3423325703147094432
       type: {class: BodyAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:
-        Prefabs:
-        - {fileID: 6670924211930380776, guid: e35dc5929150fdca48cca6c643917c75, type: 3}
+        Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+        Material: {fileID: 2100000, guid: 26467df8f6c013f7faedfb47c51f21f9, type: 2}
     - rid: 3423325721092161775
       type: {class: AttributesAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:

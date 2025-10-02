@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Sentience
 {
-    public abstract class SpawnAction : ScriptableObject
+    public abstract class EntityAction : ScriptableObject
     {
         public string Name = "Action";
         public string Description = "";

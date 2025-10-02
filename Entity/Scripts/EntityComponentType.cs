@@ -26,7 +26,11 @@ namespace Sentience
             Actions,
             Weapon,
             Equipment,
-            Explosive
+            Explosive,
+            Pawn,
+            Npc,
+            Player,
+            Actor
         }
 
         [HideInInspector] public string Name;

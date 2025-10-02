@@ -12,8 +12,11 @@ namespace Sentience
     [System.Serializable]
     public class Body : EntityComponent
     {
-        public Spawn Prefab;
+        // public EntitySpawn Prefab;
         // public Spawn Spawn;
+
+        public Mesh Mesh;
+        public Material Material;
 
         Material renderMaterial;
 
@@ -22,15 +25,15 @@ namespace Sentience
             // Spawn spawn = Object.Instantiate(Prefab.gameObject, parent).GetComponent<Spawn>();
             // Spawn = spawn;
 
-            renderMaterial = GameManager.Instance.RenderMaterial;
+            // Material = new Material(Material);
             if (Data.Has<Avatar>())
             {
                 Avatar avatar = Data.Get<Avatar>();
-                renderMaterial.mainTexture = avatar.Sprite.texture;
+                Material.mainTexture = avatar.Sprite.texture;
             }
 
             var desc = new RenderMeshDescription(shadowCastingMode: ShadowCastingMode.Off, receiveShadows: false);
-            var renderMeshArray = new RenderMeshArray(new Material[] {GameManager.Instance.RenderMaterial}, new Mesh[] {GameManager.Instance.RenderMesh});
+            var renderMeshArray = new RenderMeshArray(new Material[] {Material}, new Mesh[] {Mesh});
             RenderMeshUtility.AddComponents(Data.Entity, World.DefaultGameObjectInjectionWorld.EntityManager, desc, renderMeshArray, MaterialMeshInfo.FromRenderMeshArrayIndices(0, 0));
 
             ID id = Data.Get<ID>();
@@ -44,12 +47,16 @@ namespace Sentience
     [System.Serializable]
     public class BodyAuthoring : EntityAuthoring
     {
-        public List<Spawn> Prefabs = new();
+        // public List<EntitySpawn> Prefabs = new();
+        public Mesh Mesh;
+        public Material Material;
 
         public override IComponentData Spawn(System.Random random)
         {
             Body body = new();
-            body.Prefab = Prefabs[random.Next(0, Prefabs.Count)];
+            body.Mesh = Mesh;
+            body.Material = Material;
+            // body.Prefab = Prefabs[random.Next(0, Prefabs.Count)];
             return body;
         }
     }

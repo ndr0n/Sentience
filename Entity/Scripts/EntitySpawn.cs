@@ -3,7 +3,7 @@ using UnityEngine.Serialization;
 
 namespace Sentience
 {
-    public abstract class Spawn : EntityComponent
+    public abstract class EntitySpawn : MonoBehaviour
     {
         public EntityType Type;
         [SerializeReference] public EntityData Data;
@@ -12,8 +12,8 @@ namespace Sentience
         {
             Data = data;
             Type = type;
-            // name = data.Name;
-            // transform.position = position;
+            name = data.Name;
+            transform.position = position;
             OnSpawn();
         }
 
