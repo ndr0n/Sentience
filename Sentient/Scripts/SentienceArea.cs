@@ -53,7 +53,7 @@ namespace Sentience
                     exeption += $"Location: {loc.Name} | Characters: ";
                     foreach (var character in loc.Characters)
                     {
-                        ID id = character.GetData<ID>();
+                        ID id = character.Get<ID>();
                         exeption += $"{id.Name}, ";
                     }
                     exeption += $"\n";
@@ -89,7 +89,7 @@ namespace Sentience
                         msg += $"Location Objects:\n";
                         foreach (var obj in location.Objects)
                         {
-                            ID id = obj.GetData<ID>();
+                            ID id = obj.Get<ID>();
                             msg += $"{id.Name}";
                             if (obj.Has<Inventory>())
                             {
@@ -99,7 +99,7 @@ namespace Sentience
                                     msg += $" (Items: ";
                                     foreach (var item in inv.Items)
                                     {
-                                        ID itemID = item.Item.GetData<ID>();
+                                        ID itemID = item.Item.Get<ID>();
                                         msg += $"{itemID.Name}, ";
                                     }
                                     msg += $")";
@@ -114,7 +114,7 @@ namespace Sentience
                         msg += $"Location Characters:\n";
                         foreach (var chr in location.Characters.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
                         {
-                            ID id = chr.GetData<ID>();
+                            ID id = chr.Get<ID>();
                             msg += $"{id.Name}";
                             if (chr.Has<Inventory>())
                             {
@@ -124,7 +124,7 @@ namespace Sentience
                                     msg += $" (Items: ";
                                     foreach (var item in inv.Items)
                                     {
-                                        ID itemID = item.Item.GetData<ID>();
+                                        ID itemID = item.Item.Get<ID>();
                                         msg += $"{itemID.Name}, ";
                                     }
                                     msg += $")";
@@ -163,7 +163,7 @@ namespace Sentience
                         msg += $"Location Objects:\n";
                         foreach (var obj in location.Objects)
                         {
-                            ID id = obj.GetData<ID>();
+                            ID id = obj.Get<ID>();
                             msg += $"{id.Name}";
                             if (obj.Has<Inventory>())
                             {
@@ -173,7 +173,7 @@ namespace Sentience
                                     msg += $" (Items: ";
                                     foreach (var item in inv.Items)
                                     {
-                                        ID itemID = item.Item.GetData<ID>();
+                                        ID itemID = item.Item.Get<ID>();
                                         msg += $"{itemID.Name}, ";
                                     }
                                     msg += $")";
@@ -187,7 +187,7 @@ namespace Sentience
                         msg += $"Location Characters:\n";
                         foreach (var chr in location.Characters.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
                         {
-                            ID id = chr.GetData<ID>();
+                            ID id = chr.Get<ID>();
                             msg += $"{id.Name}";
                             if (chr.Has<Inventory>())
                             {
@@ -197,7 +197,7 @@ namespace Sentience
                                     msg += $" (Items: ";
                                     foreach (var item in inv.Items)
                                     {
-                                        ID itemID = item.Item.GetData<ID>();
+                                        ID itemID = item.Item.Get<ID>();
                                         msg += $"{itemID.Name}, ";
                                     }
                                     msg += $")";

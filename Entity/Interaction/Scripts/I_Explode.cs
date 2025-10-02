@@ -15,7 +15,7 @@ namespace MindTheatre
 
         protected override bool OnTryInteract(EntityData self, EntityData interactor, EntityData target)
         {
-            ID id = self.GetData<ID>();
+            ID id = self.Get<ID>();
             Explosive explosive = self.Get<Explosive>();
 
             Vector3 worldPosition = new Vector3(id.Position.x, id.Position.z, id.Position.y);

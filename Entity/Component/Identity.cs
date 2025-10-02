@@ -17,10 +17,10 @@ namespace Sentience
 
         public async Awaitable LoadSentienceCharacter(SentienceCharacter character, Faction faction, Random random)
         {
-            ID id = Data.GetData<ID>();
+            ID id = Data.Get<ID>();
             id.Name = character.Name;
             id.Description = character.Description;
-            Data.SetData(id);
+            // Data.SetData(id);
 
             Faction = faction;
             Location = character.Location;

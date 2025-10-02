@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 using Unity.Entities;
+using Unity.Transforms;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -45,24 +46,33 @@ namespace Sentience
             if (!entityManager.Exists(Entity))
             {
                 SpawnDotsEntity(random);
-            }
 
-            foreach (var component in Components)
-            {
-                if (component.Component is IEntityComponent c) c.Init(this, random);
-            }
+                foreach (var component in Components)
+                {
+                    if (component.Component is IEntityComponent c) c.Init(this, random);
+                }
 
-            if (entityManager.HasComponent<Inventory>(Entity))
-            {
-                Inventory inv = entityManager.GetComponentObject<Inventory>(Entity);
-                foreach (var item in inv.Items) item.Item.Init(random);
-            }
+                if (entityManager.HasComponent<Inventory>(Entity))
+                {
+                    Inventory inv = entityManager.GetComponentObject<Inventory>(Entity);
+                    foreach (var item in inv.Items)
+                    {
+                        item.Item.Init(random);
+                        entityManager.AddComponentData<ItemComponent>(item.Item.Entity, new() {Parent = Entity});
+                        entityManager.AddComponentData<SetParentComponent>(item.Item.Entity, new() {Parent = Entity});
+                    }
+                }
 
-            if (entityManager.HasComponent<Equipment>(Entity))
-            {
-                Equipment equipment = entityManager.GetComponentData<Equipment>(Entity);
-                equipment.MeleeWeapon.Init(random);
-                equipment.RangedWeapon.Init(random);
+                if (entityManager.HasComponent<Equipment>(Entity))
+                {
+                    Equipment equipment = entityManager.GetComponentData<Equipment>(Entity);
+                    equipment.MeleeWeapon.Init(random);
+                    equipment.RangedWeapon.Init(random);
+                    entityManager.AddComponentData<ItemComponent>(equipment.MeleeWeapon.Entity, new() {Parent = Entity});
+                    entityManager.AddComponentData<ItemComponent>(equipment.RangedWeapon.Entity, new() {Parent = Entity});
+                    entityManager.AddComponentData<SetParentComponent>(equipment.MeleeWeapon.Entity, new() {Parent = Entity});
+                    entityManager.AddComponentData<SetParentComponent>(equipment.RangedWeapon.Entity, new() {Parent = Entity});
+                }
             }
         }
 
@@ -80,19 +90,19 @@ namespace Sentience
             // return dictionary[typeof(T).GetHashCode()] as T;
         }
 
-        public T GetData<T>() where T : unmanaged, IComponentData
-        {
-            return World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentData<T>(Entity);
-            // return Components.FirstOrDefault(x => x.Component is T).Component as T;
-            // return dictionary[typeof(T).GetHashCode()] as T;
-        }
+        // public T GetData<T>() where T : unmanaged, IComponentData
+        // {
+        // return World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentData<T>(Entity);
+        // return Components.FirstOrDefault(x => x.Component is T).Component as T;
+        // return dictionary[typeof(T).GetHashCode()] as T;
+        // }
 
-        public void SetData<T>(T data) where T : unmanaged, IComponentData
-        {
-            World.DefaultGameObjectInjectionWorld.EntityManager.SetComponentData(Entity, data);
-            // return Components.FirstOrDefault(x => x.Component is T).Component as T;
-            // return dictionary[typeof(T).GetHashCode()] as T;
-        }
+        // public void SetData<T>(T data) where T : unmanaged, IComponentData
+        // {
+        // World.DefaultGameObjectInjectionWorld.EntityManager.SetComponentData(Entity, data);
+        // return Components.FirstOrDefault(x => x.Component is T).Component as T;
+        // return dictionary[typeof(T).GetHashCode()] as T;
+        // }
 
         void AddComponent(EntityAuthoring authoring, System.Random random)
         {
@@ -118,26 +128,29 @@ namespace Sentience
 
         public void SpawnDotsEntity(System.Random random)
         {
-            EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            if (entityManager.Exists(Entity)) return;
+            EntityManager em = World.DefaultGameObjectInjectionWorld.EntityManager;
+            if (em.Exists(Entity)) return;
 
             List<ComponentType> componentTypes = new();
             foreach (var c in Components) componentTypes.Add(c.Component.GetType());
-            EntityArchetype archetype = entityManager.CreateArchetype(componentTypes.ToArray());
+            componentTypes.Add(typeof(Parent));
+            componentTypes.Add(typeof(LocalToWorld));
+            componentTypes.Add(typeof(LocalTransform));
+            EntityArchetype archetype = em.CreateArchetype(componentTypes.ToArray());
 
-            Entity = entityManager.CreateEntity(archetype);
+            Entity = em.CreateEntity(archetype);
 
             foreach (var component in Components)
             {
-                if (component.Component is ID id)
-                {
-                    id.Entity = Entity;
-                    World.DefaultGameObjectInjectionWorld.EntityManager.AddComponentData(Entity, id);
-                }
-                else
-                {
-                    entityManager.AddComponentObject(Entity, component.Component);
-                }
+                // if (component.Component is ID id)
+                // {
+                // id.Entity = Entity;
+                // em.SetComponentData(Entity, id);
+                // }
+                // else
+                // {
+                em.AddComponentObject(Entity, component.Component);
+                // }
             }
         }
     }

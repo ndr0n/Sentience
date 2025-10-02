@@ -1,9 +1,8 @@
 using Unity.Entities;
-using Unity.Transforms;
 
 namespace Sentience
 {
-    public struct ItemComponent : IComponentData
+    public struct SetParentComponent : IComponentData
     {
         public Entity Parent;
     }

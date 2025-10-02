@@ -24,7 +24,7 @@ namespace Sentience
                 List<string> entityNames = new();
                 foreach (var d in entities)
                 {
-                    ID entityID = d.GetData<ID>();
+                    ID entityID = d.Get<ID>();
                     entityNames.Add($"{d.Name}|{entityID.Description}");
                 }
                 string eTarget = await SentienceManager.Instance.RagManager.GetMostSimilar(entityNames, stage.Target);
@@ -65,7 +65,7 @@ namespace Sentience
             }
 
             Interaction interaction = null;
-            ID targetID = targetData.GetData<ID>();
+            ID targetID = targetData.Get<ID>();
             List<Interaction> eInteractions = targetID.Type.Interactions.Where(x => x.HasInteraction(targetData, player, itemOwner)).ToList();
             if (!string.IsNullOrWhiteSpace(stage.Action))
             {

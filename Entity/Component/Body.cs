@@ -18,7 +18,7 @@ namespace Sentience
 
             // World.DefaultGameObjectInjectionWorld.EntityManager.AddComponent<LocalTransform>(Data.Entity);
 
-            ID id = Data.GetData<ID>();
+            ID id = Data.Get<ID>();
             id.Position = worldPosition;
             Spawn.OnSpawn(Data, id.Type, worldPosition);
 

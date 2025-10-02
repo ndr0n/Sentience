@@ -4,6 +4,7 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Sentience
 {
@@ -17,58 +18,45 @@ namespace Sentience
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            new ProcessUpdatePositionJob().ScheduleParallel();
-
             EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
-            foreach ((RefRW<UpdatePositionComponent> updatePosition, Entity entity) in SystemAPI.Query<RefRW<UpdatePositionComponent>>().WithEntityAccess())
-            {
-                ecb.RemoveComponent<UpdatePositionComponent>(entity);
-            }
-
-            /*
-            // Debug.Log($"RUNNING SYSTEM");
-            EntityCommandBuffer ecb = new EntityCommandBuffer(Unity.Collections.Allocator.Temp);
-            foreach ((RefRW<ID> id, RefRW<UpdatePositionComponent> updatePosition) in SystemAPI.Query<RefRW<ID>, RefRW<UpdatePositionComponent>>())
-            {
-                if (state.EntityManager.HasComponent<Inventory>(id.ValueRO.Entity))
-                {
-                    ProcessInventoryPositions(ref state, id, id.ValueRO.Entity);
-                }
-                ecb.RemoveComponent<UpdatePositionComponent>(id.ValueRO.Entity);
-            }
+            new UpdatePositionJob() {pecb = ecb.AsParallelWriter()}.ScheduleParallel();
+            state.Dependency.Complete();
             ecb.Playback(state.EntityManager);
-            */
-        }
+            ecb.Dispose();
 
-        public void ProcessInventoryPositions(ref SystemState state, RefRW<ID> id, Entity inv)
-        {
-            Inventory inventory = state.EntityManager.GetComponentData<Inventory>(inv);
-
-            foreach (var item in inventory.Items)
+            foreach ((RefRW<ItemComponent> item, RefRW<LocalTransform> tf) in SystemAPI.Query<RefRW<ItemComponent>, RefRW<LocalTransform>>())
             {
-                ID itemId = item.Item.GetData<ID>();
-                itemId.position = id.ValueRO.Position;
-                item.Item.SetData(itemId);
-                Debug.Log($"{inventory.Data.Name} - {item.Name} set to position: {id.ValueRO.Position}");
+                LocalTransform ptf = state.EntityManager.GetComponentData<LocalTransform>(item.ValueRO.Parent);
+                tf.ValueRW.Position = ptf.Position;
             }
         }
-    }
 
-    public partial struct ProcessUpdatePositionJob : IJobEntity
-    {
-        void Execute(UpdatePositionComponent updatePos, ID id)
+        [BurstCompile]
+        public partial struct UpdatePositionJob : IJobEntity
         {
-            EntityManager em = World.DefaultGameObjectInjectionWorld.EntityManager;
-            if (em.HasComponent<Inventory>(id.Entity))
+            public EntityCommandBuffer.ParallelWriter pecb;
+
+            void Execute(Entity entity, [ChunkIndexInQuery] int sortKey, RefRW<UpdatePositionComponent> id, RefRW<LocalTransform> tf)
             {
-                Inventory inventory = em.GetComponentObject<Inventory>(id.Entity);
-                foreach (var item in inventory.Items)
-                {
-                    ID itemId = item.Item.GetData<ID>();
-                    itemId.position = id.Position;
-                    item.Item.SetData(itemId);
-                    Debug.Log($"{inventory.Data.Name} - {item.Name} set to position: {id.Position}");
-                }
+                tf.ValueRW = LocalTransform.FromPosition(id.ValueRW.WorldPosition);
+                pecb.RemoveComponent<UpdatePositionComponent>(sortKey, entity);
+                // Debug.Log($"UPDATEPOSITION: {entity.Index} - Position: {tf.ValueRW.Position}");
+            }
+        }
+
+        [BurstCompile]
+        public partial struct UpdateItemPositionJob : IJobEntity
+        {
+            public EntityCommandBuffer.ParallelWriter pecb;
+
+            void Execute(Entity entity, [ChunkIndexInQuery] int sortKey, RefRW<ItemComponent> item, RefRW<LocalTransform> tf, DynamicBuffer<Child> children)
+            {
+                // LocalTransform parentTransform = parent.ValueRO
+
+                tf.ValueRW.Position = tf.ValueRO.Position;
+                // tf.ValueRW.Value = item.ValueRO.ParentTransform.Value;
+                pecb.RemoveComponent<UpdatePositionComponent>(sortKey, entity);
+                // Debug.Log($"ITEM: {entity.Index} - Position: {tf.ValueRW.Position}");
             }
         }
     }

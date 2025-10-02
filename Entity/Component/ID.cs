@@ -6,8 +6,28 @@ using UnityEngine.AddressableAssets;
 
 namespace Sentience
 {
+    public class ID : EntityComponent
+    {
+        public string Name;
+
+        public string Description;
+
+        public EntityType Type;
+
+        [SerializeField] Vector3 position;
+        public Vector3 Position
+        {
+            get => position;
+            set
+            {
+                position = value;
+                World.DefaultGameObjectInjectionWorld.EntityManager.AddComponentData(Data.Entity, new UpdatePositionComponent() {WorldPosition = value});
+            }
+        }
+    }
+
     [System.Serializable]
-    public struct ID : IComponentData
+    public struct IDComponent : IComponentData
     {
         FixedString128Bytes name;
         public string Name
@@ -23,30 +43,25 @@ namespace Sentience
             set { description = value; }
         }
 
-        public FixedString64Bytes type;
+        FixedString64Bytes type;
         public EntityType Type
         {
             get { return (EntityType) UnityEditor.AddressableAssets.AddressableAssetSettingsDefaultObject.Settings.FindAssetEntry(type.Value).MainAsset; }
             set { type = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(value)); }
         }
 
-        public Vector3 position;
+        Vector3 position;
         public Vector3 Position
         {
             get { return position; }
             set
             {
                 position = value;
-                World.DefaultGameObjectInjectionWorld.EntityManager.AddComponent<UpdatePositionComponent>(Entity);
+                World.DefaultGameObjectInjectionWorld.EntityManager.AddComponentData(Entity, new UpdatePositionComponent() {WorldPosition = value});
             }
         }
 
-        Entity entity;
-        public Entity Entity
-        {
-            get { return entity; }
-            set { entity = value; }
-        }
+        public Entity Entity;
 
         // public ID(string name, string description, EntityType type, Vector3 position)
         // {
