@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Transforms;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -21,7 +23,21 @@ namespace Sentience
             set
             {
                 position = value;
-                World.DefaultGameObjectInjectionWorld.EntityManager.AddComponentData(Data.Entity, new UpdatePositionComponent() {WorldPosition = value});
+                EntityManager em = World.DefaultGameObjectInjectionWorld.EntityManager;
+                em.AddComponentData(Data.Entity, new UpdatePositionComponent() {WorldPosition = value});
+                if (em.HasBuffer<Child>(Data.Entity))
+                {
+                    List<Entity> children = new();
+
+                    DynamicBuffer<Child> childrenBuffer = em.GetBuffer<Child>(Data.Entity);
+                    foreach (var childBuffer in childrenBuffer) children.Add(childBuffer.Value);
+
+                    foreach (var child in children)
+                    {
+                        ID id = em.GetComponentObject<ID>(child);
+                        id.Position = value;
+                    }
+                }
             }
         }
     }

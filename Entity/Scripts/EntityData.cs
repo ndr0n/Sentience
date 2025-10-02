@@ -58,7 +58,7 @@ namespace Sentience
                     foreach (var item in inv.Items)
                     {
                         item.Item.Init(random);
-                        entityManager.AddComponentData<ItemComponent>(item.Item.Entity, new() {Parent = Entity});
+                        // entityManager.AddComponentData<ItemComponent>(item.Item.Entity, new() {Parent = Entity});
                         entityManager.AddComponentData<SetParentComponent>(item.Item.Entity, new() {Parent = Entity});
                     }
                 }
@@ -68,8 +68,8 @@ namespace Sentience
                     Equipment equipment = entityManager.GetComponentData<Equipment>(Entity);
                     equipment.MeleeWeapon.Init(random);
                     equipment.RangedWeapon.Init(random);
-                    entityManager.AddComponentData<ItemComponent>(equipment.MeleeWeapon.Entity, new() {Parent = Entity});
-                    entityManager.AddComponentData<ItemComponent>(equipment.RangedWeapon.Entity, new() {Parent = Entity});
+                    // entityManager.AddComponentData<ItemComponent>(equipment.MeleeWeapon.Entity, new() {Parent = Entity});
+                    // entityManager.AddComponentData<ItemComponent>(equipment.RangedWeapon.Entity, new() {Parent = Entity});
                     entityManager.AddComponentData<SetParentComponent>(equipment.MeleeWeapon.Entity, new() {Parent = Entity});
                     entityManager.AddComponentData<SetParentComponent>(equipment.RangedWeapon.Entity, new() {Parent = Entity});
                 }

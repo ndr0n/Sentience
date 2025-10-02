@@ -24,6 +24,9 @@ namespace Sentience
             state.Dependency.Complete();
             ecb.Playback(state.EntityManager);
             ecb.Dispose();
+            
+            Debug.Log("SetParentSystem - Update");
+
         }
 
         [BurstCompile]
@@ -35,7 +38,6 @@ namespace Sentience
             {
                 parent.ValueRW.Value = setParent.ValueRO.Parent;
                 pecb.RemoveComponent<SetParentComponent>(sortKey, entity);
-                Debug.Log("Running Set Parent Component!");
             }
         }
     }
