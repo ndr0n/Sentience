@@ -32,9 +32,10 @@ namespace Sentience
         {
             public EntityCommandBuffer.ParallelWriter pecb;
 
-            void Execute(Entity entity, [ChunkIndexInQuery] int sortKey, RefRW<UpdatePositionComponent> id, RefRW<LocalTransform> tf)
+            void Execute(Entity entity, [ChunkIndexInQuery] int sortKey, RefRW<UpdatePositionComponent> id, RefRW<LocalTransform> tf, RefRW<LocalToWorld> ltw)
             {
-                tf.ValueRW = LocalTransform.FromPosition(id.ValueRW.WorldPosition);
+                tf.ValueRW = LocalTransform.FromPosition(new Vector3(id.ValueRW.WorldPosition.x, id.ValueRW.WorldPosition.z, id.ValueRW.WorldPosition.y));
+                ltw.ValueRW.Value = tf.ValueRW.ToMatrix();
                 pecb.RemoveComponent<UpdatePositionComponent>(sortKey, entity);
             }
         }

@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
+using MindTheatre;
 using Unity.Entities;
+using Unity.Rendering;
 using Unity.Transforms;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
+using World = Unity.Entities.World;
 
 namespace Sentience
 {
@@ -136,6 +140,10 @@ namespace Sentience
             componentTypes.Add(typeof(Parent));
             componentTypes.Add(typeof(LocalToWorld));
             componentTypes.Add(typeof(LocalTransform));
+            // if (Components.Exists(x => x.Component is Body))
+            // {
+            // componentTypes.Add(typeof(RenderMeshArray));
+            // }
             EntityArchetype archetype = em.CreateArchetype(componentTypes.ToArray());
 
             Entity = em.CreateEntity(archetype);
@@ -151,6 +159,13 @@ namespace Sentience
                 // {
                 em.AddComponentObject(Entity, component.Component);
                 // }
+                if (component.Component is Body body)
+                {
+                    var desc = new RenderMeshDescription(shadowCastingMode: ShadowCastingMode.Off, receiveShadows: false);
+                    var renderMeshArray = new RenderMeshArray(new Material[] {GameManager.Instance.RenderMaterial}, new Mesh[] {GameManager.Instance.RenderMesh});
+                    RenderMeshUtility.AddComponents(Entity, em, desc, renderMeshArray, MaterialMeshInfo.FromRenderMeshArrayIndices(0, 0));
+                    // em.AddComponentData(Entity, new LocalToWorld());
+                }
             }
         }
     }
