@@ -57,6 +57,13 @@ namespace Sentience
                 Inventory inv = entityManager.GetComponentObject<Inventory>(Entity);
                 foreach (var item in inv.Items) item.Item.Init(random);
             }
+
+            if (entityManager.HasComponent<Equipment>(Entity))
+            {
+                Equipment equipment = entityManager.GetComponentData<Equipment>(Entity);
+                equipment.MeleeWeapon.Init(random);
+                equipment.RangedWeapon.Init(random);
+            }
         }
 
         public bool Has<T>()

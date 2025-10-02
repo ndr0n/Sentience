@@ -37,7 +37,7 @@ namespace Sentience
             set
             {
                 position = value;
-                World.DefaultGameObjectInjectionWorld.EntityManager.AddComponent<PositionChangedComponent>(Entity);
+                World.DefaultGameObjectInjectionWorld.EntityManager.AddComponent<UpdatePositionComponent>(Entity);
             }
         }
 

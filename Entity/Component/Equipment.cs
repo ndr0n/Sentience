@@ -5,8 +5,8 @@ namespace Sentience
 {
     public class Equipment : EntityComponent
     {
-        public Weapon MeleeWeapon;
-        public Weapon RangedWeapon;
+        public EntityData MeleeWeapon;
+        public EntityData RangedWeapon;
         public Action<Equipment> OnEquipmentChanged;
 
         public void EquipWeapon(Weapon weapon, Inventory inventory)
@@ -16,24 +16,24 @@ namespace Sentience
                 case WeaponClass.Melee:
                     if (MeleeWeapon != null)
                     {
-                        Item existingWeapon = MeleeWeapon.Data.Get<Item>();
+                        Item existingWeapon = MeleeWeapon.Get<Item>();
                         inventory.Add(existingWeapon);
                         MeleeWeapon = null;
                     }
                     Item meleeWeapon = weapon.Data.Get<Item>();
                     inventory.Remove(meleeWeapon, 1);
-                    MeleeWeapon = weapon;
+                    MeleeWeapon = weapon.Data;
                     break;
                 case WeaponClass.Ranged:
                     if (RangedWeapon != null)
                     {
-                        Item existingWeapon = RangedWeapon.Data.Get<Item>();
+                        Item existingWeapon = RangedWeapon.Get<Item>();
                         inventory.Add(existingWeapon);
                         RangedWeapon = null;
                     }
                     Item rangedWeapon = weapon.Data.Get<Item>();
                     inventory.Remove(rangedWeapon, 1);
-                    RangedWeapon = weapon;
+                    RangedWeapon = weapon.Data;
                     break;
             }
             OnEquipmentChanged?.Invoke(this);
@@ -55,7 +55,7 @@ namespace Sentience
                 EntityData meleeWeaponData = new(MeleeWeapon.Name, MeleeWeapon.Description, MeleeWeapon, random);
                 // Item meleeWeaponItem = meleeWeaponData.Get<Item>();
                 Weapon meleeWeapon = meleeWeaponData.Get<Weapon>();
-                equipment.MeleeWeapon = meleeWeapon;
+                equipment.MeleeWeapon = meleeWeapon.Data;
             }
 
             if (RangedWeapon != null)
@@ -63,7 +63,7 @@ namespace Sentience
                 EntityData rangedWeaponData = new(RangedWeapon.Name, RangedWeapon.Description, RangedWeapon, random);
                 // Item meleeWeaponItem = meleeWeaponData.Get<Item>();
                 Weapon rangedWeapon = rangedWeaponData.Get<Weapon>();
-                equipment.RangedWeapon = rangedWeapon;
+                equipment.RangedWeapon = rangedWeapon.Data;
             }
 
             return equipment;
