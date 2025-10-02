@@ -1,5 +1,6 @@
 using System.Numerics;
 using Sentience;
+using Unity.Entities;
 using UnityEngine;
 
 namespace Sentience
@@ -25,7 +26,7 @@ namespace Sentience
         public WeaponClass Class;
         public SpawnAction Action;
 
-        public override IEntityComponent Spawn(System.Random random)
+        public override IComponentData Spawn(System.Random random)
         {
             Weapon weapon = new();
             weapon.Damage = random.Next(Damage.x, Damage.y + 1);

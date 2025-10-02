@@ -40,7 +40,7 @@ namespace Sentience
         public Vector2Int Price = new Vector2Int(1, 50);
         public List<Sprite> Icons = new();
 
-        public override IEntityComponent Spawn(System.Random random)
+        public override IComponentData Spawn(System.Random random)
         {
             Item item = new()
             {

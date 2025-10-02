@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Entities;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -108,7 +109,7 @@ namespace Sentience
         public Vector2Int Credits = new Vector2Int(0, 100);
         public List<EntityType> Items = new();
 
-        public override IEntityComponent Spawn(Random random)
+        public override IComponentData Spawn(Random random)
         {
             Inventory inventory = new();
             inventory.Size = Size;

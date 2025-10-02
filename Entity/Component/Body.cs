@@ -31,7 +31,7 @@ namespace Sentience
     {
         public List<Spawn> Prefabs = new();
 
-        public override IEntityComponent Spawn(System.Random random)
+        public override IComponentData Spawn(System.Random random)
         {
             Body body = new();
             body.Prefab = Prefabs[random.Next(0, Prefabs.Count)];

@@ -1,5 +1,6 @@
 using System;
 using Sentience;
+using Unity.Entities;
 
 namespace Sentience
 {
@@ -46,7 +47,7 @@ namespace Sentience
         public EntityType MeleeWeapon;
         public EntityType RangedWeapon;
 
-        public override IEntityComponent Spawn(System.Random random)
+        public override IComponentData Spawn(System.Random random)
         {
             Equipment equipment = new();
 

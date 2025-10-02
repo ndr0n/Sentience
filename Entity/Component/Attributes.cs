@@ -1,5 +1,6 @@
 using System;
 using MindTheatre;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = System.Random;
@@ -38,7 +39,7 @@ namespace Sentience
         public Vector2Int Wisdom = new Vector2Int(1, 20);
         public Vector2Int Charisma = new Vector2Int(1, 20);
 
-        public override IEntityComponent Spawn(Random random)
+        public override IComponentData Spawn(Random random)
         {
             Attributes attributes = new();
             attributes.Strength = random.Next(Strength.x, Strength.y);

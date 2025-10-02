@@ -1,6 +1,7 @@
 using System.Numerics;
 using MindTheatre;
 using Sentience;
+using Unity.Entities;
 using UnityEngine;
 
 namespace Sentience
@@ -30,7 +31,7 @@ namespace Sentience
         public ArmorClass Class;
         public Effect Effect;
 
-        public override IEntityComponent Spawn(System.Random random)
+        public override IComponentData Spawn(System.Random random)
         {
             Armor armor = new();
             armor.Protection = random.Next(Protection.x, Protection.y + 1);

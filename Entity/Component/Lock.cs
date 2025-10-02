@@ -1,5 +1,6 @@
 using System;
 using MindTheatre;
+using Unity.Entities;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -47,7 +48,7 @@ namespace Sentience
         public bool Open = false;
         public bool Locked = false;
 
-        public override IEntityComponent Spawn(System.Random random)
+        public override IComponentData Spawn(System.Random random)
         {
             Lock lockComponent = new();
             lockComponent.Open = Open;

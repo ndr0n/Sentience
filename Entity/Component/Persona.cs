@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Entities;
 using Random = UnityEngine.Random;
 
 namespace Sentience
@@ -33,7 +34,7 @@ namespace Sentience
     {
         public string Desire = "";
 
-        public override IEntityComponent Spawn(System.Random random)
+        public override IComponentData Spawn(System.Random random)
         {
             Persona persona = new();
             persona.Desire = Desire;
