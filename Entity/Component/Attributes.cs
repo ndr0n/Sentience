@@ -19,10 +19,13 @@ namespace Sentience
         [Header("Stats")]
         public int Armor;
         public int Evasion;
+
         public int Speed;
-        public int Perception;
+        public int Vision;
+
         public int Melee;
         public int Ranged;
+        public int Physics;
     }
 
     [System.Serializable]

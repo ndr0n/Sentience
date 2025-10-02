@@ -33,7 +33,10 @@ MonoBehaviour:
     - rid: 1336660936997470580
       type: {class: ExplosiveAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:
-        Range: {x: 5, y: 5}
+        Audio: {fileID: 11400000, guid: 51862c46df1417cc8a23f2e095c724f9, type: 2}
+        Animation: {fileID: 6735030952549108040, guid: 066e6fc57445b363ea697a0e0bd33975, type: 3}
+        Force: {x: 5, y: 5}
+        Radius: {x: 5, y: 5}
         Damage: {x: 10, y: 20}
         DamageType: 1
     - rid: 3423325703147094279

@@ -12,8 +12,8 @@ namespace Sentience
     public class Body : EntityComponent
     {
         public Spawn Prefab;
-        public Vector3 Position;
         public Spawn Spawn;
+        public Vector3 Position;
 
         public Spawn SpawnBody(Random random, Transform parent, Vector3 worldPosition)
         {

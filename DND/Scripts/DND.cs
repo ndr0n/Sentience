@@ -89,7 +89,10 @@ namespace Sentience
                     }
                     if (modifiers != null)
                     {
-                        extra += modifiers[GetAttributeFromString(data[i])];
+                        foreach (int modifier in modifiers)
+                        {
+                            extra += modifier;
+                        }
                     }
                 }
             }

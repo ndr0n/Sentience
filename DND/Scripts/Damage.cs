@@ -10,7 +10,7 @@ namespace Sentience
 
     [System.Serializable]
     public struct Damage
-    {   
+    {
         public int Value;
         public DamageType Type;
         public GameObject Projectile;

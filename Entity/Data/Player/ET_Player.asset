@@ -86,9 +86,6 @@ MonoBehaviour:
         Credits: {x: 0, y: 100}
         Items:
         - {fileID: 11400000, guid: e4eedb683203a9250b102aaefa1c0180, type: 2}
-        - {fileID: 11400000, guid: e4eedb683203a9250b102aaefa1c0180, type: 2}
-        - {fileID: 11400000, guid: e4eedb683203a9250b102aaefa1c0180, type: 2}
-        - {fileID: 11400000, guid: e4eedb683203a9250b102aaefa1c0180, type: 2}
     - rid: 3423325703147094428
       type: {class: HealthAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:
