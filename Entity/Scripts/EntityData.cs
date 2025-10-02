@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
+using Unity.Entities;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -19,43 +21,69 @@ namespace Sentience
         {
             Name = name;
             Components = new();
-            // dictionary = new();
 
-            ID id = new();
-            id.Name = name;
-            id.Description = description;
-            id.Type = type;
-            EntityComponentData data = new(id);
-            Components.Add(data);
+            ID id = new()
+            {
+                Name = name,
+                Description = description,
+                Type = type,
+            };
+            EntityComponentData idData = new(id);
+            Components.Add(idData);
 
             foreach (var componentType in type.Components)
             {
                 AddComponent(componentType.Authoring, random);
             }
 
-            foreach (var component in Components)
-            {
-                component.Component.Init(this, random);
-            }
-
-            // Init();
+            Init(random);
         }
 
-        public void Init()
+        public void Init(System.Random random)
         {
-            // dictionary = new();
-            // foreach (var c in Components) dictionary.Add(c.Component.GetType().GetHashCode(), c.Component);
+            EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            if (!entityManager.Exists(Entity))
+            {
+                SpawnDotsEntity(random);
+            }
+
+            foreach (var component in Components)
+            {
+                if (component.Component is IEntityComponent c) c.Init(this, random);
+            }
+
+            if (entityManager.HasComponent<Inventory>(Entity))
+            {
+                Inventory inv = entityManager.GetComponentObject<Inventory>(Entity);
+                foreach (var item in inv.Items) item.Item.Init(item.Item.Data, random);
+            }
         }
 
         public bool Has<T>()
         {
-            return Components.Exists(x => x.Component is T);
+            return World.DefaultGameObjectInjectionWorld.EntityManager.HasComponent<T>(Entity);
+            // return Components.Exists(x => x.Component is T);
             // return dictionary.ContainsKey(typeof(T).GetHashCode());
         }
 
         public T Get<T>() where T : EntityComponent
         {
-            return Components.FirstOrDefault(x => x.Component is T).Component as T;
+            return World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<T>(Entity);
+            // return Components.FirstOrDefault(x => x.Component is T).Component as T;
+            // return dictionary[typeof(T).GetHashCode()] as T;
+        }
+
+        public T GetData<T>() where T : unmanaged, IComponentData
+        {
+            return World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentData<T>(Entity);
+            // return Components.FirstOrDefault(x => x.Component is T).Component as T;
+            // return dictionary[typeof(T).GetHashCode()] as T;
+        }
+
+        public void SetData<T>(T data) where T : unmanaged, IComponentData
+        {
+            World.DefaultGameObjectInjectionWorld.EntityManager.SetComponentData(Entity, data);
+            // return Components.FirstOrDefault(x => x.Component is T).Component as T;
             // return dictionary[typeof(T).GetHashCode()] as T;
         }
 
@@ -79,32 +107,41 @@ namespace Sentience
             return targetIdentity.Faction.IsHostile(identity.Faction);
         }
 
-        // public Entity Entity;
-        //
-        // public void SpawnDotsEntity(System.Random random)
-        // {
-        //     EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-        //
-        //     List<ComponentType> componentTypes = new();
-        //     foreach (var c in Components) componentTypes.Add(c.Component.GetType());
-        //     EntityArchetype archetype = entityManager.CreateArchetype(componentTypes.ToArray());
-        //
-        //     Entity = entityManager.CreateEntity(archetype);
-        //
-        //     foreach (var component in Components)
-        //     {
-        //         entityManager.AddComponentObject(Entity, component.Component);
-        //     }
-        // }
+        public Entity Entity;
+
+        public void SpawnDotsEntity(System.Random random)
+        {
+            EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            if (entityManager.Exists(Entity)) return;
+
+            List<ComponentType> componentTypes = new();
+            foreach (var c in Components) componentTypes.Add(c.Component.GetType());
+            EntityArchetype archetype = entityManager.CreateArchetype(componentTypes.ToArray());
+
+            Entity = entityManager.CreateEntity(archetype);
+
+            foreach (var component in Components)
+            {
+                if (component.Component is ID id)
+                {
+                    id.Entity = Entity;
+                    World.DefaultGameObjectInjectionWorld.EntityManager.AddComponentData(Entity, id);
+                }
+                else
+                {
+                    entityManager.AddComponentObject(Entity, component.Component);
+                }
+            }
+        }
     }
 
     [System.Serializable]
     public class EntityComponentData
     {
         [HideInInspector] public string Name;
-        [SerializeReference] public IEntityComponent Component;
+        [SerializeReference] public IComponentData Component;
 
-        public EntityComponentData(IEntityComponent component)
+        public EntityComponentData(IComponentData component)
         {
             string type = component.GetType().ToString();
             Name = type.Split('.')[^1];

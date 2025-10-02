@@ -82,8 +82,9 @@ namespace Sentience
                         SentienceCharacter sc = new(character, location.Name);
                         EntityData characterData = new(sc.Name, sc.Description, spawnType, random);
 
-                        Body body = characterData.Get<Body>();
-                        body.Position = spawnPosition;
+                        ID id = characterData.GetData<ID>();
+                        id.Position = spawnPosition;
+                        characterData.SetData(id);
 
                         Identity identity = characterData.Get<Identity>();
                         await identity.LoadSentienceCharacter(sc, location.Faction, random);

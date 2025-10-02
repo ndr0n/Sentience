@@ -19,7 +19,7 @@ namespace Sentience
         public void Init(Identity identity)
         {
             Identity = identity;
-            ID id = identity.Data.Get<ID>();
+            ID id = identity.Data.GetData<ID>();
             Messages.Clear();
             Personality = $"Your character name is: {id.Name}.\n" +
                           $"Your character species is {identity.Species.Name}" +
@@ -37,7 +37,7 @@ namespace Sentience
             {
                 if (!string.IsNullOrWhiteSpace(message))
                 {
-                    ID id = Identity.Data.Get<ID>();
+                    ID id = Identity.Data.GetData<ID>();
                     Debug.Log($"{origin} asked {id.Name}:\n{message}");
                     AddMessage(origin, message);
                     string response = null;

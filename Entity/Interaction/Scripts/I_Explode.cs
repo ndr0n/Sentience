@@ -15,10 +15,13 @@ namespace MindTheatre
 
         protected override bool OnTryInteract(EntityData self, EntityData interactor, EntityData target)
         {
+            ID id = self.GetData<ID>();
             Explosive explosive = self.Get<Explosive>();
-            Body body = interactor.Get<Body>();
-            Vector3 worldPosition = new Vector3(body.Position.x, body.Position.z, body.Position.y);
+
+            Vector3 worldPosition = new Vector3(id.Position.x, id.Position.z, id.Position.y);
+
             explosive.Explode(worldPosition);
+
             return true;
         }
     }

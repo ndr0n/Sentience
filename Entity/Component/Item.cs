@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = System.Random;
 
 namespace Sentience
 {
@@ -14,9 +16,15 @@ namespace Sentience
         public float Weight;
         public Sprite Icon;
 
+        public override void Init(EntityData data, Random random)
+        {
+            base.Init(data, random);
+            World.DefaultGameObjectInjectionWorld.EntityManager.AddComponent<ItemComponent>(data.Entity);
+        }
+
         public string Print()
         {
-            ID id = Data.Get<ID>();
+            ID id = Data.GetData<ID>();
             string print = "";
             print += $"{id.Name}\n";
             if (!string.IsNullOrWhiteSpace(id.Description)) print += $"{id.Description}\n";

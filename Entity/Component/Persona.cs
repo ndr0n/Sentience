@@ -22,7 +22,7 @@ namespace Sentience
                     }
                 }
                 Item desiredItem = items[Random.Range(0, items.Count)];
-                ID id = desiredItem.Data.Get<ID>();
+                ID id = desiredItem.Data.GetData<ID>();
                 Desire = id.Name;
             }
         }

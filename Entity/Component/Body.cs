@@ -1,10 +1,7 @@
 using System.Collections.Generic;
-using System.Numerics;
+using Unity.Entities;
+using Unity.Transforms;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Random = System.Random;
-using Vector2 = System.Numerics.Vector2;
-using Vector3 = UnityEngine.Vector3;
 
 namespace Sentience
 {
@@ -13,15 +10,18 @@ namespace Sentience
     {
         public Spawn Prefab;
         public Spawn Spawn;
-        public Vector3 Position;
 
-        public Spawn SpawnBody(Random random, Transform parent, Vector3 worldPosition)
+        public Spawn SpawnBody(System.Random random, Transform parent, Vector3 worldPosition)
         {
             Spawn spawn = Object.Instantiate(Prefab.gameObject, parent).GetComponent<Spawn>();
             Spawn = spawn;
 
-            ID id = Data.Get<ID>();
+            // World.DefaultGameObjectInjectionWorld.EntityManager.AddComponent<LocalTransform>(Data.Entity);
+
+            ID id = Data.GetData<ID>();
+            id.Position = worldPosition;
             Spawn.OnSpawn(Data, id.Type, worldPosition);
+
             return spawn;
         }
     }
@@ -31,7 +31,7 @@ namespace Sentience
     {
         public List<Spawn> Prefabs = new();
 
-        public override IEntityComponent Spawn(Random random)
+        public override IEntityComponent Spawn(System.Random random)
         {
             Body body = new();
             body.Prefab = Prefabs[random.Next(0, Prefabs.Count)];
