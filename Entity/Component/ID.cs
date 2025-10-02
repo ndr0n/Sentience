@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Entities;
@@ -25,6 +26,7 @@ namespace Sentience
                 position = value;
                 EntityManager em = World.DefaultGameObjectInjectionWorld.EntityManager;
                 em.AddComponentData(Data.Entity, new UpdatePositionComponent() {WorldPosition = value});
+                OnChangePosition?.Invoke(value);
                 if (em.HasBuffer<Child>(Data.Entity))
                 {
                     List<Entity> children = new();
@@ -40,6 +42,8 @@ namespace Sentience
                 }
             }
         }
+
+        public Action<Vector3> OnChangePosition;
     }
 
     [System.Serializable]
@@ -78,13 +82,5 @@ namespace Sentience
         }
 
         public Entity Entity;
-
-        // public ID(string name, string description, EntityType type, Vector3 position)
-        // {
-        //     this.name = name;
-        //     this.description = description;
-        //     this.type = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(type));
-        //     this.position = position;
-        // }
     }
 }

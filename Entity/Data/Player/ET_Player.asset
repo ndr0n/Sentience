@@ -56,15 +56,21 @@ MonoBehaviour:
     Component: 13
     Authoring:
       rid: 1336660932115300889
-  - Name: Player
-    Component: 16
+  - Name: Pawn
+    Component: 15
     Authoring:
-      rid: -2
+      rid: 1336660950724379449
+  - Name: Player
+    Component: 17
+    Authoring:
+      rid: 1336660950724379453
+  - Name: Actor
+    Component: 18
+    Authoring:
+      rid: 1336660950724379483
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
     - rid: 1336660926998774705
       type: {class: EffectsAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:
@@ -85,6 +91,15 @@ MonoBehaviour:
       data:
         MeleeWeapon: {fileID: 11400000, guid: 5f5562aaf067ecd508f075f30c6c0fbc, type: 2}
         RangedWeapon: {fileID: 11400000, guid: a601021d90a00446b842287fa8074645, type: 2}
+    - rid: 1336660950724379449
+      type: {class: PawnAuthoring, ns: MindTheatre, asm: Assembly-CSharp}
+      data: 
+    - rid: 1336660950724379453
+      type: {class: PlayerAuthoring, ns: MindTheatre, asm: Assembly-CSharp}
+      data: 
+    - rid: 1336660950724379483
+      type: {class: Actor/ActorAuthoring, ns: MindTheatre, asm: Assembly-CSharp}
+      data: 
     - rid: 3423325703147094365
       type: {class: InventoryAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:

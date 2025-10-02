@@ -28,8 +28,12 @@ namespace Sentience
             // Material = new Material(Material);
             if (Data.Has<Avatar>())
             {
-                Avatar avatar = Data.Get<Avatar>();
+                Avatar avatar = Data.Get<Avatar>(); 
                 Material.mainTexture = avatar.Sprite.texture;
+                Material.mainTextureOffset = new(avatar.Sprite.rect.x / avatar.Sprite.texture.width, avatar.Sprite.rect.y / avatar.Sprite.texture.height);
+                Material.mainTextureScale = new(avatar.Sprite.rect.size.x / avatar.Sprite.texture.width, avatar.Sprite.rect.size.y / avatar.Sprite.texture.height);
+                // Material.mainTextureScale = avatar.Sprite.textureRect.size * avatar.Sprite.spriteAtlasTextureScale;
+                // avatar.Sprite.pivot;
             }
 
             var desc = new RenderMeshDescription(shadowCastingMode: ShadowCastingMode.Off, receiveShadows: false);
