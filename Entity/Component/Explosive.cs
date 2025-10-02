@@ -44,11 +44,15 @@ namespace Sentience
 
                 foreach (var Actor in GameManager.Instance.Actor)
                 {
-                    float distance = Vector3.Distance(worldPosition, Actor.transform.position);
-                    if (distance <= Radius)
+                    if (Actor.Data.Has<ID>())
                     {
-                        Debug.Log($"EXPLOSIVE DAMAGE {Actor.name}");
-                        var awaiter = Actor.TakeDamage(Damage, null);
+                        ID id = Actor.Data.Get<ID>();
+                        float distance = Vector3.Distance(worldPosition, id.Position);
+                        if (distance <= Radius)
+                        {
+                            Debug.Log($"EXPLOSIVE DAMAGE {Actor.Data.Name}");
+                            // var awaiter = Actor.TakeDamage(Damage, null);
+                        }
                     }
                 }
             }
