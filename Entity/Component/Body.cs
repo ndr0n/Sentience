@@ -35,14 +35,19 @@ namespace Sentience
                 EntitySpawn spawn = Object.Instantiate(Prefab.gameObject, parent).GetComponent<EntitySpawn>();
                 Spawn = spawn;
 
-                MeshRenderer renderer = spawn.GetComponent<MeshRenderer>();
-                if (renderer == null) renderer = spawn.AddComponent<MeshRenderer>();
+                MeshRenderer meshRenderer = spawn.GetComponent<MeshRenderer>();
                 MeshFilter meshFilter = spawn.GetComponent<MeshFilter>();
-                if (meshFilter == null) meshFilter.AddComponent<MeshFilter>();
+
+                if (meshRenderer == null) meshRenderer = spawn.AddComponent<MeshRenderer>();
+                if (meshFilter == null) meshFilter = spawn.AddComponent<MeshFilter>();
+
                 meshFilter.mesh = Mesh;
-                renderer.material = Material;
+                meshRenderer.material = Material;
 
                 Spawn.OnSpawn(Data, id.Type, worldPosition);
+
+                id.OnUpdatePosition += (Vector3 pos) => { Spawn.transform.position = pos; };
+                id.OnUpdateRotation += (Vector3 rot) => { Spawn.transform.rotation = Quaternion.Euler(rot); };
             }
             // else
             // {

@@ -49,6 +49,20 @@ namespace Sentience
                 foreach (var component in Components)
                 {
                     dictionary.Add(component.Component.GetType().GetHashCode(), component.Component);
+                    component.Component.Init(this, random);
+                }
+
+                if (Has<Inventory>())
+                {
+                    Inventory inv = Get<Inventory>();
+                    foreach (var item in inv.Items) item.Item.Init(random);
+                }
+
+                if (Has<Equipment>())
+                {
+                    Equipment equip = Get<Equipment>();
+                    equip.MeleeWeapon.Init(random);
+                    equip.RangedWeapon.Init(random);
                 }
             }
 
