@@ -26,6 +26,7 @@ namespace Sentience
             Actions,
             Weapon,
             Equipment,
+            Explosive
         }
 
         [HideInInspector] public string Name;

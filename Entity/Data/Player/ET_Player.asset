@@ -84,7 +84,11 @@ MonoBehaviour:
       data:
         Size: 64
         Credits: {x: 0, y: 100}
-        Items: []
+        Items:
+        - {fileID: 11400000, guid: e4eedb683203a9250b102aaefa1c0180, type: 2}
+        - {fileID: 11400000, guid: e4eedb683203a9250b102aaefa1c0180, type: 2}
+        - {fileID: 11400000, guid: e4eedb683203a9250b102aaefa1c0180, type: 2}
+        - {fileID: 11400000, guid: e4eedb683203a9250b102aaefa1c0180, type: 2}
     - rid: 3423325703147094428
       type: {class: HealthAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:
@@ -100,7 +104,7 @@ MonoBehaviour:
       data:
         Strength: {x: 8, y: 16}
         Dexterity: {x: 8, y: 16}
-        Constitution: {x: 8, y: 16}
+        Agility: {x: 8, y: 16}
         Intelligence: {x: 8, y: 16}
         Wisdom: {x: 8, y: 16}
         Charisma: {x: 8, y: 16}

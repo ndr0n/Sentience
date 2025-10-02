@@ -10,37 +10,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b3732f0cea24b1ea5bc718e53e327b1, type: 3}
-  m_Name: ET_Bow
+  m_Name: Grenade
   m_EditorClassIdentifier: Assembly-CSharp::Sentience.EntityType
-  Name: Bow
-  Description: a simple bow.
+  Name: Grenade
+  Description: an explosive grenade.
   Interactions:
-  - {fileID: 11400000, guid: 1b078781ac06b0b9595f934adbb784be, type: 2}
   - {fileID: 11400000, guid: f912bcc2d709267d99370ae87358e2ed, type: 2}
   - {fileID: 11400000, guid: c4c16448e2b30040ca8f13397de50dbd, type: 2}
+  - {fileID: 11400000, guid: e7e534bb098279752bb7da27178776f5, type: 2}
   Components:
   - Name: Item
     Component: 0
     Authoring:
       rid: 3423325703147094279
-  - Name: Weapon
-    Component: 12
+  - Name: Explosive
+    Component: 14
     Authoring:
-      rid: 1336660932115300885
+      rid: 1336660936997470580
   references:
     version: 2
     RefIds:
-    - rid: 1336660932115300885
-      type: {class: WeaponAuthoring, ns: Sentience, asm: Assembly-CSharp}
+    - rid: 1336660936997470580
+      type: {class: ExplosiveAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:
-        Damage: {x: 1, y: 1}
-        Class: 1
-        Action: {fileID: 11400000, guid: efddc433ef06eeade9d7ea4d00cd4450, type: 2}
+        Range: {x: 5, y: 5}
+        Damage: {x: 10, y: 20}
+        DamageType: 1
     - rid: 3423325703147094279
       type: {class: ItemAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:
         Stack: 1
-        Weight: {x: 1, y: 1}
+        Weight: {x: 0, y: 1}
         Price: {x: 1, y: 50}
         Icons:
-        - {fileID: 686942726980144117, guid: 427096609bf02b2338af88a0e1d24e52, type: 3}
+        - {fileID: -4550341189887911203, guid: 1ae5afb60ab5799c3bef48480efbc008, type: 3}

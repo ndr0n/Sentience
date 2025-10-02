@@ -88,7 +88,7 @@ MonoBehaviour:
       data:
         Strength: {x: 8, y: 16}
         Dexterity: {x: 8, y: 16}
-        Constitution: {x: 8, y: 16}
+        Agility: {x: 8, y: 16}
         Intelligence: {x: 8, y: 16}
         Wisdom: {x: 8, y: 16}
         Charisma: {x: 8, y: 16}
