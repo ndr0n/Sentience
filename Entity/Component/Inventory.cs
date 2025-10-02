@@ -19,19 +19,19 @@ namespace Sentience
         {
             [HideInInspector] public string Name;
             public int Amount;
-            [SerializeReference] public Item Item;
+            [SerializeReference] public EntityData Item;
 
             public Slot(Item item, int amount)
             {
                 ID id = item.Data.GetData<ID>();
                 Name = id.Name;
-                Item = item;
+                Item = item.Data;
                 Amount = amount;
             }
 
             public bool Equals(Slot other)
             {
-                return Item.Data == other.Item.Data;
+                return Item == other.Item;
             }
         }
 
@@ -59,7 +59,7 @@ namespace Sentience
             // else Debug.Log($"Not enough {item.Amount}.");
             foreach (var slot in Items)
             {
-                if (slot.Item.Data == item.Data)
+                if (slot.Item == item.Data)
                 {
                     Items.Remove(slot);
                     break;
@@ -79,7 +79,7 @@ namespace Sentience
         {
             for (int i = 0; i < Items.Count; i++)
             {
-                ID id = Items[i].Item.Data.GetData<ID>();
+                ID id = Items[i].Item.GetData<ID>();
                 if (id.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
                 {
                     Remove(i, 1);

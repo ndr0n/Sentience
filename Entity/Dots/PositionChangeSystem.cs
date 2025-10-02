@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Sentience
 {
-    public partial struct InventoryFollowSystem : ISystem
+    public partial struct PositionChangeSystem : ISystem
     {
         public void OnCreate(ref SystemState state)
         {
@@ -16,14 +16,15 @@ namespace Sentience
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
+            Debug.Log($"RUNNING SYSTEM");
             EntityCommandBuffer ecb = new EntityCommandBuffer(Unity.Collections.Allocator.Temp);
             foreach ((RefRW<ID> id, RefRW<PositionChangedComponent> posChange, Entity entity) in SystemAPI.Query<RefRW<ID>, RefRW<PositionChangedComponent>>().WithEntityAccess())
             {
                 if (state.EntityManager.HasComponent<Inventory>(entity))
                 {
                     ProcessInventoryPositions(ref state, id, posChange, entity);
-                    ecb.RemoveComponent<PositionChangedComponent>(entity);
                 }
+                ecb.RemoveComponent<PositionChangedComponent>(entity);
             }
             ecb.Playback(state.EntityManager);
         }
@@ -34,9 +35,9 @@ namespace Sentience
 
             foreach (var item in inventory.Items)
             {
-                ID itemId = item.Item.Data.GetData<ID>();
+                ID itemId = item.Item.GetData<ID>();
                 itemId.position = id.ValueRO.Position;
-                item.Item.Data.SetData(itemId);
+                item.Item.SetData(itemId);
                 Debug.Log($"{inventory.Data.Name} - {item.Name} set to position: {id.ValueRO.Position}");
             }
         }

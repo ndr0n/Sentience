@@ -55,7 +55,7 @@ namespace Sentience
             if (entityManager.HasComponent<Inventory>(Entity))
             {
                 Inventory inv = entityManager.GetComponentObject<Inventory>(Entity);
-                foreach (var item in inv.Items) item.Item.Init(item.Item.Data, random);
+                foreach (var item in inv.Items) item.Item.Init(random);
             }
         }
 

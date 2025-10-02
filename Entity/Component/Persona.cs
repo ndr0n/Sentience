@@ -12,7 +12,7 @@ namespace Sentience
         {
             if (string.IsNullOrWhiteSpace(Desire))
             {
-                List<Item> items = new();
+                List<EntityData> items = new();
                 foreach (var entity in entities)
                 {
                     if (entity.Has<Inventory>())
@@ -21,8 +21,8 @@ namespace Sentience
                         foreach (var slot in inv.Items) items.Add(slot.Item);
                     }
                 }
-                Item desiredItem = items[Random.Range(0, items.Count)];
-                ID id = desiredItem.Data.GetData<ID>();
+                EntityData desiredItem = items[Random.Range(0, items.Count)];
+                ID id = desiredItem.GetData<ID>();
                 Desire = id.Name;
             }
         }
