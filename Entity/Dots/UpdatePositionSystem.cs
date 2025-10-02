@@ -1,6 +1,7 @@
 using Unity.Entities;
 using Unity.Transforms;
 using Unity.Burst;
+using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -16,7 +17,16 @@ namespace Sentience
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            Debug.Log($"RUNNING SYSTEM");
+            new ProcessUpdatePositionJob().ScheduleParallel();
+
+            EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
+            foreach ((RefRW<UpdatePositionComponent> updatePosition, Entity entity) in SystemAPI.Query<RefRW<UpdatePositionComponent>>().WithEntityAccess())
+            {
+                ecb.RemoveComponent<UpdatePositionComponent>(entity);
+            }
+
+            /*
+            // Debug.Log($"RUNNING SYSTEM");
             EntityCommandBuffer ecb = new EntityCommandBuffer(Unity.Collections.Allocator.Temp);
             foreach ((RefRW<ID> id, RefRW<UpdatePositionComponent> updatePosition) in SystemAPI.Query<RefRW<ID>, RefRW<UpdatePositionComponent>>())
             {
@@ -27,6 +37,7 @@ namespace Sentience
                 ecb.RemoveComponent<UpdatePositionComponent>(id.ValueRO.Entity);
             }
             ecb.Playback(state.EntityManager);
+            */
         }
 
         public void ProcessInventoryPositions(ref SystemState state, RefRW<ID> id, Entity inv)
@@ -41,54 +52,24 @@ namespace Sentience
                 Debug.Log($"{inventory.Data.Name} - {item.Name} set to position: {id.ValueRO.Position}");
             }
         }
+    }
 
-        /*
-        // Debug.Log($"RUNNING SYSTEM");
-        // EntityCommandBuffer.ParallelWriter ecb = GetEntityCommandBuffer(ref state);
-        // foreach ((RefRO<ID> id, RefRW<UpdatePositionComponent> updatePosition, Entity entity) in SystemAPI.Query<RefRO<ID>, RefRW<UpdatePositionComponent>>().WithEntityAccess())
-        // {
-        //     if (state.EntityManager.HasComponent<Inventory>(entity))
-        //     {
-        //         Inventory inventory = state.EntityManager.GetComponentData<Inventory>(entity);
-        //         new ProcessInventoryPositionsJob()
-        //         {
-        //             Ecb = ecb,
-        //             Inventory = inventory,
-        //             ID = id,
-        //         }.ScheduleParallel();
-        //     }
-        // }
-
-        [BurstCompile]
-        public partial struct ProcessInventoryPositionsJob : IJobEntity
+    public partial struct ProcessUpdatePositionJob : IJobEntity
+    {
+        void Execute(UpdatePositionComponent updatePos, ID id)
         {
-            public EntityCommandBuffer.ParallelWriter Ecb;
-            public RefRO<ID> ID;
-            public Inventory Inventory;
-
-            // IJobEntity generates a component data query based on the parameters of its `Execute` method.
-            // This example queries for all Spawner components and uses `ref` to specify that the operation
-            // requires read and write access. Unity processes `Execute` for each entity that matches the
-            // component data query.
-            private void Execute([ChunkIndexInQuery] int chunkIndex)
+            EntityManager em = World.DefaultGameObjectInjectionWorld.EntityManager;
+            if (em.HasComponent<Inventory>(id.Entity))
             {
-                Ecb.RemoveComponent<UpdatePositionComponent>(chunkIndex, ID.ValueRO.Entity);
-                foreach (var item in Inventory.Items)
+                Inventory inventory = em.GetComponentObject<Inventory>(id.Entity);
+                foreach (var item in inventory.Items)
                 {
                     ID itemId = item.Item.GetData<ID>();
-                    itemId.position = ID.ValueRO.Position;
+                    itemId.position = id.Position;
                     item.Item.SetData(itemId);
-                    Debug.Log($"{Inventory.Data.Name} - {item.Name} set to position: {ID.ValueRO.Position}");
+                    Debug.Log($"{inventory.Data.Name} - {item.Name} set to position: {id.Position}");
                 }
             }
         }
-
-        private EntityCommandBuffer.ParallelWriter GetEntityCommandBuffer(ref SystemState state)
-        {
-            var ecbSingleton = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>();
-            var ecb = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged);
-            return ecb.AsParallelWriter();
-        }
-        */
     }
 }
