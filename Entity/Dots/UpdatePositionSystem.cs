@@ -23,8 +23,6 @@ namespace Sentience
             state.Dependency.Complete();
             ecb.Playback(state.EntityManager);
             ecb.Dispose();
-
-            // Debug.Log("UpdatePositionSystem - Update");
         }
 
         [BurstCompile]
@@ -32,10 +30,13 @@ namespace Sentience
         {
             public EntityCommandBuffer.ParallelWriter pecb;
 
-            void Execute(Entity entity, [ChunkIndexInQuery] int sortKey, RefRW<UpdatePositionComponent> id, RefRW<LocalTransform> tf, RefRW<LocalToWorld> ltw)
+            void Execute(Entity entity, [ChunkIndexInQuery] int sortKey, RefRW<UpdatePositionComponent> id, RefRW<LocalToWorld> ltw)
             {
-                tf.ValueRW = LocalTransform.FromPosition(new Vector3(id.ValueRW.WorldPosition.x, id.ValueRW.WorldPosition.z, id.ValueRW.WorldPosition.y));
-                ltw.ValueRW.Value = tf.ValueRW.ToMatrix();
+                // tf.ValueRW = LocalTransform.FromPosition(new Vector3(id.ValueRW.WorldPosition.x, id.ValueRW.WorldPosition.z, id.ValueRW.WorldPosition.y));
+                // ltw.ValueRW.Value = tf.ValueRW.ToMatrix();
+
+                // ltw.ValueRW.Value = LocalTransform.FromPosition(id.ValueRW.WorldPosition).ToMatrix();
+                ltw.ValueRW.Value = LocalTransform.FromPosition(new Vector3(id.ValueRW.WorldPosition.x, id.ValueRW.WorldPosition.z, id.ValueRW.WorldPosition.y)).ToMatrix();
                 pecb.RemoveComponent<UpdatePositionComponent>(sortKey, entity);
             }
         }

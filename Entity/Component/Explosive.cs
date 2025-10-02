@@ -28,17 +28,17 @@ namespace Sentience
                 Vector3 radius = new Vector3(Radius, Radius, Radius);
                 animation.transform.localScale = radius;
                 Bounds bounds = new Bounds(worldPosition, radius);
-                List<Actor> affected = GameManager.Instance.GetEntitiesInBounds(bounds);
-                await Awaitable.WaitForSecondsAsync(0.125f);
-                foreach (var entity in affected)
-                {
-                    if (entity is Pawn pawn)
-                    {
-                        Vector3 direction = entity.transform.position - worldPosition;
-                        pawn.Push(Vector3Int.RoundToInt(direction.normalized), Force);
-                        await pawn.TakeDamage(Damage, null);
-                    }
-                }
+                // List<Actor> affected = GameManager.Instance.GetEntitiesInBounds(bounds);
+                // await Awaitable.WaitForSecondsAsync(0.125f);
+                // foreach (var entity in affected)
+                // {
+                // if (entity is Pawn pawn)
+                // {
+                // Vector3 direction = entity.transform.position - worldPosition;
+                // pawn.Push(Vector3Int.RoundToInt(direction.normalized), Force);
+                // await pawn.TakeDamage(Damage, null);
+                // }
+                // }
                 await Awaitable.WaitForSecondsAsync(0.125f);
                 Object.Destroy(animation);
 

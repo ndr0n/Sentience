@@ -20,7 +20,6 @@ namespace Sentience
     {
         [HideInInspector] public string Name;
         public List<EntityComponentData> Components;
-        // [SerializeField] Dictionary<int, IEntityComponent> dictionary;
 
         public EntityData(string name, string description, EntityType type, System.Random random)
         {
@@ -62,7 +61,6 @@ namespace Sentience
                     foreach (var item in inv.Items)
                     {
                         item.Item.Init(random);
-                        // entityManager.AddComponentData<ItemComponent>(item.Item.Entity, new() {Parent = Entity});
                         entityManager.AddComponentData<SetParentComponent>(item.Item.Entity, new() {Parent = Entity});
                     }
                 }
@@ -72,8 +70,6 @@ namespace Sentience
                     Equipment equipment = entityManager.GetComponentData<Equipment>(Entity);
                     equipment.MeleeWeapon.Init(random);
                     equipment.RangedWeapon.Init(random);
-                    // entityManager.AddComponentData<ItemComponent>(equipment.MeleeWeapon.Entity, new() {Parent = Entity});
-                    // entityManager.AddComponentData<ItemComponent>(equipment.RangedWeapon.Entity, new() {Parent = Entity});
                     entityManager.AddComponentData<SetParentComponent>(equipment.MeleeWeapon.Entity, new() {Parent = Entity});
                     entityManager.AddComponentData<SetParentComponent>(equipment.RangedWeapon.Entity, new() {Parent = Entity});
                 }
@@ -83,30 +79,12 @@ namespace Sentience
         public bool Has<T>()
         {
             return World.DefaultGameObjectInjectionWorld.EntityManager.HasComponent<T>(Entity);
-            // return Components.Exists(x => x.Component is T);
-            // return dictionary.ContainsKey(typeof(T).GetHashCode());
         }
 
         public T Get<T>() where T : EntityComponent
         {
             return World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<T>(Entity);
-            // return Components.FirstOrDefault(x => x.Component is T).Component as T;
-            // return dictionary[typeof(T).GetHashCode()] as T;
         }
-
-        // public T GetData<T>() where T : unmanaged, IComponentData
-        // {
-        // return World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentData<T>(Entity);
-        // return Components.FirstOrDefault(x => x.Component is T).Component as T;
-        // return dictionary[typeof(T).GetHashCode()] as T;
-        // }
-
-        // public void SetData<T>(T data) where T : unmanaged, IComponentData
-        // {
-        // World.DefaultGameObjectInjectionWorld.EntityManager.SetComponentData(Entity, data);
-        // return Components.FirstOrDefault(x => x.Component is T).Component as T;
-        // return dictionary[typeof(T).GetHashCode()] as T;
-        // }
 
         void AddComponent(EntityAuthoring authoring, System.Random random)
         {
@@ -139,33 +117,13 @@ namespace Sentience
             foreach (var c in Components) componentTypes.Add(c.Component.GetType());
             componentTypes.Add(typeof(Parent));
             componentTypes.Add(typeof(LocalToWorld));
-            componentTypes.Add(typeof(LocalTransform));
-            // if (Components.Exists(x => x.Component is Body))
-            // {
-            // componentTypes.Add(typeof(RenderMeshArray));
-            // }
             EntityArchetype archetype = em.CreateArchetype(componentTypes.ToArray());
 
             Entity = em.CreateEntity(archetype);
 
             foreach (var component in Components)
             {
-                // if (component.Component is ID id)
-                // {
-                // id.Entity = Entity;
-                // em.SetComponentData(Entity, id);
-                // }
-                // else
-                // {
                 em.AddComponentObject(Entity, component.Component);
-                // }
-                if (component.Component is Body body)
-                {
-                    var desc = new RenderMeshDescription(shadowCastingMode: ShadowCastingMode.Off, receiveShadows: false);
-                    var renderMeshArray = new RenderMeshArray(new Material[] {GameManager.Instance.RenderMaterial}, new Mesh[] {GameManager.Instance.RenderMesh});
-                    RenderMeshUtility.AddComponents(Entity, em, desc, renderMeshArray, MaterialMeshInfo.FromRenderMeshArrayIndices(0, 0));
-                    // em.AddComponentData(Entity, new LocalToWorld());
-                }
             }
         }
     }

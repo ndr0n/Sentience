@@ -20,14 +20,14 @@ namespace MindTheatre
 
         protected override bool OnTryInteract(EntityData self, EntityData interactor, EntityData target)
         {
-            Body body = self.Get<Body>();
-            if (body.Spawn == null) return false;
+            // Body body = self.Get<Body>();
+            // if (body.Spawn == null) return false;
 
-            Speaker speaker = body.Spawn.GetComponent<Speaker>();
-            if (speaker == null) return false;
+            // Speaker speaker = body.Spawn.GetComponent<Speaker>();
+            // if (speaker == null) return false;
 
-            Identity identity = interactor.Get<Identity>();
-            speaker.StartSpeakingWith(identity);
+            // Identity identity = interactor.Get<Identity>();
+            // speaker.StartSpeakingWith(identity);
 
             return true;
         }

@@ -65,9 +65,9 @@ namespace Sentience
             }
         }
 
-        public bool IsWithinRange(Body self, Body interactor, Vector2 range)
+        public bool IsWithinRange(ID self, ID interactor, Vector2 range)
         {
-            float distance = Vector3.Distance(self.Spawn.transform.position, interactor.Spawn.transform.position);
+            float distance = Vector3.Distance(self.Position, interactor.Position);
             if (distance >= range.x && distance <= (range.y + 0.5f)) return true;
             return false;
         }

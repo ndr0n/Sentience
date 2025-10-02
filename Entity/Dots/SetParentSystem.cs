@@ -18,15 +18,10 @@ namespace Sentience
         public void OnUpdate(ref SystemState state)
         {
             EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
-
             new SetParentJob() {pecb = ecb.AsParallelWriter()}.ScheduleParallel();
-
             state.Dependency.Complete();
             ecb.Playback(state.EntityManager);
             ecb.Dispose();
-            
-            Debug.Log("SetParentSystem - Update");
-
         }
 
         [BurstCompile]
