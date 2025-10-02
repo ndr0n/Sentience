@@ -24,26 +24,43 @@ namespace Sentience
             set
             {
                 position = value;
-                EntityManager em = World.DefaultGameObjectInjectionWorld.EntityManager;
-                em.AddComponentData(Data.Entity, new UpdatePositionComponent() {WorldPosition = value});
-                OnChangePosition?.Invoke(value);
-                if (em.HasBuffer<Child>(Data.Entity))
-                {
-                    List<Entity> children = new();
-
-                    DynamicBuffer<Child> childrenBuffer = em.GetBuffer<Child>(Data.Entity);
-                    foreach (var childBuffer in childrenBuffer) children.Add(childBuffer.Value);
-
-                    foreach (var child in children)
-                    {
-                        ID id = em.GetComponentObject<ID>(child);
-                        id.Position = value;
-                    }
-                }
+                UpdatePosition(position, rotation);
             }
         }
 
-        public Action<Vector3> OnChangePosition;
+        [SerializeField] Vector3 rotation;
+        public Vector3 Rotation
+        {
+            get => rotation;
+            set
+            {
+                rotation = value;
+                UpdatePosition(position, rotation);
+            }
+        }
+
+        public Action<Vector3> OnUpdatePosition;
+
+        void UpdatePosition(Vector3 pos, Vector3 rot)
+        {
+            OnUpdatePosition?.Invoke(pos);
+            EntityManager em = World.DefaultGameObjectInjectionWorld.EntityManager;
+            em.AddComponentData(Data.Entity, new UpdatePositionComponent() {WorldPosition = pos, WorldRotation = Quaternion.Euler(rot)});
+            if (em.HasBuffer<Child>(Data.Entity))
+            {
+                List<Entity> children = new();
+
+                DynamicBuffer<Child> childrenBuffer = em.GetBuffer<Child>(Data.Entity);
+                foreach (var childBuffer in childrenBuffer) children.Add(childBuffer.Value);
+
+                foreach (var child in children)
+                {
+                    ID id = em.GetComponentObject<ID>(child);
+                    id.Position = pos;
+                    id.Rotation = rot;
+                }
+            }
+        }
     }
 
     [System.Serializable]

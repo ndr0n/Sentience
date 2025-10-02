@@ -7,5 +7,6 @@ namespace Sentience
     public struct UpdatePositionComponent : IComponentData
     {
         public Vector3 WorldPosition;
+        public Quaternion WorldRotation;
     }
 }
