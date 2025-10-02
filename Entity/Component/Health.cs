@@ -1,7 +1,6 @@
 using System;
 using System.Numerics;
 using MindTheatre;
-using Unity.Entities;
 using UnityEngine;
 using Random = System.Random;
 
@@ -50,7 +49,7 @@ namespace Sentience
         public Vector2Int Health = new Vector2Int(100, 100);
         public Vector2Int MaxHealth = new Vector2Int(100, 100);
 
-        public override IComponentData Spawn(Random random)
+        public override IEntityComponent Spawn(Random random)
         {
             Health health = new();
             health.Value = random.Next(Health.x, Health.y);

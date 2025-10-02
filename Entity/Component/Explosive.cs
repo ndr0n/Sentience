@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using MindTheatre;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using Unity.Entities;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
@@ -73,7 +72,7 @@ namespace Sentience
         public Vector2Int Damage = new Vector2Int(10, 20);
         public DamageType DamageType = DamageType.Physics;
 
-        public override IComponentData Spawn(System.Random random)
+        public override IEntityComponent Spawn(System.Random random)
         {
             Explosive explosive = new()
             {

@@ -67,7 +67,7 @@ MonoBehaviour:
   - Name: Actor
     Component: 18
     Authoring:
-      rid: 1336660950724379483
+      rid: 1336660956840460691
   references:
     version: 2
     RefIds:
@@ -97,7 +97,7 @@ MonoBehaviour:
     - rid: 1336660950724379453
       type: {class: PlayerAuthoring, ns: MindTheatre, asm: Assembly-CSharp}
       data: 
-    - rid: 1336660950724379483
+    - rid: 1336660956840460691
       type: {class: Actor/ActorAuthoring, ns: MindTheatre, asm: Assembly-CSharp}
       data: 
     - rid: 3423325703147094365
@@ -117,6 +117,8 @@ MonoBehaviour:
       data:
         Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
         Material: {fileID: 2100000, guid: 26467df8f6c013f7faedfb47c51f21f9, type: 2}
+        Prefabs:
+        - {fileID: 4968948705998074028, guid: e35dc5929150fdca48cca6c643917c75, type: 3}
     - rid: 3423325721092161775
       type: {class: AttributesAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:

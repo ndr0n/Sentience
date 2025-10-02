@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using Unity.Entities;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = System.Random;
@@ -40,7 +39,7 @@ namespace Sentience
         public Vector2Int Price = new Vector2Int(1, 50);
         public List<Sprite> Icons = new();
 
-        public override IComponentData Spawn(System.Random random)
+        public override IEntityComponent Spawn(System.Random random)
         {
             Item item = new()
             {

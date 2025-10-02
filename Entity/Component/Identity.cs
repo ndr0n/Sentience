@@ -1,5 +1,4 @@
 using MindTheatre;
-using Unity.Entities;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -45,7 +44,7 @@ namespace Sentience
         public Faction Faction;
         public string Location;
 
-        public override IComponentData Spawn(Random random)
+        public override IEntityComponent Spawn(Random random)
         {
             Identity identity = new Identity();
             identity.Species = Species;
