@@ -16,8 +16,7 @@ namespace Sentience
     {
         public int Damage = 1;
         public WeaponClass Class;
-        [FormerlySerializedAs("Action")]
-        public EntityAction EntityAction;
+        public EntityAction Action;
     }
 
     [System.Serializable]
@@ -25,15 +24,14 @@ namespace Sentience
     {
         public Vector2Int Damage = new Vector2Int(1, 1);
         public WeaponClass Class;
-        [FormerlySerializedAs("Action")]
-        public EntityAction EntityAction;
+        public EntityAction Action;
 
         public override IEntityComponent Spawn(System.Random random)
         {
             Weapon weapon = new();
             weapon.Damage = random.Next(Damage.x, Damage.y + 1);
             weapon.Class = Class;
-            weapon.EntityAction = EntityAction;
+            weapon.Action = Action;
             return weapon;
         }
     }

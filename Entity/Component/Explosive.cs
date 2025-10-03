@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Object = UnityEngine.Object;
 
 namespace Sentience
 {
@@ -22,26 +21,26 @@ namespace Sentience
         {
             try
             {
-                GameObject animation = Object.Instantiate(Animation, worldPosition, Quaternion.identity);
+                GameObject animation = UnityEngine.Object.Instantiate(Animation, worldPosition, Quaternion.identity);
                 Audio.Play();
                 Vector3 radius = new Vector3(Radius, Radius, Radius);
                 animation.transform.localScale = radius;
                 Bounds bounds = new Bounds(worldPosition, radius);
-                // List<Actor> affected = GameManager.Instance.GetEntitiesInBounds(bounds);
-                // await Awaitable.WaitForSecondsAsync(0.125f);
-                // foreach (var entity in affected)
-                // {
-                // if (entity is Pawn pawn)
-                // {
-                // Vector3 direction = entity.transform.position - worldPosition;
-                // pawn.Push(Vector3Int.RoundToInt(direction.normalized), Force);
-                // await pawn.TakeDamage(Damage, null);
-                // }
-                // }
-                await Awaitable.WaitForSecondsAsync(0.125f);
-                Object.Destroy(animation);
 
-                foreach (var Actor in GameManager.Instance.Actor)
+                List<Body> affected = BodyLibrary.GetBodiesInBounds(bounds);
+                await Awaitable.WaitForSecondsAsync(0.125f);
+
+                foreach (var body in affected)
+                {
+                    Vector3 direction = body.Data.ID.Position - worldPosition;
+                    body.Push(Vector3Int.RoundToInt(direction.normalized), Force);
+                    await body.TakeDamage(Damage, null);
+                }
+
+                await Awaitable.WaitForSecondsAsync(0.125f);
+                UnityEngine.Object.Destroy(animation);
+
+                foreach (var Actor in BodyManager.Instance.Bodies)
                 {
                     if (Actor.Data.Has<ID>())
                     {

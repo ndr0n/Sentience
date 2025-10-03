@@ -19,6 +19,8 @@ namespace Sentience
         public List<EntityComponentData> Components;
         readonly Dictionary<int, IEntityComponent> dictionary = new();
 
+        public ID ID => Get<ID>();
+
         public EntityData(string name, string description, EntityType type, System.Random random)
         {
             Name = name;

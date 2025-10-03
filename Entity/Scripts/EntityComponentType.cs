@@ -23,7 +23,6 @@ namespace Sentience
             Journal,
             Avatar,
             Effects,
-            Actions,
             Weapon,
             Equipment,
             Explosive,
