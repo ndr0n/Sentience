@@ -10,51 +10,51 @@ namespace Sentience
     [System.Serializable]
     public class EntityComponentType
     {
-        public enum ComponentType
-        {
-            Item,
-            Body,
-            Inventory,
-            Health,
-            Attributes,
-            Identity,
-            Persona,
-            Lock,
-            Journal,
-            Avatar,
-            Effects,
-            Weapon,
-            Equipment,
-            Explosive,
-            Pawn,
-            Npc,
-            Player,
-            Actor
-        }
+        // public enum ComponentType
+        // {
+        //     Item,
+        //     Spawn,
+        //     Inventory,
+        //     Health,
+        //     Attributes,
+        //     Identity,
+        //     Persona,
+        //     Lock,
+        //     Journal,
+        //     Effects,
+        //     Weapon,
+        //     Equipment,
+        //     Explosive,
+        //     Body,
+        //     Pawn,
+        //     Npc,
+        //     Player,
+        // }
 
+        // public ComponentType Component;
         [HideInInspector] public string Name;
-        public ComponentType Component;
         [SerializeReference] public EntityAuthoring Authoring;
 
-        public IEnumerable<Type> FindDerivedTypes(Assembly assembly, Type baseType)
-        {
-            return assembly.GetTypes().Where(t => t != baseType && baseType.IsAssignableFrom(t));
-        }
+        // public EntityAuthoring SpawnAuthoringComponent(ComponentType componentType)
+        // {
+        //     EntityAuthoring component = null;
+        //     Type baseType = typeof(EntityAuthoring);
+        //     List<Type> authoringTypes = EntityLibrary.FindDerivedTypes(baseType.Assembly, baseType).ToList();
+        //     foreach (var authoringType in authoringTypes)
+        //     {
+        //         if (authoringType.Name.Split('.')[^1].Replace("Authoring", "") == Component.ToString())
+        //         {
+        //             component = Activator.CreateInstance(authoringType) as EntityAuthoring;
+        //             break;
+        //         }
+        //     }
+        //     return component;
+        // }
 
-        public EntityAuthoring SpawnAuthoringComponent(ComponentType componentType)
+        public EntityComponentType(string name, EntityAuthoring authoring)
         {
-            EntityAuthoring component = null;
-            Type baseType = typeof(EntityAuthoring);
-            List<Type> authoringTypes = FindDerivedTypes(baseType.Assembly, baseType).ToList();
-            foreach (var authoringType in authoringTypes)
-            {
-                if (authoringType.Name.Replace("Authoring", "") == Component.ToString())
-                {
-                    component = Activator.CreateInstance(authoringType) as EntityAuthoring;
-                    break;
-                }
-            }
-            return component;
+            Name = name;
+            Authoring = authoring;
         }
     }
 }

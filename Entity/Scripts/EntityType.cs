@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -15,25 +16,58 @@ namespace Sentience
         public List<Interaction> Interactions = new();
         public List<EntityComponentType> Components = new();
 
-#if UNITY_EDITOR
-        void OnValidate()
-        {
-            SpawnEditorComponents();
-        }
+// #if UNITY_EDITOR
+        // void OnValidate()
+        // {
+        //     SpawnEditorComponents();
+        // }
 
-        public void SpawnEditorComponents()
+        // public void SpawnEditorComponents()
+        // {
+        //     foreach (var component in Components)
+        //     {
+        //         string n = component.Component.ToString().Split('.')[^1];
+        //         string testName = n + "Authoring";
+        //         if (component.Authoring == null || testName != component.Authoring.ToString().Split('.')[^1])
+        //         {
+        //             component.Name = n;
+        //             component.Authoring = component.SpawnAuthoringComponent(component.Component);
+        //         }
+        //     }
+        // }
+// #endif
+    }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(EntityType)), CanEditMultipleObjects]
+    public class EntityType_Editor : Editor
+    {
+        int selected = 0;
+        Type[] types = EntityLibrary.FindDerivedTypes(typeof(EntityAuthoring).Assembly, typeof(EntityAuthoring)).ToArray();
+        string[] typeNames = EntityLibrary.GetDerivedTypeNames(typeof(EntityAuthoring).Assembly, typeof(EntityAuthoring), "Authoring").ToArray();
+
+        public override void OnInspectorGUI()
         {
-            foreach (var component in Components)
+            base.OnInspectorGUI();
+            EntityType entityType = (EntityType) target;
+            string[] names = typeNames.Where(x => !entityType.Components.Exists(y => y.Authoring.GetType().ToString().Split('.')[^1].Replace("Authoring", "") == x)).ToArray();
+            if (names.Length > 0)
             {
-                string n = component.Component.ToString().Split('.')[^1];
-                string testName = n + "Authoring";
-                if (component.Authoring == null || testName != component.Authoring.ToString().Split('.')[^1])
+                selected = EditorGUILayout.Popup("Component", selected, names);
+                if (GUILayout.Button("Add Component"))
                 {
-                    component.Name = n;
-                    component.Authoring = component.SpawnAuthoringComponent(component.Component);
+                    foreach (var type in types)
+                    {
+                        if (type.Name.Split('.')[^1].Replace("Authoring", "") == names[selected])
+                        {
+                            var component = Activator.CreateInstance(type) as EntityAuthoring;
+                            entityType.Components.Add(new(names[selected], component));
+                            selected = 0;
+                        }
+                    }
                 }
             }
         }
-#endif
     }
+#endif
 }
