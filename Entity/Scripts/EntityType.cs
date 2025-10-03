@@ -14,28 +14,7 @@ namespace Sentience
         public string Name = "Entity";
         public string Description = "";
         public List<Interaction> Interactions = new();
-        public List<EntityComponentType> Components = new();
-
-// #if UNITY_EDITOR
-        // void OnValidate()
-        // {
-        //     SpawnEditorComponents();
-        // }
-
-        // public void SpawnEditorComponents()
-        // {
-        //     foreach (var component in Components)
-        //     {
-        //         string n = component.Component.ToString().Split('.')[^1];
-        //         string testName = n + "Authoring";
-        //         if (component.Authoring == null || testName != component.Authoring.ToString().Split('.')[^1])
-        //         {
-        //             component.Name = n;
-        //             component.Authoring = component.SpawnAuthoringComponent(component.Component);
-        //         }
-        //     }
-        // }
-// #endif
+        public List<EntityAuthoring> Components = new();
     }
 
 #if UNITY_EDITOR
@@ -50,7 +29,7 @@ namespace Sentience
         {
             base.OnInspectorGUI();
             EntityType entityType = (EntityType) target;
-            string[] names = typeNames.Where(x => !entityType.Components.Exists(y => y.Authoring.GetType().ToString().Split('.')[^1].Replace("Authoring", "") == x)).ToArray();
+            string[] names = typeNames.Where(x => !entityType.Components.Exists(y => y.GetType().ToString().Split('.')[^1].Replace("Authoring", "") == x)).ToArray();
             if (names.Length > 0)
             {
                 selected = EditorGUILayout.Popup("Component", selected, names);
@@ -61,7 +40,8 @@ namespace Sentience
                         if (type.Name.Split('.')[^1].Replace("Authoring", "") == names[selected])
                         {
                             var component = Activator.CreateInstance(type) as EntityAuthoring;
-                            entityType.Components.Add(new(names[selected], component));
+                            component.Name = names[selected];
+                            entityType.Components.Add(component);
                             selected = 0;
                         }
                     }

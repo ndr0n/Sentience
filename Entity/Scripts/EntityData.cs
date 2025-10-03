@@ -38,7 +38,7 @@ namespace Sentience
 
             foreach (var componentType in type.Components)
             {
-                AddComponent(componentType.Authoring, random);
+                AddComponent(componentType, random);
             }
 
             Init(random);

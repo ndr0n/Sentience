@@ -15,7 +15,3 @@ MonoBehaviour:
   Name: Esquilo
   Description: an explorer.
   Interactions: []
-  Components: []
-  references:
-    version: 2
-    RefIds: []
