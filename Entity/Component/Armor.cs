@@ -20,7 +20,7 @@ namespace Sentience
     {
         public int Protection = 1;
         public ArmorClass Class;
-        public Effect Effect;
+        // public Effect Effect;
     }
 
     [System.Serializable]
@@ -28,14 +28,14 @@ namespace Sentience
     {
         public Vector2Int Protection = new Vector2Int(1, 1);
         public ArmorClass Class;
-        public Effect Effect;
+        // public Effect Effect;
 
         public override IEntityComponent Spawn(System.Random random)
         {
             Armor armor = new();
             armor.Protection = random.Next(Protection.x, Protection.y + 1);
             armor.Class = Class;
-            armor.Effect = Effect;
+            // armor.Effect = Effect;
             return armor;
         }
     }

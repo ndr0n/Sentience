@@ -28,11 +28,11 @@ namespace Sentience
                 id.OnUpdatePosition += (Vector3 pos) => { Spawned.transform.position = pos; };
                 id.OnUpdateRotation += (Vector3 rot) => { Spawned.transform.rotation = Quaternion.Euler(rot); };
 
-                if (Data.Has<Body>())
-                {
-                    Body body = Data.Get<Body>();
-                    body.OnSpawn(spawn);
-                }
+                // if (Data.Has<Body>())
+                // {
+                // Body body = Data.Get<Body>();
+                // body.OnSpawn(spawn);
+                // }
             }
             id.Position = worldPosition;
         }

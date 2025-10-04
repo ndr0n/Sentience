@@ -11,7 +11,7 @@ namespace Sentience
     [System.Serializable]
     public class Explosive : EntityComponent
     {
-        public RandomAudio Audio;
+        // public RandomAudio Audio;
         public GameObject Animation;
         public int Radius = 5;
         public int Force = 3;
@@ -21,38 +21,38 @@ namespace Sentience
         {
             try
             {
-                GameObject animation = UnityEngine.Object.Instantiate(Animation, worldPosition, Quaternion.identity);
-                Audio.Play();
-                Vector3 radius = new Vector3(Radius, Radius, Radius);
-                animation.transform.localScale = radius;
-                Bounds bounds = new Bounds(worldPosition, radius);
-
-                List<Body> affected = BodyLibrary.GetBodiesInBounds(bounds);
-                await Awaitable.WaitForSecondsAsync(0.125f);
-
-                foreach (var body in affected)
-                {
-                    Vector3 direction = body.Data.ID.Position - worldPosition;
-                    body.Push(Vector3Int.RoundToInt(direction.normalized), Force);
-                    await body.TakeDamage(Damage, null);
-                }
-
-                await Awaitable.WaitForSecondsAsync(0.125f);
-                UnityEngine.Object.Destroy(animation);
-
-                foreach (var Actor in BodyManager.Instance.Bodies)
-                {
-                    if (Actor.Data.Has<ID>())
-                    {
-                        ID id = Actor.Data.Get<ID>();
-                        float distance = Vector3.Distance(worldPosition, id.Position);
-                        if (distance <= Radius)
-                        {
-                            Debug.Log($"EXPLOSIVE DAMAGE {Actor.Data.Name}");
-                            // var awaiter = Actor.TakeDamage(Damage, null);
-                        }
-                    }
-                }
+                // GameObject animation = UnityEngine.Object.Instantiate(Animation, worldPosition, Quaternion.identity);
+                // Audio.Play();
+                // Vector3 radius = new Vector3(Radius, Radius, Radius);
+                // animation.transform.localScale = radius;
+                // Bounds bounds = new Bounds(worldPosition, radius);
+                //
+                // List<Body> affected = BodyLibrary.GetBodiesInBounds(bounds);
+                // await Awaitable.WaitForSecondsAsync(0.125f);
+                //
+                // foreach (var body in affected)
+                // {
+                //     Vector3 direction = body.Data.ID.Position - worldPosition;
+                //     body.Push(Vector3Int.RoundToInt(direction.normalized), Force);
+                //     await body.TakeDamage(Damage, null);
+                // }
+                //
+                // await Awaitable.WaitForSecondsAsync(0.125f);
+                // UnityEngine.Object.Destroy(animation);
+                //
+                // foreach (var Actor in BodyManager.Instance.Bodies)
+                // {
+                //     if (Actor.Data.Has<ID>())
+                //     {
+                //         ID id = Actor.Data.Get<ID>();
+                //         float distance = Vector3.Distance(worldPosition, id.Position);
+                //         if (distance <= Radius)
+                //         {
+                //             Debug.Log($"EXPLOSIVE DAMAGE {Actor.Data.Name}");
+                //             // var awaiter = Actor.TakeDamage(Damage, null);
+                //         }
+                //     }
+                // }
             }
             catch (Exception e)
             {
@@ -64,7 +64,7 @@ namespace Sentience
     [System.Serializable]
     public class ExplosiveAuthoring : EntityAuthoring
     {
-        public RandomAudio Audio;
+        // public RandomAudio Audio;
         public GameObject Animation;
         public Vector2Int Force = new Vector2Int(4, 4);
         public Vector2Int Radius = new Vector2Int(4, 4);
@@ -75,7 +75,7 @@ namespace Sentience
         {
             Explosive explosive = new()
             {
-                Audio = Audio,
+                // Audio = Audio,
                 Animation = Animation,
                 Force = random.Next(Force.x, Force.y + 1),
                 Radius = random.Next(Radius.x, Radius.y + 1),
