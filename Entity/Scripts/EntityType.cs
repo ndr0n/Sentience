@@ -14,7 +14,7 @@ namespace Sentience
         public string Name = "Entity";
         public string Description = "";
         public List<Interaction> Interactions = new();
-        public List<EntityAuthoring> Components = new();
+        public List<EntityComponentType> Components = new();
     }
 
 #if UNITY_EDITOR
@@ -29,7 +29,7 @@ namespace Sentience
         {
             base.OnInspectorGUI();
             EntityType entityType = (EntityType) target;
-            string[] names = typeNames.Where(x => !entityType.Components.Exists(y => y.GetType().ToString().Split('.')[^1].Replace("Authoring", "") == x)).ToArray();
+            string[] names = typeNames.Where(x => !entityType.Components.Exists(y => y.Authoring.GetType().ToString().Split('.')[^1].Replace("Authoring", "") == x)).ToArray();
             if (names.Length > 0)
             {
                 selected = EditorGUILayout.Popup("Component", selected, names);
@@ -40,8 +40,7 @@ namespace Sentience
                         if (type.Name.Split('.')[^1].Replace("Authoring", "") == names[selected])
                         {
                             var component = Activator.CreateInstance(type) as EntityAuthoring;
-                            component.Name = names[selected];
-                            entityType.Components.Add(component);
+                            entityType.Components.Add(new(names[selected], component));
                             selected = 0;
                         }
                     }
