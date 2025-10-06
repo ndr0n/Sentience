@@ -15,7 +15,7 @@ namespace MindTheatre
 
         protected override bool OnTryInteract(EntityData self, EntityData interactor, EntityData target)
         {
-            // Hud.Instance.InventoryPanel.Show(true, self);
+            Hud.Instance.InventoryPanel.Show(true, self);
             return true;
         }
     }
