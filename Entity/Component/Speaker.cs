@@ -12,6 +12,7 @@ namespace MindTheatre
     {
         public Action<string> OnAskQuestion;
         public Action<string> OnReceiveAnswer;
+        public Action<string> OnReceivePartialReply;
 
         Sentient sentient;
 
@@ -44,7 +45,7 @@ namespace MindTheatre
             // if (!string.IsNullOrWhiteSpace(Persona.Desire)) details += $"You desire {Persona.Desire}.\n";
 
             ID id = questioner.Data.Get<ID>();
-            var awaiter = sentient.AskQuestion(id.Name, question, details, null, OnReceiveAnswer);
+            var awaiter = sentient.AskQuestion(id.Name, question, details, OnReceivePartialReply, OnReceiveAnswer);
         }
     }
 

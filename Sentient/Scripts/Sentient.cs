@@ -11,14 +11,14 @@ namespace Sentience
 {
     public class Sentient : MonoBehaviour
     {
-        public Identity Identity;
         public int MemorySize = 100;
         [HideInInspector] public string Personality;
         [HideInInspector] public List<ChatMessage> Messages = new();
+        Identity identity;
 
-        public void Init(Identity identity)
+        public void Init(Identity _identity)
         {
-            Identity = identity;
+            identity = _identity;
             ID id = identity.Data.Get<ID>();
             Messages.Clear();
             Personality = $"Your character name is: {id.Name}.\n" +
@@ -31,17 +31,17 @@ namespace Sentience
             Personality += "You must always speak as your character.";
         }
 
-        public async Awaitable AskQuestion(string origin, string message, string details, Callback<string> onReply, Action<string> onFinish)
+        public async Awaitable AskQuestion(string origin, string message, string details, Action<string> onReply, Action<string> onFinish)
         {
             try
             {
                 if (!string.IsNullOrWhiteSpace(message))
                 {
-                    ID id = Identity.Data.Get<ID>();
+                    ID id = identity.Data.Get<ID>();
                     Debug.Log($"{origin} asked {id.Name}:\n{message}");
                     AddMessage(origin, message);
                     string response = null;
-                    response = await SentienceManager.Instance.AskQuestionFromSentience(this, message, details, onReply);
+                    response = await SentienceManager.Instance.AskQuestionFromSentience(this, message, details, (r) => { onReply?.Invoke(r); });
                     if (response != null) AddMessage("assistant", response);
                     // response = TrimName(response, Persona.PersonaData.ID.Name);
                     onFinish?.Invoke(response);

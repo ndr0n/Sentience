@@ -86,7 +86,7 @@ MonoBehaviour:
       type: {class: IdentityAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:
         Species: {fileID: 11400000, guid: ab923cdd6cc36d26a81c7153b833ea16, type: 2}
-        Faction: {fileID: 11400000, guid: ce631caef28c9ea1985a342f67cef907, type: 2}
+        Faction: {fileID: 11400000, guid: a02e8e231527f6ca7a0f6a6b0f583b82, type: 2}
         Location: the shifting rooms
     - rid: 1336660987055177811
       type: {class: InventoryAuthoring, ns: Sentience, asm: Assembly-CSharp}

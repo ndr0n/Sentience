@@ -51,6 +51,10 @@ namespace Sentience
                 foreach (var component in Components)
                 {
                     dictionary.Add(component.Component.GetType().GetHashCode(), component.Component);
+                }
+
+                foreach (var component in Components)
+                {
                     component.Component.OnInit(this, random);
                 }
 

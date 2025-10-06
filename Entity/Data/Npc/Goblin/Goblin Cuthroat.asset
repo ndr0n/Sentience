@@ -112,5 +112,5 @@ MonoBehaviour:
     - rid: 1336660993734082732
       type: {class: EquipmentAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:
-        MeleeWeapon: {fileID: 0}
-        RangedWeapon: {fileID: 0}
+        MeleeWeapon: {fileID: 11400000, guid: 5f5562aaf067ecd508f075f30c6c0fbc, type: 2}
+        RangedWeapon: {fileID: 11400000, guid: a601021d90a00446b842287fa8074645, type: 2}
