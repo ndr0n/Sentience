@@ -18,23 +18,15 @@ namespace Sentience
         {
             ID id = Data.Get<ID>();
 
-            if (Prefab != null)
-            {
-                EntitySpawn spawn = Object.Instantiate(Prefab.gameObject, parent).GetComponent<EntitySpawn>();
-                Spawned = spawn;
+            EntitySpawn spawn = Object.Instantiate(Prefab.gameObject, parent).GetComponent<EntitySpawn>();
+            Spawned = spawn;
 
-                Spawned.OnSpawn(Data, id.Type, worldPosition);
+            id.OnUpdatePosition += (Vector3 pos) => { Spawned.transform.position = pos; };
+            id.OnUpdateRotation += (Vector3 rot) => { Spawned.transform.rotation = Quaternion.Euler(rot); };
 
-                id.OnUpdatePosition += (Vector3 pos) => { Spawned.transform.position = pos; };
-                id.OnUpdateRotation += (Vector3 rot) => { Spawned.transform.rotation = Quaternion.Euler(rot); };
-
-                // if (Data.Has<Body>())
-                // {
-                // Body body = Data.Get<Body>();
-                // body.OnSpawn(spawn);
-                // }
-            }
             id.Position = worldPosition;
+
+            Spawned.SpawnEntity(Data, id.Type, worldPosition, random);
         }
     }
 

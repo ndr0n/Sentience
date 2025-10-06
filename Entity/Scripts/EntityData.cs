@@ -51,7 +51,7 @@ namespace Sentience
                 foreach (var component in Components)
                 {
                     dictionary.Add(component.Component.GetType().GetHashCode(), component.Component);
-                    component.Component.Init(this, random);
+                    component.Component.OnInit(this, random);
                 }
 
                 if (Has<Inventory>())

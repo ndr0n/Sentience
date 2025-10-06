@@ -1,4 +1,5 @@
-using System;
+using UnityEngine;
+using Random = System.Random;
 
 namespace Sentience
 {
@@ -7,9 +8,13 @@ namespace Sentience
         EntityData _data;
         public EntityData Data => _data;
 
-        public virtual void Init(EntityData data, Random random)
+        public virtual void OnInit(EntityData data, Random random)
         {
             _data = data;
+        }
+
+        public virtual void OnSpawn(EntitySpawn spawn)
+        {
         }
     }
 }

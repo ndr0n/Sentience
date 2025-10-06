@@ -9,7 +9,7 @@ namespace MindTheatre
     {
         public override bool HasInteraction(EntityData self, EntityData interactor, EntityData target)
         {
-            if (!self.Has<Persona>()) return false;
+            if (!self.Has<Speaker>()) return false;
 
             if (!interactor.Has<Identity>()) return false;
 
@@ -20,15 +20,15 @@ namespace MindTheatre
 
         protected override bool OnTryInteract(EntityData self, EntityData interactor, EntityData target)
         {
-            // Body body = self.Get<Body>();
-            // if (body.Spawn == null) return false;
+            Speaker speaker = self.Get<Speaker>();
+            Identity identity = interactor.Get<Identity>();
 
-            // Speaker speaker = body.Spawn.GetComponent<Speaker>();
-            // if (speaker == null) return false;
-
-            // Identity identity = interactor.Get<Identity>();
-            // speaker.StartSpeakingWith(identity);
-
+            if (identity.Data.Has<Player>())
+            {
+                Hud.Instance.DialogPanel.Show(true, speaker);
+                speaker.StartSpeakingWith(identity);
+            }
+            
             return true;
         }
     }

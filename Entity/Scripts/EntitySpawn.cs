@@ -8,12 +8,13 @@ namespace Sentience
         public EntityType Type;
         [SerializeReference] public EntityData Data;
 
-        public void OnSpawn(EntityData data, EntityType type, Vector3 position)
+        public void SpawnEntity(EntityData data, EntityType type, Vector3 position, System.Random random)
         {
             Data = data;
             Type = type;
             name = data.Name;
             transform.position = position;
+            foreach (var c in Data.Components) c.Component.OnSpawn(this);
         }
     }
 }
