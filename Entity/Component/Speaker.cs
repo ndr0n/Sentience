@@ -32,6 +32,12 @@ namespace MindTheatre
 
         public void StartSpeakingWith(Identity questioner)
         {
+            // if (Data.Has<Persona>())
+            // {
+            // Persona persona = Data.Get<Persona>();
+            // persona.RefreshDesire();
+            // }
+
             string question = $"Hello, I am {questioner.Data.Name}, a {questioner.Species.Name} in {questioner.Location}.";
             AskQuestion(questioner, question);
         }
@@ -39,7 +45,6 @@ namespace MindTheatre
         public void AskQuestion(Identity questioner, string question)
         {
             OnAskQuestion?.Invoke(question);
-            Debug.Log($"{questioner} ASKED QUESTION TO {Data.Name}: {question}");
 
             string details = "";
             // if (!string.IsNullOrWhiteSpace(Persona.Desire)) details += $"You desire {Persona.Desire}.\n";
