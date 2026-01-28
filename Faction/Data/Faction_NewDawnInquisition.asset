@@ -30,30 +30,30 @@ MonoBehaviour:
   - Faction: {fileID: 11400000}
     Reputation:
       val: 100
-  - Faction: {fileID: 11400000, guid: 54981cf49f62f50e59dfda7f50bde108, type: 2}
+  - Faction: {fileID: 11400000, guid: 0404b03b987c520bfbcb23f8b60b80bd, type: 2}
     Reputation:
       val: 0
-  - Faction: {fileID: 11400000, guid: ce631caef28c9ea1985a342f67cef907, type: 2}
+  - Faction: {fileID: 11400000, guid: a02e8e231527f6ca7a0f6a6b0f583b82, type: 2}
     Reputation:
       val: 100
-  - Faction: {fileID: 11400000, guid: b038c32efcc6750c3aab5261f8f2d6aa, type: 2}
+  - Faction: {fileID: 11400000, guid: e5ace3d5256c41a8fbc36bb0cf4ae9fb, type: 2}
     Reputation:
       val: 100
-  - Faction: {fileID: 11400000, guid: 5558f88e8e54ac9c59a0b662f900175d, type: 2}
+  - Faction: {fileID: 11400000, guid: b65e95414e7935835910cb28abcef48c, type: 2}
     Reputation:
       val: 100
-  - Faction: {fileID: 11400000, guid: fdf4e043574c04b4597f40cb1d1728e9, type: 2}
+  - Faction: {fileID: 11400000, guid: 56a36e31a436ea7b38a6a75da6667e26, type: 2}
     Reputation:
       val: 0
-  - Faction: {fileID: 11400000, guid: 83f9ee2279ba93f499843c635f74cfe5, type: 2}
+  - Faction: {fileID: 11400000, guid: 14d40f04622c08487888ea28e8a732bd, type: 2}
     Reputation:
       val: 0
-  - Faction: {fileID: 11400000, guid: 4b498cbb0a336ffce9481fb396d654d8, type: 2}
+  - Faction: {fileID: 11400000, guid: de03b096fa3de44b684e94d750cd78bc, type: 2}
     Reputation:
       val: 0
-  - Faction: {fileID: 11400000, guid: 0f70036e344168d9d89532a97c47384f, type: 2}
+  - Faction: {fileID: 11400000, guid: 0c11b3bf3a67a293498c57b0b4a57eef, type: 2}
     Reputation:
       val: 100
-  - Faction: {fileID: 11400000, guid: e221513628451eb74a4017d0d22b148a, type: 2}
+  - Faction: {fileID: 11400000, guid: 641e17dd52b0487b9a64212126373e6d, type: 2}
     Reputation:
       val: 100
