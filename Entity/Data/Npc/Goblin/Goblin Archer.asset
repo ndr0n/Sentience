@@ -98,7 +98,9 @@ MonoBehaviour:
       data:
         Size: 64
         Credits: {x: 0, y: 100}
-        Items: []
+        Items:
+        - {fileID: 11400000, guid: e4eedb683203a9250b102aaefa1c0180, type: 2}
+        - {fileID: 11400000, guid: e5d9fa815eaea425ab758c9d8f4cb46e, type: 2}
     - rid: 1336661045305147480
       type: {class: PersonaAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data:

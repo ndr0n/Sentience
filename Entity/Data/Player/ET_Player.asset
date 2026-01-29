@@ -93,7 +93,8 @@ MonoBehaviour:
       data:
         Size: 64
         Credits: {x: 0, y: 100}
-        Items: []
+        Items:
+        - {fileID: 11400000, guid: e4eedb683203a9250b102aaefa1c0180, type: 2}
     - rid: 1336660987055177812
       type: {class: JournalAuthoring, ns: Sentience, asm: Assembly-CSharp}
       data: 
