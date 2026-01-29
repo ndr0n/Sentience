@@ -44,16 +44,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4326d5ae3b03ff55847035351559f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: undream.llmunity.Runtime::LLMUnity.LLMAgent
-  advancedOptions: 0
-  _remote: 1
-  _llm: {fileID: 0}
+  advancedOptions: 1
+  _remote: 0
+  _llm: {fileID: 1929669629638777320}
   _APIKey: 
   _host: localhost
   _port: 13333
   numRetries: 5
   _grammar: 
   numPredict: -1
-  cachePrompt: 1
+  cachePrompt: 0
   seed: 0
   temperature: 0.2
   topK: 40
@@ -136,16 +136,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6856fbefac554a38a7b8a4b353fd43d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: undream.llmunity.Runtime::LLMUnity.LLMEmbedder
-  advancedOptions: 0
-  _remote: 1
-  _llm: {fileID: 0}
+  advancedOptions: 1
+  _remote: 0
+  _llm: {fileID: 1781433106899865580}
   _APIKey: 
   _host: localhost
   _port: 13332
   numRetries: 10
   _grammar: 
   numPredict: -1
-  cachePrompt: 1
+  cachePrompt: 0
   seed: 0
   temperature: 0.2
   topK: 40
@@ -250,16 +250,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6856fbefac554a38a7b8a4b353fd43d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: undream.llmunity.Runtime::LLMUnity.LLMEmbedder
-  advancedOptions: 0
-  _remote: 1
-  _llm: {fileID: 0}
+  advancedOptions: 1
+  _remote: 0
+  _llm: {fileID: 1781433106899865580}
   _APIKey: 
   _host: localhost
   _port: 13332
   numRetries: 10
   _grammar: 
   numPredict: -1
-  cachePrompt: 1
+  cachePrompt: 0
   seed: 0
   temperature: 0.2
   topK: 40
@@ -471,16 +471,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4326d5ae3b03ff55847035351559f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: undream.llmunity.Runtime::LLMUnity.LLMAgent
-  advancedOptions: 0
-  _remote: 1
-  _llm: {fileID: 0}
+  advancedOptions: 1
+  _remote: 0
+  _llm: {fileID: 1929669629638777320}
   _APIKey: 
   _host: localhost
   _port: 13333
   numRetries: 5
   _grammar: 
   numPredict: -1
-  cachePrompt: 1
+  cachePrompt: 0
   seed: 0
   temperature: 0.2
   topK: 40
@@ -544,8 +544,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a50e3140c3ecaaf1c848dbf141cc2074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: undream.llmunity.Runtime::LLMUnity.LLM
-  advancedOptions: 1
-  _remote: 1
+  advancedOptions: 0
+  _remote: 0
   _port: 13333
   _APIKey: 
   _SSLCert: 
@@ -609,8 +609,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a50e3140c3ecaaf1c848dbf141cc2074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: undream.llmunity.Runtime::LLMUnity.LLM
-  advancedOptions: 1
-  _remote: 1
+  advancedOptions: 0
+  _remote: 0
   _port: 13332
   _APIKey: 
   _SSLCert: 

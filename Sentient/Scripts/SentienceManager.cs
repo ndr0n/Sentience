@@ -31,23 +31,32 @@ namespace Sentience
             {
                 Instance = this;
                 LLM.gameObject.SetActive(LLMEnabled);
+                if (!LLMEnabled) Destroy(LLM.gameObject);
                 RAG.gameObject.SetActive(RAGEnabled);
+                if (!RAGEnabled) Destroy(RAG.gameObject);
             }
             else Destroy(gameObject);
         }
 
         void Start()
         {
-            if (LLMEnabled) InitCharacter();
             if (RAGEnabled) RagManager.Init(ItemDatabase, FactionDatabase, SpeciesDatabase);
+            if (LLMEnabled) _ = InitCharacter();
         }
 
         void OnDestroy()
         {
-            LLM.StopAllCoroutines();
-            Destroy(LLM.gameObject);
-            RAG.StopAllCoroutines();
-            Destroy(RAG.gameObject);
+            if (LLM != null)
+            {
+                LLM.StopAllCoroutines();
+                Destroy(LLM.gameObject);
+            }
+
+            if (RAG != null)
+            {
+                RAG.StopAllCoroutines();
+                Destroy(RAG.gameObject);
+            }
         }
 
         #region Character
@@ -59,16 +68,17 @@ namespace Sentience
             "You must only write the speech of your own character.\n" +
             "You must never say that you are an AI chatbot.\n";
 
-        public void InitCharacter()
+        public async Awaitable InitCharacter()
         {
-            Character.seed = Random.Range(int.MinValue, int.MaxValue);
-            Character.cachePrompt = true;
+            if (!LLMEnabled) return;
+            awaitingResponse = true;
             Character.systemPrompt = "";
             Character.SetGrammar("");
             systemPrompt =
                 $"You are role-playing and impersonating a fictional character in the world of: {DungeonMaster.World}.\n" +
                 $"The main lore about the world is: {DungeonMaster.Lore}.\n";
-            Character.Warmup(systemPrompt);
+            await Character.Warmup(systemPrompt);
+            awaitingResponse = false;
         }
 
         bool awaitingResponse = false;
@@ -76,12 +86,11 @@ namespace Sentience
         public async Awaitable<string> AskQuestionFromSentience(Sentient sentient, string message, string details,
             Action<string> onReply)
         {
+            if (!LLMEnabled) return "Sentience is disabled.";
             while (awaitingResponse) await Awaitable.WaitForSecondsAsync(0.25f);
             awaitingResponse = true;
-            Character.seed = Random.Range(int.MinValue, int.MaxValue);
             Character.systemPrompt = $"{characterRules}\n{sentient.Personality}\n{details}";
             await Character.ClearHistory();
-
             foreach (var msg in sentient.Messages)
             {
                 if (msg.role == "assistant") await Character.AddAssistantMessage(msg.content);
@@ -96,11 +105,11 @@ namespace Sentience
         public async Awaitable<string> AskQuestionCharacterSingle(string personality, string message,
             Action<string> onReply)
         {
+            if (!LLMEnabled) return "Sentience is disabled.";
             while (awaitingResponse) await Awaitable.WaitForSecondsAsync(0.25f);
             awaitingResponse = true;
-            Character.seed = Random.Range(int.MinValue, int.MaxValue);
             Character.systemPrompt = $"{characterRules}\n{personality}";
-            _ = Character.ClearHistory();
+            await Character.ClearHistory();
             string response = await Character.Chat(message, onReply, null, false);
             awaitingResponse = false;
             return response;

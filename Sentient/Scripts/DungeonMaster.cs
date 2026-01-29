@@ -64,14 +64,12 @@ namespace Sentience
 
         #region Generator
 
-        void InitPrompt()
+        async Awaitable InitPrompt()
         {
-            Generator.cachePrompt = true;
             Generator.systemPrompt = "";
             Generator.SetGrammar(jsonGrammarString);
-            Generator.seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
             systemPrompt = $"You are in {World} \n The main lore about the world is: {Lore} \n {Personality}";
-            Generator.Warmup(systemPrompt);
+            await Generator.Warmup(systemPrompt);
         }
 
         public async Awaitable<string> AskQuestionToGenerator(string rules, string message, Action<string> onReply)
@@ -81,9 +79,8 @@ namespace Sentience
             Debug.Log($"DM - Question: \n{rules}\n{message}");
 
             awaitingResponse = true;
-            if (string.IsNullOrWhiteSpace(systemPrompt)) InitPrompt();
-            Generator.seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
-            Generator.systemPrompt = $"{systemPrompt}\n{rules}";
+            if (string.IsNullOrWhiteSpace(systemPrompt)) await InitPrompt();
+            Generator.systemPrompt = $"{rules}";
             string response = await Generator.Chat(message, onReply, null, false);
             awaitingResponse = false;
 
