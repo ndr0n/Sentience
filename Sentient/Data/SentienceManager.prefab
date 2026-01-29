@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3497270325795899820}
-  - component: {fileID: 629194113919236153}
+  - component: {fileID: 6529013445687077261}
   m_Layer: 0
   m_Name: CharacterManager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1152111185048307495}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &629194113919236153
+--- !u!114 &6529013445687077261
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,26 +41,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1096592958412755819}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f6c87a428fd5d0be9bbc686bdc8c3c2, type: 3}
+  m_Script: {fileID: 11500000, guid: b4326d5ae3b03ff55847035351559f4e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: undream.llmunity.Runtime::LLMUnity.LLMCharacter
-  advancedOptions: 1
-  remote: 1
-  _llm: {fileID: 1929669629638777320}
-  APIKey: 
-  host: localhost
-  port: 13333
-  numRetries: 10
-  save: 
-  saveCache: 1
-  debugPrompt: 0
+  m_EditorClassIdentifier: undream.llmunity.Runtime::LLMUnity.LLMAgent
+  advancedOptions: 0
+  _remote: 1
+  _llm: {fileID: 0}
+  _APIKey: 
+  _host: localhost
+  _port: 13333
+  numRetries: 5
+  _grammar: 
   numPredict: -1
-  slot: -1
-  grammar: 
-  grammarJSON: 
   cachePrompt: 1
   seed: 0
-  temperature: 2
+  temperature: 0.2
   topK: 40
   topP: 0.9
   minP: 0.05
@@ -69,24 +64,15 @@ MonoBehaviour:
   frequencyPenalty: 0
   typicalP: 1
   repeatLastN: 64
-  penalizeNl: 1
-  penaltyPrompt: 
   mirostat: 0
   mirostatTau: 5
   mirostatEta: 0.1
   nProbs: 0
   ignoreEos: 0
-  nKeep: -1
-  stop: []
-  stream: 1
-  playerName: user
-  AIName: assistant
-  prompt: A chat between a curious human and an artificial intelligence assistant.
-    The assistant gives helpful, detailed, and polite answers to the human's questions.
-  setNKeepToPrompt: 1
-  chat: []
-  grammarString: 
-  grammarJSONString: 
+  save: 
+  debugPrompt: 0
+  _slot: -1
+  _systemPrompt: 
 --- !u!1 &2048031720985313720
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,12 +137,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: undream.llmunity.Runtime::LLMUnity.LLMEmbedder
   advancedOptions: 0
-  remote: 1
+  _remote: 1
   _llm: {fileID: 0}
-  APIKey: 
-  host: localhost
-  port: 13332
+  _APIKey: 
+  _host: localhost
+  _port: 13332
   numRetries: 10
+  _grammar: 
+  numPredict: -1
+  cachePrompt: 1
+  seed: 0
+  temperature: 0.2
+  topK: 40
+  topP: 0.9
+  minP: 0.05
+  repeatPenalty: 1.1
+  presencePenalty: 0
+  frequencyPenalty: 0
+  typicalP: 1
+  repeatLastN: 64
+  mirostat: 0
+  mirostatTau: 5
+  mirostatEta: 0.1
+  nProbs: 0
+  ignoreEos: 0
 --- !u!114 &418818476691640125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,12 +251,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: undream.llmunity.Runtime::LLMUnity.LLMEmbedder
   advancedOptions: 0
-  remote: 1
+  _remote: 1
   _llm: {fileID: 0}
-  APIKey: 
-  host: localhost
-  port: 13332
+  _APIKey: 
+  _host: localhost
+  _port: 13332
   numRetries: 10
+  _grammar: 
+  numPredict: -1
+  cachePrompt: 1
+  seed: 0
+  temperature: 0.2
+  topK: 40
+  topP: 0.9
+  minP: 0.05
+  repeatPenalty: 1.1
+  presencePenalty: 0
+  frequencyPenalty: 0
+  typicalP: 1
+  repeatLastN: 64
+  mirostat: 0
+  mirostatTau: 5
+  mirostatEta: 0.1
+  nProbs: 0
+  ignoreEos: 0
 --- !u!114 &5811211402912991995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,7 +405,7 @@ MonoBehaviour:
   LLMEnabled: 1
   RAGEnabled: 1
   RagManager: {fileID: 4465145263250118618}
-  Character: {fileID: 629194113919236153}
+  Character: {fileID: 6529013445687077261}
   LLM: {fileID: 1929669629638777320}
   RAG: {fileID: 1781433106899865580}
 --- !u!1 &5806417945107205697
@@ -396,7 +418,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6914154884830458134}
   - component: {fileID: 1591843552709532238}
-  - component: {fileID: 5499307342482349876}
+  - component: {fileID: 4174650200076081415}
   m_Layer: 0
   m_Name: DungeonMaster
   m_TagString: Untagged
@@ -435,9 +457,9 @@ MonoBehaviour:
   Personality: You are a Dungeon Master that creates dark stories filled with mind-bending
     intrigues.
   Lorebook: {fileID: 11400000, guid: e069b80c2cf039cc787b43d6fce3ed5e, type: 2}
-  Generator: {fileID: 5499307342482349876}
+  Generator: {fileID: 4174650200076081415}
   Cohere: {fileID: 0}
---- !u!114 &5499307342482349876
+--- !u!114 &4174650200076081415
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -446,26 +468,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 5806417945107205697}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f6c87a428fd5d0be9bbc686bdc8c3c2, type: 3}
+  m_Script: {fileID: 11500000, guid: b4326d5ae3b03ff55847035351559f4e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: undream.llmunity.Runtime::LLMUnity.LLMCharacter
-  advancedOptions: 1
-  remote: 1
+  m_EditorClassIdentifier: undream.llmunity.Runtime::LLMUnity.LLMAgent
+  advancedOptions: 0
+  _remote: 1
   _llm: {fileID: 0}
-  APIKey: 
-  host: localhost
-  port: 13333
-  numRetries: 10
-  save: 
-  saveCache: 1
-  debugPrompt: 0
+  _APIKey: 
+  _host: localhost
+  _port: 13333
+  numRetries: 5
+  _grammar: 
   numPredict: -1
-  slot: -1
-  grammar: 
-  grammarJSON: 
   cachePrompt: 1
-  seed: -400696474
-  temperature: 2
+  seed: 0
+  temperature: 0.2
   topK: 40
   topP: 0.9
   minP: 0.05
@@ -474,64 +491,15 @@ MonoBehaviour:
   frequencyPenalty: 0
   typicalP: 1
   repeatLastN: 64
-  penalizeNl: 1
-  penaltyPrompt: 
   mirostat: 0
   mirostatTau: 5
   mirostatEta: 0.1
   nProbs: 0
   ignoreEos: 0
-  nKeep: -1
-  stop: []
-  stream: 1
-  playerName: user
-  AIName: assistant
-  prompt: 'I will tell you the area and description of a location and you must respond
-    with a location that exists within this area.
-
-    You must only answer in the
-    following JSON format:
-
-    {
-
-    "name": "<the name of the location>",
-
-    "description":
-    "<the description of the location>",
-
-    "characters": ["<
-
-    this field must
-    contain a JSON list containing each individual character that exists in this
-    location.
-
-    Each individual character on this field (list) must have the following
-    JSON format:{
-
-    "name": "<the name of the character>",
-
-    "race": "<the
-    race of the character>",
-
-    "description": "<the description of the character>",
-
-    }
-
-    >"]
-
-    }'
-  setNKeepToPrompt: 1
-  chat: []
-  grammarString: "root   ::= object\nvalue  ::= object | array | string | number
-    | (\"true\" | \"false\" | \"null\") ws\n\nobject ::=\n  \"{\" ws (\n           
-    string \":\" ws value\n    (\",\" ws string \":\" ws value)*\n  )? \"}\" ws\n\narray 
-    ::=\n  \"[\" ws (\n            value\n    (\",\" ws value)*\n  )? \"]\" ws\n\nstring
-    ::=\n  \"\\\"\" (\n    [^\"\\\\\\x7F\\x00-\\x1F] |\n    \"\\\\\" ([\"\\\\bfnrt]
-    | \"u\" [0-9a-fA-F]{4}) # escapes\n  )* \"\\\"\" ws\n\nnumber ::= (\"-\"? ([0-9]
-    | [1-9] [0-9]{0,15})) (\".\" [0-9]+)? ([eE] [-+]? [0-9] [1-9]{0,15})? ws\n\n#
-    Optional space: by convention, applied in this grammar after literal chars when
-    allowed\nws ::= | \" \" | \"\\n\" [ \\t]{0,20}"
-  grammarJSONString: 
+  save: 
+  debugPrompt: 0
+  _slot: -1
+  _systemPrompt: 
 --- !u!1 &6194195678766598641
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,30 +544,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a50e3140c3ecaaf1c848dbf141cc2074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: undream.llmunity.Runtime::LLMUnity.LLM
-  advancedOptions: 0
-  remote: 1
-  port: 13333
-  numThreads: -1
-  numGPULayers: 256
-  debug: 0
-  parallelPrompts: -1
+  advancedOptions: 1
+  _remote: 1
+  _port: 13333
+  _APIKey: 
+  _SSLCert: 
+  _SSLKey: 
+  _numThreads: -1
+  _numGPULayers: 0
+  _parallelPrompts: -1
+  _contextSize: 8192
+  _batchSize: 512
+  _model: llama-3.2-3b-instruct-q4_k_m.gguf
+  _flashAttention: 0
+  _reasoning: 0
+  _lora: 
+  _loraWeights: 
   dontDestroyOnLoad: 0
-  contextSize: 8192
-  batchSize: 512
-  model: llama-3.2-3b-instruct-q4_k_m.gguf
-  chatTemplate: llama3 chat
-  lora: 
-  loraWeights: 
-  flashAttention: 0
-  APIKey: 
-  SSLCert: 
-  SSLCertPath: 
-  SSLKey: 
-  SSLKeyPath: 
+  _embeddingsOnly: 0
+  _embeddingLength: 3072
   minContextLength: 0
   maxContextLength: 131072
-  embeddingsOnly: 0
-  embeddingLength: 3072
 --- !u!1 &6587984605333791758
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,27 +609,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a50e3140c3ecaaf1c848dbf141cc2074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: undream.llmunity.Runtime::LLMUnity.LLM
-  advancedOptions: 0
-  remote: 1
-  port: 13332
-  numThreads: -1
-  numGPULayers: 0
-  debug: 0
-  parallelPrompts: -1
+  advancedOptions: 1
+  _remote: 1
+  _port: 13332
+  _APIKey: 
+  _SSLCert: 
+  _SSLKey: 
+  _numThreads: -1
+  _numGPULayers: 0
+  _parallelPrompts: -1
+  _contextSize: 512
+  _batchSize: 512
+  _model: all-MiniLM-L12-v2.Q4_K_M.gguf
+  _flashAttention: 0
+  _reasoning: 0
+  _lora: 
+  _loraWeights: 
   dontDestroyOnLoad: 0
-  contextSize: 512
-  batchSize: 512
-  model: all-MiniLM-L12-v2.Q4_K_M.gguf
-  chatTemplate: llama3 chat
-  lora: 
-  loraWeights: 
-  flashAttention: 0
-  APIKey: 
-  SSLCert: 
-  SSLCertPath: 
-  SSLKey: 
-  SSLKeyPath: 
+  _embeddingsOnly: 1
+  _embeddingLength: 384
   minContextLength: 0
   maxContextLength: 512
-  embeddingsOnly: 1
-  embeddingLength: 384

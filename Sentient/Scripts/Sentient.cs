@@ -31,7 +31,8 @@ namespace Sentience
             Personality += "You must always speak as your character.";
         }
 
-        public async Awaitable AskQuestion(string origin, string message, string details, Action<string> onReply, Action<string> onFinish)
+        public async Awaitable AskQuestion(string origin, string message, string details, Action<string> onReply,
+            Action<string> onFinish)
         {
             try
             {
@@ -41,7 +42,8 @@ namespace Sentience
                     Debug.Log($"{origin} asked {id.Name}:\n{message}");
                     AddMessage(origin, message);
                     string response = null;
-                    response = await SentienceManager.Instance.AskQuestionFromSentience(this, message, details, (r) => { onReply?.Invoke(r); });
+                    response = await SentienceManager.Instance.AskQuestionFromSentience(this, message, details,
+                        (r) => { onReply?.Invoke(r); });
                     if (response != null) AddMessage("assistant", response);
                     // response = TrimName(response, Persona.PersonaData.ID.Name);
                     onFinish?.Invoke(response);
@@ -56,13 +58,16 @@ namespace Sentience
 
         public void AddMessage(string role, string msg)
         {
-            Messages.Add(new ChatMessage() {role = role, content = msg});
+            Messages.Add(new ChatMessage(role, msg));
             if (Messages.Count > MemorySize) Messages.RemoveAt(0);
         }
 
         public static string TrimName(string value, string _name)
         {
-            return value.Trim().TrimStart($"{_name}: ").TrimStart($"{_name}:").TrimStart($"{_name} : ").TrimStart($"{_name} :").TrimStart($"{_name.Split(" ")[0]}: ").TrimStart($"{_name.Split(" ")[0]}:").TrimStart($"{_name.Split(" ")[0]} : ").TrimStart($"{_name.Split(" ")[0]} :").TrimStart("\"").TrimEnd().TrimEnd("\"");
+            return value.Trim().TrimStart($"{_name}: ").TrimStart($"{_name}:").TrimStart($"{_name} : ")
+                .TrimStart($"{_name} :").TrimStart($"{_name.Split(" ")[0]}: ").TrimStart($"{_name.Split(" ")[0]}:")
+                .TrimStart($"{_name.Split(" ")[0]} : ").TrimStart($"{_name.Split(" ")[0]} :").TrimStart("\"").TrimEnd()
+                .TrimEnd("\"");
         }
     }
 }

@@ -17,11 +17,10 @@ namespace Sentience
         public FactionDatabase FactionDatabase;
         public SpeciesDatabase SpeciesDatabase;
 
-        [Header("LLM")]
-        public bool LLMEnabled;
+        [Header("LLM")] public bool LLMEnabled;
         public bool RAGEnabled;
         public RagManager RagManager;
-        public LLMCharacter Character;
+        public LLMAgent Character;
         public LLM LLM;
         public LLM RAG;
         string systemPrompt = "";
@@ -32,11 +31,15 @@ namespace Sentience
             {
                 Instance = this;
                 LLM.gameObject.SetActive(LLMEnabled);
-                InitCharacter();
                 RAG.gameObject.SetActive(RAGEnabled);
-                RagManager.Init(ItemDatabase, FactionDatabase, SpeciesDatabase);
             }
             else Destroy(gameObject);
+        }
+
+        void Start()
+        {
+            if (LLMEnabled) InitCharacter();
+            if (RAGEnabled) RagManager.Init(ItemDatabase, FactionDatabase, SpeciesDatabase);
         }
 
         void OnDestroy()
@@ -60,35 +63,44 @@ namespace Sentience
         {
             Character.seed = Random.Range(int.MinValue, int.MaxValue);
             Character.cachePrompt = true;
-            Character.prompt = "";
-            Character.grammarString = "";
-            systemPrompt = $"You are role-playing and impersonating a fictional character in the world of: {DungeonMaster.World}.\n" +
-                           $"The main lore about the world is: {DungeonMaster.Lore}.\n";
+            Character.systemPrompt = "";
+            Character.SetGrammar("");
+            systemPrompt =
+                $"You are role-playing and impersonating a fictional character in the world of: {DungeonMaster.World}.\n" +
+                $"The main lore about the world is: {DungeonMaster.Lore}.\n";
             Character.Warmup(systemPrompt);
         }
 
         bool awaitingResponse = false;
 
-        public async Awaitable<string> AskQuestionFromSentience(Sentient sentient, string message, string details, Callback<string> onReply)
+        public async Awaitable<string> AskQuestionFromSentience(Sentient sentient, string message, string details,
+            Action<string> onReply)
         {
             while (awaitingResponse) await Awaitable.WaitForSecondsAsync(0.25f);
             awaitingResponse = true;
-            Character.grammarString = "";
             Character.seed = Random.Range(int.MinValue, int.MaxValue);
-            Character.SetPrompt($"{systemPrompt}\n{characterRules}\n{sentient.Personality}\n{details}", true);
-            foreach (var msg in sentient.Messages) Character.AddMessage(msg.role, msg.content);
+            Character.systemPrompt = $"{characterRules}\n{sentient.Personality}\n{details}";
+            await Character.ClearHistory();
+
+            foreach (var msg in sentient.Messages)
+            {
+                if (msg.role == "assistant") await Character.AddAssistantMessage(msg.content);
+                else await Character.AddUserMessage(msg.content);
+            }
+
             string response = await Character.Chat(message, onReply, null, false);
             awaitingResponse = false;
             return response;
         }
 
-        public async Awaitable<string> AskQuestionCharacterSingle(string personality, string message, Callback<string> onReply)
+        public async Awaitable<string> AskQuestionCharacterSingle(string personality, string message,
+            Action<string> onReply)
         {
             while (awaitingResponse) await Awaitable.WaitForSecondsAsync(0.25f);
             awaitingResponse = true;
-            Character.grammarString = "";
             Character.seed = Random.Range(int.MinValue, int.MaxValue);
-            Character.SetPrompt($"{characterRules}\n{personality}", true);
+            Character.systemPrompt = $"{characterRules}\n{personality}";
+            _ = Character.ClearHistory();
             string response = await Character.Chat(message, onReply, null, false);
             awaitingResponse = false;
             return response;
