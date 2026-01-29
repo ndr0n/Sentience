@@ -380,8 +380,8 @@ MonoBehaviour:
   ItemDatabase: {fileID: 11400000, guid: a2811dc9a3b1a425e881f43bf1e345ae, type: 2}
   FactionDatabase: {fileID: 11400000, guid: 923cac486bd208311a0012394c9049e5, type: 2}
   SpeciesDatabase: {fileID: 11400000, guid: eaded65aac790cec28cd554a1c6ea726, type: 2}
-  LLMEnabled: 0
-  RAGEnabled: 0
+  LLMEnabled: 1
+  RAGEnabled: 1
   RagManager: {fileID: 4465145263250118618}
   Character: {fileID: 629194113919236153}
   LLM: {fileID: 1929669629638777320}
