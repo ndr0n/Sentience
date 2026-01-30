@@ -23,11 +23,11 @@ namespace MindTheatre
             Speaker speaker = self.Get<Speaker>();
             Identity identity = interactor.Get<Identity>();
 
-            if (identity.Data.Has<Player>())
-            {
-                Hud.Instance.DialogPanel.Show(true, speaker);
-                speaker.StartSpeakingWith(identity);
-            }
+            // if (identity.Data.Has<Player>())
+            // {
+                // Hud.Instance.DialogPanel.Show(true, speaker);
+                // speaker.StartSpeakingWith(identity);
+            // }
             
             return true;
         }
