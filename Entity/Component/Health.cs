@@ -9,8 +9,8 @@ namespace Sentience
     [System.Serializable]
     public class Health : EntityComponent
     {
-        [SerializeField] int val;
-        public int Value
+        [SerializeField] float val;
+        public float Value
         {
             get => val;
             set
@@ -25,11 +25,11 @@ namespace Sentience
         }
 
         public int MaxHealth;
-        public Action<int> OnHealthChanged;
-        public Action<int, EntityData> OnTakeDamage;
+        public Action<float> OnHealthChanged;
+        public Action<float, EntityData> OnTakeDamage;
         public Action<EntityData, EntityData> OnHealthDepleted;
 
-        public int TakeDamage(int dmg, EntityData attacker)
+        public float TakeDamage(float dmg, EntityData attacker)
         {
             Debug.Log($"{Data.Name} took {dmg} damage!");
             if (dmg <= 0) return dmg;
