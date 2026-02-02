@@ -57,19 +57,6 @@ namespace Sentience
                 {
                     component.Component.OnInit(this, random);
                 }
-
-                if (Has<Inventory>())
-                {
-                    Inventory inv = Get<Inventory>();
-                    foreach (var item in inv.Items) item.Item.Init(random);
-                }
-
-                if (Has<Equipment>())
-                {
-                    Equipment equip = Get<Equipment>();
-                    equip.MeleeWeapon.Init(random);
-                    equip.RangedWeapon.Init(random);
-                }
             }
 
             // EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;

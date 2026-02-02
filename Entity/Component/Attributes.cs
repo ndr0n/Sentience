@@ -15,17 +15,6 @@ namespace Sentience
         public int Intelligence;
         public int Wisdom;
         public int Charisma;
-
-        [Header("Stats")]
-        public int Armor;
-        public int Evasion;
-
-        public int Speed;
-        public int Vision;
-
-        public int Melee;
-        public int Ranged;
-        public int Physics;
     }
 
     [System.Serializable]

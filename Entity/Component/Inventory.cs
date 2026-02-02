@@ -14,6 +14,12 @@ namespace Sentience
         public int Credits;
         public List<Slot> Items;
 
+        public override void OnInit(EntityData data, Random random)
+        {
+            base.OnInit(data, random);
+            foreach (var item in Items) item.Item.Init(random);
+        }
+
         [System.Serializable]
         public struct Slot : IEquatable<Slot>
         {
@@ -86,6 +92,7 @@ namespace Sentience
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -120,6 +127,7 @@ namespace Sentience
                 Item item = itemData.Get<Item>();
                 inventory.Items.Add(new(item, 1));
             }
+
             return inventory;
         }
     }
