@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Sentience
 {
+    [System.Serializable]
     public class ID : EntityComponent
     {
         public string Name;
