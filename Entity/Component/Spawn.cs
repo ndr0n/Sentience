@@ -13,6 +13,7 @@ namespace Sentience
     {
         public EntitySpawn Prefab;
         public EntitySpawn Spawned;
+        public Vector3 SpawnPoint = Vector3.zero;
 
         public void OnSpawn(System.Random random, Transform parent, Vector3 worldPosition)
         {
@@ -25,6 +26,8 @@ namespace Sentience
             id.OnUpdateRotation += (Vector3 rot) => { Spawned.transform.rotation = Quaternion.Euler(rot); };
 
             id.Position = worldPosition;
+
+            SpawnPoint = worldPosition;
 
             Spawned.SpawnEntity(Data, id.Type, worldPosition, random);
         }
