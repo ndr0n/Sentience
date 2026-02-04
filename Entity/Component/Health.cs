@@ -25,7 +25,7 @@ namespace Sentience
         }
 
         public int MaxHealth;
-        public bool RegenerateHealth = false;
+        public float HealthRegeneration = 0;
         
         public Action<float> OnHealthChanged;
         public Action<float, EntityData> OnTakeDamage;
@@ -50,14 +50,14 @@ namespace Sentience
     {
         public Vector2Int Health = new Vector2Int(100, 100);
         public Vector2Int MaxHealth = new Vector2Int(100, 100);
-        public bool RegenerateHealth = false;
+        public float HealthRegeneration = 0;
 
         public override IEntityComponent Spawn(Random random)
         {
             Health health = new();
             health.Value = random.Next(Health.x, Health.y);
             health.MaxHealth = random.Next(MaxHealth.x, MaxHealth.y);
-            health.RegenerateHealth = RegenerateHealth;
+            health.HealthRegeneration = HealthRegeneration;
             return health;
         }
     }
