@@ -17,78 +17,71 @@ namespace Sentience
         public override void OnInit(EntityData data, Random random)
         {
             base.OnInit(data, random);
-            foreach (var item in Items) item.Item.Init(random);
+            foreach (var item in Items) item.Item.Data.Init(random);
         }
 
         [System.Serializable]
-        public struct Slot : IEquatable<Slot>
+        public class Slot
         {
-            [HideInInspector] public string Name;
             public int Amount;
-            [SerializeReference] public EntityData Item;
+            [SerializeReference] public Item Item;
 
             public Slot(Item item, int amount)
             {
-                ID id = item.Data.Get<ID>();
-                Name = id.Name;
-                Item = item.Data;
+                Item = item;
                 Amount = amount;
-            }
-
-            public bool Equals(Slot other)
-            {
-                return Item == other.Item;
             }
         }
 
-        public void Add(Item item)
+        public void Add(Item item, int amount)
         {
-            // foreach (var existingItem in Items)
-            // {
-            // if (existingItem.Data.Name == item.Data.Name)
-            // {
-            // if (existingItem.Amount + item.Amount <= item.ItemType.Stack)
-            // {
-            // existingItem.Amount += item.Amount;
-            // return;
-            // }
-            // break;
-            // }
-            // }
-            Items.Add(new(item, 1));
+            foreach (var existingItem in Items)
+            {
+                if (existingItem.Item.Data.Name == item.Data.Name)
+                {
+                    if (existingItem.Amount + amount <= item.Stack)
+                    {
+                        existingItem.Amount += amount;
+                        return;
+                    }
+                }
+            }
+
+            Items.Add(new(item, amount));
+        }
+
+        public void Remove(Slot slot, int amount)
+        {
+            slot.Amount -= amount;
+            if (slot.Amount <= 0) Items.Remove(slot);
         }
 
         public void Remove(Item item, int amount)
         {
-            // if (item.Amount > amount) item.Amount -= amount;
-            // else if (item.Amount == amount) Items.Remove(item);
-            // else Debug.Log($"Not enough {item.Amount}.");
+            Slot s = null;
             foreach (var slot in Items)
             {
-                if (slot.Item == item.Data)
+                if (slot.Item == item)
                 {
-                    Items.Remove(slot);
-                    break;
+                    s = slot;
                 }
             }
-        }
 
-        public void Remove(int index, int amount)
-        {
-            // if (Items[slot].Amount > amount) Items[slot].Amount -= amount;
-            // else if (Items[slot].Amount == amount) Items.RemoveAt(slot);
-            // else Debug.Log($"Not enough {Items[slot].Name}.");
-            Items.RemoveAt(index);
+            if (s != null)
+            {
+                s.Amount -= amount;
+                if (s.Amount <= 0) Items.Remove(s);
+            }
         }
 
         public bool UseItem(string itemName)
         {
             for (int i = 0; i < Items.Count; i++)
             {
-                ID id = Items[i].Item.Get<ID>();
+                ID id = Items[i].Item.Data.ID;
                 if (id.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
                 {
-                    Remove(i, 1);
+                    Remove(Items[i], 1);
                     return true;
                 }
             }
@@ -102,8 +95,19 @@ namespace Sentience
             else return false;
         }
 
-        public bool CanStore(EntityType itemType)
+        public bool CanStore(Item item, int amount)
         {
+            foreach (var existingItem in Items)
+            {
+                if (existingItem.Item.Data.Name == item.Data.Name)
+                {
+                    if (existingItem.Amount + amount <= item.Stack)
+                    {
+                        return true;
+                    }
+                }
+            }
+
             return Items.Count < Size;
         }
     }

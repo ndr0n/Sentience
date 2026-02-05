@@ -51,7 +51,7 @@ namespace Sentience
                         bool breakLoop = false;
                         foreach (var i in inv.Items)
                         {
-                            if (item.Data == i.Item)
+                            if (item.Data == i.Item.Data)
                             {
                                 targetName = entity.Name;
                                 itemOwner = entity;

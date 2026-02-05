@@ -31,7 +31,7 @@ namespace Sentience
                 {
                     EntityData itemData = new(item, $"belongs to {character.Name}", await SentienceManager.Instance.RagManager.GetMostSimilarItem(SentienceManager.Instance.ItemDatabase, item), random);
                     Item itm = itemData.Get<Item>();
-                    inventory.Add(itm);
+                    inventory.Add(itm, 1);
                 }
             }
         }

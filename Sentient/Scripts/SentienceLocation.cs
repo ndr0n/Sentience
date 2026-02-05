@@ -110,7 +110,7 @@ namespace Sentience
                                 Inventory inv = obj.Get<Inventory>();
                                 EntityData itemData = new(item, $"Found in {location.Name}.", await SentienceManager.Instance.RagManager.GetMostSimilarItem(SentienceManager.Instance.ItemDatabase, item), random);
                                 Item itm = itemData.Get<Item>();
-                                inv.Add(itm);
+                                inv.Add(itm, 1);
                                 break;
                             }
                         }

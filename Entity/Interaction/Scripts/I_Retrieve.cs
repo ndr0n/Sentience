@@ -14,7 +14,7 @@ namespace Sentience
 
             if (!target.Has<Inventory>()) return false;
             Inventory owner = target.Get<Inventory>();
-            if (!owner.Items.Exists(x => x.Item == self)) return false;
+            if (!owner.Items.Exists(x => x.Item.Data == self)) return false;
 
             if (!interactor.Has<Inventory>()) return false;
 
@@ -27,7 +27,7 @@ namespace Sentience
             Inventory retriever = interactor.Get<Inventory>();
             Inventory owner = target.Get<Inventory>();
 
-            retriever.Add(item);
+            retriever.Add(item, 1);
             owner.Remove(item, 1);
 
             return true;

@@ -27,7 +27,7 @@ namespace Sentience
                           $"Your character current location is: {identity.Location}.\n";
             if (identity.Faction != null) Personality += $"Your Faction is {identity.Faction.Name}\n";
             Inventory inventory = identity.Data.Get<Inventory>();
-            foreach (var item in inventory.Items) Personality += $"You currently have {item.Name} in your inventory.\n";
+            foreach (var item in inventory.Items) Personality += $"You currently have {item.Item.Data.Name} in your inventory.\n";
             Personality += "You must always speak as your character.";
         }
 

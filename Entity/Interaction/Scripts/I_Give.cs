@@ -14,7 +14,7 @@ namespace Sentience
 
             if (!interactor.Has<Inventory>()) return false;
             Inventory giver = interactor.Get<Inventory>();
-            if (!giver.Items.Exists(x => x.Item == self)) return false;
+            if (!giver.Items.Exists(x => x.Item.Data == self)) return false;
 
             return true;
         }
@@ -25,7 +25,7 @@ namespace Sentience
             Inventory giver = interactor.Get<Inventory>();
             Inventory receiver = target.Get<Inventory>();
 
-            receiver.Add(item);
+            receiver.Add(item, 1);
             giver.Remove(item, 1);
 
             return true;

@@ -99,7 +99,7 @@ namespace Sentience
                                     msg += $" (Items: ";
                                     foreach (var item in inv.Items)
                                     {
-                                        ID itemID = item.Item.Get<ID>();
+                                        ID itemID = item.Item.Data.ID;
                                         msg += $"{itemID.Name}, ";
                                     }
                                     msg += $")";
@@ -124,7 +124,7 @@ namespace Sentience
                                     msg += $" (Items: ";
                                     foreach (var item in inv.Items)
                                     {
-                                        ID itemID = item.Item.Get<ID>();
+                                        ID itemID = item.Item.Data.ID;
                                         msg += $"{itemID.Name}, ";
                                     }
                                     msg += $")";
@@ -173,7 +173,7 @@ namespace Sentience
                                     msg += $" (Items: ";
                                     foreach (var item in inv.Items)
                                     {
-                                        ID itemID = item.Item.Get<ID>();
+                                        ID itemID = item.Item.Data.ID;
                                         msg += $"{itemID.Name}, ";
                                     }
                                     msg += $")";
@@ -197,7 +197,7 @@ namespace Sentience
                                     msg += $" (Items: ";
                                     foreach (var item in inv.Items)
                                     {
-                                        ID itemID = item.Item.Get<ID>();
+                                        ID itemID = item.Item.Data.ID;
                                         msg += $"{itemID.Name}, ";
                                     }
                                     msg += $")";

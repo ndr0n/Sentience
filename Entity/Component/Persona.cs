@@ -18,9 +18,10 @@ namespace Sentience
                     if (entity.Has<Inventory>())
                     {
                         Inventory inv = entity.Get<Inventory>();
-                        foreach (var slot in inv.Items) items.Add(slot.Item);
+                        foreach (var slot in inv.Items) items.Add(slot.Item.Data);
                     }
                 }
+
                 EntityData desiredItem = items[Random.Range(0, items.Count)];
                 ID id = desiredItem.Get<ID>();
                 Desire = id.Name;
