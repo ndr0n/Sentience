@@ -10,6 +10,7 @@ namespace Sentience
     public class Health : EntityComponent
     {
         [SerializeField] float val;
+
         public float Value
         {
             get => val;
@@ -26,7 +27,7 @@ namespace Sentience
 
         public int MaxHealth;
         public float HealthRegeneration = 0;
-        
+
         public Action<float> OnHealthChanged;
         public Action<float, EntityData> OnTakeDamage;
         public Action<EntityData, EntityData> OnHealthDepleted;
@@ -48,15 +49,14 @@ namespace Sentience
     [System.Serializable]
     public class HealthAuthoring : EntityAuthoring
     {
-        public Vector2Int Health = new Vector2Int(100, 100);
         public Vector2Int MaxHealth = new Vector2Int(100, 100);
         public float HealthRegeneration = 0;
 
         public override IEntityComponent Spawn(Random random)
         {
             Health health = new();
-            health.Value = random.Next(Health.x, Health.y);
             health.MaxHealth = random.Next(MaxHealth.x, MaxHealth.y);
+            health.Value = health.MaxHealth;
             health.HealthRegeneration = HealthRegeneration;
             return health;
         }
