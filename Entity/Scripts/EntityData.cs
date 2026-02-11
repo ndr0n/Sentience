@@ -102,6 +102,12 @@ namespace Sentience
             // return World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<T>(Entity);
         }
 
+        public T TryGet<T>() where T : EntityComponent
+        {
+            if (Has<T>()) return Get<T>();
+            return null;
+        }
+
         void AddComponent(EntityAuthoring authoring, System.Random random)
         {
             IEntityComponent component = authoring.Spawn(random);
