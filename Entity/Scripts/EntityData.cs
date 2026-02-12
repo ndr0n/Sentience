@@ -18,7 +18,7 @@ namespace Sentience
     {
         [HideInInspector] public string Name;
         public List<EntityComponentData> Components;
-        public Dictionary<int, IEntityComponent> dictionary = new();
+        Dictionary<int, IEntityComponent> dictionary = new();
 
         public ID ID => Get<ID>();
 
