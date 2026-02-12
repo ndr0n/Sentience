@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Sentience
 {
@@ -17,7 +18,7 @@ namespace Sentience
     {
         [HideInInspector] public string Name;
         public List<EntityComponentData> Components;
-        readonly Dictionary<int, IEntityComponent> dictionary = new();
+        public Dictionary<int, IEntityComponent> dictionary = new();
 
         public ID ID => Get<ID>();
 
@@ -46,12 +47,11 @@ namespace Sentience
 
         public void Init(System.Random random)
         {
-            if (dictionary.Count == 0)
+            if (dictionary == null || dictionary.Count == 0)
             {
-                foreach (var component in Components)
-                {
-                    dictionary.Add(component.Component.GetType().GetHashCode(), component.Component);
-                }
+                SetupDictionary();
+
+                if (random == null) random = new(Random.Range(0, int.MaxValue));
 
                 foreach (var component in Components)
                 {
@@ -90,8 +90,25 @@ namespace Sentience
             // }
         }
 
+        void SetupDictionary()
+        {
+            if (dictionary == null)
+            {
+                dictionary = new();
+            }
+
+            if (dictionary.Count == 0)
+            {
+                foreach (var component in Components)
+                {
+                    dictionary.Add(component.Component.GetType().GetHashCode(), component.Component);
+                }
+            }
+        }
+
         public bool Has<T>()
         {
+            if (dictionary == null) SetupDictionary();
             return dictionary.ContainsKey(typeof(T).GetHashCode());
             // return World.DefaultGameObjectInjectionWorld.EntityManager.HasComponent<T>(Entity);
         }
