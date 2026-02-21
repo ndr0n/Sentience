@@ -22,7 +22,7 @@ namespace Sentience
 
             EntitySpawn spawn = null;
             if (Application.isPlaying) spawn = Object.Instantiate(Prefab.gameObject, parent).GetComponent<EntitySpawn>();
-            else PrefabUtility.InstantiatePrefab(Prefab.gameObject, parent).GetComponent<EntitySpawn>();
+            else spawn = PrefabUtility.InstantiatePrefab(Prefab.gameObject, parent).GetComponent<EntitySpawn>();
             Spawned = spawn;
 
             id.OnUpdatePosition += (Vector3 pos) => { Spawned.transform.position = pos; };
