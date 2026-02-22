@@ -90,7 +90,7 @@ namespace Sentience
             // }
         }
 
-        void SetupDictionary()
+        public void SetupDictionary()
         {
             if (dictionary == null)
             {
