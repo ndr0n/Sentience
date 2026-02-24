@@ -9,11 +9,12 @@ using UnityEngine.Serialization;
 
 namespace Sentience
 {
-    public class Sentient : MonoBehaviour
+    [System.Serializable]
+    public class Sentient
     {
-        public int MemorySize = 100;
-        [HideInInspector] public string Personality;
-        [HideInInspector] public List<ChatMessage> Messages = new();
+        public int MemorySize = 30;
+        public string Personality;
+        public List<ChatMessage> Messages = new();
         Identity identity;
 
         public void Init(Identity _identity)

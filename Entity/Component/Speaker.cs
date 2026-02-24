@@ -11,23 +11,19 @@ namespace MindTheatre
     [System.Serializable]
     public class Speaker : EntityComponent
     {
+        public Sentient Sentient = new();
         public Action<string> OnAskQuestion;
         public Action<string> OnReceiveAnswer;
         public Action<string> OnReceivePartialReply;
 
-        Sentient sentient;
 
-        public override void OnSpawn(EntitySpawn spawn)
+        public override void OnInit(EntityData data, Random random)
         {
-            base.OnSpawn(spawn);
-            if (Data.Has<Identity>())
+            base.OnInit(data, random);
+            if (data.Has<Identity>())
             {
-                Identity identity = Data.Get<Identity>();
-                if (spawn.TryGetComponent(out Sentient _sentient))
-                {
-                    sentient = _sentient;
-                    sentient.Init(identity);
-                }
+                Identity identity = data.Get<Identity>();
+                Sentient.Init(identity);
             }
         }
 
@@ -40,18 +36,18 @@ namespace MindTheatre
             // }
 
             string question = $"Hello, I am {questioner.Data.Name}, a {questioner.Species.Name} in {questioner.Location}.";
-            AskQuestion(questioner, question);
+            AskQuestion(questioner.Data.Name, question);
         }
 
-        public void AskQuestion(Identity questioner, string question)
+        public void AskQuestion(string questioner, string question)
         {
             OnAskQuestion?.Invoke(question);
 
             string details = "";
             // if (!string.IsNullOrWhiteSpace(Persona.Desire)) details += $"You desire {Persona.Desire}.\n";
 
-            ID id = questioner.Data.Get<ID>();
-            var awaiter = sentient.AskQuestion(id.Name, question, details, OnReceivePartialReply, OnReceiveAnswer);
+            // ID id = questioner.Data.Get<ID>();
+            var awaiter = Sentient.AskQuestion(questioner, question, details, OnReceivePartialReply, OnReceiveAnswer);
         }
     }
 
