@@ -51,27 +51,27 @@ namespace Sentience
 
         public void Init(System.Random random)
         {
-            SetupDictionary();
+            // SetupDictionary();
             if (spawned) return;
             spawned = true;
             if (random == null) random = new(Random.Range(0, int.MaxValue));
             foreach (var component in Components) component.Component.OnInit(this, random);
         }
 
-        public void SetupDictionary()
-        {
-            // if (dictionary == null)
-            // {
-            //     dictionary = new();
-            // }
-            // if (componentList.Count == 0)
-            // {
-            // foreach (var component in Components)
-            // {
-            // componentList.Add(component.Component.GetType().GetHashCode(), component.Component);
-            // }
-            // }
-        }
+        // public void SetupDictionary()
+        // {
+        // if (dictionary == null)
+        // {
+        //     dictionary = new();
+        // }
+        // if (componentList.Count == 0)
+        // {
+        // foreach (var component in Components)
+        // {
+        // componentList.Add(component.Component.GetType().GetHashCode(), component.Component);
+        // }
+        // }
+        // }
 
         public bool Has<T>()
         {
