@@ -39,8 +39,7 @@ namespace MindTheatre
             // persona.RefreshDesire();
             // }
 
-            string question =
-                $"Hello, I am {questioner.Data.Name}, a {questioner.Species.Name} in {questioner.Location}.";
+            string question = $"Hello, I am {questioner.Data.Name}, a {questioner.Species.Name} in {questioner.Location}.";
             AskQuestion(questioner, question);
         }
 

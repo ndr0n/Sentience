@@ -31,8 +31,7 @@ namespace Sentience
             Personality += "You must always speak as your character.";
         }
 
-        public async Awaitable AskQuestion(string origin, string message, string details, Action<string> onReply,
-            Action<string> onFinish)
+        public async Awaitable AskQuestion(string origin, string message, string details, Action<string> onReply, Action<string> onFinish)
         {
             try
             {
@@ -42,8 +41,7 @@ namespace Sentience
                     Debug.Log($"{origin} asked {id.Name}:\n{message}");
                     AddMessage(origin, message);
                     string response = null;
-                    response = await SentienceManager.Instance.AskQuestionFromSentience(this, message, details,
-                        (r) => { onReply?.Invoke(r); });
+                    response = await SentienceManager.Instance.AskQuestionFromSentience(this, message, details, (r) => { onReply?.Invoke(r); });
                     if (response != null) AddMessage("assistant", response);
                     // response = TrimName(response, Persona.PersonaData.ID.Name);
                     onFinish?.Invoke(response);

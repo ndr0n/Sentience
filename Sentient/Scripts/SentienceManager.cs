@@ -102,8 +102,7 @@ namespace Sentience
             return response;
         }
 
-        public async Awaitable<string> AskQuestionCharacterSingle(string personality, string message,
-            Action<string> onReply)
+        public async Awaitable<string> AskQuestionCharacterSingle(string personality, string message, Action<string> onReply)
         {
             if (!LLMEnabled) return "Sentience is disabled.";
             while (awaitingResponse) await Awaitable.WaitForSecondsAsync(0.25f);
