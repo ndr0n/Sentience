@@ -18,7 +18,7 @@ namespace Sentience
                     if (entity.Has<Inventory>())
                     {
                         Inventory inv = entity.Get<Inventory>();
-                        foreach (var slot in inv.Items) items.Add(slot.Item.Data);
+                        foreach (var slot in inv.Items) items.Add(slot.Item);
                     }
                 }
 

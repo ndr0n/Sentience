@@ -17,18 +17,18 @@ namespace Sentience
         public override void OnInit(EntityData data, Random random)
         {
             base.OnInit(data, random);
-            foreach (var item in Items) item.Item.Data.Init(random);
+            foreach (var item in Items) item.Item.Init(random);
         }
 
         [System.Serializable]
         public class Slot
         {
             public int Amount;
-            [SerializeReference] public Item Item;
+            [SerializeReference] public EntityData Item;
 
             public Slot(Item item, int amount)
             {
-                Item = item;
+                Item = item.Data;
                 Amount = amount;
             }
         }
@@ -37,7 +37,7 @@ namespace Sentience
         {
             foreach (var existingItem in Items)
             {
-                if (existingItem.Item.Data.Name == item.Data.Name)
+                if (existingItem.Item.Name == item.Data.Name)
                 {
                     if (existingItem.Amount + amount <= item.Stack)
                     {
@@ -61,7 +61,7 @@ namespace Sentience
             Slot s = null;
             foreach (var slot in Items)
             {
-                if (slot.Item == item)
+                if (slot.Item == item.Data)
                 {
                     s = slot;
                 }
@@ -78,7 +78,7 @@ namespace Sentience
         {
             for (int i = 0; i < Items.Count; i++)
             {
-                ID id = Items[i].Item.Data.ID;
+                ID id = Items[i].Item.ID;
                 if (id.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
                 {
                     Remove(Items[i], 1);
@@ -99,7 +99,7 @@ namespace Sentience
         {
             foreach (var existingItem in Items)
             {
-                if (existingItem.Item.Data.Name == item.Data.Name)
+                if (existingItem.Item.Name == item.Data.Name)
                 {
                     if (existingItem.Amount + amount <= item.Stack)
                     {

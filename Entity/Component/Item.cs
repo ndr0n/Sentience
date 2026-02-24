@@ -14,13 +14,7 @@ namespace Sentience
         public int Stack;
         public float Weight;
         public Sprite Icon;
-
-        // public override void Init(EntityData data, Random random)
-        // {
-        // base.Init(data, random);
-        // World.DefaultGameObjectInjectionWorld.EntityManager.AddComponent<ItemComponent>(data.Entity);
-        // }
-
+        
         public string Print()
         {
             ID id = Data.Get<ID>();
