@@ -16,7 +16,6 @@ namespace Sentience
         public void OnSpawn(EntityData data, EntityType type, Vector3 position)
         {
             Data = data;
-            Data.Init(null);
             Type = type;
             name = data.Name;
             transform.position = position;

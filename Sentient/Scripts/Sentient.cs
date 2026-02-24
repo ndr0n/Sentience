@@ -22,13 +22,13 @@ namespace Sentience
             ID id = identity.Data.Get<ID>();
             Messages.Clear();
             Personality = $"Your character name is: {id.Name}.\n" +
-                          $"Your character species is {identity.Species.Name}" +
+                          $"Your character species is {identity.Species.Name}\n" +
                           $"Your character description: {id.Description}.\n" +
                           $"Your character current location is: {identity.Location}.\n";
             if (identity.Faction != null) Personality += $"Your Faction is {identity.Faction.Name}\n";
             Inventory inventory = identity.Data.Get<Inventory>();
             foreach (var item in inventory.Items) Personality += $"You currently have {item.Item.Data.Name} in your inventory.\n";
-            Personality += "You must always speak as your character.";
+            Personality += "You must always speak as your character.\n";
         }
 
         public async Awaitable AskQuestion(string origin, string message, string details, Action<string> onReply, Action<string> onFinish)

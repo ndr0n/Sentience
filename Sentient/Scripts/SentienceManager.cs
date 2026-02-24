@@ -83,12 +83,12 @@ namespace Sentience
 
         bool awaitingResponse = false;
 
-        public async Awaitable<string> AskQuestionFromSentience(Sentient sentient, string message, string details,
-            Action<string> onReply)
+        public async Awaitable<string> AskQuestionFromSentience(Sentient sentient, string message, string details, Action<string> onReply)
         {
             if (!LLMEnabled) return "Sentience is disabled.";
             while (awaitingResponse) await Awaitable.WaitForSecondsAsync(0.25f);
             awaitingResponse = true;
+            Character.seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
             Character.systemPrompt = $"{characterRules}\n{sentient.Personality}\n{details}";
             await Character.ClearHistory();
             foreach (var msg in sentient.Messages)
@@ -107,6 +107,7 @@ namespace Sentience
             if (!LLMEnabled) return "Sentience is disabled.";
             while (awaitingResponse) await Awaitable.WaitForSecondsAsync(0.25f);
             awaitingResponse = true;
+            Character.seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
             Character.systemPrompt = $"{characterRules}\n{personality}";
             await Character.ClearHistory();
             string response = await Character.Chat(message, onReply, null, false);

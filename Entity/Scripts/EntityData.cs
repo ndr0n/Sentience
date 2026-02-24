@@ -18,15 +18,17 @@ namespace Sentience
     {
         [HideInInspector] public string Name;
         public List<EntityComponentData> Components;
-        Dictionary<int, IEntityComponent> dictionary = new();
+        readonly Dictionary<int, IEntityComponent> componentList = new();
+        bool spawned = false;
 
         public ID ID => Get<ID>();
 
         public EntityData(string name, string description, EntityType type, System.Random random)
         {
             Name = name;
+            spawned = false;
             Components = new();
-            dictionary = new();
+            componentList = new();
 
             ID id = new()
             {
@@ -47,75 +49,39 @@ namespace Sentience
 
         public void Init(System.Random random)
         {
-            if (dictionary == null || dictionary.Count == 0)
-            {
-                SetupDictionary();
-
-                if (random == null) random = new(Random.Range(0, int.MaxValue));
-
-                foreach (var component in Components)
-                {
-                    component.Component.OnInit(this, random);
-                }
-            }
-
-            // EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            // if (!entityManager.Exists(Entity))
-            // {
-            //     SpawnDotsEntity(random);
-            //
-            //     foreach (var component in Components)
-            //     {
-            //         if (component.Component is IEntityComponent c) c.Init(this, random);
-            //     }
-            //
-            //     if (entityManager.HasComponent<Inventory>(Entity))
-            //     {
-            //         Inventory inv = entityManager.GetComponentObject<Inventory>(Entity);
-            //         foreach (var item in inv.Items)
-            //         {
-            //             item.Item.Init(random);
-            //             entityManager.AddComponentData<SetParentComponent>(item.Item.Entity, new() {Parent = Entity});
-            //         }
-            //     }
-            //
-            //     if (entityManager.HasComponent<Equipment>(Entity))
-            //     {
-            //         Equipment equipment = entityManager.GetComponentData<Equipment>(Entity);
-            //         equipment.MeleeWeapon.Init(random);
-            //         equipment.RangedWeapon.Init(random);
-            //         entityManager.AddComponentData<SetParentComponent>(equipment.MeleeWeapon.Entity, new() {Parent = Entity});
-            //         entityManager.AddComponentData<SetParentComponent>(equipment.RangedWeapon.Entity, new() {Parent = Entity});
-            //     }
-            // }
+            SetupDictionary();
+            if (spawned) return;
+            spawned = true;
+            if (random == null) random = new(Random.Range(0, int.MaxValue));
+            foreach (var component in Components) component.Component.OnInit(this, random);
         }
 
         public void SetupDictionary()
         {
-            if (dictionary == null)
-            {
-                dictionary = new();
-            }
-
-            if (dictionary.Count == 0)
+            // if (dictionary == null)
+            // {
+            //     dictionary = new();
+            // }
+            if (componentList.Count == 0)
             {
                 foreach (var component in Components)
                 {
-                    dictionary.Add(component.Component.GetType().GetHashCode(), component.Component);
+                    componentList.Add(component.Component.GetType().GetHashCode(), component.Component);
                 }
             }
         }
 
         public bool Has<T>()
         {
-            if (dictionary == null) SetupDictionary();
-            return dictionary.ContainsKey(typeof(T).GetHashCode());
+            if (componentList == null) Init(null);
+            return componentList.ContainsKey(typeof(T).GetHashCode());
             // return World.DefaultGameObjectInjectionWorld.EntityManager.HasComponent<T>(Entity);
         }
 
         public T Get<T>() where T : EntityComponent
         {
-            return dictionary[typeof(T).GetHashCode()] as T;
+            if (componentList == null) Init(null);
+            return componentList[typeof(T).GetHashCode()] as T;
             // return World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<T>(Entity);
         }
 

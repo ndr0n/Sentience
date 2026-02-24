@@ -18,7 +18,6 @@ namespace Sentience
 
         public EntitySpawn SpawnEntity(Transform parent, Vector3 worldPosition)
         {
-            Data.Init(null);
             ID id = Data.Get<ID>();
 
             EntitySpawn spawn = null;
