@@ -23,18 +23,23 @@ namespace Sentience
     }
 
     [System.Serializable]
-    public class Sentient
+    public class Sentient : EntityComponent
     {
-        public string Personality;
+        public string Personality = "";
         public int MemorySize = 25;
         public List<SentientMessage> Messages = new();
-        Identity identity;
 
-        public void Init(Identity _identity)
+        public override void OnInit(EntityData data, System.Random random)
         {
-            identity = _identity;
-            ID id = identity.Data.Get<ID>();
+            base.OnInit(data, random);
             Messages.Clear();
+            Identity identity = Data.TryGet<Identity>();
+            if (identity != null) InitIdentity(identity);
+        }
+
+        public void InitIdentity(Identity identity)
+        {
+            ID id = identity.Data.Get<ID>();
             Personality = $"Your character name is: {id.Name}.\n" +
                           $"Your character species is: {identity.Species.Name}\n" +
                           $"Your character description: {id.Description}.\n" +
@@ -51,7 +56,7 @@ namespace Sentience
             {
                 if (!string.IsNullOrWhiteSpace(message))
                 {
-                    ID id = identity.Data.Get<ID>();
+                    ID id = Data.Get<ID>();
                     Debug.Log($"{origin} asked {id.Name}:\n{message}");
                     AddMessage(origin, message);
                     string response = null;
@@ -80,6 +85,21 @@ namespace Sentience
                 .TrimStart($"{_name} :").TrimStart($"{_name.Split(" ")[0]}: ").TrimStart($"{_name.Split(" ")[0]}:")
                 .TrimStart($"{_name.Split(" ")[0]} : ").TrimStart($"{_name.Split(" ")[0]} :").TrimStart("\"").TrimEnd()
                 .TrimEnd("\"");
+        }
+    }
+
+    [System.Serializable]
+    public class SentientAuthoring : EntityAuthoring
+    {
+        public string Personality = "";
+        public int MemorySize = 25;
+
+        public override IEntityComponent Spawn(System.Random random)
+        {
+            Sentient sentient = new();
+            sentient.MemorySize = MemorySize;
+            sentient.Personality = Personality;
+            return sentient;
         }
     }
 }

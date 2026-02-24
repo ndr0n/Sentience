@@ -11,20 +11,16 @@ namespace MindTheatre
     [System.Serializable]
     public class Speaker : EntityComponent
     {
-        public Sentient Sentient = new();
         public Action<string> OnAskQuestion;
         public Action<string> OnReceiveAnswer;
         public Action<string> OnReceivePartialReply;
+        Sentient sentient;
 
 
         public override void OnInit(EntityData data, Random random)
         {
             base.OnInit(data, random);
-            if (data.Has<Identity>())
-            {
-                Identity identity = data.Get<Identity>();
-                Sentient.Init(identity);
-            }
+            sentient = data.TryGet<Sentient>();
         }
 
         public void StartSpeakingWith(Identity questioner)
@@ -47,7 +43,7 @@ namespace MindTheatre
             // if (!string.IsNullOrWhiteSpace(Persona.Desire)) details += $"You desire {Persona.Desire}.\n";
 
             // ID id = questioner.Data.Get<ID>();
-            var awaiter = Sentient.AskQuestion(questioner, question, details, OnReceivePartialReply, OnReceiveAnswer);
+            var awaiter = sentient.AskQuestion(questioner, question, details, OnReceivePartialReply, OnReceiveAnswer);
         }
     }
 
