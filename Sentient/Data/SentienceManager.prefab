@@ -482,7 +482,7 @@ MonoBehaviour:
   numPredict: -1
   cachePrompt: 0
   seed: 0
-  temperature: 1
+  temperature: 2
   topK: 40
   topP: 0.9
   minP: 0.05
@@ -555,14 +555,14 @@ MonoBehaviour:
   _parallelPrompts: -1
   _contextSize: 8192
   _batchSize: 512
-  _model: llama-3.2-1b-instruct-q4_k_m.gguf
+  _model: llama-3.2-3b-instruct-q4_k_m.gguf
   _flashAttention: 0
   _reasoning: 0
   _lora: 
   _loraWeights: 
   dontDestroyOnLoad: 0
   _embeddingsOnly: 0
-  _embeddingLength: 2048
+  _embeddingLength: 3072
   minContextLength: 0
   maxContextLength: 131072
 --- !u!1 &6587984605333791758
@@ -609,7 +609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a50e3140c3ecaaf1c848dbf141cc2074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: undream.llmunity.Runtime::LLMUnity.LLM
-  advancedOptions: 0
+  advancedOptions: 1
   _remote: 0
   _port: 13332
   _APIKey: 
