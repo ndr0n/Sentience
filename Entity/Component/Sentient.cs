@@ -25,8 +25,10 @@ namespace Sentience
     [System.Serializable]
     public class Sentient : EntityComponent
     {
+        [Multiline]
         public string Personality = "";
-        public int MemorySize = 25;
+
+        public int MemorySize = 10;
         public List<SentientMessage> Messages = new();
 
         public override void OnInit(EntityData data, System.Random random)
@@ -91,8 +93,10 @@ namespace Sentience
     [System.Serializable]
     public class SentientAuthoring : EntityAuthoring
     {
+        [Multiline]
         public string Personality = "";
-        public int MemorySize = 25;
+
+        public int MemorySize = 10;
 
         public override IEntityComponent Spawn(System.Random random)
         {
