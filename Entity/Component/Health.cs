@@ -34,7 +34,7 @@ namespace Sentience
 
         public float TakeDamage(float dmg, EntityData attacker)
         {
-            Debug.Log($"{Data.Name} took {dmg} damage!");
+            // Debug.Log($"{Data.Name} took {dmg} damage!");
             if (dmg <= 0) return dmg;
 
             Value -= dmg;
