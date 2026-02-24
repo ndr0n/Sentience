@@ -29,5 +29,11 @@ namespace Sentience
             Quests = new();
             foreach (var q in area.Quests) Quests.Add(q);
         }
+
+        public void Clear()
+        {
+            Quests.Clear();
+            Location.Clear();
+        }
     }
 }

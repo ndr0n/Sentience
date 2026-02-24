@@ -8,9 +8,9 @@ namespace Sentience
     {
         public string Name = "";
         public string Description = "";
-        public Faction Faction;
         public Vector3 Size = Vector3.one;
         public Vector3 Position = Vector3.zero;
+        public Faction Faction;
         public List<EntityData> Objects = new();
         public List<EntityData> Characters = new();
     }

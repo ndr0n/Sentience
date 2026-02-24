@@ -80,6 +80,7 @@ namespace Sentience
 
             awaitingResponse = true;
             if (string.IsNullOrWhiteSpace(systemPrompt)) await InitPrompt();
+            Generator.seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
             Generator.systemPrompt = $"{rules}";
             string response = await Generator.Chat(message, onReply, null, false);
             awaitingResponse = false;

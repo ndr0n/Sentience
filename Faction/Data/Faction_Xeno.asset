@@ -18,14 +18,7 @@ MonoBehaviour:
   Color: {r: 0.78431374, g: 0, b: 0.78431374, a: 1}
   IsLawfulFaction: 1
   FactionEntity:
-  - {fileID: 11400000, guid: e05d351e3049f1fb5a8a48d64b8b552c, type: 2}
-  - {fileID: 11400000, guid: e5c3806f93e223f88affa7a82d67d439, type: 2}
-  - {fileID: 11400000, guid: 370160477b96079b68dd374f4dd3e5c4, type: 2}
-  - {fileID: 11400000, guid: bdaa94d9b209e5c4eb84eb70a3137830, type: 2}
-  - {fileID: 11400000, guid: f9eddc2c9c73a1bc68dfc1ee586acb25, type: 2}
-  - {fileID: 11400000, guid: 4b2fb9c565d358cf78ad12e67cd8c4e7, type: 2}
-  - {fileID: 11400000, guid: 464fddc38fd328e0e85ef1ef58830a5f, type: 2}
-  - {fileID: 11400000, guid: ad0eacc2a0cbae96b8164d95d041e0f2, type: 2}
+  - {fileID: 11400000, guid: 37898064aca8a09b9a8abf0d7b503802, type: 2}
   FactionRelationship:
   - Faction: {fileID: 11400000}
     Reputation:
