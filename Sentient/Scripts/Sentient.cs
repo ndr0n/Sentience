@@ -10,11 +10,24 @@ using UnityEngine.Serialization;
 namespace Sentience
 {
     [System.Serializable]
+    public struct SentientMessage
+    {
+        public string Role;
+        public string Content;
+
+        public SentientMessage(string role, string content)
+        {
+            Role = role;
+            Content = content;
+        }
+    }
+
+    [System.Serializable]
     public class Sentient
     {
-        public int MemorySize = 30;
         public string Personality;
-        public List<ChatMessage> Messages = new();
+        public int MemorySize = 25;
+        public List<SentientMessage> Messages = new();
         Identity identity;
 
         public void Init(Identity _identity)
@@ -23,10 +36,10 @@ namespace Sentience
             ID id = identity.Data.Get<ID>();
             Messages.Clear();
             Personality = $"Your character name is: {id.Name}.\n" +
-                          $"Your character species is {identity.Species.Name}\n" +
+                          $"Your character species is: {identity.Species.Name}\n" +
                           $"Your character description: {id.Description}.\n" +
                           $"Your character current location is: {identity.Location}.\n";
-            if (identity.Faction != null) Personality += $"Your Faction is {identity.Faction.Name}\n";
+            if (identity.Faction != null) Personality += $"Your Faction is: {identity.Faction.Name}\n";
             Inventory inventory = identity.Data.Get<Inventory>();
             foreach (var item in inventory.Items) Personality += $"You currently have {item.Item.Data.Name} in your inventory.\n";
             Personality += "You must always speak as your character.\n";
@@ -57,7 +70,7 @@ namespace Sentience
 
         public void AddMessage(string role, string msg)
         {
-            Messages.Add(new ChatMessage(role, msg));
+            Messages.Add(new SentientMessage(role, msg));
             if (Messages.Count > MemorySize) Messages.RemoveAt(0);
         }
 

@@ -93,8 +93,8 @@ namespace Sentience
             await Character.ClearHistory();
             foreach (var msg in sentient.Messages)
             {
-                if (msg.role == "assistant") await Character.AddAssistantMessage(msg.content);
-                else await Character.AddUserMessage(msg.content);
+                if (msg.Role == "assistant") await Character.AddAssistantMessage(msg.Content);
+                else await Character.AddUserMessage(msg.Content);
             }
 
             string response = await Character.Chat(message, onReply, null, false);
