@@ -17,8 +17,10 @@ namespace Sentience
     public class EntityData
     {
         [HideInInspector] public string Name;
+
         public List<EntityComponentData> Components;
-        readonly Dictionary<int, IEntityComponent> componentList = new();
+
+        // readonly Dictionary<int, EntityComponent> componentList = new();
         bool spawned = false;
 
         public ID ID => Get<ID>();
@@ -28,7 +30,7 @@ namespace Sentience
             Name = name;
             spawned = false;
             Components = new();
-            componentList = new();
+            // componentList = new();
 
             ID id = new()
             {
@@ -62,27 +64,37 @@ namespace Sentience
             // {
             //     dictionary = new();
             // }
-            if (componentList.Count == 0)
-            {
-                foreach (var component in Components)
-                {
-                    componentList.Add(component.Component.GetType().GetHashCode(), component.Component);
-                }
-            }
+            // if (componentList.Count == 0)
+            // {
+            // foreach (var component in Components)
+            // {
+            // componentList.Add(component.Component.GetType().GetHashCode(), component.Component);
+            // }
+            // }
         }
 
         public bool Has<T>()
         {
-            if (componentList == null) Init(null);
-            return componentList.ContainsKey(typeof(T).GetHashCode());
-            // return World.DefaultGameObjectInjectionWorld.EntityManager.HasComponent<T>(Entity);
+            foreach (var component in Components)
+            {
+                if (component.Component.GetType() == typeof(T)) return true;
+            }
+
+            return false;
+            // if (componentList == null) Init(null);
+            // return componentList.ContainsKey(typeof(T).GetHashCode());
         }
 
         public T Get<T>() where T : EntityComponent
         {
-            if (componentList == null) Init(null);
-            return componentList[typeof(T).GetHashCode()] as T;
-            // return World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentObject<T>(Entity);
+            foreach (var component in Components)
+            {
+                if (component.Component.GetType() == typeof(T)) return component.Component as T;
+            }
+
+            return null;
+            // if (componentList == null) Init(null);
+            // return componentList[typeof(T).GetHashCode()] as T;
         }
 
         public T TryGet<T>() where T : EntityComponent
