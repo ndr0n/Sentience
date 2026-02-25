@@ -28,7 +28,7 @@ namespace Sentience
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            EntityType entityType = (EntityType) target;
+            EntityType entityType = (EntityType)target;
             string[] names = typeNames.Where(x => !entityType.Components.Exists(y => y.Authoring.GetType().ToString().Split('.')[^1].Replace("Authoring", "") == x)).ToArray();
             if (names.Length > 0)
             {
@@ -46,6 +46,8 @@ namespace Sentience
                     }
                 }
             }
+
+            EditorUtility.SetDirty(target);
         }
     }
 #endif
