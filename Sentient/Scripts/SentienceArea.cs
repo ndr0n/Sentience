@@ -53,8 +53,7 @@ namespace Sentience
                     exeption += $"Location: {loc.Name} | Characters: ";
                     foreach (var character in loc.Characters)
                     {
-                        ID id = character.Get<ID>();
-                        exeption += $"{id.Name}, ";
+                        exeption += $"{character.Name}, ";
                     }
                     exeption += $"\n";
                 }
@@ -89,8 +88,7 @@ namespace Sentience
                         msg += $"Location Objects:\n";
                         foreach (var obj in location.Objects)
                         {
-                            ID id = obj.Get<ID>();
-                            msg += $"{id.Name}";
+                            msg += $"{obj.Name}";
                             if (obj.Has<Inventory>())
                             {
                                 Inventory inv = obj.Get<Inventory>();
@@ -99,8 +97,7 @@ namespace Sentience
                                     msg += $" (Items: ";
                                     foreach (var item in inv.Items)
                                     {
-                                        ID itemID = item.Item.ID;
-                                        msg += $"{itemID.Name}, ";
+                                        msg += $"{item.Item.Name}, ";
                                     }
                                     msg += $")";
                                 }
@@ -114,18 +111,16 @@ namespace Sentience
                         msg += $"Location Characters:\n";
                         foreach (var chr in location.Characters.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
                         {
-                            ID id = chr.Get<ID>();
-                            msg += $"{id.Name}";
+                            msg += $"{chr.Name}";
                             if (chr.Has<Inventory>())
                             {
                                 Inventory inv = chr.Get<Inventory>();
                                 if (inv.Items.Count > 0)
                                 {
                                     msg += $" (Items: ";
-                                    foreach (var item in inv.Items)
+                                    foreach (var slot in inv.Items)
                                     {
-                                        ID itemID = item.Item.ID;
-                                        msg += $"{itemID.Name}, ";
+                                        msg += $"{slot.Item.Name}, ";
                                     }
                                     msg += $")";
                                 }
@@ -163,18 +158,16 @@ namespace Sentience
                         msg += $"Location Objects:\n";
                         foreach (var obj in location.Objects)
                         {
-                            ID id = obj.Get<ID>();
-                            msg += $"{id.Name}";
+                            msg += $"{obj.Name}";
                             if (obj.Has<Inventory>())
                             {
                                 Inventory inv = obj.Get<Inventory>();
                                 if (inv.Items.Count > 0)
                                 {
                                     msg += $" (Items: ";
-                                    foreach (var item in inv.Items)
+                                    foreach (var slot in inv.Items)
                                     {
-                                        ID itemID = item.Item.ID;
-                                        msg += $"{itemID.Name}, ";
+                                        msg += $"{slot.Item.Name}, ";
                                     }
                                     msg += $")";
                                 }
@@ -187,18 +180,16 @@ namespace Sentience
                         msg += $"Location Characters:\n";
                         foreach (var chr in location.Characters.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
                         {
-                            ID id = chr.Get<ID>();
-                            msg += $"{id.Name}";
+                            msg += $"{chr.Name}";
                             if (chr.Has<Inventory>())
                             {
                                 Inventory inv = chr.Get<Inventory>();
                                 if (inv.Items.Count > 0)
                                 {
                                     msg += $" (Items: ";
-                                    foreach (var item in inv.Items)
+                                    foreach (var slot in inv.Items)
                                     {
-                                        ID itemID = item.Item.ID;
-                                        msg += $"{itemID.Name}, ";
+                                        msg += $"{slot.Item.Name}, ";
                                     }
                                     msg += $")";
                                 }

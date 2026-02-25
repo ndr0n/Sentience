@@ -13,12 +13,13 @@ namespace Sentience
         //     if (Data != null) Data.Init(null);
         // }
 
-        public void OnSpawn(EntityData data, EntityType type, Vector3 position)
+        public void OnSpawn(EntityData data, EntityType type, Vector3 worldPosition, Vector3 worldRotation)
         {
             Data = data;
             Type = type;
             name = data.Name;
-            transform.position = position;
+            transform.position = worldPosition;
+            transform.eulerAngles = worldRotation;
             foreach (var c in Data.Components) c.Component.OnSpawn(this);
         }
     }

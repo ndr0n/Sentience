@@ -19,7 +19,7 @@ namespace Sentience
         {
             ID id = Data.Get<ID>();
             string print = "";
-            print += $"{id.Name}\n";
+            print += $"{Data.Name}\n";
             if (!string.IsNullOrWhiteSpace(id.Description)) print += $"{id.Description}\n";
             return print;
         }

@@ -42,7 +42,7 @@ namespace Sentience
         public void InitIdentity(Identity identity)
         {
             ID id = identity.Data.Get<ID>();
-            Personality = $"Your character name is: {id.Name}.\n" +
+            Personality = $"Your character name is: {identity.Data.Name}.\n" +
                           $"Your character species is: {identity.Species.Name}\n" +
                           $"Your character description: {id.Description}.\n" +
                           $"Your character current location is: {identity.Location}.\n";
@@ -58,8 +58,7 @@ namespace Sentience
             {
                 if (!string.IsNullOrWhiteSpace(message))
                 {
-                    ID id = Data.Get<ID>();
-                    Debug.Log($"{origin} asked {id.Name}:\n{message}");
+                    Debug.Log($"{origin} asked {Data.Name}:\n{message}");
                     AddMessage(origin, message);
                     string response = null;
                     response = await SentienceManager.Instance.AskQuestionFromSentience(this, message, details, (r) => { onReply?.Invoke(r); });

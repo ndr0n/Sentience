@@ -16,7 +16,8 @@ namespace Sentience
     [System.Serializable]
     public class EntityData
     {
-        [HideInInspector] public string Name;
+        public string Name;
+        public EntityType Type;
 
         public List<EntityComponentData> Components;
 
@@ -28,15 +29,14 @@ namespace Sentience
         public EntityData(string name, string description, EntityType type, System.Random random)
         {
             Name = name;
+            Type = type;
             spawned = false;
             Components = new();
             // componentList = new();
 
             ID id = new()
             {
-                Name = name,
                 Description = description,
-                Type = type,
             };
             EntityComponentData idData = new(id);
             Components.Add(idData);

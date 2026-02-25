@@ -23,8 +23,7 @@ namespace Sentience
                 }
 
                 EntityData desiredItem = items[Random.Range(0, items.Count)];
-                ID id = desiredItem.Get<ID>();
-                Desire = id.Name;
+                Desire = desiredItem.Name;
             }
         }
     }

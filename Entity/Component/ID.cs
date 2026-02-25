@@ -9,13 +9,10 @@ namespace Sentience
     [System.Serializable]
     public class ID : EntityComponent
     {
-        public string Name;
-
         public string Description;
 
-        public EntityType Type;
-
         [SerializeField] Vector3 position;
+
         public Vector3 Position
         {
             get => position;
@@ -27,6 +24,7 @@ namespace Sentience
         }
 
         [SerializeField] Vector3 rotation;
+
         public Vector3 Rotation
         {
             get => rotation;

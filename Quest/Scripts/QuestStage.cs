@@ -27,10 +27,12 @@ namespace Sentience
                     ID entityID = d.Get<ID>();
                     entityNames.Add($"{d.Name}|{entityID.Description}");
                 }
+
                 string eTarget = await SentienceManager.Instance.RagManager.GetMostSimilar(entityNames, stage.Target);
                 eTarget = eTarget.Split('|')[0];
                 targetData = entities.FirstOrDefault(x => x.Name == eTarget);
             }
+
             if (targetData == null)
             {
                 targetData = entities[Random.Range(0, entities.Count)];
@@ -59,14 +61,14 @@ namespace Sentience
                                 break;
                             }
                         }
+
                         if (breakLoop) break;
                     }
                 }
             }
 
             Interaction interaction = null;
-            ID targetID = targetData.Get<ID>();
-            List<Interaction> eInteractions = targetID.Type.Interactions.Where(x => x.HasInteraction(targetData, player, itemOwner)).ToList();
+            List<Interaction> eInteractions = targetData.Type.Interactions.Where(x => x.HasInteraction(targetData, player, itemOwner)).ToList();
             if (!string.IsNullOrWhiteSpace(stage.Action))
             {
                 List<string> interactions = new();
@@ -75,10 +77,12 @@ namespace Sentience
                 eInteractionName = eInteractionName.Split('|')[0];
                 interaction = eInteractions.FirstOrDefault(x => x.Name == eInteractionName);
             }
+
             if (interaction == null)
             {
-                interaction = eInteractions[Random.Range(0, targetID.Type.Interactions.Count)];
+                interaction = eInteractions[Random.Range(0, targetData.Type.Interactions.Count)];
             }
+
             InteractionData = new(itemName, targetName, interaction);
         }
     }

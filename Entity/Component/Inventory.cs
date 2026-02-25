@@ -78,8 +78,7 @@ namespace Sentience
         {
             for (int i = 0; i < Items.Count; i++)
             {
-                ID id = Items[i].Item.ID;
-                if (id.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
+                if (Items[i].Item.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
                 {
                     Remove(Items[i], 1);
                     return true;
