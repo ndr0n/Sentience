@@ -35,8 +35,8 @@ namespace Sentience
         {
             base.OnInit(data, random);
             Messages.Clear();
-            Identity identity = Data.TryGet<Identity>();
-            if (identity != null) InitIdentity(identity);
+            // Identity identity = Data.TryGet<Identity>();
+            // if (identity != null) InitIdentity(identity);
         }
 
         public void InitIdentity(Identity identity)
@@ -52,26 +52,28 @@ namespace Sentience
             Personality += "You must always speak as your character.\n";
         }
 
-        public async Awaitable AskQuestion(string origin, string message, string details, Action<string> onReply, Action<string> onFinish)
+        public async Awaitable<string> AskQuestion(string origin, string message, string details, Action<string> onReply, Action<string> onFinish)
         {
+            string response = null;
+
             try
             {
                 if (!string.IsNullOrWhiteSpace(message))
                 {
                     Debug.Log($"{origin} asked {Data.Name}:\n{message}");
                     AddMessage(origin, message);
-                    string response = null;
                     response = await SentienceManager.Instance.AskQuestionFromSentience(this, message, details, (r) => { onReply?.Invoke(r); });
                     if (response != null) AddMessage("assistant", response);
                     // response = TrimName(response, Persona.PersonaData.ID.Name);
-                    onFinish?.Invoke(response);
                 }
-                else onFinish?.Invoke(message);
             }
             catch (Exception e)
             {
                 Debug.LogError(e);
             }
+
+            if (response != null) onFinish?.Invoke(response);
+            return response;
         }
 
         public void AddMessage(string role, string msg)

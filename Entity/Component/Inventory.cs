@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GenTools;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -117,6 +118,7 @@ namespace Sentience
         public int Size = 64;
         public Vector2Int Credits = new Vector2Int(0, 100);
         public List<EntityType> Items = new();
+        public List<GT.WeightedProbability<EntityType>> ItemOptions = new();
 
         public override IEntityComponent Spawn(Random random)
         {
@@ -124,11 +126,22 @@ namespace Sentience
             inventory.Size = Size;
             inventory.Credits = random.Next(Credits.x, Credits.y);
             inventory.Items = new();
+
             foreach (var itm in Items)
             {
                 EntityData itemData = new(itm.Name, itm.Description, itm, random);
                 Item item = itemData.Get<Item>();
                 inventory.Items.Add(new(item, 1));
+            }
+
+            foreach (var itm in ItemOptions)
+            {
+                if (random.Next(0, 100) < itm.Probability)
+                {
+                    EntityData itemData = new(itm.Value.Name, itm.Value.Description, itm.Value, random);
+                    Item item = itemData.Get<Item>();
+                    inventory.Items.Add(new(item, 1));
+                }
             }
 
             return inventory;

@@ -7,6 +7,16 @@ namespace Sentience
     public class Journal : EntityComponent
     {
         public List<Quest> Quests = new();
+
+        public bool HasQuest(QuestData questData)
+        {
+            foreach (var quest in Quests)
+            {
+                if (quest.Data == questData) return true;
+            }
+
+            return false;
+        }
     }
 
     [System.Serializable]

@@ -19,8 +19,6 @@ namespace Sentience
             ID id = Data.Get<ID>();
             Data.Name = character.Name;
             id.Description = character.Description;
-            // Data.SetData(id);
-
             Faction = faction;
             Location = character.Location;
 

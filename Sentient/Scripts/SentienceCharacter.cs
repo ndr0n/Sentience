@@ -38,20 +38,20 @@ namespace Sentience
             }
         }
 
-        public static async Awaitable<SentienceCharacter> GenerateSentienceCharacter(string locationDescription, string locationName)
+        public static async Awaitable<SentienceCharacter> GenerateSentienceCharacter(string characterVisualDescription, string locationName)
         {
             string answer;
-            string rules = "I will tell you the name and description of a location and you must respond with a character that exists within this location.\n" +
+            string rules = "I will tell you a short description and the name of the current location of a character exists and you must respond with the details of this character.\n" +
                            "You must only answer in the following JSON format:\n" +
                            "{\n" +
                            "\"name\": \"<the name of the character>\",\n" +
                            "\"species\": \"<the species of the character>\",\n" +
-                           "\"description\": \"<a description of the character>\",\n" +
+                           "\"description\": \"<a very short description of the character>\",\n" +
                            "\"inventory\": [\"<a JSON list of strings with the name of each individual item this character has.>\"]\n" +
                            "}";
             string msg = "";
-            if (!string.IsNullOrWhiteSpace(locationDescription)) msg += $"Location Name: {locationName}";
-            if (!string.IsNullOrWhiteSpace(locationDescription)) msg += $"Location Description: {locationDescription}";
+            if (!string.IsNullOrWhiteSpace(locationName)) msg += $"Character Location Name: {locationName}";
+            if (!string.IsNullOrWhiteSpace(characterVisualDescription)) msg += $"Character Description: {characterVisualDescription}";
             if (DungeonMaster.Instance.Cohere != null) answer = await CohereApi.Instance.AskQuestion(rules, msg, new List<CohereMessage>(), true);
             else answer = await DungeonMaster.Instance.AskQuestionToGenerator(rules, msg, null);
             Debug.Log($"Generated SentienceData!\n{answer}");
@@ -63,7 +63,7 @@ namespace Sentience
             catch (Exception e)
             {
                 Debug.Log(e);
-                return await GenerateSentienceCharacter(locationDescription, locationName);
+                return await GenerateSentienceCharacter(characterVisualDescription, locationName);
             }
         }
     }
