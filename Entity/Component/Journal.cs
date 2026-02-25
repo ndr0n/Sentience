@@ -6,7 +6,7 @@ namespace Sentience
     [System.Serializable]
     public class Journal : EntityComponent
     {
-        public List<Quest> Quests;
+        public List<Quest> Quests = new();
     }
 
     [System.Serializable]
