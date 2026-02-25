@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Sentience
 {
@@ -54,7 +56,84 @@ namespace Sentience
                 };
                 quest.Stages.Add(stage);
             }
+
             return quest;
+        }
+
+        public static async Awaitable<SentienceQuest> GenerateQuest(string areaName, string areaDescription, List<(string name, string description, List<EntityData> objects, List<EntityData> characters)> locations, string details)
+        {
+            try
+            {
+                string msg = $"The area of the quest is: {areaName}\n";
+                msg += $"The description of this area is: {areaDescription}\n";
+                msg += "The existing locations in this area are:\n";
+                foreach (var location in locations)
+                {
+                    msg += $"Location: {location.name} - {location.description}\n";
+
+                    if (location.objects.Count > 0)
+                    {
+                        msg += $"Location Objects:\n";
+                        foreach (var obj in location.objects)
+                        {
+                            msg += $"{obj.Name}";
+                            if (obj.Has<Inventory>())
+                            {
+                                Inventory inv = obj.Get<Inventory>();
+                                if (inv.Items.Count > 0)
+                                {
+                                    msg += $" (Items: ";
+                                    foreach (var item in inv.Items)
+                                    {
+                                        msg += $"{item.Item.Name}, ";
+                                    }
+
+                                    msg += $")";
+                                }
+                            }
+
+                            msg += "\n";
+                        }
+                    }
+
+                    if (location.characters.Count > 0)
+                    {
+                        msg += $"Location Characters:\n";
+                        foreach (var chr in location.characters.OrderBy(x => Random.Range(int.MinValue, int.MaxValue)))
+                        {
+                            msg += $"{chr.Name}";
+                            if (chr.Has<Inventory>())
+                            {
+                                Inventory inv = chr.Get<Inventory>();
+                                if (inv.Items.Count > 0)
+                                {
+                                    msg += $" (Items: ";
+                                    foreach (var slot in inv.Items)
+                                    {
+                                        msg += $"{slot.Item.Name}, ";
+                                    }
+
+                                    msg += $")";
+                                }
+                            }
+
+                            msg += "\n";
+                        }
+                    }
+                }
+
+                msg += details;
+
+                Debug.Log($"Generating quest data for: {areaName}");
+                SentienceQuestParser parser = await DungeonMaster.Instance.GenerateSentienceQuest(msg);
+                SentienceQuest quest = Parse(parser, areaName);
+                return quest;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+                return await GenerateQuest(areaName, areaDescription, locations, details);
+            }
         }
     }
 }

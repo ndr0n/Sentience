@@ -38,10 +38,10 @@ namespace Sentience
             }
         }
 
-        public static async Awaitable<SentienceCharacter> GenerateSentienceCharacter(string description, string location)
+        public static async Awaitable<SentienceCharacter> GenerateSentienceCharacter(string locationDescription, string locationName)
         {
             string answer;
-            string rules = "I will tell you the location and the description of a character and you must respond with a character that fits these parameters.\n" +
+            string rules = "I will tell you the name and description of a location and you must respond with a character that exists within this location.\n" +
                            "You must only answer in the following JSON format:\n" +
                            "{\n" +
                            "\"name\": \"<the name of the character>\",\n" +
@@ -50,20 +50,20 @@ namespace Sentience
                            "\"inventory\": [\"<a JSON list of strings with the name of each individual item this character has.>\"]\n" +
                            "}";
             string msg = "";
-            if (!string.IsNullOrWhiteSpace(description)) msg += $"Location: {location}";
-            if (!string.IsNullOrWhiteSpace(description)) msg += $"Description: {description}";
+            if (!string.IsNullOrWhiteSpace(locationDescription)) msg += $"Location Name: {locationName}";
+            if (!string.IsNullOrWhiteSpace(locationDescription)) msg += $"Location Description: {locationDescription}";
             if (DungeonMaster.Instance.Cohere != null) answer = await CohereApi.Instance.AskQuestion(rules, msg, new List<CohereMessage>(), true);
             else answer = await DungeonMaster.Instance.AskQuestionToGenerator(rules, msg, null);
             Debug.Log($"Generated SentienceData!\n{answer}");
             try
             {
                 SentienceCharacterParser parser = JsonConvert.DeserializeObject<SentienceCharacterParser>(answer);
-                return new(parser, location);
+                return new(parser, locationName);
             }
             catch (Exception e)
             {
                 Debug.Log(e);
-                return await GenerateSentienceCharacter(description, location);
+                return await GenerateSentienceCharacter(locationDescription, locationName);
             }
         }
     }

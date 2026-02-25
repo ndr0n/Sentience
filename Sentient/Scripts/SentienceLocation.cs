@@ -45,6 +45,7 @@ namespace Sentience
         public string description;
     }
 
+
     [System.Serializable]
     public static class SentienceLocation
     {
@@ -161,6 +162,105 @@ namespace Sentience
             {
                 Debug.LogError(e);
                 return await GenerateLocationFromArea(size, position, area, locationObjects);
+            }
+        }
+
+        [System.Serializable]
+        public struct SentienceLocationDataParser
+        {
+            public string Location;
+            public string[] items;
+            public SentienceCharacterParser[] characters;
+        }
+
+        [System.Serializable]
+        public class LocationData
+        {
+            public string Location = "";
+            public List<EntityData> Items = new();
+            public List<EntityData> Characters = new();
+        }
+
+
+        public static async Awaitable<LocationData> GenerateLocationData(string locationName, string locationDescription, Faction faction)
+        {
+            string answer;
+            string rules = "I will tell you the name and description of a location and you must respond with the items and characters that exist within this location.\n" +
+                           "You must only answer in the following JSON format:\n" +
+                           "{\n" +
+                           "\"items\": [\"<a JSON list of strings with the name of each individual item that is present in this location.>\"],\n" +
+                           "\"characters\": [\"<\n" +
+                           $"a JSON list containing characters from the controlling faction that exist in this location.\n" +
+                           "Each individual character on this field (list) must have the following JSON format:" +
+                           "{\n" +
+                           "\"name\": \"<the name of the character>\",\n" +
+                           "\"species\": \"<the species of the character>\",\n" +
+                           "\"description\": \"<the description of the character>\" \n" +
+                           "\"inventory\": [\"<a JSON list of strings with the name of each individual item that this character is carrying.>\"]\n" +
+                           "}";
+
+            string msg = $"Location Name: {locationName}";
+            if (!string.IsNullOrWhiteSpace(locationDescription)) msg += $"\nLocation Description: {locationDescription}";
+
+            if (DungeonMaster.Instance.Cohere != null) answer = await CohereApi.Instance.AskQuestion(rules, locationName, new List<CohereMessage>(), true);
+            else answer = await DungeonMaster.Instance.AskQuestionToGenerator(rules, msg, null);
+            Debug.Log($"Generated Location!\n{answer}");
+            try
+            {
+                SentienceLocationDataParser parser = JsonConvert.DeserializeObject<SentienceLocationDataParser>(answer);
+                parser.Location = locationName;
+                LocationData locData = await GenerateLocationData(parser, faction);
+                return locData;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+                return await GenerateLocationData(locationName, locationDescription, faction);
+            }
+        }
+
+        public static async Awaitable<LocationData> GenerateLocationData(SentienceLocationDataParser parser, Faction faction)
+        {
+            try
+            {
+                System.Random random = new(Random.Range(int.MinValue, int.MaxValue));
+
+                List<string> identityOptions = new();
+                foreach (var type in faction.FactionEntity) identityOptions.Add($"{type.name}|{type.Description}");
+
+                LocationData locationData = new();
+                locationData.Location = parser.Location;
+
+                if (parser.characters != null)
+                {
+                    locationData.Characters = new();
+                    foreach (var character in parser.characters)
+                    {
+                        string similar = await SentienceManager.Instance.RagManager.GetMostSimilar(identityOptions, $"{character.species} | {character.name} | {character.description}");
+                        similar = similar.Split('|')[0];
+                        EntityType spawnType = faction.FactionEntity.FirstOrDefault(x => x.name == similar);
+                        SentienceCharacter sc = new(character, parser.Location);
+                        EntityData characterData = new(sc.Name, sc.Description, spawnType, random);
+                        Identity identity = characterData.Get<Identity>();
+                        await identity.LoadSentienceCharacter(sc, faction, random);
+                        locationData.Characters.Add(characterData);
+                    }
+                }
+
+
+                foreach (var item in parser.items)
+                {
+                    EntityData itemData = new(item, $"Found in {parser.Location}.", await SentienceManager.Instance.RagManager.GetMostSimilarItem(SentienceManager.Instance.ItemDatabase, item), random);
+                    locationData.Items.Add(itemData);
+                }
+
+                Debug.Log($"Location Generated! {locationData.Location}");
+                return locationData;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+                return null;
             }
         }
     }
