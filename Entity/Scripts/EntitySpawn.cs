@@ -18,9 +18,11 @@ namespace Sentience
             Data = data;
             Type = type;
             name = data.Name;
+            Spawn spawn = data.Get<Spawn>();
+            spawn.Spawned = this;
+            spawn.SpawnPoint = worldPosition;
             data.ID.Position = worldPosition;
             data.ID.Rotation = worldRotation;
-            data.Get<Spawn>().SpawnPoint = worldPosition;
             transform.position = worldPosition;
             transform.eulerAngles = worldRotation;
             foreach (var c in Data.Components) c.Component.OnSpawn(this);
