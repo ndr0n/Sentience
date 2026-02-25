@@ -7,7 +7,7 @@ namespace Sentience
     public class QuestData
     {
         public string Name;
-        public string Source;
+        // public string Source;
         public string Location;
         public List<QuestStage> Stages = new();
 
