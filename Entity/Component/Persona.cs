@@ -14,7 +14,6 @@ namespace Sentience
     {
         public string Description = "";
         public string Desire;
-        public QuestData DesireQuest;
         Sentient sentient;
         Identity identity;
 
@@ -66,38 +65,18 @@ namespace Sentience
         {
             if (string.IsNullOrWhiteSpace(Desire))
             {
-                List<(EntityData owner, EntityData item)> items = new();
+                List<EntityData> items = new();
                 foreach (var entity in entities)
                 {
                     if (entity == Data) continue;
                     if (entity.Has<Inventory>())
                     {
                         Inventory inv = entity.Get<Inventory>();
-                        foreach (var slot in inv.Items) items.Add((entity, slot.Item));
+                        foreach (var slot in inv.Items) items.Add(slot.Item);
                     }
                 }
 
-                (EntityData owner, EntityData item) desire = items[Random.Range(0, items.Count)];
-                Desire = desire.item.Name;
-
-                DesireQuest = new();
-                DesireQuest.Name = $"{Data.Name}'s desire";
-                DesireQuest.Location = identity.Location;
-                DesireQuest.Stages = new();
-                QuestStage retrieveStage = new()
-                {
-                    Description = $"{Data.Name} desires {desire.item.Name}",
-                    Objective = $"Retrieve {desire.item.Name}",
-                    InteractionData = new InteractionData(desire.item.Name, null, Persistent.Instance.Data.RetrieveInteraction)
-                };
-                DesireQuest.Stages.Add(retrieveStage);
-                QuestStage giveStage = new()
-                {
-                    Description = $"{Data.Name} desires {desire.item.Name}",
-                    Objective = $"Give {desire.item.Name} to {Data.Name}",
-                    InteractionData = new InteractionData(desire.item.Name, Data.Name, Persistent.Instance.Data.RetrieveInteraction)
-                };
-                DesireQuest.Stages.Add(giveStage);
+                if (items.Count > 0) Desire = items[Random.Range(0, items.Count)].Name;
             }
         }
     }
