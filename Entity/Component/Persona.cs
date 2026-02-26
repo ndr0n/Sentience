@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using bitLoner;
 using UnityEngine;
+using Avatar = bitLoner.Avatar;
 using Random = UnityEngine.Random;
 
 namespace Sentience
@@ -28,6 +29,28 @@ namespace Sentience
         {
             try
             {
+                Avatar avatar = Data.Get<Avatar>();
+                if (avatar != null)
+                {
+                    bool hasClothing = false;
+                    foreach (var slot in avatar.Slot)
+                    {
+                        if (slot != null)
+                        {
+                            if (hasClothing == false)
+                            {
+                                Description = ".\nYou are wearing ";
+                                hasClothing = true;
+                            }
+                            else Description += ", ";
+
+                            Description += slot.Description;
+                        }
+                    }
+
+                    if (hasClothing) Description += ".";
+                }
+
                 SentienceCharacter character = await SentienceCharacter.GenerateSentienceCharacter(Description, identity.Location);
                 await identity.LoadSentienceCharacter(character, identity.Faction, new System.Random(Random.Range(int.MinValue, int.MaxValue)));
                 sentient.InitIdentity(identity);
