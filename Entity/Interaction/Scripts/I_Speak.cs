@@ -26,8 +26,10 @@ namespace MindTheatre
 
             if (identity.Data.Has<Journal>())
             {
-                UI.Instance.Hud.DialogPanel.Show(true, speaker);
-                speaker.StartSpeakingWith(identity);
+                if (UI.Instance.Hud.DialogPanel.Show(true, speaker))
+                {
+                    speaker.StartSpeakingWith(identity);
+                }
             }
 
             return true;

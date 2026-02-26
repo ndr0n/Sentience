@@ -97,12 +97,6 @@ namespace Sentience
             // return componentList[typeof(T).GetHashCode()] as T;
         }
 
-        public T TryGet<T>() where T : EntityComponent
-        {
-            if (Has<T>()) return Get<T>();
-            return null;
-        }
-
         void AddComponent(EntityAuthoring authoring, System.Random random)
         {
             IEntityComponent component = authoring.Spawn(random);
