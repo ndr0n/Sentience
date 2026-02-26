@@ -41,7 +41,7 @@ namespace Sentience
         public static async Awaitable<SentienceCharacter> GenerateSentienceCharacter(string characterVisualDescription, string locationName)
         {
             string answer;
-            string rules = "I will tell you a short description and the name of the current location of a character exists and you must respond with the details of this character.\n" +
+            string rules = "I will tell you a short description and the name of the current location of a character and you must respond with the details of this character.\n" +
                            "You must only answer in the following JSON format:\n" +
                            "{\n" +
                            "\"name\": \"<the name of the character>\",\n" +
