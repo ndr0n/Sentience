@@ -62,14 +62,14 @@ namespace Sentience
                 DesireQuest.Stages = new();
                 QuestStage retrieveStage = new()
                 {
-                    Description = $"{Data.Name} desires {desire.item.Name} from {desire.owner.Name}",
-                    Objective = $"Find {desire.item.Name}",
-                    InteractionData = new InteractionData(desire.item.Name, desire.owner.Name, Persistent.Instance.Data.RetrieveInteraction)
+                    Description = $"{Data.Name} desires {desire.item.Name}",
+                    Objective = $"Retrieve {desire.item.Name}",
+                    InteractionData = new InteractionData(desire.item.Name, null, Persistent.Instance.Data.RetrieveInteraction)
                 };
                 DesireQuest.Stages.Add(retrieveStage);
                 QuestStage giveStage = new()
                 {
-                    Description = $"{Data.Name} desires {desire.item.Name} from {desire.owner.Name}",
+                    Description = $"{Data.Name} desires {desire.item.Name}",
                     Objective = $"Give {desire.item.Name} to {Data.Name}",
                     InteractionData = new InteractionData(desire.item.Name, Data.Name, Persistent.Instance.Data.RetrieveInteraction)
                 };

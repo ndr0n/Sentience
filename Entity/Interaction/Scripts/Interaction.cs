@@ -23,6 +23,7 @@ namespace Sentience
                 CheckForQuestInteraction(self, interactor, target);
                 return true;
             }
+
             return false;
         }
 
@@ -43,7 +44,7 @@ namespace Sentience
                         {
                             if (stage.InteractionData.Item == self.Name)
                             {
-                                if (stage.InteractionData.Target == target.Name)
+                                if (stage.InteractionData.Target == target.Name || string.IsNullOrWhiteSpace(stage.InteractionData.Target))
                                 {
                                     q.Stage += 1;
                                     if (q.Stage >= q.Data.Stages.Count) toRemove.Add(q);
@@ -61,6 +62,7 @@ namespace Sentience
                         }
                     }
                 }
+
                 foreach (var q in toRemove) journal.Quests.Remove(q);
             }
         }
