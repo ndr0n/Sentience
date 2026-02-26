@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using LLMUnity;
 using Newtonsoft.Json;
@@ -64,7 +65,7 @@ namespace Sentience
 
         #region Generator
 
-        async Awaitable InitPrompt()
+        async Task InitPrompt()
         {
             Generator.systemPrompt = "";
             Generator.SetGrammar(jsonGrammarString);
@@ -72,9 +73,9 @@ namespace Sentience
             await Generator.Warmup(systemPrompt);
         }
 
-        public async Awaitable<string> AskQuestionToGenerator(string rules, string message, Action<string> onReply)
+        public async Task<string> AskQuestionToGenerator(string rules, string message, Action<string> onReply)
         {
-            while (awaitingResponse) await Awaitable.WaitForSecondsAsync(1f);
+            while (awaitingResponse) await Task.Delay(1000);
 
             Debug.Log($"DM - Question: \n{rules}\n{message}");
 
@@ -90,7 +91,7 @@ namespace Sentience
             return response;
         }
 
-        public async Awaitable<SentienceQuestParser> GenerateSentienceQuest(string details)
+        public async Task<SentienceQuestParser> GenerateSentienceQuest(string details)
         {
             SentienceQuestParser parser;
             try
@@ -127,7 +128,7 @@ namespace Sentience
             return parser;
         }
 
-        public async Awaitable<Sprite> GenerateSprite(Sprite example, string description)
+        public async Task<Sprite> GenerateSprite(Sprite example, string description)
         {
             try
             {

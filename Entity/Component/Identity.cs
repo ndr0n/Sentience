@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using MindTheatre;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace Sentience
         public Faction Faction;
         public string Location;
 
-        public async Awaitable LoadSentienceCharacter(SentienceCharacter character, Faction faction, Random random)
+        public async Task LoadSentienceCharacter(SentienceCharacter character, Faction faction, Random random)
         {
             ID id = Data.Get<ID>();
             Data.Name = character.Name;

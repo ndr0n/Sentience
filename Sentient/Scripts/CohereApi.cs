@@ -37,7 +37,7 @@ namespace Sentience
         {
 #if UNITY_EDITOR
             Rules = Rules.Replace("\n", "");
-            httpClient = new() {BaseAddress = new Uri(URL)};
+            httpClient = new() { BaseAddress = new Uri(URL) };
             httpClient.DefaultRequestHeaders.Add("accept", "application/json");
             SetApiKey(ChatApiKey[CurrentChatApiKey].key);
 #endif
@@ -51,7 +51,7 @@ namespace Sentience
 #endif
         }
 
-        public async Awaitable<string> AskQuestion(string personality, string message, List<CohereMessage> previousMessages = null, bool debug = true)
+        public async Task<string> AskQuestion(string personality, string message, List<CohereMessage> previousMessages = null, bool debug = true)
         {
             if (debug) Debug.Log($"Cohere> Question:\n {message}");
             string response = await AskQuestionRequest(personality, message, previousMessages);
@@ -59,14 +59,14 @@ namespace Sentience
             return response;
         }
 
-        async Awaitable<string> AskQuestionRequest(string personality, string message, List<CohereMessage> previousMessages = null, bool debug = false)
+        async Task<string> AskQuestionRequest(string personality, string message, List<CohereMessage> previousMessages = null, bool debug = false)
         {
 #if UNITY_EDITOR
             string extraRules = $"";
             CohereRequest request = new()
             {
                 message = message,
-                chat_history = new() {new CohereMessage() {role = CohereMessageRole.System, message = $"You are in {DungeonMaster.Instance.World}\n{personality}\n{extraRules}\n{Rules}"}},
+                chat_history = new() { new CohereMessage() { role = CohereMessageRole.System, message = $"You are in {DungeonMaster.Instance.World}\n{personality}\n{extraRules}\n{Rules}" } },
             };
             if (previousMessages != null)
             {
@@ -75,6 +75,7 @@ namespace Sentience
                     request.chat_history.Add(previousMessage);
                 }
             }
+
             string postData = JsonUtility.ToJson(request);
             if (debug) Debug.Log(postData);
             using StringContent jsonData = new(postData, Encoding.UTF8, "application/json");
@@ -87,14 +88,15 @@ namespace Sentience
             }
             else
             {
-                Debug.Log($"{(int) response.StatusCode} - {response.ReasonPhrase}");
+                Debug.Log($"{(int)response.StatusCode} - {response.ReasonPhrase}");
                 if (response.StatusCode == HttpStatusCode.TooManyRequests)
                 {
                     CurrentChatApiKey = ((CurrentChatApiKey + 1) % ChatApiKey.Count);
                     SetApiKey(ChatApiKey[CurrentChatApiKey].key);
-                    await Awaitable.WaitForSecondsAsync(1);
+                    await Task.Delay(1000);
                     return await AskQuestionRequest(personality, message, previousMessages);
                 }
+
                 return null;
             }
 #endif

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using MindTheatre;
 using Newtonsoft.Json;
 using UnityEditor;
@@ -49,7 +50,7 @@ namespace Sentience
     [System.Serializable]
     public static class SentienceLocation
     {
-        public static async Awaitable<Location> Generate(SentienceLocationParser parser, Vector3 size, Vector3 position, List<EntityData> locationObjects)
+        public static async Task<Location> Generate(SentienceLocationParser parser, Vector3 size, Vector3 position, List<EntityData> locationObjects)
         {
             try
             {
@@ -129,7 +130,7 @@ namespace Sentience
             }
         }
 
-        public static async Awaitable<Location> GenerateLocationFromArea(Vector3 size, Vector3 position, string area, List<EntityData> locationObjects)
+        public static async Task<Location> GenerateLocationFromArea(Vector3 size, Vector3 position, string area, List<EntityData> locationObjects)
         {
             string answer;
             string rules = "I will tell you the area and description of a location and you must respond with a location that exists within this area.\n" +
@@ -182,7 +183,7 @@ namespace Sentience
         }
 
 
-        public static async Awaitable<LocationData> GenerateLocationData(string locationName, string locationDescription, Faction faction)
+        public static async Task<LocationData> GenerateLocationData(string locationName, string locationDescription, Faction faction)
         {
             string answer;
             string rules = "I will tell you the name and description of a location and you must respond with the items and characters that exist within this location.\n" +
@@ -219,7 +220,7 @@ namespace Sentience
             }
         }
 
-        public static async Awaitable<LocationData> GenerateLocationData(SentienceLocationDataParser parser, Faction faction)
+        public static async Task<LocationData> GenerateLocationData(SentienceLocationDataParser parser, Faction faction)
         {
             try
             {

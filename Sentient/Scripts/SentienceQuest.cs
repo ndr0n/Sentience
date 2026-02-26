@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -60,7 +61,7 @@ namespace Sentience
             return quest;
         }
 
-        public static async Awaitable<SentienceQuest> GenerateQuest(string areaName, string areaDescription, List<(string name, string description, List<EntityData> objects, List<EntityData> characters)> locations, string details)
+        public static async Task<SentienceQuest> GenerateQuest(string areaName, string areaDescription, List<(string name, string description, List<EntityData> objects, List<EntityData> characters)> locations, string details)
         {
             try
             {

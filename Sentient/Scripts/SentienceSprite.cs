@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,7 +17,7 @@ namespace Sentience
         public string Description;
         public Sprite Generated;
 
-        public async Awaitable TryGenerate()
+        public async Task TryGenerate()
         {
             Debug.Log($"TRY GENERATE SPRITE!");
             Generated = await DungeonMaster.Instance.GenerateSprite(Example, Description);

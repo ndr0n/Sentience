@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Sentience
@@ -11,7 +12,7 @@ namespace Sentience
         public string Location;
         public List<QuestStage> Stages = new();
 
-        public async Awaitable InitFromSentienceQuest(SentienceQuest sentienceQuest, EntityData player, List<EntityData> entities)
+        public async Task InitFromSentienceQuest(SentienceQuest sentienceQuest, EntityData player, List<EntityData> entities)
         {
             Name = sentienceQuest.Name;
             // Source = sentienceQuest.Source;

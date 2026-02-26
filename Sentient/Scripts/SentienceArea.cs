@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -21,7 +22,7 @@ namespace Sentience
             return sentienceArea;
         }
 
-        public static async Awaitable GenerateSentienceAreaLocations(Area area, List<SentienceLocationDetails> locationDetails)
+        public static async Task GenerateSentienceAreaLocations(Area area, List<SentienceLocationDetails> locationDetails)
         {
             foreach (var detail in locationDetails)
             {
@@ -32,7 +33,7 @@ namespace Sentience
             }
         }
 
-        public static async Awaitable<Location> GenerateAreaLocation(Area area, Vector3 size, Vector3 position, string description, List<EntityData> locationObjects)
+        public static async Task<Location> GenerateAreaLocation(Area area, Vector3 size, Vector3 position, string description, List<EntityData> locationObjects)
         {
             Location location = await GenerateLocationData(area, size, position, description, locationObjects);
             if (location == null) location = await GenerateAreaLocation(area, size, position, description, locationObjects);
@@ -41,7 +42,7 @@ namespace Sentience
             return location;
         }
 
-        public static async Awaitable<Location> GenerateLocationData(Area area, Vector3 size, Vector3 position, string details, List<EntityData> locationObjects)
+        public static async Task<Location> GenerateLocationData(Area area, Vector3 size, Vector3 position, string details, List<EntityData> locationObjects)
         {
             string exeption = "";
             if (area.Location.Count > 0)
@@ -72,7 +73,7 @@ namespace Sentience
             return location;
         }
 
-        public static async Awaitable<SentienceQuest> GenerateAreaQuest(Area area, string details)
+        public static async Task<SentienceQuest> GenerateAreaQuest(Area area, string details)
         {
             try
             {
@@ -144,7 +145,7 @@ namespace Sentience
             return new();
         }
 
-        public static async Awaitable<SentienceQuest> GenerateRandomLocationQuest(Area area, string details)
+        public static async Task<SentienceQuest> GenerateRandomLocationQuest(Area area, string details)
         {
             try
             {

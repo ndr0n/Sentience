@@ -16,7 +16,7 @@ namespace Sentience
         public static RagManager Instance;
         public RAG Rag;
         public RAG RagSingle;
-        Awaitable loadingRag = null;
+        Task loadingRag = null;
 
         void Awake()
         {
@@ -33,7 +33,7 @@ namespace Sentience
             loadingRag = CreateEmbeddings(itemDatabase, factionDatabase, speciesDatabase);
         }
 
-        public async Awaitable CreateEmbeddings(ItemDatabase itemDatabase, FactionDatabase factionDatabase, SpeciesDatabase speciesDatabase)
+        public async Task CreateEmbeddings(ItemDatabase itemDatabase, FactionDatabase factionDatabase, SpeciesDatabase speciesDatabase)
         {
             if (!SentienceManager.Instance.RAGEnabled) return;
             foreach (var item in itemDatabase.Items) await Rag.Add($"{item.Name}|{item.GetType().ToString().Split(".")[^1]}", "Item");
@@ -42,7 +42,7 @@ namespace Sentience
             loadingRag = null;
         }
 
-        public async Awaitable<EntityType> GetMostSimilarItem(ItemDatabase itemDatabase, string itemDescription)
+        public async Task<EntityType> GetMostSimilarItem(ItemDatabase itemDatabase, string itemDescription)
         {
             if (!SentienceManager.Instance.RAGEnabled)
             {
@@ -55,7 +55,7 @@ namespace Sentience
             return itemDatabase.GetItem(itemName);
         }
 
-        public async Awaitable<Faction> GetMostSimilarFaction(FactionDatabase factionDatabase, string factionDescription)
+        public async Task<Faction> GetMostSimilarFaction(FactionDatabase factionDatabase, string factionDescription)
         {
             if (!SentienceManager.Instance.RAGEnabled)
             {
@@ -68,7 +68,7 @@ namespace Sentience
             return factionDatabase.GetFaction(factionName);
         }
 
-        public async Awaitable<Species> GetMostSimilarSpecies(SpeciesDatabase speciesDatabase, string speciesDescription)
+        public async Task<Species> GetMostSimilarSpecies(SpeciesDatabase speciesDatabase, string speciesDescription)
         {
             if (!SentienceManager.Instance.RAGEnabled)
             {
@@ -81,7 +81,7 @@ namespace Sentience
             return speciesDatabase.GetFaction(factionName);
         }
 
-        public async Awaitable<string> GetMostSimilar(List<string> options, string description)
+        public async Task<string> GetMostSimilar(List<string> options, string description)
         {
             if (!SentienceManager.Instance.RAGEnabled)
             {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -14,7 +15,7 @@ namespace Sentience
         public string Description;
         public InteractionData InteractionData;
 
-        public async Awaitable InitFromSentienceQuestStage(SentienceQuestStage stage, EntityData player, List<EntityData> entities)
+        public async Task InitFromSentienceQuestStage(SentienceQuestStage stage, EntityData player, List<EntityData> entities)
         {
             Objective = stage.Objective;
             Description = stage.Description;

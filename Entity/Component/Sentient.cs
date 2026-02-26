@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using LLMUnity;
 using MindTheatre;
 using Sentience;
@@ -52,7 +53,7 @@ namespace Sentience
             Personality += "You must always speak as your character.\n";
         }
 
-        public async Awaitable<string> AskQuestion(string origin, string message, string details, Action<string> onReply, Action<string> onFinish)
+        public async Task<string> AskQuestion(string origin, string message, string details, Action<string> onReply, Action<string> onFinish)
         {
             string response = null;
 

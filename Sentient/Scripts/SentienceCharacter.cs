@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -38,7 +39,7 @@ namespace Sentience
             }
         }
 
-        public static async Awaitable<SentienceCharacter> GenerateSentienceCharacter(string characterVisualDescription, string locationName)
+        public static async Task<SentienceCharacter> GenerateSentienceCharacter(string characterVisualDescription, string locationName)
         {
             string answer;
             string rules = "I will tell you a visual description of a character and the name of the location where they are and you must generate the details of this character.\n" +

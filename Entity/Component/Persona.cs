@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using bitLoner;
 using UnityEngine;
 using Avatar = bitLoner.Avatar;
@@ -25,7 +26,7 @@ namespace Sentience
             if (identity != null && sentient != null && string.IsNullOrWhiteSpace(sentient.Personality)) _ = GeneratePersona();
         }
 
-        public async Awaitable GeneratePersona()
+        public async Task GeneratePersona()
         {
             try
             {

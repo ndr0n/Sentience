@@ -68,7 +68,7 @@ namespace Sentience
             "You must only write the speech of your own character.\n" +
             "You must never say that you are an AI chatbot.\n";
 
-        public async Awaitable InitCharacter()
+        public async Task InitCharacter()
         {
             if (!LLMEnabled) return;
             awaitingResponse = true;
@@ -83,10 +83,10 @@ namespace Sentience
 
         bool awaitingResponse = false;
 
-        public async Awaitable<string> AskQuestionFromSentience(Sentient sentient, string message, string details, Action<string> onReply)
+        public async Task<string> AskQuestionFromSentience(Sentient sentient, string message, string details, Action<string> onReply)
         {
             if (!LLMEnabled) return "Sentience is disabled.";
-            while (awaitingResponse) await Awaitable.WaitForSecondsAsync(0.25f);
+            while (awaitingResponse) await Task.Delay(250);
             awaitingResponse = true;
             Character.seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
             Character.systemPrompt = $"{characterRules}\n{sentient.Personality}\n{details}";
@@ -102,10 +102,10 @@ namespace Sentience
             return response;
         }
 
-        public async Awaitable<string> AskQuestionCharacterSingle(string personality, string message, Action<string> onReply)
+        public async Task<string> AskQuestionCharacterSingle(string personality, string message, Action<string> onReply)
         {
             if (!LLMEnabled) return "Sentience is disabled.";
-            while (awaitingResponse) await Awaitable.WaitForSecondsAsync(0.25f);
+            while (awaitingResponse) await Task.Delay(250);
             awaitingResponse = true;
             Character.seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
             Character.systemPrompt = $"{characterRules}\n{personality}";
