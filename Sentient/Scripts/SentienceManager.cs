@@ -51,7 +51,7 @@ namespace Sentience
                 LLM.StopAllCoroutines();
                 Destroy(LLM.gameObject);
             }
-        
+
             if (RAG != null)
             {
                 RAG.StopAllCoroutines();
