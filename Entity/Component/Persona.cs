@@ -39,7 +39,7 @@ namespace Sentience
                         {
                             if (hasClothing == false)
                             {
-                                Description = ".\nYou are wearing ";
+                                Description += ".\nThey are wearing ";
                                 hasClothing = true;
                             }
                             else Description += ", ";

@@ -48,7 +48,7 @@ namespace Sentience
                            "\"name\": \"<the name of the character>\",\n" +
                            "\"species\": \"<the species of the character>\",\n" +
                            "\"description\": \"<a very short description of the character>\",\n" +
-                           "\"inventory\": [\"<a JSON list of strings with the name of each individual item this character has.>\"]\n" +
+                           "\"inventory\": [\"<a JSON list of strings where each string is the name of each individual item this character has with them.>\"]\n" +
                            "}";
             string msg = "";
             if (!string.IsNullOrWhiteSpace(locationName)) msg += $"Character Location Name: {locationName}";
