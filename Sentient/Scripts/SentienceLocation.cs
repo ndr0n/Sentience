@@ -72,7 +72,7 @@ namespace Sentience
                     location.Characters = new();
                     foreach (var character in parser.characters)
                     {
-                        string similar = await SentienceManager.Instance.RagManager.GetMostSimilar(identityOptions, $"{character.species} | {character.name} | {character.description}");
+                        string similar = await SentienceManager.Instance.RagManager.GetMostSimilar(identityOptions, $"{character.name} | {character.description}");
                         similar = similar.Split('|')[0];
                         EntityType spawnType = location.Faction.FactionEntity.FirstOrDefault(x => x.name == similar);
 
@@ -145,7 +145,6 @@ namespace Sentience
                            "Each individual character on this field (list) must have the following JSON format:" +
                            "{\n" +
                            "\"name\": \"<the name of the character>\",\n" +
-                           "\"species\": \"<the species of the character>\",\n" +
                            "\"description\": \"<the description of the character>\" \n" +
                            "\"inventory\": [\"<a JSON list of strings with the name of each individual item that this character is carrying.>\"]\n" +
                            "}";
@@ -195,7 +194,6 @@ namespace Sentience
                            "Each individual character on this field (list) must have the following JSON format:" +
                            "{\n" +
                            "\"name\": \"<the name of the character>\",\n" +
-                           "\"species\": \"<the species of the character>\",\n" +
                            "\"description\": \"<the description of the character>\" \n" +
                            "\"inventory\": [\"<a JSON list of strings with the name of each individual item that this character is carrying.>\"]\n" +
                            "}";
@@ -237,7 +235,7 @@ namespace Sentience
                     locationData.Characters = new();
                     foreach (var character in parser.characters)
                     {
-                        string similar = await SentienceManager.Instance.RagManager.GetMostSimilar(identityOptions, $"{character.species} | {character.name} | {character.description}");
+                        string similar = await SentienceManager.Instance.RagManager.GetMostSimilar(identityOptions, $"{character.name} | {character.description}");
                         similar = similar.Split('|')[0];
                         EntityType spawnType = faction.FactionEntity.FirstOrDefault(x => x.name == similar);
                         SentienceCharacter sc = new(character, parser.Location);

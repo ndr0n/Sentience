@@ -12,7 +12,6 @@ namespace Sentience
     public struct SentienceCharacterParser
     {
         public string name;
-        public string species;
         public string description;
         public string[] inventory;
     }
@@ -21,7 +20,6 @@ namespace Sentience
     public class SentienceCharacter
     {
         public string Name;
-        public string Species;
         public string Description;
         public string Location;
         public List<string> Inventory = new();
@@ -29,7 +27,6 @@ namespace Sentience
         public SentienceCharacter(SentienceCharacterParser parser, string location)
         {
             Name = parser.name?.Trim();
-            Species = parser.species?.Trim();
             Description = parser.description?.Trim();
             Location = location?.Trim();
             Inventory = new();
@@ -46,7 +43,6 @@ namespace Sentience
                            "You must only answer in the following JSON format:\n" +
                            "{\n" +
                            "\"name\": \"<the name of the character>\",\n" +
-                           "\"species\": \"<the species of the character>\",\n" +
                            "\"description\": \"<a very short description of the character>\",\n" +
                            "\"inventory\": [\"<a JSON list of strings where each string is the name of each individual item this character has with them.>\"]\n" +
                            "}";
