@@ -560,7 +560,7 @@ MonoBehaviour:
   _reasoning: 0
   _lora: 
   _loraWeights: 
-  dontDestroyOnLoad: 0
+  dontDestroyOnLoad: 1
   _embeddingsOnly: 0
   _embeddingLength: 3072
   minContextLength: 0
@@ -625,7 +625,7 @@ MonoBehaviour:
   _reasoning: 0
   _lora: 
   _loraWeights: 
-  dontDestroyOnLoad: 0
+  dontDestroyOnLoad: 1
   _embeddingsOnly: 1
   _embeddingLength: 384
   minContextLength: 0
