@@ -71,6 +71,9 @@ MonoBehaviour:
   ignoreEos: 0
   save: 
   debugPrompt: 0
+  overflowStrategy: 1
+  overflowTargetRatio: 0.5
+  overflowSummarizePrompt: 
   _slot: -1
   _systemPrompt: 
 --- !u!1 &2048031720985313720
@@ -147,7 +150,7 @@ MonoBehaviour:
   numPredict: -1
   cachePrompt: 0
   seed: 0
-  temperature: 0.2
+  temperature: 2
   topK: 40
   topP: 0.9
   minP: 0.05
@@ -261,7 +264,7 @@ MonoBehaviour:
   numPredict: -1
   cachePrompt: 0
   seed: 0
-  temperature: 0.2
+  temperature: 2
   topK: 40
   topP: 0.9
   minP: 0.05
@@ -498,6 +501,9 @@ MonoBehaviour:
   ignoreEos: 0
   save: 
   debugPrompt: 0
+  overflowStrategy: 1
+  overflowTargetRatio: 0.5
+  overflowSummarizePrompt: 
   _slot: -1
   _systemPrompt: 
 --- !u!1 &6194195678766598641
@@ -551,8 +557,8 @@ MonoBehaviour:
   _SSLCert: 
   _SSLKey: 
   _numThreads: -1
-  _numGPULayers: 0
-  _parallelPrompts: -1
+  _numGPULayers: 32
+  _parallelPrompts: 1
   _contextSize: 8192
   _batchSize: 512
   _model: llama-3.2-3b-instruct-q4_k_m.gguf
@@ -560,7 +566,7 @@ MonoBehaviour:
   _reasoning: 0
   _lora: 
   _loraWeights: 
-  dontDestroyOnLoad: 1
+  dontDestroyOnLoad: 0
   _embeddingsOnly: 0
   _embeddingLength: 3072
   minContextLength: 0
@@ -617,7 +623,7 @@ MonoBehaviour:
   _SSLKey: 
   _numThreads: -1
   _numGPULayers: 0
-  _parallelPrompts: -1
+  _parallelPrompts: 1
   _contextSize: 512
   _batchSize: 512
   _model: all-MiniLM-L12-v2.Q4_K_M.gguf
@@ -625,7 +631,7 @@ MonoBehaviour:
   _reasoning: 0
   _lora: 
   _loraWeights: 
-  dontDestroyOnLoad: 1
+  dontDestroyOnLoad: 0
   _embeddingsOnly: 1
   _embeddingLength: 384
   minContextLength: 0
