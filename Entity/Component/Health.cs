@@ -32,7 +32,7 @@ namespace Sentience
         public Action<float, EntityData> OnTakeDamage;
         public Action<EntityData, EntityData> OnHealthDepleted;
 
-        public float TakeDamage(float dmg, EntityData attacker)
+        public float TakeDamage(float dmg, UnityEngine.Vector3 position, EntityData attacker, bool isMelee = false)
         {
             // Debug.Log($"{Data.Name} took {dmg} damage!");
             if (dmg <= 0) return dmg;
