@@ -36,6 +36,7 @@ namespace Sentience
             {
                 if (locked != value)
                 {
+                    Open = value;
                     locked = value;
                     OnLockedStateChanged?.Invoke(locked);
                 }
