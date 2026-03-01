@@ -10,12 +10,14 @@ namespace Sentience
         public int Stage;
         public QuestData Data;
         public Action<Quest> OnAdvanceStage;
+        public Color Color;
 
-        public Quest(QuestData data, int stage, Action<Quest> onAdvanceStage)
+        public Quest(QuestData data, int stage, Action<Quest> onAdvanceStage, Color color)
         {
             Data = data;
             Stage = stage;
             OnAdvanceStage = onAdvanceStage;
+            Color = color;
         }
     }
 }

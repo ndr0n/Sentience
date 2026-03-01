@@ -11,14 +11,14 @@ namespace Sentience
     [System.Serializable]
     public class QuestStage
     {
-        public string Objective;
         public string Description;
+        public string Objective;
         public InteractionData InteractionData;
 
         public async Task InitFromSentienceQuestStage(SentienceQuestStage stage, EntityData player, List<EntityData> entities)
         {
-            Objective = stage.Objective;
             Description = stage.Description;
+            Objective = stage.Objective;
             EntityData targetData = null;
             if (!string.IsNullOrEmpty(stage.Target))
             {
