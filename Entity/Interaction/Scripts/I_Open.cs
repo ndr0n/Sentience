@@ -1,10 +1,10 @@
 using Sentience;
 using UnityEngine;
 
-namespace MindTheatre
+namespace Sentience
 {
     [System.Serializable]
-    [CreateAssetMenu(fileName = "I_Open", menuName = "Scaerth/Interaction/Open")]
+    [CreateAssetMenu(fileName = "I_Open", menuName = "Sentience/Interaction/Open")]
     public class I_Open : Interaction
     {
         public override bool HasInteraction(EntityData self, EntityData interactor, EntityData target)

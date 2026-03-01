@@ -8,7 +8,10 @@ namespace Sentience
     [System.Serializable]
     public class Lock : EntityComponent
     {
+        public EntityType KeyItem;
+
         [SerializeField] bool open;
+
         public bool Open
         {
             get => open;
@@ -25,6 +28,7 @@ namespace Sentience
         public Action<bool> OnOpenStateChanged;
 
         [SerializeField] bool locked;
+
         public bool Locked
         {
             get => locked;
@@ -44,12 +48,14 @@ namespace Sentience
     [System.Serializable]
     public class LockAuthoring : EntityAuthoring
     {
+        public EntityType KeyItem;
         public bool Open = false;
         public bool Locked = false;
 
         public override IEntityComponent Spawn(System.Random random)
         {
             Lock lockComponent = new();
+            lockComponent.KeyItem = KeyItem;
             lockComponent.Open = Open;
             lockComponent.Locked = Locked;
             return lockComponent;

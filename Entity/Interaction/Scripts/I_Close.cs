@@ -1,7 +1,7 @@
 using Sentience;
 using UnityEngine;
 
-namespace MindTheatre
+namespace Sentience
 {
     [System.Serializable]
     [CreateAssetMenu(fileName = "I_Close", menuName = "Sentience/Interaction/Close")]

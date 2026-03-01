@@ -110,6 +110,11 @@ namespace Sentience
 
             return Items.Count < Size;
         }
+
+        public bool HasItem(string name)
+        {
+            return Items.Exists(x => x.Item.Name == name);
+        }
     }
 
     [System.Serializable]
