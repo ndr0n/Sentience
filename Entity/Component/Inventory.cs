@@ -75,13 +75,13 @@ namespace Sentience
             }
         }
 
-        public bool UseItem(string itemName)
+        public bool TryRemove(string itemName, int amount)
         {
             for (int i = 0; i < Items.Count; i++)
             {
                 if (Items[i].Item.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase))
                 {
-                    Remove(Items[i], 1);
+                    Remove(Items[i], amount);
                     return true;
                 }
             }
