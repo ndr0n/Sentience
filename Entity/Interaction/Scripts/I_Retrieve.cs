@@ -14,7 +14,7 @@ namespace Sentience
 
             if (!target.Has<Inventory>()) return false;
             Inventory owner = target.Get<Inventory>();
-            if (!owner.Items.Exists(x => x.Item == self)) return false;
+            if (!owner.HasItem(self.Name)) return false;
 
             if (!interactor.Has<Inventory>()) return false;
 

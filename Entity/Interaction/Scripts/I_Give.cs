@@ -14,7 +14,7 @@ namespace Sentience
 
             if (!interactor.Has<Inventory>()) return false;
             Inventory giver = interactor.Get<Inventory>();
-            if (!giver.Items.Exists(x => x.Item == self)) return false;
+            if (!giver.HasItem(self.Name)) return false;
 
             return true;
         }
