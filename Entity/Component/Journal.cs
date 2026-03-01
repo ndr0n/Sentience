@@ -17,6 +17,16 @@ namespace Sentience
 
             return false;
         }
+
+        public Quest GetQuest(QuestData questData)
+        {
+            foreach (var quest in Quests)
+            {
+                if (quest.Data == questData) return quest;
+            }
+
+            return null;
+        }
     }
 
     [System.Serializable]
