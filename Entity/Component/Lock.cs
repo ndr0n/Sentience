@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using MindTheatre;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace Sentience
     [System.Serializable]
     public class Lock : EntityComponent
     {
-        public EntityType KeyItem;
+        public List<EntityData> KeyItems = new();
 
         [SerializeField] bool open;
 
@@ -49,14 +50,15 @@ namespace Sentience
     [System.Serializable]
     public class LockAuthoring : EntityAuthoring
     {
-        public EntityType KeyItem;
+        public List<EntityType> KeyItems = new();
         public bool Open = false;
         public bool Locked = false;
 
         public override IEntityComponent Spawn(System.Random random)
         {
             Lock lockComponent = new();
-            lockComponent.KeyItem = KeyItem;
+            lockComponent.KeyItems = new();
+            foreach (var key in KeyItems) lockComponent.KeyItems.Add(new(key.Name, key.Description, key, random));
             lockComponent.Open = Open;
             lockComponent.Locked = Locked;
             return lockComponent;
