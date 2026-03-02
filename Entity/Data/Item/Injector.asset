@@ -33,3 +33,4 @@ MonoBehaviour:
         Price: {x: 1, y: 50}
         Icons:
         - {fileID: -4550341189887911203, guid: 1ae5afb60ab5799c3bef48480efbc008, type: 3}
+        Temporary: 0

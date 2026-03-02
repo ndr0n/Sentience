@@ -14,7 +14,8 @@ namespace Sentience
         public int Stack;
         public float Weight;
         public Sprite Icon;
-        
+        public bool Temporary;
+
         public string Print()
         {
             ID id = Data.Get<ID>();
@@ -32,6 +33,7 @@ namespace Sentience
         public Vector2 Weight = new Vector2(0, 1);
         public Vector2Int Price = new Vector2Int(1, 50);
         public List<Sprite> Icons = new();
+        public bool Temporary = false;
 
         public override IEntityComponent Spawn(System.Random random)
         {
@@ -40,7 +42,8 @@ namespace Sentience
                 Stack = Stack,
                 Price = random.Next(Price.x, Price.y),
                 Weight = random.Next(Price.x, Price.y),
-                Icon = Icons[random.Next(0, Icons.Count)]
+                Icon = Icons[random.Next(0, Icons.Count)],
+                Temporary = Temporary
             };
             return item;
         }
