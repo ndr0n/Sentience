@@ -7,6 +7,7 @@ using MindTheatre;
 using Unity.Rendering;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -18,8 +19,8 @@ namespace Sentience
     {
         public string Name;
         public EntityType Type;
-
         public List<EntityComponentData> Components;
+        public UnityEvent<EntityData> OnDestroy = new();
 
         // readonly Dictionary<int, EntityComponent> componentList = new();
         bool spawned = false;
