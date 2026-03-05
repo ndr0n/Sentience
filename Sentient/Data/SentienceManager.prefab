@@ -456,7 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae2c0808359f5152b4d1fa24d76b7fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sentience.DungeonMaster
-  World: Loner, a colossal colony ship lost in space.
+  World: Calyx, a colossal corp-state lost in space.
   Personality: You are a Dungeon Master that creates dark stories filled with mind-bending
     intrigues.
   Lorebook: {fileID: 11400000, guid: e069b80c2cf039cc787b43d6fce3ed5e, type: 2}

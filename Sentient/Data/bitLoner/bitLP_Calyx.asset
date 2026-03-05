@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6571095d226b44de86c04332916f0bfb, type: 3}
-  m_Name: bitLP_Loner
+  m_Name: bitLP_Calyx
   m_EditorClassIdentifier: 
   Lore:
-  - 'Loner is a colossal corp-state that exists in an old colony ship on an undisclosed
+  - 'Calyx is a colossal corp-state that exists in an old colony ship on an undisclosed
     location in space.
 
-    Loner is owned by the GOD mega-corporation.'
-  - 'Loner citizens live their entire lives within the confinements of the ship.
+    Calyx is owned by the GOD mega-corporation.'
+  - 'Calyx citizens live their entire lives within the confinements of the ship.
 
-    Loner
+    Calyx
     citizens are not aware that they live inside a massive spaceship.'
-  - 'In the beginning of Loner history, GOD Agents, known as the Angel-Units, helped
+  - 'In the beginning of Calyx history, GOD Agents, known as the Angel-Units, helped
     and managed every aspect of the citizen''s lives.
 
     Citizens had all their
@@ -29,9 +29,9 @@ MonoBehaviour:
     own interests and to live a life of happiness and pleasure.
 
     The over-reliance
-    on the Angel-Units resulted in the citizens of Loner becoming unable to fulfill
+    on the Angel-Units resulted in the citizens of Calyx becoming unable to fulfill
     their own basic needs by themselves.'
-  - 'In Loner history books this era is called Gene6.
+  - 'In Calyx history books this era is called Gene6.
 
     It is not known exactly
     how long Gene6 lasted, as the few records of this era are not properly time-referenced.
@@ -42,7 +42,7 @@ MonoBehaviour:
   - 'In the years after the Gene6, the history books talk about another era named
     the Divergence era.
 
-    During the Divergence era, it is said that Loner citizens
+    During the Divergence era, it is said that Calyx citizens
     lost GOD''s grace and were abandoned to fend off by themselves, without the help
     of the Angel-Units, on the shifting rooms of the lower decks of the Loner.
 
@@ -106,7 +106,7 @@ MonoBehaviour:
     lower decks, newly created sentient androids, most suffering from \u201Camnesia\u201D
     from their past human lives, started spreading the word of F8 as their messias
     and spiritual leader.\nF8 was the main AI that controlled the ship. Somehow,
-    at the beginning of the loner era, she developed sentience and started trying
+    at the beginning of the Loner era, she developed sentience and started trying
     to communicate with the transcended androids.\nHer influence grew so large that
     the androids overthrew the remnants of the Empire leadership in her name and
     created their own faction, the Transcended."
