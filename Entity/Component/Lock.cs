@@ -9,6 +9,7 @@ namespace Sentience
     [System.Serializable]
     public class Lock : EntityComponent
     {
+        public int KeyCode = -1;
         public List<EntityData> KeyItems = new();
 
         [SerializeField] bool open;
@@ -50,6 +51,7 @@ namespace Sentience
     [System.Serializable]
     public class LockAuthoring : EntityAuthoring
     {
+        public int KeyCode = -1;
         public List<EntityType> KeyItems = new();
         public bool Open = false;
         public bool Locked = false;
@@ -61,6 +63,8 @@ namespace Sentience
             foreach (var key in KeyItems) lockComponent.KeyItems.Add(new(key.Name, key.Description, key, random));
             lockComponent.Open = Open;
             lockComponent.Locked = Locked;
+            if (KeyCode < 0) lockComponent.KeyCode = random.Next(1000, 10000);
+            else lockComponent.KeyCode = KeyCode;
             return lockComponent;
         }
     }
