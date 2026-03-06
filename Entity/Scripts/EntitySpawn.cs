@@ -27,5 +27,10 @@ namespace Sentience
             transform.eulerAngles = worldRotation;
             foreach (var c in Data.Components) c.Component.OnSpawn(this);
         }
+
+        public T Get<T>()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
