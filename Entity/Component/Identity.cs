@@ -19,6 +19,10 @@ namespace Sentience
         {
             ID id = Data.Get<ID>();
             Data.Name = character.Name;
+
+            Spawn spawn = Data.Get<Spawn>();
+            if (spawn != null && spawn.Spawned != null) spawn.Spawned.name = character.Name;
+
             id.Description = character.Description;
             Faction = faction;
             Location = character.Location;
