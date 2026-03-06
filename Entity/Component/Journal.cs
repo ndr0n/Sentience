@@ -7,6 +7,7 @@ namespace Sentience
     public class Journal : EntityComponent
     {
         public List<Quest> Quests = new();
+        public List<Information> Information = new();
 
         public bool HasQuest(QuestData questData)
         {
