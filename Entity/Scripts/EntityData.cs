@@ -20,7 +20,7 @@ namespace Sentience
         public string Name;
         public EntityType Type;
         public List<EntityComponentData> Components;
-        public UnityEvent<EntityData> OnDestroy = new();
+        public UnityEvent<EntityData> OnDestroy { get; private set; } = new();
 
         // readonly Dictionary<int, EntityComponent> componentList = new();
         bool spawned = false;
