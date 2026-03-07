@@ -14,6 +14,7 @@ namespace Sentience
         public Species Species;
         public Faction Faction;
         public string Location;
+        public string Description = "";
 
         public async Task LoadSentienceCharacter(SentienceCharacter character, Faction faction, Random random)
         {
@@ -45,7 +46,8 @@ namespace Sentience
     {
         public Species Species;
         public Faction Faction;
-        public string Location;
+        public string Location = "";
+        public string Description = "";
 
         public override IEntityComponent Spawn(Random random)
         {
@@ -53,6 +55,7 @@ namespace Sentience
             identity.Species = Species;
             identity.Faction = Faction;
             identity.Location = Location;
+            identity.Description = Description;
             return identity;
         }
     }

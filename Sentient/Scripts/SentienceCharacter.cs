@@ -47,8 +47,8 @@ namespace Sentience
                            "\"inventory\": [\"<a JSON list of strings that contains the short name of each individual item this character is carrying.>\"]\n" +
                            "}";
             string msg = "";
-            if (!string.IsNullOrWhiteSpace(locationName)) msg += $"Character Location Name: {locationName}";
-            if (!string.IsNullOrWhiteSpace(characterVisualDescription)) msg += $"Character Description: {characterVisualDescription}";
+            if (!string.IsNullOrWhiteSpace(locationName)) msg += $"Character Location Name: {locationName}\n";
+            if (!string.IsNullOrWhiteSpace(characterVisualDescription)) msg += $"Character Description: {characterVisualDescription}\n";
             if (DungeonMaster.Instance.Cohere != null) answer = await CohereApi.Instance.AskQuestion(rules, msg, new List<CohereMessage>(), true);
             else answer = await DungeonMaster.Instance.AskQuestionToGenerator(rules, msg, null);
             Debug.Log($"Generated SentienceData!\n{answer}");

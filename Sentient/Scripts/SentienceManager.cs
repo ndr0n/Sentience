@@ -62,10 +62,11 @@ namespace Sentience
         #region Character
 
         readonly string characterRules =
-            "You must never describe what your character is doing and must only respond with the speech of your character.\n" +
             "You must always answer in less than 30 words.\n" +
+            "You must never describe what your character is doing and must only respond with the speech of your character.\n" +
+            "I will use text wrapped in [ ] to describe what your character is seeing and what is happening around you so you can have some context for the conversation.\n" +
+            "You must never use [ ] and must always answer only with the speech of your character.\n" +
             "You must always answer in character and never break role-play.\n" +
-            "You must only write the speech of your own character.\n" +
             "You must never say that you are an AI chatbot.\n";
 
         public async Task InitCharacter()
@@ -76,7 +77,8 @@ namespace Sentience
             Character.SetGrammar("");
             systemPrompt =
                 $"You are role-playing and impersonating a fictional character in the world of: {DungeonMaster.World}.\n" +
-                $"The main lore about the world is: {DungeonMaster.Lore}.\n";
+                $"The main lore about the world is: {DungeonMaster.Lore}.\n" +
+                $"{characterRules}";
             await Character.Warmup(systemPrompt);
             awaitingResponse = false;
         }
