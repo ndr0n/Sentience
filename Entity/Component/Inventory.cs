@@ -34,7 +34,7 @@ namespace Sentience
             }
         }
 
-        public void Add(Item item, int amount)
+        public bool Add(Item item, int amount)
         {
             foreach (var existingItem in Items)
             {
@@ -43,12 +43,13 @@ namespace Sentience
                     if (existingItem.Amount + amount <= item.Stack)
                     {
                         existingItem.Amount += amount;
-                        return;
+                        return false;
                     }
                 }
             }
 
             Items.Add(new(item, amount));
+            return true;
         }
 
         public void Remove(Slot slot, int amount)
