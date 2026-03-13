@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 437b37d77df2adc72ae5f1a3354b0a62, type: 3}
-  m_Name: ItemDatabase
+  m_Name: ItemDatabase_Test
   m_EditorClassIdentifier: Assembly-CSharp::Sentience.ItemData
   Items:
-  - {fileID: 11400000, guid: d55b65edfa736cd668a786d0ddc13a76, type: 2}
-  - {fileID: 11400000, guid: e5d9fa815eaea425ab758c9d8f4cb46e, type: 2}
+  - {fileID: 11400000, guid: 5901ccd1eb0f012ce818633b8ef7186e, type: 2}
   - {fileID: 11400000, guid: 67fa1db6c44792a72a58cfd3a4178cef, type: 2}

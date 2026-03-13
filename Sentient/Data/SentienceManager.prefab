@@ -558,7 +558,7 @@ MonoBehaviour:
   _SSLKey: 
   _numThreads: -1
   _numGPULayers: 32
-  _parallelPrompts: -1
+  _parallelPrompts: 1
   _contextSize: 8192
   _batchSize: 512
   _model: llama-3.2-3b-instruct-q4_k_m.gguf
