@@ -39,6 +39,7 @@ namespace Sentience
             foreach (var item in itemDatabase.Items) await Rag.Add($"{item.Name}|{item.GetType().ToString().Split(".")[^1]}", "Item");
             foreach (var faction in factionDatabase.Faction) await Rag.Add($"{faction.Name}|{faction.Description}", "Faction");
             foreach (var species in speciesDatabase.Species) await Rag.Add($"{species.Name}|{species.Description}", "Species");
+            foreach (var sentiment in Enum.GetNames(typeof(Sentiment))) await Rag.Add($"{sentiment}", "Sentiment");
             loadingRag = null;
         }
 
@@ -49,6 +50,7 @@ namespace Sentience
                 System.Random random = new();
                 return itemDatabase.Items[random.Next(itemDatabase.Items.Count)];
             }
+
             if (loadingRag != null) await loadingRag;
             (string[] similar, float[] distances) = await Rag.Search(itemDescription, 1, "Item");
             string itemName = similar[0].Split("|")[0];
@@ -62,6 +64,7 @@ namespace Sentience
                 System.Random random = new();
                 return factionDatabase.Faction[random.Next(factionDatabase.Faction.Count)];
             }
+
             if (loadingRag != null) await loadingRag;
             (string[] similar, float[] distances) = await Rag.Search(factionDescription, 1, "Faction");
             string factionName = similar[0].Split("|")[0];
@@ -75,10 +78,32 @@ namespace Sentience
                 System.Random random = new();
                 return speciesDatabase.Species[random.Next(speciesDatabase.Species.Count)];
             }
+
             if (loadingRag != null) await loadingRag;
             (string[] similar, float[] distances) = await Rag.Search(speciesDescription, 1, "Species");
             string factionName = similar[0].Split("|")[0];
             return speciesDatabase.GetFaction(factionName);
+        }
+
+        public async Task<Sentiment> GetSentiment(string question)
+        {
+            if (!SentienceManager.Instance.RAGEnabled)
+            {
+                System.Random random = new();
+                return (Sentiment)random.Next(Enum.GetNames(typeof(Sentiment)).Length);
+            }
+            if (loadingRag != null) await loadingRag;
+            (string[] similar, float[] distances) = await Rag.Search(question, 1, "Sentiment");
+            string sentiment = similar[0];
+            if (Enum.TryParse(sentiment, out Sentiment sentimentResult))
+            {
+                return sentimentResult;
+            }
+            else
+            {
+                Debug.LogError($"COULDNT PARSE SENTIMENT - {sentiment}");
+                return Sentiment.Neutral;
+            }
         }
 
         public async Task<string> GetMostSimilar(List<string> options, string description)
@@ -88,6 +113,7 @@ namespace Sentience
                 System.Random random = new();
                 return options[random.Next(options.Count)];
             }
+
             RagSingle.Clear();
             foreach (var option in options) await RagSingle.Add(option);
             (string[] similar, float[] distances) = await RagSingle.Search(description, 1);

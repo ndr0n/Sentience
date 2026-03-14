@@ -11,6 +11,25 @@ namespace Sentience
 {
     public static class SentienceLibrary
     {
+        public static Color GetSentimentColor(Sentiment sentiment)
+        {
+            switch (sentiment)
+            {
+                case Sentiment.Hated:
+                    return Color.red;
+                case Sentiment.Disliked:
+                    return Color.orangeRed;
+                case Sentiment.Neutral:
+                    return Color.yellow;
+                case Sentiment.Liked:
+                    return Color.greenYellow;
+                case Sentiment.Loved:
+                    return Color.green;
+            }
+
+            return Color.white;
+        }
+
         public static string GetNumbersFromString(string input)
         {
             return new string(input.Where(c => char.IsDigit(c)).ToArray());
@@ -33,6 +52,7 @@ namespace Sentience
                         if (!json.StartsWith("[")) json = "[" + json;
                         if (!json.EndsWith("]")) json = json + "]";
                     }
+
                     string jsonParseList = json.Replace("\"div\": \"0\",", "").Replace("\"div\": 0,", "");
                     list = JsonConvert.DeserializeObject<T[]>(jsonParseList).ToList();
                 }
@@ -57,6 +77,7 @@ namespace Sentience
             {
                 Debug.Log(ex);
             }
+
             // if (list.Count > 0) list = RemoveEmptyFieldsFromList(list);
             return list;
         }
@@ -68,11 +89,13 @@ namespace Sentience
             {
                 if (HasEmptyFields(item)) toRemove.Add(item);
             }
+
             foreach (var item in toRemove)
             {
                 Debug.Log($"Removed item with empty fields from list:\n{item}");
                 list.Remove(item);
             }
+
             return list;
         }
 
@@ -92,6 +115,7 @@ namespace Sentience
                     return true;
                 }
             }
+
             return false;
         }
     }

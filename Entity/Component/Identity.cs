@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MindTheatre;
 using Unity.VisualScripting;
@@ -9,12 +10,26 @@ using Random = System.Random;
 namespace Sentience
 {
     [System.Serializable]
+    public class Relationship
+    {
+        public Identity Identity;
+        public Reputation Reputation;
+
+        public Relationship(Identity identity, int reputation)
+        {
+            Identity = identity;
+            Reputation = new Reputation(reputation);
+        }
+    }
+
+    [System.Serializable]
     public class Identity : EntityComponent
     {
         public Species Species;
         public Faction Faction;
         public string Location = "";
         public string Description = "";
+        public List<Relationship> Relationships = new();
 
         [SerializeField] float crimeLevel = 0;
 
@@ -54,6 +69,17 @@ namespace Sentience
                     inventory.Add(itm, 1);
                 }
             }
+        }
+
+        public Relationship GetRelationship(Identity identity)
+        {
+            foreach (var rel in Relationships)
+            {
+                if (rel.Identity == identity) return rel;
+            }
+
+            Relationship relationship = new(identity, Faction.GetFactionReputation(identity.Faction).Value / 2);
+            return relationship;
         }
     }
 

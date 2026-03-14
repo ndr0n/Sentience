@@ -98,8 +98,6 @@ namespace Sentience
                 case Sentiment.Loved:
                     ModifyRelationship(10);
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(value), value, null);
             }
         }
     }
