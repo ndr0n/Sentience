@@ -112,6 +112,11 @@ namespace Sentience
             return Items.Count < Size;
         }
 
+        public bool HasItem(EntityData data)
+        {
+            return Items.Exists(x => x.Item == data);
+        }
+
         public bool HasItem(string name)
         {
             return Items.Exists(x => x.Item.Name == name);
