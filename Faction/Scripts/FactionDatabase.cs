@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 namespace Sentience
@@ -11,7 +12,7 @@ namespace Sentience
     {
         public List<Faction> Faction = new();
 
-        public void Init()
+        public void GenerateFactionRelationships()
         {
             foreach (var f in Faction)
             {
@@ -34,4 +35,17 @@ namespace Sentience
             return Faction.FirstOrDefault(x => x.Name == factionName);
         }
     }
+#if UNITY_EDITOR
+    [CustomEditor(typeof(FactionDatabase)), CanEditMultipleObjects]
+    public class FactionDatabase_Editor : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            FactionDatabase factionDatabase = (FactionDatabase)target;
+            if (GUILayout.Button("Generate Faction Relationships")) factionDatabase.GenerateFactionRelationships();
+            EditorUtility.SetDirty(target);
+        }
+    }
+#endif
 }

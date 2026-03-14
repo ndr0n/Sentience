@@ -40,7 +40,6 @@ namespace Sentience
 
         void Start()
         {
-            FactionDatabase.Init();
             if (RAGEnabled) RagManager.Init(ItemDatabase, FactionDatabase, SpeciesDatabase);
             if (LLMEnabled) _ = InitCharacter();
         }

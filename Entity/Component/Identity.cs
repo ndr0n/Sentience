@@ -16,7 +16,7 @@ namespace Sentience
         public string Location = "";
         public string Description = "";
 
-        float crimeLevel = 0;
+        [SerializeField] float crimeLevel = 0;
 
         public float CrimeLevel
         {

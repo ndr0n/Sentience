@@ -29,56 +29,55 @@ namespace Sentience
         {
             foreach (var faction in factionDatabase.Faction)
             {
-                if (!FactionRelationship.Exists(x => x.Faction != faction))
+                if (FactionRelationship.Exists(x => x.Faction == faction)) continue;
+
+                int reputation = 0;
+                if (faction == this)
                 {
-                    int reputation = 0;
-                    if (faction == this)
-                    {
-                        reputation = 100;
-                    }
-                    else
-                    {
-                        switch (Law)
-                        {
-                            case FactionLaw.Unlawful:
-                                reputation = 0;
-                                break;
-                            case FactionLaw.Lawful:
-                                switch (faction.Law)
-                                {
-                                    case FactionLaw.Unlawful:
-                                        reputation = 0;
-                                        break;
-                                    case FactionLaw.Lawful:
-                                        reputation = 80;
-                                        break;
-                                    case FactionLaw.Enforcer:
-                                        reputation = 60;
-                                        break;
-                                }
-
-                                break;
-                            case FactionLaw.Enforcer:
-                                switch (faction.Law)
-                                {
-                                    case FactionLaw.Unlawful:
-                                        reputation = 0;
-                                        break;
-                                    case FactionLaw.Lawful:
-                                        reputation = 60;
-                                        break;
-                                    case FactionLaw.Enforcer:
-                                        reputation = 80;
-                                        break;
-                                }
-
-                                break;
-                        }
-                    }
-
-                    FactionRelationship fr = new(faction, reputation);
-                    FactionRelationship.Add(fr);
+                    reputation = 100;
                 }
+                else
+                {
+                    switch (Law)
+                    {
+                        case FactionLaw.Unlawful:
+                            reputation = 0;
+                            break;
+                        case FactionLaw.Lawful:
+                            switch (faction.Law)
+                            {
+                                case FactionLaw.Unlawful:
+                                    reputation = 0;
+                                    break;
+                                case FactionLaw.Lawful:
+                                    reputation = 80;
+                                    break;
+                                case FactionLaw.Enforcer:
+                                    reputation = 60;
+                                    break;
+                            }
+
+                            break;
+                        case FactionLaw.Enforcer:
+                            switch (faction.Law)
+                            {
+                                case FactionLaw.Unlawful:
+                                    reputation = 0;
+                                    break;
+                                case FactionLaw.Lawful:
+                                    reputation = 60;
+                                    break;
+                                case FactionLaw.Enforcer:
+                                    reputation = 80;
+                                    break;
+                            }
+
+                            break;
+                    }
+                }
+
+                FactionRelationship fr = new(faction, reputation);
+                FactionRelationship.Add(fr);
             }
         }
 
