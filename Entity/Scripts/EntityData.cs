@@ -115,7 +115,8 @@ namespace Sentience
             Identity targetIdentity = target.Get<Identity>();
             if (targetIdentity.Faction == null) return false;
 
-            return targetIdentity.Faction.IsHostile(identity.Faction);
+            if (identity.Faction.IsHostile(targetIdentity)) return true;
+            else return targetIdentity.Faction.IsHostile(identity);
         }
 
         // public Entity Entity;

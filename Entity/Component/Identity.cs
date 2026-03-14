@@ -13,8 +13,24 @@ namespace Sentience
     {
         public Species Species;
         public Faction Faction;
-        public string Location;
+        public string Location = "";
         public string Description = "";
+
+        float crimeLevel = 0;
+
+        public float CrimeLevel
+        {
+            get => crimeLevel;
+            set
+            {
+                crimeLevel = value;
+                if (crimeLevel < 0) crimeLevel = 0;
+                else if (crimeLevel > 100) crimeLevel = 100;
+                OnUpdateCrimeLevel?.Invoke(crimeLevel);
+            }
+        }
+
+        public System.Action<float> OnUpdateCrimeLevel = null;
 
         public async Task LoadSentienceCharacter(SentienceCharacter character, Faction faction, Random random)
         {
@@ -48,6 +64,7 @@ namespace Sentience
         public Faction Faction;
         public string Location = "";
         public string Description = "";
+        public Vector2Int CrimeLevel = new Vector2Int(0, 0);
 
         public override IEntityComponent Spawn(Random random)
         {
@@ -56,6 +73,7 @@ namespace Sentience
             identity.Faction = Faction;
             identity.Location = Location;
             identity.Description = Description;
+            identity.CrimeLevel = random.Next(CrimeLevel.x, CrimeLevel.y + 1);
             return identity;
         }
     }

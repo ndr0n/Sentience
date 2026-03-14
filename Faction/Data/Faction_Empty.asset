@@ -16,37 +16,7 @@ MonoBehaviour:
   Description: hallucinogenic drug-induced society.
   Icon: {fileID: 21300000, guid: d3c82ee2a590c4e4d99e23cad1a5496a, type: 3}
   Color: {r: 0, g: 0.78431374, b: 0, a: 1}
-  IsLawfulFaction: 1
+  Law: 1
   FactionEntity:
   - {fileID: 11400000, guid: 37898064aca8a09b9a8abf0d7b503802, type: 2}
-  FactionRelationship:
-  - Faction: {fileID: 11400000}
-    Reputation:
-      val: 100
-  - Faction: {fileID: 11400000, guid: 0404b03b987c520bfbcb23f8b60b80bd, type: 2}
-    Reputation:
-      val: 0
-  - Faction: {fileID: 11400000, guid: a02e8e231527f6ca7a0f6a6b0f583b82, type: 2}
-    Reputation:
-      val: 100
-  - Faction: {fileID: 11400000, guid: e5ace3d5256c41a8fbc36bb0cf4ae9fb, type: 2}
-    Reputation:
-      val: 100
-  - Faction: {fileID: 11400000, guid: 56a36e31a436ea7b38a6a75da6667e26, type: 2}
-    Reputation:
-      val: 0
-  - Faction: {fileID: 11400000, guid: 14d40f04622c08487888ea28e8a732bd, type: 2}
-    Reputation:
-      val: 0
-  - Faction: {fileID: 11400000, guid: eeebb79151ed86b9f87947d6567634da, type: 2}
-    Reputation:
-      val: 100
-  - Faction: {fileID: 11400000, guid: de03b096fa3de44b684e94d750cd78bc, type: 2}
-    Reputation:
-      val: 0
-  - Faction: {fileID: 11400000, guid: 0c11b3bf3a67a293498c57b0b4a57eef, type: 2}
-    Reputation:
-      val: 100
-  - Faction: {fileID: 11400000, guid: 641e17dd52b0487b9a64212126373e6d, type: 2}
-    Reputation:
-      val: 100
+  FactionRelationship: []

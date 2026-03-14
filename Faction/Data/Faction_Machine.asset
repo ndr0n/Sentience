@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 937688dda30667436951fd1a6d4a9a4a, type: 3}
-  m_Name: Faction_Mutant
+  m_Name: Faction_Machine
   m_EditorClassIdentifier: Assembly-CSharp::Sentience.Faction
-  Name: Mutant
-  Description: horrendous mutated creatures.
-  Icon: {fileID: 21300000, guid: bd72a4550d6ae1e41a87b75704ad874f, type: 3}
-  Color: {r: 0.78431374, g: 0, b: 0.78431374, a: 1}
-  Law: 0
+  Name: Machine
+  Description: A machine faction that is programmed to enforce the law.
+  Icon: {fileID: 21300000, guid: b40ae5bb63515ef48a3bce037b0d7227, type: 3}
+  Color: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+  Law: 2
   FactionEntity:
   - {fileID: 11400000, guid: 386b4ec5b699af866834532ae813ab58, type: 2}
   FactionRelationship: []
