@@ -101,7 +101,7 @@ namespace Sentience
                         case FactionLaw.Unlawful:
                             return false;
                         case FactionLaw.Lawful:
-                            if (identity.CrimeLevel >= 60) return true;
+                            if (identity.CrimeLevel >= 40) return true;
                             return false;
                         case FactionLaw.Enforcer:
                             return false;
