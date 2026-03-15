@@ -71,15 +71,20 @@ namespace Sentience
             }
         }
 
-        public Relationship GetRelationship(Identity identity)
+        public Relationship GetRelationship(Identity identity, bool create)
         {
             foreach (var rel in Relationships)
             {
                 if (rel.Identity == identity) return rel;
             }
 
-            Relationship relationship = new(identity, Faction.GetFactionReputation(identity.Faction).Value / 2);
-            return relationship;
+            if (create)
+            {
+                Relationship relationship = new(identity, Faction.GetFactionReputation(identity.Faction).Value / 2);
+                Relationships.Add(relationship);
+                return relationship;
+            }
+            else return null;
         }
     }
 

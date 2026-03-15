@@ -107,16 +107,19 @@ namespace Sentience
 
         public bool IsHostile(EntityData target)
         {
-            if (!Has<Identity>()) return false;
             Identity identity = Get<Identity>();
-            if (identity.Faction == null) return false;
+            if (identity == null) return false;
 
-            if (!target.Has<Identity>()) return false;
             Identity targetIdentity = target.Get<Identity>();
+            if (targetIdentity == null) return false;
+
+            // Relationship relationship = identity.GetRelationship(targetIdentity, false);
+            // if (relationship != null) return relationship.Reputation.Sentiment == Sentiment.Hated;
+
+            if (identity.Faction == null) return false;
             if (targetIdentity.Faction == null) return false;
 
-            if (identity.Faction.IsHostile(targetIdentity)) return true;
-            else return targetIdentity.Faction.IsHostile(identity);
+            return identity.Faction.IsHostile(targetIdentity);
         }
 
         // public Entity Entity;
