@@ -9,6 +9,7 @@ namespace Sentience
     {
         public string Name = "";
         [Multiline] public string Description = "";
+        
         public int PlantAmount = 3;
 
         public Information(string name, string description, int plantAmount)
