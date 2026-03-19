@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Sentience
@@ -10,6 +11,6 @@ namespace Sentience
         public string Tags = "";
 
         public abstract bool CanExecute(ID self, Vector3 position, ID target);
-        public abstract bool TryExecute(ID self, Vector3 position, ID target);
+        public abstract Coroutine TryExecute(ID self, Vector3 position, ID target);
     }
 }

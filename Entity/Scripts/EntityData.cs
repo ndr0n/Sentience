@@ -25,7 +25,7 @@ namespace Sentience
         // readonly Dictionary<int, EntityComponent> componentList = new();
         bool spawned = false;
 
-        public ID ID => Get<ID>();
+        public ID ID { get; private set; }
 
         public EntityData(string name, string description, EntityType type, System.Random random)
         {
@@ -41,6 +41,7 @@ namespace Sentience
             };
             EntityComponentData idData = new(id);
             Components.Add(idData);
+            ID = id;
 
             foreach (var componentType in type.Components)
             {
