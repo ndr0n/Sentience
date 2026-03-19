@@ -91,6 +91,7 @@ namespace Sentience
             while (awaitingResponse) await Task.Delay(250);
             awaitingResponse = true;
             Character.seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+            // Character.systemPrompt = $"{characterRules}\n{sentient.Personality}\n{details}";
             Character.systemPrompt = $"{systemPrompt}\n{characterRules}\n{sentient.Personality}\n{details}";
             await Character.ClearHistory();
             foreach (var msg in sentient.Messages)
