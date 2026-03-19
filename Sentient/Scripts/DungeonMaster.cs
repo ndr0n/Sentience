@@ -20,7 +20,8 @@ namespace Sentience
 
         public Lorebook Lorebook;
 
-        [Header("Generator")] public LLMAgent Generator;
+        [Header("Generator")] 
+        public LLMAgent Generator;
         public CohereApi Cohere;
 
         bool awaitingResponse = false;

@@ -17,7 +17,8 @@ namespace Sentience
         public FactionDatabase FactionDatabase;
         public SpeciesDatabase SpeciesDatabase;
 
-        [Header("LLM")] public bool LLMEnabled;
+        [Header("LLM")]
+        public bool LLMEnabled;
         public bool RAGEnabled;
         public RagManager RagManager;
         public LLMAgent Character;
