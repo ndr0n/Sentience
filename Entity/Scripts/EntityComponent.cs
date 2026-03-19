@@ -5,7 +5,7 @@ namespace Sentience
 {
     public class EntityComponent
     {
-        [SerializeReference] public EntityData Data;
+        [HideInInspector] [SerializeReference] public EntityData Data;
 
         public virtual void OnInit(EntityData data, Random random)
         {
