@@ -20,7 +20,7 @@ namespace Sentience
 
         public Lorebook Lorebook;
 
-        [Header("Generator")] 
+        [Header("Generator")]
         public LLMAgent Generator;
         public CohereApi Cohere;
 
@@ -127,45 +127,6 @@ namespace Sentience
             }
 
             return parser;
-        }
-
-        public async Task<Sprite> GenerateSprite(Sprite example, string description)
-        {
-            try
-            {
-                string rules =
-                    "I will give you a description and you must generate a 32x32 texture, encoded in base64, that fits the given description.\n" +
-                    "You must only answer in the following JSON format:\n" +
-                    "{\n" +
-                    "\"texture\": \"<a base64 string with a 32x32 texture that matches the description>\" \n" +
-                    "}";
-                // example = Instantiate(example);
-                // byte[] exampleBytes = example.texture.GetRawTextureData();
-                // Debug.Log($"EXAMPLE BYTES: {exampleBytes.Length}");
-                // string exampleEncoded = Convert.ToBase64String(exampleBytes);
-                // Debug.Log($"EXAMPLE ENCODED: {exampleEncoded}");
-                string msg = "{\n" +
-                             $"description: {description}\n" +
-                             // $"example: {exampleEncoded}\n" +
-                             "}";
-                Debug.Log($"Try Generate Sprite Questioned!\n {msg}");
-                var answer = await AskQuestionToGenerator(rules, msg, null);
-                Debug.Log($"Try Generate Sprite Answered!\n {answer}");
-                SentienceTextureParser parser = JsonConvert.DeserializeObject<SentienceTextureParser>(answer);
-                string response = parser.texture;
-                Sprite generated = Instantiate(example);
-                byte[] responseBytes = Convert.FromBase64String(response);
-                Debug.Log($"RESPONSE BYTES: {responseBytes.Length}");
-                generated.texture.LoadRawTextureData(responseBytes);
-                return generated;
-            }
-            catch (Exception e)
-            {
-                Debug.Log(e);
-                throw;
-            }
-
-            return null;
         }
 
         #endregion
