@@ -12,7 +12,7 @@ namespace Sentience
     [System.Serializable]
     public class Relationship
     {
-        public Identity Identity;
+        [SerializeReference] public Identity Identity;
         public Reputation Reputation;
 
         public Relationship(Identity identity, int reputation)
@@ -97,7 +97,7 @@ namespace Sentience
         public string Description = "";
         public Vector2Int CrimeLevel = new Vector2Int(0, 0);
 
-        public override IEntityComponent Spawn(Random random)
+        public override EntityComponent Spawn(Random random)
         {
             Identity identity = new Identity();
             identity.Species = Species;

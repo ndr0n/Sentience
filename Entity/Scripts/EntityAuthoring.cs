@@ -5,6 +5,6 @@ namespace Sentience
     [System.Serializable]
     public abstract class EntityAuthoring
     {
-        public abstract IEntityComponent Spawn(System.Random random);
+        public abstract EntityComponent Spawn(System.Random random);
     }
 }

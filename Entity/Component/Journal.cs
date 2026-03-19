@@ -33,7 +33,7 @@ namespace Sentience
     [System.Serializable]
     public class JournalAuthoring : EntityAuthoring
     {
-        public override IEntityComponent Spawn(System.Random random)
+        public override EntityComponent Spawn(System.Random random)
         {
             Journal journal = new();
             journal.Quests = new();

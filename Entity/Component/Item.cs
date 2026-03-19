@@ -35,7 +35,7 @@ namespace Sentience
         public List<Sprite> Icons = new();
         public bool Temporary = false;
 
-        public override IEntityComponent Spawn(System.Random random)
+        public override EntityComponent Spawn(System.Random random)
         {
             Item item = new()
             {

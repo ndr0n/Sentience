@@ -31,13 +31,13 @@ namespace Sentience
 
         public int MemorySize = 10;
         public List<SentientMessage> Messages = new();
-        Persona persona;
+        [HideInInspector] [SerializeReference] public Persona Persona;
 
         public override void OnInit(EntityData data, System.Random random)
         {
             base.OnInit(data, random);
             Messages.Clear();
-            persona = Data.Get<Persona>();
+            Persona = Data.Get<Persona>();
         }
 
         public void InitIdentity(Identity identity)
@@ -67,11 +67,11 @@ namespace Sentience
                     AddMessage(origin, message);
                     if (details == null) details = "";
 
-                    if (persona != null)
+                    if (Persona != null)
                     {
-                        if (!string.IsNullOrWhiteSpace(persona.Desire)) details += $"[Desire: {persona.Desire}]\n";
-                        if (!string.IsNullOrWhiteSpace(persona.Context)) details += $"[Context: {persona.Context}]\n";
-                        foreach (var information in persona.Information) details += $"[Knowledge: {information.Description}]\n";
+                        if (!string.IsNullOrWhiteSpace(Persona.Desire)) details += $"[Desire: {Persona.Desire}]\n";
+                        if (!string.IsNullOrWhiteSpace(Persona.Context)) details += $"[Context: {Persona.Context}]\n";
+                        foreach (var information in Persona.Information) details += $"[Knowledge: {information.Description}]\n";
                     }
 
                     Debug.Log($"SENTIENT QUESTION DETAILS:\n{details}");
@@ -113,7 +113,7 @@ namespace Sentience
 
         public int MemorySize = 10;
 
-        public override IEntityComponent Spawn(System.Random random)
+        public override EntityComponent Spawn(System.Random random)
         {
             Sentient sentient = new();
             sentient.MemorySize = MemorySize;

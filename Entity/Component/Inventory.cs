@@ -131,7 +131,7 @@ namespace Sentience
         public List<EntityType> Items = new();
         public List<GT.WeightedProbability<EntityType>> ItemOptions = new();
 
-        public override IEntityComponent Spawn(Random random)
+        public override EntityComponent Spawn(Random random)
         {
             Inventory inventory = new();
             inventory.Size = Size;

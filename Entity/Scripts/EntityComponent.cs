@@ -3,14 +3,13 @@ using Random = System.Random;
 
 namespace Sentience
 {
-    public class EntityComponent : IEntityComponent
+    public class EntityComponent
     {
-        EntityData _data;
-        public EntityData Data => _data;
+        [SerializeReference] public EntityData Data;
 
         public virtual void OnInit(EntityData data, Random random)
         {
-            _data = data;
+            Data = data;
         }
 
         public virtual void OnSpawn(EntitySpawn spawn)

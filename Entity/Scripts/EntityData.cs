@@ -101,7 +101,7 @@ namespace Sentience
 
         void AddComponent(EntityAuthoring authoring, System.Random random)
         {
-            IEntityComponent component = authoring.Spawn(random);
+            EntityComponent component = authoring.Spawn(random);
             EntityComponentData componentData = new(component);
             Components.Add(componentData);
         }
@@ -150,9 +150,9 @@ namespace Sentience
     public class EntityComponentData
     {
         [HideInInspector] public string Name;
-        [SerializeReference] public IEntityComponent Component;
+        [SerializeReference] public EntityComponent Component;
 
-        public EntityComponentData(IEntityComponent component)
+        public EntityComponentData(EntityComponent component)
         {
             string type = component.GetType().ToString();
             Name = type.Split('.')[^1];

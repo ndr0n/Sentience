@@ -52,7 +52,7 @@ namespace Sentience
         public Vector2Int MaxHealth = new Vector2Int(100, 100);
         public float HealthRegeneration = 0;
 
-        public override IEntityComponent Spawn(Random random)
+        public override EntityComponent Spawn(Random random)
         {
             Health health = new();
             health.MaxHealth = random.Next(MaxHealth.x, MaxHealth.y);
