@@ -31,18 +31,19 @@ namespace Sentience
 
         public int MemorySize = 10;
         public List<SentientMessage> Messages = new();
+        Persona persona;
 
         public override void OnInit(EntityData data, System.Random random)
         {
             base.OnInit(data, random);
             Messages.Clear();
-            // Identity identity = Data.TryGet<Identity>();
-            // if (identity != null) InitIdentity(identity);
+            persona = Data.Get<Persona>();
         }
 
         public void InitIdentity(Identity identity)
         {
             ID id = identity.Data.Get<ID>();
+            string previousPersonality = Personality;
             Personality = $"Your character name is: {identity.Data.Name}.\n" +
                           $"Your character species is: {identity.Species.Name}\n" +
                           $"Your character description: {id.Description}.\n" +
@@ -50,6 +51,7 @@ namespace Sentience
             if (identity.Faction != null) Personality += $"Your Faction is: {identity.Faction.Name}\n";
             Inventory inventory = identity.Data.Get<Inventory>();
             foreach (var item in inventory.Items) Personality += $"You currently have {item.Item.Name} in your inventory.\n";
+            if (!string.IsNullOrWhiteSpace(Personality)) Personality += $"Personality: {previousPersonality}\n";
             Personality += "You must always speak as your character.\n";
         }
 
@@ -63,6 +65,17 @@ namespace Sentience
                 {
                     Debug.Log($"{origin} asked {Data.Name}:\n{message}");
                     AddMessage(origin, message);
+                    if (details == null) details = "";
+
+                    if (persona != null)
+                    {
+                        if (!string.IsNullOrWhiteSpace(persona.Desire)) details += $"[Desire: {persona.Desire}]\n";
+                        if (!string.IsNullOrWhiteSpace(persona.Context)) details += $"[Context: {persona.Context}]\n";
+                        foreach (var information in persona.Information) details += $"[Knowledge: {information.Description}]\n";
+                    }
+
+                    Debug.Log($"SENTIENT QUESTION DETAILS:\n{details}");
+
                     response = await SentienceManager.Instance.AskQuestionFromSentience(this, message, details, (r) => { onReply?.Invoke(r); });
                     if (response != null) AddMessage("assistant", response);
                     // response = TrimName(response, Persona.PersonaData.ID.Name);
