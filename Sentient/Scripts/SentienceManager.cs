@@ -25,6 +25,8 @@ namespace Sentience
         public LLM LLM;
         public LLM RAG;
         string systemPrompt = "";
+        bool awaitingResponse = false;
+        bool quit = false;
 
         void Awake()
         {
@@ -47,17 +49,20 @@ namespace Sentience
 
         void OnDestroy()
         {
-            if (LLM != null)
-            {
-                LLM.StopAllCoroutines();
-                Destroy(LLM.gameObject);
-            }
-
-            if (RAG != null)
-            {
-                RAG.StopAllCoroutines();
-                Destroy(RAG.gameObject);
-            }
+            quit = true;
+            Character.CancelRequests();
+            awaitingResponse = false;
+            // if (LLM != null)
+            // {
+            //     LLM.StopAllCoroutines();
+            //     Destroy(LLM.gameObject);
+            // }
+            //
+            // if (RAG != null)
+            // {
+            //     RAG.StopAllCoroutines();
+            //     Destroy(RAG.gameObject);
+            // }
         }
 
         #region Character
@@ -84,16 +89,16 @@ namespace Sentience
             awaitingResponse = false;
         }
 
-        bool awaitingResponse = false;
-
         public async Task<string> AskQuestionFromSentience(Sentient sentient, string message, string details, Action<string> onReply)
         {
             if (!LLMEnabled) return "Sentience is disabled.";
-            while (awaitingResponse) await Task.Delay(250);
+            while (awaitingResponse) await Task.Delay(500);
+            if (quit) return null;
+
             awaitingResponse = true;
             Character.seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
             // Character.systemPrompt = $"{characterRules}\n{sentient.Personality}\n{details}";
-            Character.systemPrompt = $"{systemPrompt}\n{characterRules}\n{sentient.Personality}\n{details}";
+            Character.systemPrompt = $"{systemPrompt}\n{sentient.Personality}\n{details}";
             await Character.ClearHistory();
             foreach (var msg in sentient.Messages)
             {

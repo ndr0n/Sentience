@@ -25,6 +25,7 @@ namespace Sentience
         public CohereApi Cohere;
 
         bool awaitingResponse = false;
+        bool quit = false;
 
         readonly string jsonGrammarString =
             "root   ::= object\nvalue  ::= object | array | string | number | (\"true\" | \"false\" | \"null\") ws\n\nobject ::=\n  \"{\" ws (\n            string \":\" ws value\n    (\",\" ws string \":\" ws value)*\n  )? \"}\" ws\n\narray  ::=\n  \"[\" ws (\n            value\n    (\",\" ws value)*\n  )? \"]\" ws\n\nstring ::=\n  \"\\\"\" (\n    [^\"\\\\\\x7F\\x00-\\x1F] |\n    \"\\\\\" ([\"\\\\bfnrt] | \"u\" [0-9a-fA-F]{4}) # escapes\n  )* \"\\\"\" ws\n\nnumber ::= (\"-\"? ([0-9] | [1-9] [0-9]{0,15})) (\".\" [0-9]+)? ([eE] [-+]? [0-9] [1-9]{0,15})? ws\n\n# Optional space: by convention, applied in this grammar after literal chars when allowed\nws ::= | \" \" | \"\\n\" [ \\t]{0,20}";
@@ -64,6 +65,13 @@ namespace Sentience
             else Destroy(gameObject);
         }
 
+        void OnDestroy()
+        {
+            quit = true;
+            Generator.CancelRequests();
+            awaitingResponse = false;
+        }
+
         #region Generator
 
         async Task InitPrompt()
@@ -76,7 +84,8 @@ namespace Sentience
 
         public async Task<string> AskQuestionToGenerator(string rules, string message, Action<string> onReply)
         {
-            while (awaitingResponse) await Task.Delay(1000);
+            while (awaitingResponse) await Task.Delay(500);
+            if (quit) return null;
 
             Debug.Log($"DM - Question: \n{rules}\n{message}");
 
